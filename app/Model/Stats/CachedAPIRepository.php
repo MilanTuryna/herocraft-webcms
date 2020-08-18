@@ -54,6 +54,10 @@ class CachedAPIRepository
         $this->verus = $verus;
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getUser($name) {
         $cacheName = 'API_user_' . $name;
         if (is_null($this->cache->load($cacheName))) {
@@ -82,10 +86,18 @@ class CachedAPIRepository
         return $this->cache->load($cacheName);
     }
 
+    /**
+     * @param $user
+     * @return mixed
+     */
     public function getCountFriends($user) {
         return $this->friends->countOfFriends($user);
     }
 
+    /**
+     * @param $user
+     * @return mixed
+     */
     public function getTokenManager($user) {
         $cacheName = 'API_tokenManager_' . $user;
         if (is_null($this->cache->load($cacheName))) {
@@ -119,6 +131,10 @@ class CachedAPIRepository
         return $this->cache->load($cacheName);
     }
 
+    /**
+     * @param $name
+     * @return mixed
+     */
     public function getPlayedTime($name) {
         $cacheName = 'API_PlayerTime_' . $name;
         if(!$this->cache->load($cacheName)) {

@@ -7,6 +7,10 @@ use Nette\Utils\Json;
 use Nette\Caching\Cache;
 use Nette\Utils\JsonException;
 
+/**
+ * Class Status
+ * @package App\Model\API
+ */
 class Status
 {
     use Nette\SmartObject;

@@ -7,7 +7,6 @@ use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Database\Context;
 use Nette\Database\IRow;
-use Nette\Database\ResultSet;
 use Nette\Database\Table\ActiveRow;
 
 /**

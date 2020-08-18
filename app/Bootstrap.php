@@ -6,9 +6,15 @@ namespace App;
 
 use Nette\Configurator;
 
-
+/**
+ * Class Bootstrap
+ * @package App
+ */
 class Bootstrap
 {
+    /**
+     * @return Configurator
+     */
 	public static function boot(): Configurator
 	{
 		$configurator = new Configurator;
