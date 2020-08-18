@@ -21,8 +21,4 @@ class LuckPerms
     {
         $this->context = $context;
     }
-
-    public function getPlayerGroup($name) {
-        $this->context->table('luck_perms_permissions');
-    }
 }

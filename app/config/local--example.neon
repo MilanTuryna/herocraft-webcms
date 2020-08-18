@@ -1,0 +1,39 @@
+parameters:
+
+database:
+    default:
+        dsn:
+        user:
+        password:
+    authme:
+        dsn:
+        user:
+        password:
+    friends:
+        dsn:
+        user:
+        password:
+    fastlogin:
+        dsn:
+        user:
+        password:
+    tokenmanager:
+        dsn:
+        user:
+        password:
+    skinrestorer:
+        dsn:
+        user:
+        password:
+    playertime:
+        dsn:
+        user:
+        password:
+    litebans:
+        dsn:
+        user:
+        password:
+    verus:
+        dsn:
+        user:
+        password:
