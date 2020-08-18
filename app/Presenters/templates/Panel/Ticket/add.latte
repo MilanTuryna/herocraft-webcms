@@ -1,0 +1,30 @@
+{layout '../layout.latte'}
+{block title}
+    Tvoje tickety
+{/block}
+{block first_col}
+    <a n:href="Ticket:list" class="small text-muted font-weight-bold">ZPĚT NA SEZNAM TICKETŮ</a>
+    <h1 class="display-4 font-30">Nový ticket</h1>
+    <hr>
+    <div class="bg-opacity-white padding-32">
+        <form n:name="addTicketForm">
+            <div class="form-group">
+                <label>Název ticketu</label>
+                <input type="text" n:name="name" class="form-control green-focus" placeholder="Např: Žádost o unban - nevhodný slovník">
+                <small id="emailHelp" class="form-text text-muted">Zvol stručný a jasný název pro rychlejší odpověď</small>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputPassword1">Obsah ticketu</label>
+                <textarea class="form-control green-focus" n:name="content" placeholder="Např: Ahoj, žádám o ..."></textarea>
+                <small id="emailHelp" class="form-text text-muted">Piš prosím obsah s hlavou a patou a zkus se vyjadřovat stručně a dodržuj zásady slušného chování.</small>
+            </div>
+            <div class="form-group">
+                <input type="submit" n:name="submit" class="btn btn-success btn-sm border-radius-0 w-100" value="Vytvořit nový ticket"/>
+            </div>
+        </form>
+    </div>
+{/block}
+
+{block second_col}
+
+{/block}

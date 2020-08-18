@@ -1,0 +1,36 @@
+{layout '../layout.latte'}
+{block title}
+    Tvůj přítel - {$friend->name}
+{/block}
+{block first_col}
+        <a n:href="Friends:list" class="small text-muted font-weight-bold">ZPĚT NA SEZNAM</a>
+        <h1 class="display-4 font-30">Tvůj přítel - {$friend->name}</h1>
+        <hr>
+        <table class="table table-bordered" style="background: rgba(255,255,255,0.25)">
+            <tbody>
+            <tr>
+                <th scope="row" class="text-center" style="width: 10%">Nick</th>
+                <td >{$friend->name}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center" style="width: 10%">Skin</th>
+                <td><img src="{$friend->skin}" style="width: 7vw"></td></td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Spatřen</th>
+                <td>naposledy {$friend->row->last_online|date:'d.n.Y \v H:i'}</td>
+            </tr>
+            <tr>
+                <th scope="row" class="text-center">Statistiky</th>
+                <td><a href="" class="text-success">klikni ZDE</a></td>
+            </tr>
+            </tbody>
+        </table>
+        {var $friendId = $friend->row->player_id}
+        <form n:name="removeFriendForm-$friendId">
+            <input type="submit" n:name="submit" value="Odebrat z přátel" class="btn btn-sm border-radius-0 text-white btn-danger float-right"/>
+        </form>
+{/block}
+
+{block second_col}
+{/block}

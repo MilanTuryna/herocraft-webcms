@@ -1,0 +1,136 @@
+{block title}
+	{$nastaveni->nazev}
+{/block}
+{block description}
+	Description
+{/block}
+{block keywords}
+	KW
+{/block}
+{block content}
+
+	<div class="row main-cols">
+		<div class="col-lg-8 min-height-col default-margin-bot">
+			{if $articles[0]}
+			<h3>Novinky</h3>
+			<div class="card border-radius-0 bg-light classic-shadow">
+				<div class="card-body min-height-card">
+					<a n:href="article, $articles[0]->url" class="text-underline dark-text ">
+						<h5 class="card-title text-underline">{$articles[0]->name}</h5>
+					</a>
+					<p class="card-text">{$articles[0]->content|substr:0:420|noescape}... <a n:href="article, $articles[0]->url" class="text-underline text-black-50">pokračovat</a>
+					</p>
+					{ifset $articleRepository->getMiniature($articles[0]->id)[0]}
+						<img src="{$basePath}/{$articleRepository->getMiniature($articles[0]->id)[0]}" class="hover-shadow w-100" alt="Miniatura"/>
+					{/ifset}
+					<p  class="card-text text-black-50 badge-margin">
+						{var $category_one = $categoryRepository->findCategoryById($articles[0]->category_id)}
+						{if $category_one}
+						    <a n:href="archiv">
+								<span class="badge text-left" style="background-color:{$category_one->color|noescape}; color:#fff;">
+									{$category_one->name}
+								</span>
+							</a>
+						{else}
+							<a n:href="archiv"><span class="badge badge-dark text-left">NEZAŘAZENO</span></a>
+						{/if}
+						<span class="float-right">napsal: {$articles[0]->author}, dne: {php echo explode(" ",$articles[0]->created_at)[0]}</span>
+					</p>
+				</div>
+			</div>
+			{/if}
+			<div class="alert alert-success border-radius-0 default-margin-top" role="alert">
+				<h4 class="alert-heading">Správa účtů online (již brzy!)</h4>
+				<p>
+					Veškerou správu účtu najdeš v našem infopanelu, pár kliků a už tam jsi. Přihlásovací údaje stejné jako ve hře, jednoduchý, ne? :)
+					No a statistiky, ty tam taky najdeš!
+				</p>
+				<hr>
+				<p class="mb-0"><a href="" class="text-underline" style="color:inherit;"><b>Otevřít infopanel</b></a></p>
+			</div>
+			<div class="default-margin-top list-game">
+				<h3>Co u nás najdeš?</h3>
+				{if $minihry->count() > 0}
+					{foreach $minihry as $hra}
+
+						<div class="card border-radius-0 {if !$iterator->isFirst()} border-top-0 {/if}">
+							<div class="card-body">
+								<b>{$hra->name}</b> – {$hra->description}
+							</div>
+						</div>
+					{/foreach}
+				{else}
+					<div class="card border-radius-0">
+						<div class="card-body">
+							Zatím nic, ale už brzo něco bude! :)
+						</div>
+					</div>
+				{/if}
+				<div class="card alert-info border-radius-0 border-top-0">
+					<div class="card-body">
+						<b>Máš nějaký nápad?</b> Kontaktuj nás!
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-4">
+			<div class="default-margin-bot">
+				{if $hlasovani->count() > 0}
+				<h3>
+					Hlasuj za server!
+				</h3>
+				{foreach $hlasovani as $sluzba}
+					<a class="btn btn-warning border-radius-0 default-margin-bot w-100" target="_blank" href="{$sluzba->link}" role="button">{$sluzba->name}</a>
+				{/foreach}
+				{/if}
+			</div>
+			<h3>Archiv novinek</h3>
+			{if count($articles) > 1}
+				{foreach $articles as $key => $article}
+					{continueIf $key == 0}
+					<div class="card border-radius-0 bg-light default-margin-bot">
+						<div class="card-body min-height-card">
+							<a n:href="article, $article->url" class="text-underline dark-text">
+								<h5 class="card-title text-underline">{$article->name}</h5>
+							</a>
+							<p class="card-text">{$article->content|substr:0:105|noescape}... <a n:href="article, $article->url" class="text-underline text-black-50">pokračovat</a></p>
+							{ifset $articleRepository->getMiniature($article->id)[0]}
+								<a n:href="article, $article->url">
+									<img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="hover-shadow w-100" alt="Miniatura"/>
+								</a>
+							{/ifset}
+							<p class="card-text badge-margin text-black-50">
+								{var $category = $categoryRepository->findCategoryById($article->category_id)}
+								{if $category}
+									<a n:href="archiv">
+										<span class="badge text-left" style="background-color:#{$category->color}; color:#fff">
+											{$category->name}
+										</span>
+									</a>
+								{else}
+									<a n:href="archiv"><span class="badge badge-dark text-left">NEZAŘAZENO</span></a>
+								{/if}
+								<span class="float-right">{php echo explode(" ",$articles[0]->created_at)[0]}</span>
+							</p>
+						</div>
+					</div>
+				{/foreach}
+					<a class="btn btn-primary border-radius-0 default-margin-bot w-100" n:href="archiv, 1" role="button">Zobrazit celý archiv</a>
+			{else}
+				Zatím tu nic není :(
+			{/if}
+			{if $site->count() > 0}
+			<div class="default-margin-bot platformy">
+				<h4>Sociální sítě</h4>
+					{foreach $site as $sit}
+						<a href="{$sit->link}" target="_blank" class="text-decoration-none">
+							<div class="list-group-item soc-karta text-decoration-none" style="background-color: {$sit->color|noescape}; color:#fff;">
+								{$sit->name}
+							</div>
+						</a>
+					{/foreach}
+			</div>
+			{/if}
+		</div>
+	</div>
+{/block}

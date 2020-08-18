@@ -1,0 +1,26 @@
+{layout '../layout.latte'}
+{block title}Seznam článků{/block}
+{block description}Seznam článků v administraci{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Články</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Seznam článků</h5>
+            <div class="card-text">
+                <ul n:if="$articles">
+                    <li n:foreach="$articles as $article">{$article->name} <a class="float-right green-href" n:href="Article:edit $article->url">Editovat</a></li>
+                </ul>
+                <span n:if="!$articles">
+                    Žádný článek nebyl nalezen!
+                </span>
+            </div>
+        </div>
+    </div>
+    <a n:href="Article:create" class="btn btn-success w-100">Přidat nový článek</a>
+{/block}

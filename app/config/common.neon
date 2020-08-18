@@ -1,0 +1,35 @@
+parameters:
+
+
+application:
+	errorPresenter: Error
+	catchExceptions: false
+	mapping:
+		Error: App\Presenters\*Presenter
+		*: App\Presenters\*Module\*Presenter
+
+
+session:
+	expiration: 14 days
+
+
+services:
+	- App\Model\UserRepository
+	- App\Model\ArticleRepository
+	- App\Model\CategoryRepository
+	- App\Model\PageRepository
+	- App\Model\SettingsRepository
+	- App\Model\UserManager
+	- App\Model\Security\Authenticator
+	- App\Model\Security\PluginAuthenticator
+	- App\Model\Panel\MojangRepository
+	- App\Model\Panel\Core\TicketRepository
+	- App\Model\Panel\AuthMeRepository(@database.authme.context)
+	- App\Model\API\Plugin\TokenManager(@database.tokenmanager.context)
+	- App\Model\API\Plugin\Friends(@database.friends.context)
+	- App\Model\API\Plugin\FastLogin(@database.fastlogin.context)
+	- App\Model\Stats\CachedAPIRepository
+	- App\Model\API\Plugin\LiteBans(@database.litebans.context)
+	- App\Model\API\Plugin\PlayerTime(@database.playertime.context)
+	- App\Model\API\Plugin\Verus(@database.verus.context)
+	router: App\Router\RouterFactory::createRouter

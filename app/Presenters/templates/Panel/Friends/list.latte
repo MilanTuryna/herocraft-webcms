@@ -1,0 +1,23 @@
+{layout '../layout.latte'}
+{block title}
+    Tvoji přátelé
+{/block}
+{block first_col}
+        <a n:href="Main:home" class="small text-muted font-weight-bold">ZPĚT DO PANELU</a>
+        <h1 class="display-4 font-30">Přátelé ({$friendsCount})</h1>
+        <hr>
+        <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
+        {if $friends}
+            {foreach $friends as $friend}
+                <li>
+                    <a n:href="Friends:info $friend->player_name" class="text-success">{$friend->player_name}</a>
+                    (naposledy spatřen: {$friend->lastOnline|date:'d.n.Y \v H:i'})
+                </li>
+            {/foreach}
+        {else}
+            Zatím sis nikoho do svého seznamu přátel nepřidal, můžeš jít na server a napravit to :)
+        {/if}
+{/block}
+
+{block second_col}
+{/block}

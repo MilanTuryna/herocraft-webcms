@@ -1,0 +1,103 @@
+{layout '../layout.latte'}
+{block title}Vytvořit nový článek{/block}
+{block description}Stránka pro vytvoření nového článku{/block}
+{block headAdd}
+    <script>
+        tinymce.init({
+            selector: '[data-editor="true"]',
+            language: 'cs',
+            plugins: 'table emoticons link image',
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+        });
+    </script>
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Article:list">Články</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Vytvořit článek</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Vytvořit nový článek</h5>
+            <div class="card-text">
+                <form n:name="createForm">
+                    <div class="form-group row">
+                        <label n:name="name" class="col-sm-2">Název článku</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="url" class="col-sm-2">URL název</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="url">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="miniature" class="col-sm-2">Miniatura</label>
+                        <div class="col-sm-10">
+                            <input n:name="miniature" spellcheck="false" type="file" class="form-control" style="height: auto">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="keywords" class="col-sm-2">Klíčová slova</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="keywords">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="description" class="col-sm-2">Popisek</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="category" class="col-sm-2">Kategorie</label>
+                        <div class="col-sm-10">
+                            <select class="form-control" n:name="category"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="content" class="col-sm-2">Obsah</label>
+                        <div class="col-sm-10">
+                            <textarea spellcheck="false" type="text" class="form-control" data-editor="true" style="min-height:400px;" n:name="content"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="author" class="col-sm-2">Autor</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="author" readonly>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" style="margin-bottom: 0;">
+                        <label n:name="created_at" class="col-sm-2">Datum vytvoření</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" id="datum_vytvoreni" type="text" class="form-control" n:name="created_at" readonly>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-black-50 small"></div>
+                        <div class="col-sm-10">
+                            <button type="submit" n:name="submit" class="btn btn-success float-right">Vytvořit nový článek</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
+{block end_body}
+    <script src="{$basePath}/js/admin/timer.js"></script>
+    <script>getTimeForm();</script>
+    <script>
+        $(".custom-file-input").on("change", function() {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+    </script>
+{/block}

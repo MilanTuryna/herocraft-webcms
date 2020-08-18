@@ -1,0 +1,44 @@
+{layout '../layout.latte'}
+{block title}
+    Hráčský panel
+{/block}
+{block description}
+    Přihlášení k hráčskému panelu k zobrazení statistik nejen svých ale i ostatních hráčů a vzdálenou manipulaci s minecraftem.
+{/block}
+{block first_col}
+        <h1 class="display-4 font-30">Hráčský panel</h1>
+        <hr>
+        <div class="alert border-radius-0 default-margin-top bg-opacity-white">
+            Vítej v hráčském panelu, najdeš zde vše co potřebuješ, ale vypadá to, že ještě nejsi přihlášěn! Měl bys to jít napravit v pravém sloupečku :)
+        </div>
+        {if !$nastaveni->udrzba && isset($status->online) && $status->online}
+            <div class="alert border-0 text-white border-radius-0 bg-opacity-green" role="alert">
+                Na serveru {$sklonovani($status->players->online, ['je', 'jsou', 'je'])} momentálně
+                {$status->online ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+                Nebuď lenoch a připoj se i ty na <strong>{$nastaveni->ip}</strong>
+            </div>
+        {else}
+            <div class="alert border-0 text-white border-radius-0 bg-opacity-danger" role="alert">
+                {if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+                {if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+                {if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+            </div>
+        {/if}
+        <div class="alert border-radius-0 bg-error" role="alert">
+            <h4 class="alert-heading">Problém!</h4>
+            <p>Aww, ano, málem jsme zapomněli na to, že ještě nejsi přihlášený tak neváhej a jdi to napravit, bohůžel pokud se nepřihlásíš tak ti tento obsah ukázat nemůžeme :(</p>
+            <hr>
+            <p class="mb-0">Přihlašovací údaje stejné jako v kostičkách</p>
+        </div>
+{/block}
+{block second_col}
+    <form n:name="signInForm" style="margin-bottom: 8px;">
+        <ul class="list-group">
+            <li class="list-group-item  default-margin-bot text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">Nepřihlášen<span id="realtime"></span></li>
+            <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 border-radius-0 alert-' . $flash->type">{$flash->message}</div>
+            <input n:name="name" type="text" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 border-radius-0 yellow-placeholder margin-bot-8 border-0 outline-none border-0 menu-opacity-input" placeholder="Nick"/>
+            <input n:name="password" type="password" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 text-warning border-radius-0 yellow-placeholder outline-none border-0 menu-opacity-input" placeholder="Heslo" />
+        </ul>
+        <input type="submit" value="Přihlásit se" class="btn border-radius-0 w-100 default-margin-top menu-opacity-button" n:name="submit">
+    </form>
+{/block}

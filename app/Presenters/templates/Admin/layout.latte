@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{include title|trim}</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/admin.css">
+    <script src="https://cdn.tiny.cloud/1/zdvvwmxe1xodhep89slv548bw8471gm6zp3mljoshlfxwq2p/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    {ifset #headAdd}
+        {include headAdd|trim}
+    {/ifset}
+</head>
+<body>
+<div class="navbar" style="background-color:#c5e1a5; color:#444;">
+  <span class="navbar-text float-right">
+      <a n:href=":Front:Page:home" style="color:#000;">Hlavní web</a>
+  </span>
+    <script>
+    </script>
+    <div class="dropdown float-right" id="nastaveni-uctu">
+        <button class="btn dropdown-toggle opacity-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            Nastavení účtu
+        </button>
+        <div class="dropdown-menu w-100 dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
+            <h6 class="dropdown-header">{$admin['name']}</h6>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" n:href="User:edit $admin['id']">Účet</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" n:href=":Front:Login:logout">Odhlásit se</a>
+        </div>
+    </div>
+</div>
+<header class="jumbotron jumbotron-fluid text-white " style="background-color:#94af76; margin-bottom:0;">
+    <div class="container">
+        <h1 class="display-4" style="font-size: 50px;">Administrační panel</h1>
+    </div>
+</header>
+<div class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+</div>
+<div class="container wrapper" style="margin-top:16px;">
+    <div class="row">
+        <div class="col-md-8 default-margin-bot">
+            {include content}
+        </div>
+        <div class="col-md-4">
+            <div class="card default-margin-bot link">
+                <div class="card-body">
+                    <span class="float-left">{$admin['name']}</span>
+                    <span class="float-right"><a n:href=":Front:Login:logout" class="green-href">Odhlásit se</a></span>
+                </div>
+            </div>
+            <div class="list-group">
+                <a n:href="Main:home" n:class="$presenter->isLinkCurrent('Main:home') ? aktivni, 'list-group-item', 'list-group-item-action'">Přehled webu</a>
+                <a n:href="User:list" n:class="$presenter->isLinkCurrent('User:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Uživatelé</a>
+                <a n:href="Article:list" n:class="$presenter->isLinkCurrent('Article:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Články</a>
+                <a n:href="Category:list" n:class="$presenter->isLinkCurrent('Category:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Kategorie</a>
+                <a n:href="Page:list" n:class="$presenter->isLinkCurrent('Page:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Stránky</a>
+                <a n:href="Minigame:list" n:class="$presenter->isLinkCurrent('Minigame:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Minihry</a>
+                <a n:href="Vote:list" n:class="$presenter->isLinkCurrent('Vote:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Hlasování</a>
+                <a n:href="Social:list" n:class="$presenter->isLinkCurrent('Social:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Sociální sítě</a>
+                <a n:href="Main:settings" n:class="$presenter->isLinkCurrent('Main:settings') ? aktivni, 'list-group-item', 'list-group-item-action'">Nastavení webu</a>
+            </div>
+            <span class="float-right default-margin-top">
+                <a n:href="Main:guide" style="color:#000;">Nápověda k systému (PDF)</a>
+            </span>
+        </div>
+    </div>
+</div>
+<script src="{$basePath}/js/jquery.min.js"></script>
+<script src="{$basePath}/js/bootstrap.min.js"></script>
+<script>
+    $(document).on('click', '.dropdown .dropdown-menu', function (e) {
+        e.stopPropagation();
+    });
+</script>
+
+
+{ifset #end_body}
+    {include end_body|trim}
+{/ifset}
+</body>
+</html>

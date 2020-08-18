@@ -1,0 +1,63 @@
+{layout '../layout.latte'}
+{block title}
+    Tvoje tickety
+{/block}
+{block first_col}
+    <a n:href="Main:home" class="small text-muted font-weight-bold">ZPĚT DO PANELU</a>
+    <h1 class="display-4 font-30">Seznam tvých ticketů</h1>
+    <hr>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
+    {if $tickets}
+        <p class="small text-muted">
+            Pokud jsi na menším zářízení, k zobrazení celé tabulky posouvej horizontálně ze strany na stranu.
+        </p>
+        <div class="table-responsive" style="margin:0">
+            <table class="table table-striped table-light shadow-sm table-center" style="margin-bottom: 0">
+                <thead>
+                <tr>
+                    <th scope="col">Ticket</th>
+                    <th scope="col">Založen dne</th>
+                    <th scope="col">Stav</th>
+                    <th scope="col">ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $tickets as $ticket}
+                    <tr>
+                        <td>
+                            <a n:href="Ticket:view $ticket->id" class="text-{$ticket->locked ? 'danger' : 'success'}">{$ticket->name|truncate:25}</a>
+                        </td>
+                        <td>
+                            {$ticket->time|date:'j.n.Y'}
+                        </td>
+                        <td>
+                            <span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span>
+                        </td>
+                        <td>
+                            <span class="text-info">#{$ticket->id}</span>
+                        </td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    {else}
+        <p class="small text-muted">
+            Žádný ticket jsi zatím nevytvořil, ale nemusíš se bát, nekoušeme a rádi vyřešíme tvůj problém týkajicí se našeho networku :)
+        </p>
+    {/if}
+    <a n:href="Ticket:add" class="btn btn-sm btn-success border-radius-0 w-100">
+        Přidat nový ticket
+    </a>
+{/block}
+
+{block second_col}
+    <div style="background: rgba(0,0,0,0.3); padding: 16px">
+        <h5 class="font-weight-light pink-color">Tvé tickety</h5>
+        <ul class="text-white-50">
+            <li>Počet ticketů: <span class="pink-color">{count($tickets)}</span></li>
+            <li>První ticket: <span class="pink-color">{$tickets ? ($tickets[1]->name|truncate:15) : 'Není'}</li>
+            <li>Poslední ticket: <span class="pink-color">{$tickets ? (end($tickets)->name|truncate:15) : 'Není'}</span></li>
+        </ul>
+    </div>
+{/block}

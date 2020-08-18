@@ -1,0 +1,60 @@
+{block title}
+    Archiv článků
+{/block}
+{block description}
+    Archiv
+{/block}
+{block keywords}
+    ddd
+{/block}
+{block content}
+    <h3>Archiv</h3>
+    {if $logged}
+        <style>
+            .add-clane
+        </style>
+        <a n:href=":Admin:Article:create" target="_blank" class="btn btn-block dark-blue-btn shadow-none border-radius-0 default-margin-bot">Přidat nový článek</a>
+    {/if}
+    {foreach $articles as $article}
+        <div class="card border-radius-0 bg-light classic-shadow default-margin-bot">
+            <div class="card-body">
+                <a n:href="article, $article->url" class="text-underline dark-text">
+                    <h5 class="card-title text-underline">{$article->name}</h5>
+                </a>
+                <p class="card-text">{$article->content|substr:0:$articleProperties['archiv_length']|noescape}... <a n:href="article, $article->url" class="text-underline text-black-50">pokračovat</a>
+                </p>
+                <p  class="card-text text-black-50 badge-margin">
+                    {var $category = $categoryRepository->findCategoryById($article->category_id)}
+                    {if $category}
+                        <a n:href="archiv?filter=$category->name"><span class="badge text-left" style="background-color:{$category->color|noescape}; color:#fff;">{$category->name}</span></a>
+                    {else}
+                        <a n:href="archiv?filter=nezarazeno"><span class="badge badge-dark text-left">NEZAŘAZENO</span></a>
+                    {/if}
+                    <span class="badge badge-primary text-left"></span>
+                    <span class="float-right">napsal: {$article->author}, dne: {php echo explode(" ",$article->created_at)[0]}</span>
+                </p>
+            </div>
+        </div>
+    {/foreach}
+    <div class="default-margin-bot"></div>
+
+    <div class="paginace default-margin-bot">
+        <center>
+            {if $page > 1}
+                <a n:href="archiv, 1">První</a>
+                &nbsp;|&nbsp;
+                <a n:href="archiv, $page-1">Předchozí</a>
+                &nbsp;|&nbsp;
+            {/if}
+
+            Stránka {$page} z {$lastPage}
+
+            {if $page < $lastPage}
+                &nbsp;|&nbsp;
+                <a n:href="archiv, $page+1">Další</a>
+                &nbsp;|&nbsp;
+                <a n:href="archiv, $lastPage">Poslední</a>
+            {/if}
+        </center>
+    </div>
+{/block}

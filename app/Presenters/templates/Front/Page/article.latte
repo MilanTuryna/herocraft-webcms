@@ -1,0 +1,43 @@
+{block title}
+    {$article->name|trim}
+{/block}
+{block description}
+    {$article->description}
+{/block}
+{block keywords}
+    {$article->keywords}
+{/block}
+{block content}
+     <div style="margin-bottom: 60px">
+    <div class="card border-radius-0 bg-light">
+    <div class="card-body min-height-card">
+        <h3>{$article->name}</h3>
+        {$article->content|noescape}
+        {ifset $articleRepository->getMiniature($article->id)[0]}
+            <a n:href="article, $article->url">
+                <img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="hover-shadow w-100 default-margin-bot"/>
+            </a>
+        {/ifset}
+        <hr>
+        <span class="float-right">
+        napsal: {$article->author}, dne {php echo explode(" ",$article->created_at)[0]}
+    </span>
+        <div class="kategorie default-margin-bot">
+            {if $category}
+                <a n:href="archiv"><span class="badge text-left" style="background-color:{$category->color|noescape}; color:#fff;">{$category->name}</span></a>
+            {else}
+                <a n:href="archiv"><span class="badge badge-dark text-left">NEZAŘAZENO</span></a>
+            {/if}
+        </div>
+        <style>
+            footer {
+                display:none!important;
+            }
+        </style>
+    </div>
+    </div>
+         {if $logged}
+             <a n:href=":Admin:Article:edit $article->url" target="_blank" class="btn dark-blue-btn dark-blue-border float-right border-radius-0 ">Editovat (administrace)</a>
+         {/if}
+     </div>
+{/block}

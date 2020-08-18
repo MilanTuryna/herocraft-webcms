@@ -1,0 +1,26 @@
+{layout '../layout.latte'}
+{block title}Seznam stránek{/block}
+{block description}Seznam stránek v administraci{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Stránky</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Seznam stránek</h5>
+            <div class="card-text">
+                <ul n:if="$pages">
+                    <li n:foreach="$pages as $page">{$page->name} <a class="float-right green-href" n:href="Page:edit $page->url">Editovat</a></li>
+                </ul>
+                <span n:if="!$pages">
+                    Žádná stránka nebyla nalezena!
+                </span>
+            </div>
+        </div>
+    </div>
+    <a n:href="Page:create" class="btn btn-success w-100">Přidat novou stránku</a>
+{/block}

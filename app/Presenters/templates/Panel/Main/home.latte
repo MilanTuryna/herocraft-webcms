@@ -1,0 +1,85 @@
+{layout '../layout.latte'}
+{block title}
+    Hráčský panel
+{/block}
+{block first_col}
+    {var $regdate = round($user->regdate/1000, 0)}
+    {var $lastlogin = $fastLogin->LastLogin}
+        <h1 class="display-4 font-30">Hráčský panel</h1>
+        <hr>
+        <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
+        <div class="alert border-radius-0 default-margin-top bg-opacity-white">
+            Vítej {$user->realname}, pokud jsi tu poprvé, tak bude chvíli trvat než se s panelem seznámíš, ale v pohodě, je to jednoduchý a pokud ne, jistě už víš jak to tu chodí :)
+        </div>
+        {if !$nastaveni->udrzba && isset($status->online) && $status->online}
+            <div class="alert border-0 text-white border-radius-0 bg-opacity-green" role="alert">
+                Na serveru {$sklonovani($status->players->online, ['je', 'jsou', 'je'])} momentálně
+                {$status->online ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+                Nebuď lenoch a připoj se i ty na <strong>{$nastaveni->ip}</strong>
+            </div>
+        {else}
+            <div class="alert border-0 text-white border-radius-0 bg-opacity-danger" role="alert">
+                {if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+                {if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+                {if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+            </div>
+        {/if}
+        <div id="neco-o-tobe">
+            <div class="row">
+                <div class="col-3 d-none d-lg-block">
+                    <img src="{$mcUser->skin}" width="150"/>
+                </div>
+                <div class="col-12 col-lg-9">
+                    <div class="alert border-radius-0 bg-opacity-blue" role="alert">
+                        <h4 class="alert-heading">A teď něco o tobě</h4>
+                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'j.n.Y'}. Naposledy jsi tu hrál {$lastlogin|date:'j.n.Y'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
+                        <hr>
+                        <p class="mb-0">Nejen tyto statistiky jsou veřejně dostupné <a href="" class="text-danger">ZDE</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="default-margin-bot d-lg-block d-none"> </div>
+        <div id="originalni-minecraft" class="alert w-100 border-radius-0" style="background-color:rgba(255,165,0,0.3);">
+            <h1 class="display-4" style="font-size:25px">
+                Máš originální minecraft?
+            </h1>
+            <p>
+                Jestliže máš originální minecraft, už se nemusíš přihlašovat, stačí kliknout na tlačítko Aktivovat a příště už se k nám dostaneš bez přihlášení!
+                Ale dávej pozor, pokud originální minecraft nemáš, tak ti to nepůjde a nepotřebuješ na nic klikat.
+            </p>
+            <form n:name="fastLoginForm-$user->realname">
+                <input type="submit" n:name="original" class="btn btn-success d-none d-345-block" style="margin-right: 16px" value="Original"/>
+                <input type="submit" n:name="warez" class="btn btn-danger d-none d-345-block default-margin-top" value="Warez"/>
+            </form>
+            <form n:name="fastLoginForm-$user->realname">
+                <input type="submit" n:name="original" class="btn btn-success d-345-none float-left" style="margin-right: 16px" value="Original"/>
+                <input type="submit" n:name="warez" class="btn btn-danger d-345-none float-left" value="Warez"/>
+            </form>
+        </div>
+{/block}
+{block second_col}
+    {var $regdate = round($user->regdate/1000, 0)}
+    {var $lastlogin = $fastLogin->LastLogin}
+    <div style="background: rgba(0,0,0,0.3); padding: 16px">
+        <h5 class="font-weight-light pink-color">Tvé info</h5>
+            <ul class="text-white-50">
+                <li>Nick: <span class="pink-color">{$user->realname}</span></li>
+                <li>Typ účtu: <span class="pink-color">{$fastLogin->Premium ? 'Original' : 'Warez'} (zde na serveru)</span></li>
+                <li>Poslední přihlášení: <span class="pink-color">{$lastlogin|date:'d.n.Y H:i'}</span></li>
+            </ul>
+    </div>
+    <a href="d" class="bg-opacity-green d-block text-center text-white-50 white-hover" style="padding: 4px">
+        Co o tobě víme?
+    </a>
+    <div style="padding: 16px" class="bg-opacity-blue">
+        <h5 class="font-weight-light text-warning">
+            Network statistiky
+        </h5>
+        <small class="small text-white-50">Některé statistiky se neaktualizují ihned!</small>
+        <ul class="text-white-50">
+            <li>PVPcoiny: <span class="text-warning">{$networkStats->tokenRow ? $networkStats->tokenRow->tokens : 'První se připoj na server!'}</span></li>
+            <li>Počet přátel: <span class="text-warning">{$networkStats->friendsCount ? $networkStats->friendsCount : 'První se připoj na server!'}</span></li>
+        </ul>
+    </div>
+{/block}

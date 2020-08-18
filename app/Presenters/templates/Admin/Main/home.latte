@@ -1,0 +1,133 @@
+{layout '../layout.latte'}
+{block title}
+    Administrační panel
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Administrace</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot" style="background-color:#94af76">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Vítej v administraci!</h5>
+            <div class="card-text">
+                Vítej v administrační části systému, věřím, že zde najdeš vše co potřebuješ, pokud si ale přece nebudeš vědět rady, můžeš využít nápovědu k systému! :)
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Globální nastavení systému</h5>
+            <div class="card-text">
+                <ul>
+                    <li><u>Název webu</u> – {$web->nazev}</li>
+                    <li><u>Údržba</u> (na serveru) – {!$web->udrzba ? "neaktivní" : "aktivní"}</li>
+                    <li><u>Discord</u> – {$web->discord}</li>
+                    <li><u>IP</u> – {$web->ip}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-footer text-black-50">
+            <div class="float-left">
+                Přehled základních informací webového systému
+            </div>
+            <div class="float-right">
+                <a class="link-color" n:href="settings">Změnit</a>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow webove-data default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Webové data</h5>
+            <div class="card-text">
+                <ul>
+                    <li title="Počet novinek/článků"><u>Počet článků</u> – {$stats['clanky']}</li>
+                    <li title="Počet veřejných stránek"><u>Počet stránek</u> – {$stats['stranky']}</li>
+                    <li title="Počet veřejných stránek"><u>Počet administrátorů</u> – {$stats['administrators']} (včetně tebe)</li>
+                    <li title="Počet hlasovacích služeb"><u>Počet hlasovacích služeb</u> – {$stats['hlasovani']}</li>
+                    <li title='Počet v kolonce "Co u nás najdeš"'><u>Počet miniher</u> – {$stats['minihry']}</li>
+                    <li title='Počet přidaných sociálních sítí'><u>Počet sociálních sítí</u> – {$stats['soc_site']}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="card-footer text-black-50">
+            Přehled webových dat
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Technický přehled</h5>
+            <div class="card-text">
+                <ul>
+                    <li><u>Programovací jazyk</u> – PHP (Nette Framework)</li>
+                    <li><u>Databáze</u> – Převážně MySQL (interní databáze je v NEONU)</li>
+                    <li><u>Hashovaní</u> – bcrypt, (authme: sha256)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Ovládání administrace</h5>
+            <div class="card-text">
+                <ul>
+                    <li>Články
+                        <ul>
+                            <li><a n:href="Article:create" class="black-href">Přidat článek</a></li>
+                            <li>Odstranit článek (v seznamu článků)</li>
+                            <li>Editovat článek (v seznamu článků)</li>
+                        </ul>
+                    </li>
+                    <li>Stránky
+                        <ul>
+                            <li><a n:href="Page:create" class="black-href">Přidat stránku</a></li>
+                            <li>Odstranit stránku (v seznamu)</li>
+                            <li>Editovat stránku (v seznamu)</li>
+                        </ul>
+                    </li>
+                    <li>Kategorie
+                        <ul>
+                            <li><a n:href="Category:create" class="black-href">Přidat kategorii</a></li>
+                            <li>Odstranit kategorii (v seznamu)</li>
+                            <li>Editovat kategorii (v seznamu)</li>
+                        </ul>
+                    </li>
+                    <li>Sociální sítě<ul>
+                            <li><a n:href="Social:create" class="black-href">Přidat sociální síť/platformu</a></li>
+                            <li>Odstranit platformu (v seznamu)</li>
+                            <li>Editovat platformu (v seznamu)</li>
+                        </ul>
+                    </li>
+                    <li>Hlasování<ul>
+                            <li><a n:href="Vote:create" class="black-href">Přidat voting službu</a></li>
+                            <li>Odstranit voting službu (v seznamu)</li>
+                            <li>Editovat voting službu (v seznamu)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Uživatelé
+                        <ul>
+                            <li><a n:href="User:create" class="black-href">Přidat uživatele</a></li>
+                            <li>Změnit informace o uživatelovi (v seznamu)</li>
+                            <li>Odebrat uživatele (v seznamu)</li>
+                            <li><a n:href="User:edit $admin['id']" class="black-href">Změnit informace o svém účtu</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        Minihry
+                        <ul>
+                            <li><a n:href="Minigame:create" class="black-href">Přidat minihru</a></li>
+                            <li>Změnit minihru (v seznamu)</li>
+                            <li>Odstranit minihru (v seznamu)</li>
+                        </ul>
+                    </li>
+                    <li>
+                        Nastavení
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{/block}

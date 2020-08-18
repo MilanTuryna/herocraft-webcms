@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+<style>
+    .classic-shadow {
+        -webkit-box-shadow: 2px 6px 21px -10px rgba(0,0,0,0.57);
+        -moz-box-shadow: 2px 6px 21px -10px rgba(0,0,0,0.57);
+        box-shadow: 2px 6px 21px -10px rgba(0,0,0,0.57);
+    }
+
+    .opacity-dropdown {
+        background: rgba(0, 0, 0, 0.1);
+        transition:0.5s;
+    }
+
+    .opacity-dropdown:hover, .opacity-dropdown:focus {
+        border-style: solid;
+        border-width: 1px;
+        box-shadow: none!important;
+        border-color: rgba(0,0,0,0.2);
+        background:rgba(255,255,255,0.1);
+    }
+
+    .default-margin-top {
+        margin-top: 16px;
+    }
+
+    .default-margin-bot {
+        margin-bottom: 16px;
+    }
+
+    ul {
+        margin-top:5px;
+        margin-bottom: 0!important;
+    }
+
+    .link-color, .green-href {
+        color:#94af76;
+        transition:0.5s;
+    }
+
+    .webove-data * li {
+        cursor:help;
+    }
+
+    .link-color:hover {
+        background-color: rgba(0,0,0,0.1);
+    }
+
+
+    .aktivni {
+        background-color:#c5e1a5!important;
+    }
+</style>
+<div class="navbar" style="background-color:#c5e1a5; color:#444;">
+  <span class="navbar-text float-right">
+      <a href="" style="color:#000;">Hlavní web</a>
+  </span>
+    <script>
+    </script>
+        <div class="dropdown float-right" id="nastaveni-uctu">
+            <button class="btn dropdown-toggle opacity-dropdown" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                Nastavení účtu
+            </button>
+            <div class="dropdown-menu w-100 dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
+                <h6 class="dropdown-header">{$admin->name}</h6>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">dd</a>
+                <a class="dropdown-item" href="#">d</a>
+                <a class="dropdown-item" href="#">d</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Odhlásit se</a>
+            </div>
+        </div>
+</div>
+<header class="jumbotron jumbotron-fluid text-white " style="background-color:#94af76; margin-bottom:0;">
+    <div class="container">
+        <h1 class="display-4" style="font-size: 50px;">Administrační panel</h1>
+    </div>
+</header>
+<div class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+</div>
+<div class="container wrapper" style="margin-top:16px;">
+    <div class="row">
+        <div class="col-md-8 default-margin-bot">
+            <div class="card classic-shadow default-margin-bot" style="background-color:#94af76">
+                <div class="card-body">
+                    <h5 style="margin:0!important;" class="card-title">Vítej v administraci!</h5>
+                    <div class="card-text">
+                        Vítej v administrační části systému, snad zde najdeš vše co potřebuješ :)
+                    </div>
+                </div>
+            </div>
+            <div class="card classic-shadow default-margin-bot">
+                <div class="card-body">
+                    <h5 style="margin:0!important;" class="card-title">Globální nastavení systému</h5>
+                    <div class="card-text">
+                        <ul>
+                            <li><u>Název webu</u> – {$web->nazev}</li>
+                            <li><u>Údržba</u> (na serveru) – {$web->udrzba}</li>
+                            <li><u>Discord</u> – ${web->discord}</li>
+                            <li><u>IP</u> – {$web->ip}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer text-black-50">
+                    <div class="float-left">
+                        Přehled základních informací webového systému
+                    </div>
+                    <div class="float-right">
+                        <a class="link-color" href="">Změnit</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card classic-shadow webove-data">
+                <div class="card-body">
+                    <h5 style="margin:0!important;" class="card-title">Webové data</h5>
+                    <div class="card-text">
+                        <ul>
+                            <li title="Počet novinek/článků"><u>Články/novinky</u> – {$stats->clanky}</li>
+                            <li title="Počet veřejných stránek"><u>Stránky</u> – {$stats->stranky}</li>
+                            <li title="Počet hlasovacích služeb"><u>Hlasování</u> – ${stats->hlasovani}</li>
+                            <li title='Počet v kolonce "Co u nás najdeš"'><u>Minihry</u> – {$stats->minihry}</li>
+                            <li title='Počet přidaných sociálních sítí'><u>Sociální sítě</u> – {$stats->soc_site}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="card-footer text-black-50">
+                    Přehled webových dat
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card classic-shadow default-margin-bot link">
+                <div class="card-body">
+                    <span class="float-left">{$admin->name}</span>
+                    <span class="float-right"><a href="" class="green-href">Odhlásit se</a></span>
+                </div>
+            </div>
+            <div class="list-group">
+
+                <a href="#" class="list-group-item list-group-item-action aktivni">
+                   Přehled webu
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
+                <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
+                <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
+                <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+            </div>
+        </div>
+</div>
+</div>
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script>
+    $(document).on('click', '.dropdown .dropdown-menu', function (e) {
+        e.stopPropagation();
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+{layout '../layout.latte'}
+{block title}Editace článku {$page->name}{/block}
+{block description}Editační stránka pro článek {$page->name}{/block}
+{block headAdd}
+    <script>
+        tinymce.init({
+            selector: '[data-editor="true"]',
+            language: 'cs',
+            plugins: 'table emoticons link image',
+            toolbar: 'undo redo | styleselect | forecolor | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image | code'
+        });
+    </script>
+{/block}
+{block content}
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Page:list">Stránky</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editace stránky ({$page->name|substr:0:5}..)</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Editace stránky</h5>
+            <p class="small text-black-50"><a n:href=":Front:Page:page $page->url">{$page->name}, ID: {$page->id}</a></p>
+            <div class="card-text">
+                <form n:name="editForm-$page->id">
+                    <div class="form-group row">
+                        <label n:name="name" class="col-sm-2">Název článku</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="name">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="url" class="col-sm-2">URL název</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="url">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="keywords" class="col-sm-2">Klíčová slova</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="keywords">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="description" class="col-sm-2">Popisek</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" n:name="description">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label n:name="content" class="col-sm-2">Obsah</label>
+                        <div class="col-sm-10">
+                            <textarea spellcheck="false" type="text" class="form-control" data-editor="true" style="min-height:400px;" n:name="content"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><br></div>
+                        <div class="col-sm-10">
+                            <button type="submit" n:name="submit" class="btn btn-success float-right">Aplikovat změny</button>
+                            <br>
+                            <br>
+                            <a n:href="Page:delete $page->url" class="text-danger small float-right">Odstranit stránku</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}

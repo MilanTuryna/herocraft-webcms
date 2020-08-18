@@ -1,0 +1,114 @@
+<html>
+<head>
+    <meta name="description" content="{ifset #description}{include description|trim}{/ifset}">
+    <meta name="keywords" content="{ifset #keywords}{include keywords|trim}{/ifset}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {include title|trim}
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{$basePath}/css/main.css">
+    <link rel="stylesheet" href="{$basePath}/css/panel.css">
+</head>
+<body>
+<style>
+    body {
+        zoom:125%;
+    }
+
+    .menu-warning-input:focus {
+        border-radius: 0!important;
+        border-top-width: 1px!important;
+        border-top-style: solid!important;
+        border-top-color: #ffc107!important;
+        border-right-width: 1px!important;
+        border-right-style: solid!important;
+        border-right-color: #ffc107!important;
+        border-left-width: 0!important;
+        border-bottom-width: 1px!important;
+        border-bottom-style: solid!important;
+        border-bottom-color: #ffc107!important;
+    }
+
+</style>
+{ifset #start_body}
+    {include start_body}
+{/ifset}
+{ifset #noscript}
+    <noscript>
+    {include noscript}
+    </noscript>
+{/ifset}
+<main class="container">
+    <div class="row" style="min-height: 80vh">
+        <div class="col-md-8 padding-0" style="background: rgba(255,255,255,0.7);">
+            <div class="container padding-32">
+                {include first_col}
+            </div>
+        </div>
+        <div class="col-md-4 padding-0" style="-webkit-box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75);
+-moz-box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75);
+box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75); background-color:rgba(255,255,255,0.1);">
+            <ul class="list-group">
+                <li class="list-group-item text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">{$user->realname}<span id="realtime"></span></li>
+            </ul>
+            {include second_col}
+            <div style="padding: 16px" class="bg-opacity-white margin-bot-8">
+                <style>
+                    .transparent-items li {
+                        background-color: rgba(0,0,0,0.05);
+                        transition: 0.5s;
+                        border-radius: 0;
+                    }
+
+                    .transparent-items a {
+                        color:inherit;
+                    }
+
+                    .transparent-items .activegreen li {
+                        background-color: rgba(79, 117, 70,0.3) !important;
+                    }
+
+                    .transparent-items .activegreen li:hover {
+                        background-color: rgba(79, 117, 70,0.5) !important;
+                    }
+
+                    .transparent-items li:hover {
+                        background-color: rgba(0,0,0,0.15) !important;
+                    }
+
+                </style>
+                <ul class="list-group transparent-items">
+                    <a n:href="Main:home" n:class="$presenter->isLinkCurrent('Main:home') ? activegreen">
+                        <li class="list-group-item">Přehled panelu</li>
+                    </a>
+                    <a n:href="Ticket:list" n:class="$presenter->isLinkCurrent('Ticket:*') ? activegreen">
+                        <li class="list-group-item">Tickety</li>
+                    </a>
+                    <a n:href="Friends:list" n:class="$presenter->isLinkCurrent('Friends:*') ? activegreen" >
+                        <li class="list-group-item">Přátelé</li>
+                    </a>
+                </ul>
+            </div>
+            <a n:href=":Front:Page:home" class="small text-white-50 float-right" style="margin-right: 8px">Zpět na hlavní web</a>
+        </div>
+    </div>
+</main>
+{ifset #end_body}
+    {include end_body}
+{/ifset}
+<script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+<script src="{$basePath}/js/timer.js"></script>
+<script>if (window.history.replaceState) window.history.replaceState( null, null, window.location.pathname);</script>
+<script>
+    writeActualTime(function (time) {
+        document.getElementById('realtime').innerHTML = ', ' + time;
+    });
+</script>
+</body>
+</html>

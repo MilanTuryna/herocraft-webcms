@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta name="description" content="{include description|trim}">
+	<meta name="keywords" content="{include keywords|trim}">
+	<meta name="author" content="Milan Turyna https://turyna.eu">
+
+	<title>{include title|trim}</title>
+	<link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet">
+	<link href="{$basePath}/css/main.css" rel="stylesheet">
+</head>
+<body>
+<header class="container-fluid header">
+	<div class="container">
+		{ifset $logo[0]}
+			<a n:href="Page:home">
+				<img draggable="false" class="not-drag center-img" onmousedown="return false" src="{$basePath}/{$logo[0]}" id="logo" alt="logo">
+			</a>
+		{else}
+			<span class="invisible">&nbsp;</span>
+		{/ifset}
+	</div>
+</header>
+<nav class="navbar navbar-light bg-light" style="border-bottom: 1px solid #dfdfdf; outline:none;">
+	<div class="container">
+		  <span class="navbar-text">
+			  {$nastaveni->nazev}
+		  </span>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse border-top" id="navbarNav">
+			<ul class="navbar-nav default-margin-top">
+				<li n:class="$presenter->isLinkCurrent('Page:home') ? active, true ? nav-item">
+					<a class="nav-link" n:href="Page:home">Úvod <span class="sr-only">(current)</span></a>
+				</li>
+				{foreach $stranky as $stranka}
+					<li n:class="$presenter->isLinkCurrent('Page:page', $stranka->url) ? active">
+						<a class="nav-link" n:href="Page:page $stranka->url">{$stranka->name}</a>
+					</li>
+				{/foreach}
+				<li n:class="$presenter->isLinkCurrent('Page:archiv') ? active">
+					<a class="nav-link" n:href="Page:archiv">Archiv novinek</a>
+				</li>
+				<li class="nav-item bg-info uzivatelska-sekce classic-shadow default-margin-top" style="text-align:center;">
+					<a class="nav-link text-white" href="#">Uživatelská sekce</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+<main class="container" style="margin-top:16px; min-height: calc(65.5vh - 57px);">
+	<div class="alert border-0 discord-alert" role="alert">
+		Připoj se k našemu discordu <a href="{$nastaveni->discord}" target="_blank" class="text-white"><strong>kliknutím!</strong></a>
+		<img src="{$basePath}/img/icon/discord.png" width="25" class="float-right rotate-hover not-drag" alt="discord"/>
+	</div>
+	{if !$nastaveni->udrzba && isset($status->online) && $status->online}
+			<div class="alert  border-0 minecraft-alert" role="alert">
+				Na serveru je momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+				Připoj se i ty na <strong>{$nastaveni->ip}</strong>
+				<img src="{$basePath}/img/icon/sword.png" width="25" class="float-right rotate-hover not-drag" alt="sword"/>
+
+			</div>
+	{else}
+		<div class="alert border-0 danger-alert" role="alert">
+			{if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+			{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+			{if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+		</div>
+	{/if}
+	{include content}
+</main>
+<footer class="navbar navbar-light bg-light border-top">
+	<div class="container">
+		  <span class="navbar-text">
+			  Webový systém vytvořil <a href="https://turyna.eu" target="_blank">Milan Turyna</a>
+          </span>
+		<span class="navbar-text float-right">
+			  <a n:href="Login:main">Administrace</a>
+          </span>
+	</div>
+</footer>
+<script src="{$basePath}/js/jquery.min.js" type="text/javascript"></script>
+<script src="{$basePath}/js/bootstrap.min.js" type="text/javascript"></script>
+{ifset #end_body}
+	{include end_body}
+{/ifset}
+</body>
+</html>
