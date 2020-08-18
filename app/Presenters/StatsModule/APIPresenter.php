@@ -56,6 +56,7 @@ class APIPresenter extends Presenter {
         if($user) {
             $fastLogin = $this->cachedAPIRepository->getFastLogin($name);
             $uuid = $this->mojangRepository->getUUID($name);
+            $playedTime = $this->cachedAPIRepository->getPlayedTime($name);
             $response = [
                 'updateTime' => CachedAPIRepository::EXPIRE_TIME,
                 'http' => $http,
@@ -65,7 +66,7 @@ class APIPresenter extends Presenter {
                     'nickname' => $name,
                     'uuid' => $uuid,
                     'headImageURL' => "https://minotar.net/avatar/{$name}.png",
-                    'playedTime' => $this->cachedAPIRepository->getPlayedTime($name),
+                    'playedTime' => $playedTime,
                     'auth' => [
                         'userID' => $user->id,
                         'regtime' => $user->regdate,

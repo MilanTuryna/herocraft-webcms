@@ -136,14 +136,7 @@ class CachedAPIRepository
      * @return mixed
      */
     public function getPlayedTime($name) {
-        $cacheName = 'API_PlayerTime_' . $name;
-        if(!$this->cache->load($cacheName)) {
-            $this->cache->save($cacheName,  $this->playerTime->getPlayedTime($name), [
-                Cache::EXPIRE => self::EXPIRE_TIME
-            ]);
-        }
-
-        return $this->cache->load($cacheName);
+        return $this->playerTime->getPlayedTime($name);
     }
 
     /**
@@ -152,7 +145,7 @@ class CachedAPIRepository
      */
     public function isBanned($name) {
         $cacheName = 'API_ban_' . $name;
-        if(!$this->cache->load($cacheName)) {
+        if(is_null($this->cache->load($cacheName))) {
             $this->cache->save($cacheName, $this->verus->isBanned($name) || $this->liteBans->isBanned($name), [
                 Cache::EXPIRE => "24 hours"
             ]);
