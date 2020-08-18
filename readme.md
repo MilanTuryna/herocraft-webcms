@@ -5,7 +5,7 @@ Tento webový systém je programovaný v Nette (PHP framework) a na GitHub byl p
 z důvodu lepší dokumentace a v případě že bude potřeba po dokončení projektu přidávat
 další funkce systému.
 
-##Commiting a verzování
+## Commiting a verzování
 14.6 - Začátek vývoje
 
 18.8 - Přidána na GitHub verze s již pokročilou verzí která se blíží k dokončení včetně
