@@ -73,8 +73,6 @@ let app = new Vue({
                 data.player.friends.list.forEach(e => {
                     friends.list.push(`<a href="?player=${e.player_name}">${e.player_name}</a>`);
                 });
-
-                data.player.playedTime = 0;
                 history.pushState(null, `Statistiky - ${data.player.nickname}`, '?player=' + data.player.nickname);
                 bootbox.alert({
                     title: data.player.nickname + `<img src="${data.player.headImageURL}" style="width:20px; margin-left:5px;"/>`,

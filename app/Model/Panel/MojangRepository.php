@@ -49,7 +49,7 @@ class MojangRepository
      */
     public function getUUID($username) {
         if(is_null($this->cache->load('mojang_uuid_' . $username))) {
-            $this->cache->save('mojang_uuid_' . $username, $this->friends->getRowByName($username)->uuid, [
+            $this->cache->save('mojang_uuid_' . $username, $this->friends->getRowByName($username)->player_uuid, [
                 Cache::EXPIRE => "24 hours"
             ]);
         }
