@@ -1,7 +1,10 @@
 <?php
 
+namespace App\Presenters\HelpDeskModule;
 
-class LoginPresenter
+use App\Presenters\BasePresenter;
+
+class LoginPresenter extends BasePresenter
 {
 
 }

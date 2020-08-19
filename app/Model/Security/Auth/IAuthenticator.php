@@ -15,4 +15,5 @@ interface IAuthenticator {
      */
     public function login(array $credentials, string $expiration = self::EXPIRATION): void;
     public function logout(): void;
+    public function getUser();
 }

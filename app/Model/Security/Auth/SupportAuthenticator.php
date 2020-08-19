@@ -9,6 +9,7 @@ use App\Model\API\Plugin\LuckPerms;
 use App\Model\Panel\AuthMeRepository;
 use App\Model\Panel\MojangRepository;
 use App\Model\Security\Exceptions\AuthException;
+use Nette\Database\Table\ActiveRow;
 use Nette\Http\Session;
 
 /**
@@ -73,6 +74,16 @@ class SupportAuthenticator implements IAuthenticator
         } else {
             throw new AuthException("Nemůžeš se odhlašovat, když nejsi přihlášený!");
         }
+    }
+
+    /**
+     * @return bool|ActiveRow|null
+     */
+    public function getUser() {
+        if($this->session->getSection(self::SESSION_SECTION)->id) {
+            return $this->authMeRepository->findById($this->session->getSection(self::SESSION_SECTION)->id);
+        }
+        return false;
     }
 
     /**
