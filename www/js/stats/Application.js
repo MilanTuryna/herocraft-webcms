@@ -79,7 +79,6 @@ let app = new Vue({
                     callback: () => history.pushState(null, 'Statistiky', window.location.href.split('?')[0]),
                     onEscape: false,
                     message:
-                        `<div class="modal-body-padding">` +
                         `<p class="text-muted small">Požadavek zpracován v ${dateFormat}</p>` +
                         '<p>' +
                         `Tento hráč byl zaregistrován dne ${auth.regtime.getDate()}.${auth.regtime.getMonth()+1}.${auth.regtime.getFullYear()}` +
@@ -87,10 +86,9 @@ let app = new Vue({
                         `${Utils.date.addZeroBefore(auth.lastlogin.getHours()) + ':' + Utils.date.addZeroBefore(auth.lastlogin.getMinutes())}` +
                         ` a je přibližně ${data.player.auth.userID}. zaregistrovaný hráč na našem networku.` +
                         '</p>'
-                        + '</div>'
                         +
                         `<div class="ticket bg-white" >
-        <div class="ticket-head" style="padding:16px 16px 0 16px">
+        <div class="ticket-head">
             <h5>
                 <p>
                     <span>Přehled statistik</span>
@@ -98,7 +96,7 @@ let app = new Vue({
             </h5>
         </div>
         <hr style="margin:0">
-        <div class="ticket-body bg-light ">
+        <div class="ticket-body bg-light border-left border-right border-bottom">
                     <div class="row" style="margin:0;">
                         <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
                             <b>Herní přezdívka</b>
@@ -163,7 +161,8 @@ let app = new Vue({
         }
     }, watch: {
         'button.player': function () {
-            if(this.button.player) this.button.player = this.button.player.toString().replace(/\s/g, '');
+            if(this.button.player)
+                if(!/^\w+$/i.test(this.button.player)) this.button.player = this.button.player.toString().substring(0, this.button.player.length - 1);
         }
     },
     mounted() {
@@ -175,7 +174,7 @@ let app = new Vue({
             console.log(error);
         }, () => this.api.loading = false);
         if (Utils.url.findParam('player')) {
-            this.button.player = Utils.url.findParam('player');
+            this.button.player = Utils.string.escapeHtml(Utils.url.findParam('player'));
             this.submitPlayer();
         }
     }
