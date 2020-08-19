@@ -69,6 +69,10 @@ final class RouterFactory
             ->addRoute('/panel/pratele', 'Friends:list')
             ->addRoute('/panel/pratele/<friend>', 'Friends:info');
 
+        $router->withModule('HelpDesk')
+            ->addRoute('/help', 'Main:home')
+            ->addRoute('/help/login', 'Login:main');
+        
         $router->withModule('Stats')
             ->addRoute('/statistiky/', 'Main:app')
             ->addRoute('/statistiky/api/<name>', 'API:view');

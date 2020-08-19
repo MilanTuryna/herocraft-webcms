@@ -13,4 +13,6 @@ panelu, administrace, samotného webu a API pro statistiky, klientská část AP
 později, ale již se na ní pracuje. K systému se připojí ještě helpdesk přes který
 budou moct helpeři odpovídat na tickety od hráčů.
 
+19.8 - Přidána klientská část API a struktura pro helpdesk.
+
 
