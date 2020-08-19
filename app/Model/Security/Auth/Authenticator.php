@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Model\Security;
+namespace App\Model\Security\Auth;
 
 use App\Model\UserRepository;
 use Nette\Database\Table\ActiveRow;
 use Nette\Http\Session;
 use Nette\Security\Passwords;
+use App\Model\Security\Exceptions\AuthException;
 
 /**
  * Class Authenticator

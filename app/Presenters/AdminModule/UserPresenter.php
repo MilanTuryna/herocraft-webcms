@@ -4,7 +4,7 @@
 namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\User\CreateForm;
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Model\UserManager;
 use App\Model\UserRepository;
 use App\Presenters\AdminBasePresenter;

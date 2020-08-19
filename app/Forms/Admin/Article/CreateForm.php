@@ -11,8 +11,6 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
 use stdClass;
-use Tracy\Debugger;
-use Tracy\Helpers;
 
 /**
  * Class CreateForm

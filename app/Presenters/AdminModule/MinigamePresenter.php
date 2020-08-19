@@ -5,7 +5,7 @@ namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\Minigame\CreateForm;
 use App\Forms\Admin\Minigame\EditForm;
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 use App\Model\DynamicRepository;
 
@@ -55,6 +55,10 @@ class MinigamePresenter extends AdminBasePresenter
         }
     }
 
+    /**
+     * @param $id
+     * @throws AbortException
+     */
     public function actionDelete($id) {
         $deleted = $this->gameRepository->delete('id = ?', $id);
         if($deleted) {

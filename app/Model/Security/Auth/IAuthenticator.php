@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Security;
+namespace App\Model\Security\Auth;
 
 /**
  * Interface IAuthenticator

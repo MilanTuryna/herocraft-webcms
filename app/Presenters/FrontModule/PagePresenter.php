@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters\FrontModule;
 
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
 use App\Presenters\BasePresenter;
 

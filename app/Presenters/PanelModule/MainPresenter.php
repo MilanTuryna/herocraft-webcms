@@ -7,7 +7,7 @@ use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\TokenManager;
 use App\Model\API\Plugin\FastLogin;
 use App\Model\Panel\MojangRepository;
-use App\Model\Security\PluginAuthenticator;
+use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
 use App\Presenters\PanelBasePresenter;
 

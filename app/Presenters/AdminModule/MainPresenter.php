@@ -4,7 +4,7 @@
 namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\SettingsForm; // __construct(Presenter, Context);
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
 use App\Presenters\AdminBasePresenter;
 

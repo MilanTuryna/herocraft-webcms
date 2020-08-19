@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\Security;
+namespace App\Model\Security\Form;
 
 use App\Constants;
 

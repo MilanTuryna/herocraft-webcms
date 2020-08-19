@@ -2,14 +2,11 @@
 
 namespace App\Forms\Front;
 
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
-use Nette\Security\AuthenticationException;
-use Nette\Security\User;
-use App\Model\UserManager;
-use App\Model\Security\AuthException;
+use App\Model\Security\Exceptions\AuthException;
 
 /**
  * Class SignInForm

@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection ALL */
 
 namespace App\Forms\Admin;
 
@@ -14,7 +14,6 @@ use Nette\Application\UI\Form;
  */
 class SettingsForm
 {
-    private Context $db;
     private Presenter $presenter;
     private SettingsRepository $settings;
 

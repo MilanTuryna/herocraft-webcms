@@ -1,14 +1,13 @@
 <?php
 
 
-namespace App\Model\Security;
+namespace App\Model\Security\Auth;
 
 use App\Model\Panel\AuthMeRepository;
-use App\Model\API\Plugin\FastLogin;
 use Nette\Database\Table\ActiveRow;
 use Nette\Http\Session;
-use Nette\Security\Passwords;
 use App\Model\API\AuthMe;
+use App\Model\Security\Exceptions\AuthException;
 
 /**
  * Class PluginAuthenticator

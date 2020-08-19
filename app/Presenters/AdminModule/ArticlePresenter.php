@@ -3,7 +3,7 @@
 
 namespace App\Presenters\AdminModule;
 
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 use Exception;
 

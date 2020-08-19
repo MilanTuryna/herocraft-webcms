@@ -8,7 +8,6 @@ use App\Model\UserManager;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
-use Nette\Utils\AssertionException;
 
 use stdClass;
 

@@ -3,15 +3,11 @@
 
 namespace App\Presenters;
 
-use App\Model\Security\PluginAuthenticator;
 use App\Model\SettingsRepository;
-
-use Nette\Database\Table\ActiveRow;
 
 class PanelBasePresenter extends BasePresenter
 {
     private SettingsRepository $settingsRepository;
-    private PluginAuthenticator $pluginAuthenticator;
 
     public function __construct(SettingsRepository $settingsRepository)
     {

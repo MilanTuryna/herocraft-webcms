@@ -6,7 +6,6 @@ use App;
 use App\Model\ArticleRepository;
 
 use Nette;
-use Nette\Database\Context;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 

@@ -35,6 +35,11 @@ class RemoveFriendForm
         return $form;
     }
 
+    /**
+     * @param Form $form
+     * @param \stdClass $values
+     * @throws \Nette\Application\AbortException
+     */
     public function success(Form $form, \stdClass $values) {
         [$player, $friendId] = $this->friendRelation;
         $deleted = $this->friends->removeFriend($player, $friendId);

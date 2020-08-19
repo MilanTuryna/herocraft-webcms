@@ -4,7 +4,7 @@
 namespace App\Presenters;
 
 
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 
 use Nette\Application\AbortException;
 

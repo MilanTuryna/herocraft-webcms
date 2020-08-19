@@ -8,9 +8,9 @@ use Nette;
 use Nette\Database\Context;
 
 use App\Presenters\BasePresenter;
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Forms\Front\SignInForm;
-use App\Model\Security\AuthException;
+use App\Model\Security\Exceptions\AuthException;
 use App\Model\API\Status;
 
 /**

@@ -3,6 +3,7 @@
 namespace App\Forms\Admin\Social;
 
 use App\Model\DynamicRepository;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
@@ -38,6 +39,11 @@ class CreateForm
         return $form;
     }
 
+    /**
+     * @param Form $form
+     * @param stdClass $values
+     * @throws AbortException
+     */
     public function success(Form $form, stdClass $values) {
         if(!$this->socialRepository->isDuplicated("name = ?", $values->name)) {
             $this->socialRepository->create([

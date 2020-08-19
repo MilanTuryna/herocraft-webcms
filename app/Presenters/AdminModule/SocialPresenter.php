@@ -6,7 +6,7 @@ namespace App\Presenters\AdminModule;
 use App\Forms\Admin\Social\CreateForm;
 use App\Forms\Admin\Social\EditForm;
 use App\Model\DynamicRepository;
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 
 use Nette\Application\AbortException;

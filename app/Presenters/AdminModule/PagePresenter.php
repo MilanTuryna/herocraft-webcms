@@ -5,7 +5,7 @@ namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\Pages\CreateForm;
 use App\Model\PageRepository;
-use App\Model\Security\Authenticator;
+use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 use App\Forms\Admin\Pages\EditForm;
 

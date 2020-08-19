@@ -2,9 +2,10 @@
 
 namespace App\Forms\Panel;
 
-use App\Model\Security\AuthException;
-use App\Model\Security\PluginAuthenticator;
+use App\Model\Security\Exceptions\AuthException;
+use App\Model\Security\Auth\PluginAuthenticator;
 
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
@@ -39,6 +40,11 @@ class SignInForm
         return $form;
     }
 
+    /**
+     * @param Form $form
+     * @param stdClass $values
+     * @throws AbortException
+     */
     public function success(Form $form, \stdClass $values) {
         try {
             $this->pluginAuthenticator->login([$values->name, $values->password]);

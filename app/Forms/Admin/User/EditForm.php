@@ -10,7 +10,6 @@ use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Database\Table\ActiveRow;
-use Nette\Utils\AssertionException;
 
 use stdClass;
 

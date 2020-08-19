@@ -3,16 +3,13 @@
 namespace App\Presenters\PanelModule;
 
 use App\Forms\Panel\SignInForm;
-use App\Model\API\Status;
-use App\Model\Security\PluginAuthenticator;
-use App\Model\Security\AuthException;
+use App\Model\Security\Auth\PluginAuthenticator;
+use App\Model\Security\Exceptions\AuthException;
 use App\Model\SettingsRepository;
 use App\Presenters\PanelBasePresenter;
 
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
-use Nette\Caching\Cache;
-use Nette\Caching\IStorage;
 
 class LoginPresenter extends PanelBasePresenter
 {

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace App\Presenters;
 
 use Nette;
-use Nette\Http\Context;
 
 final class Error4xxPresenter extends Nette\Application\UI\Presenter
 {
 
+    /**
+     * @throws Nette\Application\BadRequestException
+     */
     public function startup(): void
 	{
 		parent::startup();
