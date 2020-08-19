@@ -20,8 +20,8 @@ services:
 	- App\Model\PageRepository
 	- App\Model\SettingsRepository
 	- App\Model\UserManager
-	- App\Model\Security\Authenticator
-	- App\Model\Security\PluginAuthenticator
+	- App\Model\Security\Auth\Authenticator
+	- App\Model\Security\Auth\PluginAuthenticator
 	- App\Model\Panel\MojangRepository
 	- App\Model\Panel\Core\TicketRepository
 	- App\Model\Panel\AuthMeRepository(@database.authme.context)
