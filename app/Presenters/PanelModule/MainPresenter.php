@@ -72,7 +72,7 @@ class MainPresenter extends PanelBasePresenter
     {
         $mcUser = new \stdClass();
         $mcUser->uuid = $this->mojangRepository->getUUID($this->user->realname);
-        $mcUser->skin = Minecraft::getSkinURL($mcUser->uuid);
+        $mcUser->skin = Minecraft::getSkinURL($this->mojangRepository->getMojangUUID($this->user->realname));
 
         $networkStats = new \stdClass();
         $networkStats->tokenRow = $this->tokenManager->getRow($this->user->realname);
