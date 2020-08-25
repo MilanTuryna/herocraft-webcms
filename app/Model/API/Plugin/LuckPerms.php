@@ -8,8 +8,9 @@ use Nette\Database\Context;
 
 class LuckPerms
 {
-    const USER_TABLE_PERM = 'luckperms_users_permissions';
+    const USER_TABLE_PERM = 'luckperms_user_permissions';
     const GROUPS = [
+        'developer' => 'group.developer',
         'helper' => 'group.helper',
         'owner' => 'group.owner',
         'admin' => 'group.admin'
@@ -35,7 +36,10 @@ class LuckPerms
     public function isUserHelper(string $uuid) {
         $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ?', $uuid)->fetchAll();
         foreach ($rows as $row) {
-            if($row->permission == self::GROUPS['helper'] || $row->permission == self::GROUPS['owner'] || $row->permission == self::GROUPS['admin'])
+            if($row->permission == self::GROUPS['helper']
+                || $row->permission == self::GROUPS['owner']
+                || $row->permission == self::GROUPS['admin']
+                || $row->permission == self::GROUPS['developer'])
                 return true;
         }
         return false;

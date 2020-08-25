@@ -1,0 +1,73 @@
+{layout '../layout.latte'}
+{block title}
+    Helpdesk
+{/block}
+{block content}
+    <h4>Ticket <span class="text-info float-right">#{$ticket->id}</span></h4>
+    <div class="table-responsive">
+        <table class="table bg-light shadow-sm border">
+            <thead>
+            <tr>
+                <th scope="col" class="border-top-0">Název</th>
+                <th scope="col" class="border-top-0">Autor</th>
+                <th scope="col" class="border-top-0">Datum</th>
+                <th scope="col" class="border-top-0">Stav</th>
+                <th scope="col" class="border-top-0">ID</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{$ticket->name}</a></td>
+                <td>{$ticket->author}</td>
+                <td>{$ticket->time}</td>
+                <td><span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></td>
+                <td class="text-info">#{$ticket->id}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="ticket bg-white shadow-sm border">
+        <div class="ticket-body bg-light ">
+            {foreach $ticketResponses as $response}
+                <div class="row border-bottom" style="margin:0;">
+                    <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
+                        <b>{$response->author}</b>
+                        <span class="badge badge-{$response->type === $responseTypes['player'] ? 'info' : 'danger'}">{$response->type}</span>
+                        <p class="text-muted small">{$response->time|date:'j.n.Y H:i'}</p>
+                    </div>
+                    <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
+                        {$response->content}
+                    </div>
+                </div>
+            {/foreach}
+            <div class="row" style="margin:0;">
+                <div class="col-sm-12 padding-sm-top-none bg-white" style="padding: 16px">
+                    {if !$ticket->locked}
+                        {var $ticketId = $ticket->id}
+                        <form n:name="addResponseForm-$captchaOrder-$ticketId">
+                            <textarea class="form-control green-focus margin-top-8 margin-bot-8" placeholder="Máš něco dalšího na srdci, popřípadě jsi na něco zapomněl? Neváhej a odešli novou odpověď!" n:name="content" rows="3"></textarea>
+                            <span class="text-muted small" style="margin-top: 8px;">
+                            Oveření: {$captcha} (pro úspěšně vyplnění, by měla být odpověď <u class="text-info">STRUČNÁ</u> a <u class="text-info">JEDNOSLOVNÁ</u>)
+                    </span>
+                            <input type="text" class="form-control margin-top-8 green-focus" placeholder="Odpovězte prosím na ověřovací otázku" n:name="captcha">
+                            <input type="submit" style="margin-top: 8px;" class="btn btn-success btn-sm float-right" value="Odeslat novou odpověď" n:name="submit">
+                        </form>
+                    {else}
+                        <span>Do tohohle ticketů už nemůžeš posílat odpovědi, jelikož byl <b class="text-danger">ticket uzavřen</b>.
+                            Pokud na tom ale trváš, jako helper (nebo oveřená osoba) ho můžeš <span class="text-success font-weight-bold">otevřít</span>.</span>
+                    {/if}
+                </div>
+            </div>
+            <div class="row border-top" style="margin:0;">
+                <div class="col-sm-12 bg-white" style="padding: 0">
+                    <button class="btn btn-{$ticket->locked ? 'success' : 'danger'} btn-sm w-100" style="border-radius: 0">
+                        {$ticket->locked ? 'Otevřít' : 'Uzavřít'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+{block user_status}
+    Přihlášen jako {$helper->authUser->realname}, <span id="realtime"></span>
+{/block}

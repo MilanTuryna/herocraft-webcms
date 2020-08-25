@@ -2,7 +2,7 @@
 
 namespace App\Forms\Front;
 
-use App\Model\Security\Auth\Authenticator;
+use App\Model\Security\Auth\IAuthenticator;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
@@ -15,17 +15,20 @@ use App\Model\Security\Exceptions\AuthException;
 class SignInForm
 {
     private Presenter $presenter;
-    private Authenticator $authenticator;
+    private IAuthenticator $authenticator;
+    private string $redirect;
 
     /**
      * SignInForm constructor.
      * @param Presenter $presenter
-     * @param Authenticator $authenticator
+     * @param IAuthenticator $authenticator
+     * @param string $redirect
      */
-    public function __construct(Presenter $presenter, Authenticator $authenticator)
+    public function __construct(Presenter $presenter, IAuthenticator $authenticator, $redirect = ':Admin:Main:home')
     {
         $this->presenter = $presenter;
         $this->authenticator = $authenticator;
+        $this->redirect = $redirect;
     }
 
     /**
@@ -52,7 +55,7 @@ class SignInForm
         try {
             $this->authenticator->login([$values->name, $values->password]);
             $this->presenter->flashMessage('Byl jsi úspěšně autorizován a přihlášen!', 'success');
-            $this->presenter->redirect(':Admin:Main:home');
+            $this->presenter->redirect($this->redirect);
         } catch (AuthException $e) {
             $form->addError($e->getMessage());
         }

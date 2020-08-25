@@ -1,1 +1,54 @@
-..
+{layout '../layout.latte'}
+{block title}
+    Helpdesk
+{/block}
+{block content}
+    <h3>Hráčské tickety</h3>
+    <span class="text-muted" style="margin-bottom:8px;">Pokud jsi přihlášen na mobilním telefonu, pro zobrazení celé tabulky posouvejte ze strany na stranu.</span>
+    <div class="container-fluid bg-light border" style="border-radius: 5px">
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col" class="border-top-0">Název</th>
+                    <th scope="col" class="border-top-0">Autor</th>
+                    <th scope="col" class="border-top-0">Datum</th>
+                    <th scope="col" class="border-top-0">Stav</th>
+                    <th scope="col" class="border-top-0">ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                {foreach $tickets as $ticket}
+                    <tr>
+                        <td><a n:href="Main:ticket $ticket->id" class="text-dark">{$ticket->name}</a></td>
+                        <td>{$ticket->author}</td>
+                        <td>{$ticket->time}</td>
+                        <td><span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></td>
+                        <td class="text-info">#{$ticket->id}</td>
+                    </tr>
+                {/foreach}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="pagination d-block text-center" style="margin-top: 8px">
+        {if $page > 1}
+            <a n:href="default, 1">První</a>
+            &nbsp;|&nbsp;
+            <a n:href="default, $page-1">Předchozí</a>
+            &nbsp;|&nbsp;
+        {/if}
+
+        Stránka {$page} z {$lastPage}
+
+        {if $page < $lastPage}
+            &nbsp;|&nbsp;
+            <a n:href="default, $page+1">Další</a>
+            &nbsp;|&nbsp;
+            <a n:href="default, $lastPage">Poslední</a>
+        {/if}
+    </div>
+{/block}
+{block user_status}
+    Přihlášen jako {$helper->authUser->realname}, <span id="realtime"></span>
+{/block}

@@ -6,6 +6,7 @@ use App\Model\Utils;
 use Nette\Database\Context;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\IRow;
+use Nette\Database\Table\Selection;
 
 /**
  * Class TicketRepository
@@ -35,10 +36,10 @@ class TicketRepository
     }
 
     /**
-     * @return array|IRow[]
+     * @return Selection
      */
     public function getAllTickets() {
-        return $this->context->table(self::TABLE)->fetchAll();
+        return $this->context->table(self::TABLE)->order('time DESC');
     }
 
     /**

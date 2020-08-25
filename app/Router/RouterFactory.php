@@ -70,8 +70,10 @@ final class RouterFactory
             ->addRoute('/panel/pratele/<friend>', 'Friends:info');
 
         $router->withModule('HelpDesk')
-            ->addRoute('/help', 'Main:home')
-            ->addRoute('/help/login', 'Login:main');
+            ->addRoute('/help[/<page>]', 'Main:home')
+            ->addRoute('/help/login', 'Login:main')
+            ->addRoute('/help/tickety/<id>', 'Main:ticket')
+            ->addRoute('/help/odhlasit-se', 'Main:logout');
         
         $router->withModule('Stats')
             ->addRoute('/statistiky/', 'Main:app')

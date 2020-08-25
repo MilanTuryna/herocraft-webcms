@@ -20,6 +20,7 @@ class AddResponseForm
 
     private ActiveRow $user;
     private $ticketId;
+    private string $userType;
 
     /**
      * AddResponseForm constructor.
@@ -28,14 +29,16 @@ class AddResponseForm
      * @param TicketRepository $ticketRepository
      * @param ActiveRow $user
      * @param $ticketid
+     * @param string|null $userType
      */
-    public function __construct(Presenter $presenter, Captcha $captcha, TicketRepository $ticketRepository, ActiveRow $user, $ticketid)
+    public function __construct(Presenter $presenter, Captcha $captcha, TicketRepository $ticketRepository, ActiveRow $user, $ticketid, string $userType = null)
     {
         $this->presenter = $presenter;
         $this->captcha = $captcha;
         $this->ticketRepository = $ticketRepository;
         $this->user = $user;
         $this->ticketId = $ticketid;
+        $this->userType = $userType;
     }
 
     public function create(): Form {
@@ -58,7 +61,7 @@ class AddResponseForm
         if($this->captcha->verify($values->captcha)) {
             $this->ticketRepository->addResponse($this->ticketId, [
                 'author' => $this->user->realname,
-                'type' => TicketRepository::TYPES['player'],
+                'type' => $this->userType ? $this->userType : TicketRepository::TYPES['player'],
                 'content' => $values->content
             ]);
             $this->presenter->flashMessage('Odpověď byla úspěšně odeslána.', 'dark-green');
