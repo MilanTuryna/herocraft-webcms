@@ -4,7 +4,7 @@
 {/block}
 {block first_col}
         <a n:href="Main:home" class="small text-muted font-weight-bold">ZPĚT DO PANELU</a>
-        <h1 class="display-4 font-30">Přátelé ({$friendsCount})</h1>
+        <h1 class="display-4 font-30">Přátelé</h1>
         <hr>
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
         {if $friends}
@@ -20,4 +20,11 @@
 {/block}
 
 {block second_col}
+    <div style="background: rgba(0,0,0,0.3); padding: 16px">
+        <h5 class="font-weight-light pink-color">Přátelé</h5>
+        <ul class="text-white-50">
+            <li>Počet přátel: <span class="pink-color">{$friendsCount}</span></li>
+            <li>První přítel: <span class="pink-color">{isset($friends[0]) ? $friends[0]->player_name : 'není'}</span></li>
+        </ul>
+    </div>
 {/block}
