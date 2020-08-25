@@ -20,7 +20,7 @@
                 <tbody>
                 {foreach $tickets as $ticket}
                     <tr>
-                        <td><a n:href="Main:ticket $ticket->id" class="text-dark">{$ticket->name}</a></td>
+                        <td><a n:href="Main:ticket $ticket->id" class="text-primary">{$ticket->name}</a></td>
                         <td>{$ticket->author}</td>
                         <td>{$ticket->time}</td>
                         <td><span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></td>

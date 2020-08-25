@@ -67,6 +67,12 @@
             </div>
         </div>
     </div>
+    <div class="bg-light border shadow-sm" style="padding: 16px; margin-top: 16px">
+        <h5 >Informace o autorovi</h5>
+        <ul>
+            <li><a n:href=":Stats:API:view $ticket->author" class="text-dark" target="_blank">Otevřít hráče ve statistikách (v novém okně)</a></li>
+        </ul>
+    </div>
 {/block}
 {block user_status}
     Přihlášen jako {$helper->authUser->realname}, <span id="realtime"></span>
