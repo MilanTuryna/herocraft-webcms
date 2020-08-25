@@ -65,7 +65,7 @@ class MainPresenter extends HelpBasePresenter
         $tickets = $this->ticketRepository->getAllTickets();
         $lastPage = 0;
 
-        $ticketsOffset = $tickets->page($page, 15, $lastPage);
+        $ticketsOffset = $tickets->page($page, 5, $lastPage);
         if($page >! $lastPage) {
             $this->template->page = $page;
             $this->template->lastPage = $lastPage;

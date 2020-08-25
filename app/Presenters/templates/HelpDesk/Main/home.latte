@@ -33,9 +33,9 @@
     </div>
     <div class="pagination d-block text-center" style="margin-top: 8px">
         {if $page > 1}
-            <a n:href="default, 1">První</a>
+            <a n:href="Main:home, 1">První</a>
             &nbsp;|&nbsp;
-            <a n:href="default, $page-1">Předchozí</a>
+            <a n:href="Main:home, $page-1">Předchozí</a>
             &nbsp;|&nbsp;
         {/if}
 
@@ -43,9 +43,9 @@
 
         {if $page < $lastPage}
             &nbsp;|&nbsp;
-            <a n:href="default, $page+1">Další</a>
+            <a n:href="Main:home, $page+1">Další</a>
             &nbsp;|&nbsp;
-            <a n:href="default, $lastPage">Poslední</a>
+            <a n:href="Main:home, $lastPage">Poslední</a>
         {/if}
     </div>
 {/block}
