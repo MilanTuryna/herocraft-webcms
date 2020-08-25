@@ -15,4 +15,6 @@ budou moct helpeři odpovídat na tickety od hráčů.
 
 19.8 - Přidána klientská část API a struktura pro helpdesk.
 
-
+25.8 - První verze použitelného HelpDesku hotova, oveřování funguje na bázi
+AuthMe (minecraft plugin) a zároveň na luckperms, zda uživatel patří mezi 
+oprávněné skupiny (zatím developer, helper, admin, owner)
