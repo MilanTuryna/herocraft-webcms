@@ -74,7 +74,23 @@ class APIPresenter extends Presenter {
                         'count' => $this->cachedAPIRepository->getCountFriends($name),
                         'list' => $this->cachedAPIRepository->getFriendsList($name),
                     ], 'tokens' =>  $this->cachedAPIRepository->getTokenManager($name)->tokens,
-                ],
+                ], 'servers' => [
+                    'survival' => [
+                        'levels' => [
+                            'experience' => '',
+                            'playerKills' => '',
+                            'mobKills' => ''
+                        ],
+                        'lottery' => [
+                            'tickets' => '',
+                            'wins' => '',
+                            'money' => ''
+                        ],
+                        'economy' => [
+                            'playerPurse' => '',
+                        ]
+                    ],
+                ]
             ];
         } else {
             $response = [

@@ -41,3 +41,15 @@ database:
         dsn:
         user:
         password:
+    lottery:
+        dsn:
+        user:
+        password:
+    epiclevels:
+        dsn:
+        user:
+        password:
+    royaleeconomy:
+        dsn:
+        user:
+        password:
