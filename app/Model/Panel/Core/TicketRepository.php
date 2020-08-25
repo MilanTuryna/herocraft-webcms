@@ -70,6 +70,16 @@ class TicketRepository
 
     /**
      * @param $ticketId
+     * @return int
+     */
+    public function unlockTicket($ticketId) {
+        return $this->context->table(self::TABLE)->wherePrimary($ticketId)->update([
+            'locked' => 0
+        ]);
+    }
+
+    /**
+     * @param $ticketId
      * @return array|IRow[]
      */
     public function getTicketResponses($ticketId) {

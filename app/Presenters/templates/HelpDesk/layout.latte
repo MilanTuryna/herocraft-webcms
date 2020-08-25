@@ -41,7 +41,7 @@
             </style>
             <div n:foreach="$flashes as $flash" n:class="'card shadow-sm card-color-' . $flash->type" style="padding:16px; margin-bottom: 16px; background-color: #f8d7da">
                 <span class="text-muted">
-                    {$flash->message}
+                    {$flash->message|noescape}
                 </span>
             </div>
             <div class="card shadow-sm" style="padding:16px; margin-bottom: 16px">

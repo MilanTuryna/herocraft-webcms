@@ -4,6 +4,7 @@ namespace App\Presenters\HelpDeskModule;
 
 use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
+use App\Forms\Panel\Tickets\OpenTicketForm;
 use App\Model\Panel\Core\TicketRepository;
 use App\Model\Security\Auth\SupportAuthenticator;
 use App\Model\Security\Exceptions\AuthException;
@@ -99,6 +100,9 @@ class MainPresenter extends HelpBasePresenter
         $this->redirect('Login:main');
     }
 
+    /**
+     * @return Multiplier
+     */
     public function createComponentAddResponseForm(): Multiplier {
         return new Multiplier(function ($methodOrder) { // captcha
             return new Multiplier(function ($ticketId) use ($methodOrder) { // ticket
@@ -109,9 +113,21 @@ class MainPresenter extends HelpBasePresenter
         });
     }
 
+    /**
+     * @return Multiplier
+     */
     public function createComponentCloseTicketForm(): Multiplier {
         return new Multiplier(function ($ticketId) {
             return (new CloseTicketForm($this, $this->ticketRepository, $ticketId))->create();
+        });
+    }
+
+    /**
+     * @return Multiplier
+     */
+    public function createComponentOpenTicketForm(): Multiplier {
+        return new Multiplier(function ($ticketId) {
+            return (new OpenTicketForm($this, $this->ticketRepository, $ticketId))->create();
         });
     }
 }
