@@ -11,6 +11,7 @@ use App\Model\Panel\Core\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
+use App\Model\Stats\CachedAPIRepository;
 use App\Presenters\PanelBasePresenter;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
@@ -58,8 +59,24 @@ class TicketPresenter extends PanelBasePresenter
         }
     }
 
-    public function renderList() {
-        $this->template->tickets = $this->ticketRepository->getTicketsByAuthor($this->user->realname);
+    /**
+     * @param int $page
+     * @throws AbortException
+     */
+    public function renderList(int $page = 1) {
+        $tickets = $this->ticketRepository->getTicketsByAuthor($this->user->realname);
+
+        $lastPage = 0;
+        $ticketsPaginator = $tickets->page($page, 8, $lastPage);
+        $this->template->tickets = $ticketsPaginator;
+        $this->template->ticketsCount = $this->ticketRepository->getTicketsCount($this->user->realname);
+
+        $this->template->page = $page;
+        $this->template->lastPage = $lastPage;
+
+        if($page > $lastPage) {
+            $this->redirect("Ticket:list");
+        }
     }
 
     /**

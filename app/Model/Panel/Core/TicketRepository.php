@@ -44,10 +44,18 @@ class TicketRepository
 
     /**
      * @param $author
-     * @return array|IRow[]
+     * @return int
+     */
+    public function getTicketsCount($author) {
+        return $this->context->table(self::TABLE)->count('*');
+    }
+
+    /**
+     * @param $author
+     * @return Selection
      */
     public function getTicketsByAuthor($author) {
-        return $this->context->table(self::TABLE)->where('author = ?', $author)->fetchAll();
+        return $this->context->table(self::TABLE)->where('author = ?', $author);
     }
 
     public function getTicketById($id) {

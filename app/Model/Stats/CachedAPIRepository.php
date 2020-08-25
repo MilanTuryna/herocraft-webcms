@@ -9,6 +9,7 @@ use App\Model\API\Plugin\PlayerTime;
 use App\Model\API\Plugin\TokenManager;
 use App\Model\API\Plugin\Verus;
 use App\Model\Panel\AuthMeRepository;
+use App\Model\Panel\Core\TicketRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Utils\ArrayHash;

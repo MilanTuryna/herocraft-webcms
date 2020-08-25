@@ -62,9 +62,9 @@ final class RouterFactory
             ->addRoute('/panel/login', 'Login:main')
             ->addRoute('/panel/odhlasit-se', 'Login:logout')
 
-            ->addRoute('/panel/tickety', 'Ticket:list')
             ->addRoute('/panel/tickety/pridat', 'Ticket:add')
-            ->addRoute('/panel/tickety/<id>', 'Ticket:view')
+            ->addRoute('/panel/tickety/zobrazit/<id>', 'Ticket:view')
+            ->addRoute('/panel/tickety[/<page>]', 'Ticket:list')
 
             ->addRoute('/panel/pratele', 'Friends:list')
             ->addRoute('/panel/pratele/<friend>', 'Friends:info');

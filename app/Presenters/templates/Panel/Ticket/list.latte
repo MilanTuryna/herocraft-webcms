@@ -49,15 +49,32 @@
     <a n:href="Ticket:add" class="btn btn-sm btn-success border-radius-0 w-100">
         Přidat nový ticket
     </a>
+    {if $tickets}
+        <div class="pagination default-margin-top d-block bg-light border shadow-sm text-center " style="padding: 8px">
+            {if $page > 1}
+                <a n:href="Ticket:list, 1">První</a>
+                &nbsp;|&nbsp;
+                <a n:href="Ticket:list, $page-1">Předchozí</a>
+                &nbsp;|&nbsp;
+            {/if}
+
+            Stránka {$page} z {$lastPage}
+
+            {if $page < $lastPage}
+                &nbsp;|&nbsp;
+                <a n:href="Ticket:list, $page+1">Další</a>
+                &nbsp;|&nbsp;
+                <a n:href="Ticket:list, $lastPage">Poslední</a>
+            {/if}
+        </div>
+    {/if}
 {/block}
 
 {block second_col}
     <div style="background: rgba(0,0,0,0.3); padding: 16px">
         <h5 class="font-weight-light pink-color">Tvé tickety</h5>
         <ul class="text-white-50">
-            <li>Počet ticketů: <span class="pink-color">{count($tickets)}</span></li>
-            <li>První ticket: <span class="pink-color">{$tickets ? ($tickets[1]->name|truncate:15) : 'Není'}</li>
-            <li>Poslední ticket: <span class="pink-color">{$tickets ? (end($tickets)->name|truncate:15) : 'Není'}</span></li>
+            <li>Počet ticketů: <span class="pink-color">{$ticketsCount}</span></li>
         </ul>
     </div>
 {/block}
