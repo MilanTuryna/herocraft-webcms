@@ -29,6 +29,7 @@ class PlayerTime
 
     /**
      * @param $name
+     * @deprecated
      * @return float|int
      */
     public function getPlayedTime($name) {
