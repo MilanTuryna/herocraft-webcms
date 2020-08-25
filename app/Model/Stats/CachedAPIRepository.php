@@ -134,6 +134,7 @@ class CachedAPIRepository
 
     /**
      * @param $name
+     * @deprecated
      * @return mixed
      */
     public function getPlayedTime($name) {
