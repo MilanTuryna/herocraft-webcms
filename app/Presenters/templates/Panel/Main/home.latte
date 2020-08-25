@@ -66,6 +66,7 @@
             <ul class="text-white-50">
                 <li>Nick: <span class="pink-color">{$user->realname}</span></li>
                 <li>Typ účtu: <span class="pink-color">{$fastLogin->Premium ? 'Original' : 'Warez'} (zde na serveru)</span></li>
+                <li>Zabanovaný: <span class="pink-color">{$isBanned ? 'Ano' : 'Ne'}</span></li>
                 <li>Poslední přihlášení: <span class="pink-color">{$lastlogin|date:'d.n.Y H:i'}</span></li>
             </ul>
     </div>

@@ -9,6 +9,7 @@ use App\Model\API\Plugin\FastLogin;
 use App\Model\Panel\MojangRepository;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
+use App\Model\Stats\CachedAPIRepository;
 use App\Presenters\PanelBasePresenter;
 
 use Nette\Application\AbortException;
@@ -27,6 +28,7 @@ class MainPresenter extends PanelBasePresenter
     private MojangRepository $mojangRepository;
     private TokenManager $tokenManager;
     private Friends $friends;
+    private CachedAPIRepository $cachedAPIRepository;
 
     /**
      * MainPresenter constructor.
@@ -36,16 +38,18 @@ class MainPresenter extends PanelBasePresenter
      * @param MojangRepository $mojangRepository
      * @param TokenManager $tokenManager
      * @param Friends $friends
+     * @param CachedAPIRepository $cachedAPIRepository
      */
     public function __construct(PluginAuthenticator $pluginAuthenticator,
                                 SettingsRepository $settingsRepository,
                                 FastLogin $fastLogin,
                                 MojangRepository $mojangRepository,
                                 TokenManager $tokenManager,
-                                Friends $friends)
+                                Friends $friends, CachedAPIRepository $cachedAPIRepository)
     {
         parent::__construct($settingsRepository);
 
+        $this->cachedAPIRepository = $cachedAPIRepository;
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->fastLogin = $fastLogin;
         $this->mojangRepository = $mojangRepository;
@@ -78,6 +82,7 @@ class MainPresenter extends PanelBasePresenter
         $networkStats->tokenRow = $this->tokenManager->getRow($this->user->realname);
         $networkStats->friendsCount = $this->friends->countOfFriends($this->user->realname);
 
+        $this->template->isBanned = $this->cachedAPIRepository->isBanned($this->user->realname);
         $this->template->user = $this->user;
         $this->template->fastLogin = $this->fastLogin->getRow($this->user->realname);
         $this->template->networkStats = $networkStats;
