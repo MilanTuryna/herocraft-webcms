@@ -57,10 +57,13 @@
         <div class="col-md-4 padding-0" style="-webkit-box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75);
 -moz-box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75);
 box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75); background-color:rgba(255,255,255,0.1);">
+            {ifset $user->realname}
             <ul class="list-group">
                 <li class="list-group-item text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">{$user->realname}<span id="realtime"></span></li>
             </ul>
+            {/ifset}
             {include second_col}
+            {ifset $user->realname}
             <div style="padding: 16px" class="bg-opacity-white margin-bot-8">
                 <style>
                     .transparent-items li {
@@ -98,6 +101,7 @@ box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75); background-color:rgba(255,255
                     </a>
                 </ul>
             </div>
+            {/ifset}
             <a n:href=":Front:Page:home" class="small text-white-50 float-right" style="margin-right: 8px">Zpět na hlavní web</a>
         </div>
     </div>
