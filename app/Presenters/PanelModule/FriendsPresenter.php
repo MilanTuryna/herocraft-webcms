@@ -88,7 +88,7 @@ class FriendsPresenter extends PanelBasePresenter
         if($friendData->row) {
             if($this->friends->isFriends($this->user->realname, $friendData->row->player_id)) {
                 $friendData->name = $friend;
-                $friendData->skin = Minecraft::getSkinURL($this->mojangRepository->getUUID($friend));
+                $friendData->skin = Minecraft::getSkinURL($this->mojangRepository->getMojangUUID($friendData->row->player_name));
 
                 $this->template->friend = $friendData;
             } else {

@@ -47,9 +47,23 @@ class MojangRepository
      * @param $username
      * @return mixed
      */
+    public function getMojangUUID($username) {
+        if(is_null($this->cache->load('mojang_originaluuid_'. $username))) {
+            $this->cache->save('mojang_originaluuid_' . $username,  Minecraft::getUUID($username), [
+                Cache::EXPIRE => "24 hours"
+            ]);
+        }
+
+        return $this->cache->load('mojang_originaluuid_' . $username);
+    }
+
+    /**
+     * @param $username
+     * @return mixed
+     */
     public function getUUID($username) {
         if(is_null($this->cache->load('mojang_uuid_' . $username))) {
-            $this->cache->save('mojang_uuid_' . $username, $this->friends->getRowByName($username)->player_uuid, [
+            $this->cache->save('mojang_uuid_' . $username,  $this->friends->getRowByName($username)->player_uuid, [
                 Cache::EXPIRE => "24 hours"
             ]);
         }
