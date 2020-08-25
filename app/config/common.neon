@@ -30,7 +30,10 @@ services:
 	- App\Model\API\Plugin\FastLogin(@database.fastlogin.context)
 	- App\Model\Security\Auth\SupportAuthenticator
 	- App\Model\Stats\CachedAPIRepository
+	- App\Model\API\Plugin\Survival\EpicLevels(@database.epiclevels.context)
+	- App\Model\API\Plugin\Survival\Lottery(@database.lottery.context)
 	- App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
+	- App\Model\API\Plugin\Survival\RoyaleEconomy(@database.royaleeconomy.context)
 	- App\Model\API\Plugin\LiteBans(@database.litebans.context)
 	- App\Model\API\Plugin\PlayerTime(@database.playertime.context)
 	- App\Model\API\Plugin\Verus(@database.verus.context)
