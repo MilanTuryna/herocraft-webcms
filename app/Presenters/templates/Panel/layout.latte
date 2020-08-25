@@ -64,7 +64,7 @@ box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75); background-color:rgba(255,255
             {/ifset}
             {include second_col}
             {ifset $user->realname}
-            <div style="padding: 16px" class="bg-opacity-white margin-bot-8">
+            <div style="padding: 16px" class="bg-opacity-white">
                 <style>
                     .transparent-items li {
                         background-color: rgba(0,0,0,0.05);
@@ -101,6 +101,9 @@ box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75); background-color:rgba(255,255
                     </a>
                 </ul>
             </div>
+            <a n:href="Login:logout" style="padding: 4px" class="bg-opacity-danger border-radius-0 btn text-light text-center d-block w-100">
+                Odhlásit se
+            </a>
             {/ifset}
             <a n:href=":Front:Page:home" class="small text-white-50 float-right" style="margin-right: 8px">Zpět na hlavní web</a>
         </div>
