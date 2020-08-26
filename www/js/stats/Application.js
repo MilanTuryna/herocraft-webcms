@@ -169,7 +169,7 @@ let app = new Vue({
     <div id="collapse-progress" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
         <ul>
-         <li>Level: <b>${data.servers.survival.levels.experience}</b></li>
+         <li>Level: <b>${data.servers.survival.levels.level}</b> (${data.servers.survival.levels.experience.toFixed(2)} XP)</li>
          <li>Zabito hráčů: <b>${data.servers.survival.levels.playerKills}</b></li>
          <li>Zabito mobů: <b>${data.servers.survival.levels.mobKills}</b></li>
         </ul>
