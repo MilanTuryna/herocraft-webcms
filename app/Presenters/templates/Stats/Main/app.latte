@@ -11,6 +11,20 @@
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <link href="{$basePath}/css/stats.css" rel="stylesheet">
 </head>
+<style>
+    .modal{
+        display: block !important; /* I added this to see the modal, you don't need this */
+    }
+
+    /* Important part */
+    .modal-dialog{
+        overflow-y: initial !important
+    }
+    .stats-modal * .modal-body{
+        height: 720px;
+        overflow-y: auto;
+    }
+</style>
 <noscript>
     <style>
         .body {
