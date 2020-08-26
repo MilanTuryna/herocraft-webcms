@@ -83,6 +83,7 @@ let app = new Vue({
                     title: data.player.nickname + `<img src="${data.player.headImageURL}" style="width:20px; margin-left:5px;"/>`,
                     callback: () => history.pushState(null, 'Statistiky', window.location.href.split('?')[0]),
                     onEscape: false,
+                    scrollable: true,
                     message:
                         `<p class="text-muted small">Požadavek zpracován v ${dateFormat}</p>` +
                         '<p>' +
@@ -216,7 +217,6 @@ let app = new Vue({
             } else {
                 history.pushState(null, `Statistiky - ${this.button.player}`, '?player=' + this.button.player);
                 bootbox.alert({
-                    className: 'statsModal',
                     size: "large",
                     title: "Ouh, nastala chyba...",
                     message: "Vypadá to, že hráč " + Utils.string.escapeHtml(this.button.player) + " nebyl nalezen.",
