@@ -7,6 +7,10 @@ namespace App\Presenters\StatsModule;
 use App\Model\SettingsRepository;
 use App\Presenters\BasePresenter;
 
+/**
+ * Class MainPresenter
+ * @package App\Presenters\StatsModule
+ */
 class MainPresenter extends BasePresenter
 {
     private SettingsRepository $settingsRepository;
