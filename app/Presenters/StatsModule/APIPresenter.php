@@ -71,7 +71,9 @@ class APIPresenter extends Presenter {
                     'uuid' => $uuid,
                     'originalUuid' => $this->mojangRepository->getMojangUUID($name),
                     'headImageURL' => "https://minotar.net/avatar/{$name}.png",
-                    'auth' => [
+                    'perms' => [
+                        'groups' => $this->cachedAPIRepository->getPermGroups($uuid)
+                    ], 'auth' => [
                         'userID' => $user->id,
                         'regtime' => $user->regdate,
                         'lastlogin' => strtotime($fastLogin->LastLogin->date)*1000,

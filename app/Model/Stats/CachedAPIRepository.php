@@ -5,6 +5,7 @@ namespace App\Model\Stats;
 use App\Model\API\Plugin\FastLogin;
 use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\LiteBans;
+use App\Model\API\Plugin\LuckPerms;
 use App\Model\API\Plugin\PlayerTime;
 use App\Model\API\Plugin\TokenManager;
 use App\Model\API\Plugin\Verus;
@@ -29,6 +30,7 @@ class CachedAPIRepository
     private PlayerTime $playerTime;
     private LiteBans $liteBans;
     private Verus $verus;
+    private LuckPerms $luckPerms;
 
     /**
      * CachedAPIRepository constructor.
@@ -40,10 +42,11 @@ class CachedAPIRepository
      * @param PlayerTime $playerTime
      * @param LiteBans $liteBans
      * @param Verus $verus
+     * @param LuckPerms $luckPerms
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage, FastLogin $fastLogin,
                                 Friends $friends, TokenManager $tokenManager, PlayerTime $playerTime,
-                                LiteBans $liteBans, Verus $verus)
+                                LiteBans $liteBans, Verus $verus, LuckPerms $luckPerms)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -53,6 +56,7 @@ class CachedAPIRepository
         $this->playerTime = $playerTime;
         $this->liteBans = $liteBans;
         $this->verus = $verus;
+        $this->luckPerms = $luckPerms;
     }
 
     /**
@@ -104,6 +108,21 @@ class CachedAPIRepository
         if (is_null($this->cache->load($cacheName))) {
             $db = $this->tokenManager->getRow($user);
             $this->cache->save($cacheName,  $db ? ArrayHash::from($db->toArray()) : null, [
+                Cache::EXPIRE => self::EXPIRE_TIME
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @param $uuid
+     * @return mixed
+     */
+    public function getPermGroups($uuid) {
+        $cacheName = 'API_permGroups_' . $uuid;
+        if(is_null($this->cache->load($cacheName))) {
+            $this->cache->save($cacheName, $this->luckPerms->getUserGroups($uuid), [
                 Cache::EXPIRE => self::EXPIRE_TIME
             ]);
         }

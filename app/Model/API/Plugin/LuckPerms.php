@@ -44,4 +44,20 @@ class LuckPerms
         }
         return false;
     }
+
+    /**
+     * @param $uuid
+     * @return array
+     */
+    public function getUserGroups($uuid) {
+        $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ?', $uuid)->fetchAll();
+        $groups = [];
+        foreach ($rows as $row) {
+            if(mb_substr($row->permission, 0, 6) == 'group.') {
+                array_push($groups, mb_substr($row->permission, 6, strlen($row->permission)));
+            }
+        }
+
+        return $groups;
+    }
 }
