@@ -57,5 +57,3 @@ class EpicLevels
         return $lastLevel;
     }
 }
-
-echo EpicLevels::getLevel(1419);
