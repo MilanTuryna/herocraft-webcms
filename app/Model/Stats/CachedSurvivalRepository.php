@@ -76,10 +76,10 @@ class CachedSurvivalRepository
 
     public function getLevels($uuid) {
         $cache = 'API_SurvivalLevels_' . $uuid;
-        if(is_null($this->cache->load($cache))) {
             $row = $this->epicLevels->getRow($uuid);
             $result = [
                 'experience' => (double)$row->experience,
+                'level' => EpicLevels::getLevel((double)$row->experience),
                 'playerKills' => $row->player_kills,
                 'mobKills' => $row->mob_kills
             ];
@@ -87,7 +87,6 @@ class CachedSurvivalRepository
             $this->cache->save($cache, $result, [
                 Cache::EXPIRE => self::EXPIRE_TIME
             ]);
-        }
 
         return $this->cache->load($cache);
     }
