@@ -9,17 +9,33 @@
 {/block}
 {block content}
 	<style>
+		{if !$nastaveni->udrzba && isset($status->online) && $status->online}
 		.header {
 			background-image: url('{$basePath}/img/header.png');
 		}
+		{else}
+		.header {
+			background-image: url('{$basePath}/img/header_udrzba.png');
+		}
+		{/if}
 	</style>
 	<div class="header shadow-lg">
 		<div class="container" data-aos="fade-right"  data-aos-duration="1500">
-			{ifset $logo[0]}
+			<!--{ifset $logo[0]}
 					<img draggable="false" class="not-drag center-img" onmousedown="return false" src="{$basePath}/{$logo[0]}" id="logo" alt="logo">
 			{else}
 				<span class="invisible">&nbsp;</span>
-			{/ifset}
+			{/ifset}-->
+			<h2 class="font-weight-light text-white">
+				{if !$nastaveni->udrzba && isset($status->online) && $status->online}
+						Na serveru je momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+						Připoj se i ty na <strong>{$nastaveni->ip}</strong>
+				{else}
+						{if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+						{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+						{if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+				{/if}
+			</h2>
 		</div>
 	</div>
 	<hr>

@@ -33,27 +33,28 @@
 			</a>
 		</h1>
 		<div class="list-group list-group-flush navbar-list" data-aos-delay="150" data-aos="fade-right" data-aos-duration="1000">
-			<a
-					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:home') ? active : 'bg-warning'"
+			<a style="color: rgba(255,255,255,0.75)"
+					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:home') ? active : 'bg-transparent'"
 					n:href="Page:home">Úvod</a>
 			{foreach $stranky as $stranka}
-					<a
-							n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:page', $stranka->url) ? active : 'bg-warning'"
+					<a style="color: rgba(255,255,255,0.75)"
+							n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:page', $stranka->url) ? active : 'bg-transparent'"
 							n:href="Page:page $stranka->url">
 						{$stranka->name}
 					</a>
 			{/foreach}
-			<a
-					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archivv') ? active : 'bg-warning'"
+			<a style="color: rgba(255,255,255,0.75)"
+					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archiv') ? active : 'bg-transparent'"
 					n:href="Page:archiv">Archiv novinek</a>
 		</div>
-		<div class="list-group list-group-flush navbar-list" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000" style="margin-top:16px">
-			<a n:href=":Stats:Main:app" target="_blank" class="list-group-item list-group-item-action bg-info text-white">Statistiky</a>
-			<a n:href=":Panel:Login:main" target="_blank" class="list-group-item list-group-item-action text-white" style="background-color: #52B869">Hráčský panel</a>
+		<div class="list-group list-group-flush navbar-list" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000">
+			<a n:href=":Stats:Main:app" target="_blank" class="list-group-item list-group-item-action text-warning bg-transparent">Statistiky</a>
+			<a n:href=":Panel:Login:main" target="_blank" class="list-group-item list-group-item-action bg-transparent" style="color:#52B869">Hráčský panel</a>
 		</div>
+		<!--
 		<p class="small text-muted text-center" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000" style="margin-top:8px"><a n:href=":Front:Login:main" class="text-light">Administrace</a> /
 			<a n:href=":HelpDesk:Login:main" class="text-danger">Helpdesk</a></p>
-		<p class="small text-muted text-center"  data-aos-delay="350" data-aos="fade-up" data-aos-duration="1000" style="margin-top:8px">Developed by <a href="https://turyna.eu" target="_blank" class="text-info">Milan Turyna</a></p>
+		<p class="small text-muted text-center"  data-aos-delay="350" data-aos="fade-up" data-aos-duration="1000" style="margin-top:8px">Developed by <a href="https://turyna.eu" target="_blank" class="text-info">Milan Turyna</a></p>-->
 	</div>
 	<div id="page-content-wrapper">
 		<nav class="navbar navbar-expand-lg navbar-dark border-bottom bg-dark">
@@ -67,14 +68,13 @@
 				<div class="col-lg-3">
 					{if !$nastaveni->udrzba && isset($status->online) && $status->online}
 						<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color: #4f7546" role="alert">
-							Na serveru je momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
-							Připoj se i ty na <strong>{$nastaveni->ip}</strong>
+							<b>Status:</b> Online (bez problémů)
 						</div>
 					{else}
 						<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color:#b35340" role="alert">
-							{if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+							{if $nastaveni->udrzba}Status: údržba{/if}
 							{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
-							{if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+							{if !isset($status->online)}Status: nepodařilo se načíst :({/if}
 						</div>
 					{/if}
 					{$widget->code|noescape}
