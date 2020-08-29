@@ -65,6 +65,7 @@ final class PagePresenter extends BasePresenter
         $status = new Status((string)$nastaveni->ip, $this->cache);
 
         $this->template->logo = $this->settingsRepository->getLogo();
+        $this->template->widget = $this->db->table('widget')->wherePrimary(1)->fetch();
         $this->template->nastaveni = $nastaveni;
         $this->template->categoryRepository = $this->categoryRepository;
         $this->template->articleRepository = $this->articleRepository;
@@ -76,10 +77,7 @@ final class PagePresenter extends BasePresenter
      * @throws Exception
      */
     public function renderHome(): void {
-        $this->template->hlasovani = $this->db->table('vote'); // služby pro hlasování
-        $this->template->site = $this->db->table('social'); // sociální sítě
-        $this->template->minihry = $this->db->table('minigames');
-        $articles = $this->articleRepository->findPublishedArticles(3)->fetchAll();
+        $articles = $this->articleRepository->findPublishedArticles(6)->fetchAll();
         $articlesArr = [];
 
         foreach ($articles as $article) array_push($articlesArr, $article);

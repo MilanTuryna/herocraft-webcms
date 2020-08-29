@@ -9,86 +9,93 @@
 
 	<title>{include title|trim}</title>
 	<link href="{$basePath}/css/bootstrap.min.css" rel="stylesheet">
-	<link href="{$basePath}/css/main.css" rel="stylesheet">
+	<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+	<link href="{$basePath}/css/classic.css" rel="stylesheet">
 </head>
 <body>
-<header class="container-fluid header">
-	<div class="container">
-		{ifset $logo[0]}
+<noscript>
+	<style>
+		*[data-aos] {
+			display: block !important;
+			opacity: 1 !important;
+			visibility: visible !important;
+		}
+	</style>
+</noscript>
+<noscript>
+	<b>Web bez zapnutého javascriptu nebude fungovat správně!</b>
+</noscript>
+<div class="d-flex" id="wrapper">
+	<div class="" style="background: #111" id="sidebar-wrapper">
+		<h1 class="sidebar-heading text-warning">
 			<a n:href="Page:home">
-				<img draggable="false" class="not-drag center-img" onmousedown="return false" src="{$basePath}/{$logo[0]}" id="logo" alt="logo">
+				<img draggable="false" width="200" class="not-drag center-img" onmousedown="return false" src="https://test.turyna.eu/img/logo.png" alt="logo">
 			</a>
-		{else}
-			<span class="invisible">&nbsp;</span>
-		{/ifset}
-	</div>
-</header>
-<nav class="navbar navbar-light bg-light" style="border-bottom: 1px solid #dfdfdf; outline:none;">
-	<div class="container">
-		  <span class="navbar-text">
-			  {$nastaveni->nazev}
-		  </span>
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-			<span class="navbar-toggler-icon"></span>
-		</button>
-		<div class="collapse navbar-collapse border-top" id="navbarNav">
-			<ul class="navbar-nav default-margin-top">
-				<li n:class="$presenter->isLinkCurrent('Page:home') ? active, true ? nav-item">
-					<a class="nav-link" n:href="Page:home">Úvod <span class="sr-only">(current)</span></a>
-				</li>
-				{foreach $stranky as $stranka}
-					<li n:class="$presenter->isLinkCurrent('Page:page', $stranka->url) ? active">
-						<a class="nav-link" n:href="Page:page $stranka->url">{$stranka->name}</a>
-					</li>
-				{/foreach}
-				<li n:class="$presenter->isLinkCurrent('Page:archiv') ? active">
-					<a class="nav-link" n:href="Page:archiv">Archiv novinek</a>
-				</li>
-				<li class="nav-item bg-info uzivatelska-sekce classic-shadow default-margin-top" style="text-align:center;">
-					<a class="nav-link text-white" n:href=":Panel:Login:main">Uživatelská sekce</a>
-				</li>
-				<li class="nav-item uzivatelska-sekce classic-shadow default-margin-top" style="text-align:center;background-color: rgba(40, 167, 69,0.8)">
-					<a class="nav-link text-white" n:href=":Stats:Main:app">Hráčské statistiky</a>
-				</li>
-			</ul>
+		</h1>
+		<div class="list-group list-group-flush navbar-list" data-aos-delay="150" data-aos="fade-right" data-aos-duration="1000">
+			<a
+					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:home') ? active : 'bg-warning'"
+					n:href="Page:home">Úvod</a>
+			{foreach $stranky as $stranka}
+					<a
+							n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:page', $stranka->url) ? active : 'bg-warning'"
+							n:href="Page:page $stranka->url">
+						{$stranka->name}
+					</a>
+			{/foreach}
+			<a
+					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archivv') ? active : 'bg-warning'"
+					n:href="Page:archiv">Archiv novinek</a>
 		</div>
+		<div class="list-group list-group-flush navbar-list" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000" style="margin-top:16px">
+			<a n:href=":Stats:Main:app" target="_blank" class="list-group-item list-group-item-action bg-info text-white">Statistiky</a>
+			<a n:href=":Panel:Login:main" target="_blank" class="list-group-item list-group-item-action text-white" style="background-color: #52B869">Hráčský panel</a>
+		</div>
+		<p class="small text-muted text-center" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000" style="margin-top:8px"><a n:href=":Front:Login:main" class="text-light">Administrace</a> /
+			<a n:href=":HelpDesk:Login:main" class="text-danger">Helpdesk</a></p>
+		<p class="small text-muted text-center"  data-aos-delay="350" data-aos="fade-up" data-aos-duration="1000" style="margin-top:8px">Developed by <a href="https://turyna.eu" target="_blank" class="text-info">Milan Turyna</a></p>
 	</div>
-</nav>
-<main class="container" style="margin-top:16px; min-height: calc(65.5vh - 57px);">
-	<div class="alert border-0 discord-alert" role="alert">
-		Připoj se k našemu discordu <a href="{$nastaveni->discord}" target="_blank" class="text-white"><strong>kliknutím!</strong></a>
-		<img src="{$basePath}/img/icon/discord.png" width="25" class="float-right rotate-hover not-drag" alt="discord"/>
-	</div>
-	{if !$nastaveni->udrzba && isset($status->online) && $status->online}
-			<div class="alert  border-0 minecraft-alert" role="alert">
-				Na serveru je momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
-				Připoj se i ty na <strong>{$nastaveni->ip}</strong>
-				<img src="{$basePath}/img/icon/sword.png" width="25" class="float-right rotate-hover not-drag" alt="sword"/>
-
+	<div id="page-content-wrapper">
+		<nav class="navbar navbar-expand-lg navbar-dark border-bottom bg-dark">
+			<span class="navbar-toggler-icon float-left d-block" id="menu-toggle" style="cursor:pointer; font-size: 20px"> </span>
+		</nav>
+		<div class="container-fluid">
+			<div class="row" style="margin-top:16px;margin-bottom: 64px;">
+				<div class="col-lg-9">
+					{include content}
+				</div>
+				<div class="col-lg-3">
+					{if !$nastaveni->udrzba && isset($status->online) && $status->online}
+						<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color: #4f7546" role="alert">
+							Na serveru je momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+							Připoj se i ty na <strong>{$nastaveni->ip}</strong>
+						</div>
+					{else}
+						<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color:#b35340" role="alert">
+							{if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+							{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+							{if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+						</div>
+					{/if}
+					{$widget->code|noescape}
+				</div>
 			</div>
-	{else}
-		<div class="alert border-0 danger-alert" role="alert">
-			{if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
-			{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
-			{if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
 		</div>
-	{/if}
-	{include content}
-</main>
-<footer class="navbar navbar-light bg-light border-top">
-	<div class="container">
-		  <span class="navbar-text">
-			  Webový systém vytvořil <a href="https://turyna.eu" target="_blank">Milan Turyna</a>
-          </span>
-		<span class="navbar-text float-right">
-			  <a n:href="Login:main">Administrace</a> / <a n:href=":HelpDesk:Login:main">Helpdesk</a>
-          </span>
 	</div>
-</footer>
-<script src="{$basePath}/js/jquery.min.js" type="text/javascript"></script>
-<script src="{$basePath}/js/bootstrap.min.js" type="text/javascript"></script>
-{ifset #end_body}
-	{include end_body}
-{/ifset}
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+	AOS.init({
+		once: true
+	});
+
+	$("#menu-toggle").click(function(e) {
+		e.preventDefault();
+		$("#wrapper").toggleClass("toggled");
+	});
+</script>
 </body>
 </html>

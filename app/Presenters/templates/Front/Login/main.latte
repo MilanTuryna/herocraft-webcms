@@ -5,7 +5,7 @@
 {block keywords}{/block}
 {block content}
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type, 'border-radius-0'">{$flash->message}</div>
-    <div class="card classic-shadow default-margin-bot">
+    <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000" class="card shadow default-margin-bot">
         <div class="card-body">
             <h5 style="margin:0!important;" class="card-title">Přihlásit se</h5>
             <div class="card-text">
@@ -26,7 +26,7 @@
                 </form>
             </div>
         </div>
-        <div class="card-footer text-black-50">
+        <div class="card-footer text-muted">
             <div class="float-left">
                 Pouze pro autorizované osoby
             </div>

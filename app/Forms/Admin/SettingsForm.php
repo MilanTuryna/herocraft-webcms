@@ -43,11 +43,6 @@ class SettingsForm
             ->setRequired()
             ->setMaxLength(35)
             ->setDefaultValue($settings->ip);
-        $form->addText('discord', 'Discord')
-            ->setHtmlType('url')
-            ->setDefaultValue($settings->discord)
-            ->setMaxLength(30)
-            ->setRequired();
         $form->addSelect('udrzba', 'Údržba', [
             '0' => 'Neaktivní',
             '1' => 'Aktivní'
@@ -63,7 +58,6 @@ class SettingsForm
         $this->settings->setRows([
             "nazev" => $values->name,
             "ip" => $values->ip,
-            "discord" => $values->discord,
             "udrzba" => $values->udrzba,
         ]);
         if($values->logo->isOk() && $values->logo->isImage()) {

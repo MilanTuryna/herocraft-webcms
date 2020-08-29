@@ -1,1 +1,0 @@
-nick se bere z authme, typ uctu fastlogin, regdate - authme, last login - fastlogin, pvpcoiny - tokenmanager

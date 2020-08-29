@@ -53,23 +53,11 @@ class MainPresenter extends AdminBasePresenter
             "clanky" => $this->db->table('articles')->count('*'),
             "stranky" => $this->db->table('pages')->count('*'),
             "administrators" => $this->db->table('admin')->count('*'),
-            "hlasovani" => $this->db->table('vote')->count('*'),
-            "minihry" => $this->db->table('minigames')->count('*'),
-            "soc_site" => $this->db->table('social')->count('*'),
         ];
     }
 
     public function renderSettings() {
         $this->template->logo = $this->settingsRepository->getLogo();
-    }
-
-    /**
-     * @throws AbortException
-     * @throws BadRequestException
-     */
-    public function actionGuide(): void //send pdf
-    {
-        $this->sendResponse(new FileResponse(__DIR__ . '/../templates/Admin/Files/napoveda.pdf'));
     }
 
     protected function createComponentSettingsForm(): Form

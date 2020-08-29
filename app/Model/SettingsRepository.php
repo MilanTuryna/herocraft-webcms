@@ -75,4 +75,8 @@ class SettingsRepository
     public function getRow($name) {
         return $this->db->table('nastaveni')->select($name)->get(1);
     }
+
+    public function getContext(): Context {
+        return $this->db;
+    }
 }

@@ -22,10 +22,9 @@ class ArticleRepository
 
     const PATH = 'img/miniatures/';
     const PROPERTIES = [
-        "archiv_length" => 350, // ukázka článků v archivu
-        "per_page" => 5,
+        "per_page" => 9,
         "min_length" => 420,
-        "sorting" => 'ASC',
+        "sorting" => 'DESC',
         "MINIATURE" => [
             "width" => 1680,
             "height" => 720,

@@ -18,7 +18,6 @@ final class RouterFactory
 
         $router->withModule('Admin')
             ->addRoute('/admin', 'Main:home')
-            ->addRoute('/admin/napoveda', 'Main:guide')
 
             ->addRoute('/admin/clanky', 'Article:list')
             ->addRoute('/admin/clanky/vytvorit', 'Article:create')
@@ -29,11 +28,6 @@ final class RouterFactory
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
             ->addRoute('/admin/stranky/edit/<url>', 'Page:edit')
             ->addRoute('/admin/stranky/odstranit/<url>', 'Page:delete')
-
-            ->addRoute('/admin/minihry', 'Minigame:list')
-            ->addRoute('/admin/minihry/vytvorit', 'Minigame:create')
-            ->addRoute('/admin/minihry/edit/<id>', 'Minigame:edit')
-            ->addRoute('/admin/minihry/odstranit/<id>', 'Minigame:delete')
 
             ->addRoute('/admin/kategorie', 'Category:list')
             ->addRoute('/admin/kategorie/vytvorit', 'Category:create')
