@@ -8,8 +8,15 @@
     ddd
 {/block}
 {block content}
+    <style>
+        .dark-blue-btn {
+            background:#01579b;
+            color:#fff;
+            transition:0.5s;
+        }
+    </style>
     <div data-aos="fade-left" data-aos-duration="1500">
-        <h3 class="shadow bg-light" style="padding: 8px; border-radius: 8px">Archiv</h3>
+        <h3 class="shadow bg-light border" style="padding: 8px; border-radius: 8px">Archiv</h3>
         {if $logged}
             <a n:href=":Admin:Article:create" target="_blank" class="btn btn-block dark-blue-btn shadow-none border-radius-0 default-margin-bot">Přidat nový článek</a>
         {/if}
