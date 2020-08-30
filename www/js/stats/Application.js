@@ -124,6 +124,14 @@ let app = new Vue({
                     </div>
                     <div class="row border-top" style="margin:0;">
                          <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
+                            <b>Ban</b>
+                        </div>
+                        <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
+                            ${data.player.isBanned ? 'Zabanován' : 'Nezabanován'}
+                        </div> 
+                    </div>
+                    <div class="row border-top" style="margin:0;">
+                         <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
                             <b>Hodnost</b>
                         </div>
                         <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
