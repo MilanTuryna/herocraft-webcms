@@ -1,11 +1,10 @@
-<?php /** @noinspection ALL */
+<?php
 
 namespace App\Forms\Admin;
 
 
 use App\Model\SettingsRepository;
 use Nette\Application\UI\Presenter;
-use Nette\Database\Context;
 use Nette\Application\UI\Form;
 
 /**

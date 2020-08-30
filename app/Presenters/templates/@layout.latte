@@ -74,7 +74,7 @@
 						<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color:#b35340" role="alert">
 							{if $nastaveni->udrzba}Status: údržba{/if}
 							{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
-							{if !isset($status->online)}Status: nepodařilo se načíst :({/if}
+							{if !isset($status->online)}Status se nepodařilo načíst :({/if}
 						</div>
 					{/if}
 					{$widget->code|noescape}
