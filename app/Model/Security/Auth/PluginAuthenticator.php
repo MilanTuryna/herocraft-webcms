@@ -21,6 +21,7 @@ class PluginAuthenticator implements IAuthenticator
 
     private AuthMeRepository $authMeRepository;
     private Session $session;
+    private AuthMe $authMe;
 
     /**
      * PluginAuthenticator constructor.
@@ -31,6 +32,7 @@ class PluginAuthenticator implements IAuthenticator
     {
         $this->authMeRepository = $authMeRepository;
         $this->session = $session;
+        $this->authMe = new AuthMe();
     }
 
     /**
@@ -45,7 +47,7 @@ class PluginAuthenticator implements IAuthenticator
         $section = $this->session->getSection(self::SESSION_SECTION);
         $section->setExpiration($expiration);
 
-        if($user && @AuthMe::isValidLogin($password, $user->password)) {
+        if($user && $this->authMe->isValidPassword($password, $user->password)) {
             $section->id = $user->id;
         } else {
             throw new AuthException('Zadal jsi nesprávný nick nebo heslo!');

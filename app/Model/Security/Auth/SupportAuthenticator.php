@@ -24,6 +24,7 @@ class SupportAuthenticator implements IAuthenticator
     private Session $session;
     private LuckPerms $luckPerms;
     private MojangRepository $mojangRepository;
+    private AuthMe $authMe;
 
     /**
      * SupportAuthenticator constructor.
@@ -38,6 +39,7 @@ class SupportAuthenticator implements IAuthenticator
         $this->session = $session;
         $this->luckPerms = $luckPerms;
         $this->mojangRepository = $mojangRepository;
+        $this->authMe = new AuthMe();
     }
 
     /**
@@ -52,7 +54,7 @@ class SupportAuthenticator implements IAuthenticator
         $section = $this->session->getSection(self::SESSION_SECTION);
         $section->setExpiration($expiration);
 
-        if($user && @AuthMe::isValidLogin($password, $user->password)) {
+        if($user && $this->authMe->isValidPassword($password, $user->password)) {
             if($this->luckPerms->isUserHelper($this->mojangRepository->getUUID($name))) {
                 $section->id = $user->id;
             } else {
