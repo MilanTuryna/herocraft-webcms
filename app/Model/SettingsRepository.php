@@ -69,6 +69,25 @@ class SettingsRepository
     }
 
     /**
+     * @param $code
+     * @param int $primary
+     * @return int
+     */
+    public function setWidgetCode($code, $primary = 1) {
+        return $this->db->table('widget')->wherePrimary($primary)->update([
+            'code' => $code
+        ]);
+    }
+
+    /**
+     * @param int $primary
+     * @return mixed|ActiveRow
+     */
+    public function getWidgetCode($primary = 1) {
+        return $this->db->table('widget')->get($primary)->code;
+    }
+
+    /**
      * @param $name
      * @return ActiveRow|null
      */

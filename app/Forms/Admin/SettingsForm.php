@@ -42,6 +42,9 @@ class SettingsForm
             ->setRequired()
             ->setMaxLength(35)
             ->setDefaultValue($settings->ip);
+        $form->addTextArea('widget')
+            ->setDefaultValue($this->settings->getWidgetCode())
+            ->setRequired();
         $form->addSelect('udrzba', 'Údržba', [
             '0' => 'Neaktivní',
             '1' => 'Aktivní'
@@ -59,6 +62,7 @@ class SettingsForm
             "ip" => $values->ip,
             "udrzba" => $values->udrzba,
         ]);
+        $this->settings->setWidgetCode($values->widget);
         if($values->logo->isOk() && $values->logo->isImage()) {
             if($this->settings->getLogo()) {
                 $this->settings->deleteLogo();

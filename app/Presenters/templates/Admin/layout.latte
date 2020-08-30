@@ -72,8 +72,7 @@
         e.stopPropagation();
     });
 </script>
-
-
+<script>if (window.history.replaceState) window.history.replaceState( null, null, window.location.pathname);</script>
 {ifset #end_body}
     {include end_body|trim}
 {/ifset}
