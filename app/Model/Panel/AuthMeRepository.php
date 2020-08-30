@@ -29,6 +29,17 @@ class AuthMeRepository
         return $this->context->table('authme')->get($id);
     }
 
+    /**
+     * @param $hashedPassword
+     * @param $id
+     * @return int
+     */
+    public function changePassword($hashedPassword, $id) {
+        return $this->context->table('authme')->where('id = ?', $id)->update([
+            'password' => $hashedPassword
+        ]);
+    }
+
     public function delete($id) {
         return $this->context->table('authme')->where('id = ?', $id)->delete();
     }
