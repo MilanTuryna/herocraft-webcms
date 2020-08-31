@@ -53,6 +53,7 @@ final class RouterFactory
 
         $router->withModule('Panel')
             ->addRoute('/panel', 'Main:home')
+            ->addRoute('/panel/zmena-hesla', 'Main:changePass')
             ->addRoute('/panel/login', 'Login:main')
             ->addRoute('/panel/odhlasit-se', 'Login:logout')
 

@@ -1,11 +1,13 @@
 <?php
 namespace App\Presenters\PanelModule;
 
+use App\Forms\Panel\Main\ChangePasswordForm;
 use App\Forms\Panel\Main\FastLoginForm;
 use App\Model\API\Minecraft;
 use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\TokenManager;
 use App\Model\API\Plugin\FastLogin;
+use App\Model\Panel\AuthMeRepository;
 use App\Model\Panel\MojangRepository;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
@@ -13,6 +15,7 @@ use App\Model\Stats\CachedAPIRepository;
 use App\Presenters\PanelBasePresenter;
 
 use Nette\Application\AbortException;
+use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
 
@@ -29,11 +32,13 @@ class MainPresenter extends PanelBasePresenter
     private TokenManager $tokenManager;
     private Friends $friends;
     private CachedAPIRepository $cachedAPIRepository;
+    private AuthMeRepository $authMeRepository;
 
     /**
      * MainPresenter constructor.
      * @param PluginAuthenticator $pluginAuthenticator
      * @param SettingsRepository $settingsRepository
+     * @param AuthMeRepository $authMeRepository
      * @param FastLogin $fastLogin
      * @param MojangRepository $mojangRepository
      * @param TokenManager $tokenManager
@@ -42,6 +47,7 @@ class MainPresenter extends PanelBasePresenter
      */
     public function __construct(PluginAuthenticator $pluginAuthenticator,
                                 SettingsRepository $settingsRepository,
+                                AuthMeRepository $authMeRepository,
                                 FastLogin $fastLogin,
                                 MojangRepository $mojangRepository,
                                 TokenManager $tokenManager,
@@ -55,6 +61,7 @@ class MainPresenter extends PanelBasePresenter
         $this->mojangRepository = $mojangRepository;
         $this->tokenManager = $tokenManager;
         $this->friends = $friends;
+        $this->authMeRepository = $authMeRepository;
     }
 
     /**
@@ -72,11 +79,9 @@ class MainPresenter extends PanelBasePresenter
         }
     }
 
-    public function renderHome()
+    public function beforeRender()
     {
-        $mcUser = new \stdClass();
-        $mcUser->uuid = $this->mojangRepository->getUUID($this->user->realname);
-        $mcUser->skin = Minecraft::getSkinURL($this->mojangRepository->getMojangUUID($this->user->realname));
+        parent::beforeRender();
 
         $networkStats = new \stdClass();
         $networkStats->tokenRow = $this->tokenManager->getRow($this->user->realname);
@@ -86,7 +91,27 @@ class MainPresenter extends PanelBasePresenter
         $this->template->user = $this->user;
         $this->template->fastLogin = $this->fastLogin->getRow($this->user->realname);
         $this->template->networkStats = $networkStats;
+    }
+
+    public function renderHome()
+    {
+        $mcUser = new \stdClass();
+        $mcUser->uuid = $this->mojangRepository->getUUID($this->user->realname);
+        $mcUser->skin = Minecraft::getSkinURL($this->mojangRepository->getMojangUUID($this->user->realname));
+
         $this->template->mcUser = $mcUser;
+    }
+
+
+
+    public function renderChangePass() {
+    }
+
+    /**
+     * @return Form
+     */
+    public function createComponentChangePassForm(): Form {
+        return (new ChangePasswordForm($this, $this->user, $this->authMeRepository))->create();
     }
 
     /**
