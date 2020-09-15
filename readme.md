@@ -1,4 +1,4 @@
-Webový systém pro PvPcraft
+Webový systém pro HeroCraft
 =================
 
 Tento webový systém je programovaný v Nette (PHP framework) a na GitHub byl přidán
@@ -18,3 +18,5 @@ budou moct helpeři odpovídat na tickety od hráčů.
 25.8 - První verze použitelného HelpDesku hotova, oveřování funguje na bázi
 AuthMe (minecraft plugin) a zároveň na luckperms, zda uživatel patří mezi 
 oprávněné skupiny (zatím developer, helper, admin, owner)
+
+15.9 - Konec spolupráce s PVPcraftem, web se bude nadále vyvíjet pod Herocraft.cz
