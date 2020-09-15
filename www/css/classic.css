@@ -10,9 +10,6 @@ Head Component
     width: 250px;
     transition:0.5s;
 }
-.col-lg-4 {
-    margin-bottom: 16px;
-}
 .header {
     padding: 60px 16px;
     border-radius: 10px;
@@ -59,7 +56,8 @@ Head Component
     overflow-x: hidden;
 }
 #sidebar-wrapper {
-    min-height: 100vh;
+    min-height: 80vh;
+
     margin-left: -15rem;
     -webkit-transition: margin .25s ease-out;
     -moz-transition: margin .25s ease-out;
@@ -80,6 +78,7 @@ Head Component
     margin-left: 0;
 }
 @media (min-width: 1200px) {
+
     #sidebar-wrapper {
         margin-left: 0;
     }

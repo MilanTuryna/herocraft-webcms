@@ -21,65 +21,77 @@
     <strong>We're sorry but this site doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
 </noscript>
 <body>
-<div class="container" style="min-height: 100vh;">
-    <div class="row" style="min-height: 100vh;-webkit-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);-moz-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);">
-        <div class="col-sm-8 " style="background-color: #e9f5ea;padding-left:32px;padding-right: 32px;">
-            <header style="padding-top:32px">
-                <h1 class="font-weight-light" style="font-size: 40px" data-aos="fade-left" data-aos-duration="1000">
-                    Hráčské statistiky
-                </h1>
-            </header>
-            <nav>
-                <ul class="list-group transparent-items " data-aos-duration="1500" data-aos-delay="500" data-aos="fade-left" style="color: rgba(255,255,255,0.75)">
-                    <span class="importantcolor text-dark">
-                        <li class="list-group-item font-weight-normal ">Informační část</li>
-                    </span>
-                </ul>
-            </nav>
-            <main id="app" n:syntax="off"  style="color: rgb(255, 255, 255);">
-                <div id="status-section" data-aos-duration="1500" data-aos-delay="500" data-aos="fade-left">
-                    <div class="alert" v-if="!api.errored" style="background-color: rgba(125, 181, 138, 1); border-radius: 0">
-                        {{messages.api_online}}
-                        <hr>
-                        <p class="small" style="color: rgba(255,255,255,0.75)">
-                            {{api.time_execute}}
-                        </p>
-                    </div>
-                    <div class="alert" v-if="api.errored" style="background-color: rgba(219, 117, 112,0.5); border-radius: 0" role="alert">
-                        {{messages.api_offline}}
-                        <hr>
-                        <p class="small" style="color: rgba(255,255,255,0.75)">
-                            {{api.time_execute}}
-                        </p>
-                    </div>
-                </div>
-                <div id="search" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="750">
-                    <div class="border" style="background-color:rgba(255, 255, 255,0.3) !important; padding: 16px">
+<div class="container">
+    <div class="d-block text-center" style="margin-top: 16px">
+        <img draggable="false" width="200" onmousedown="return false" src="https://test.turyna.eu/img/logo.png" alt="logo">
+    </div>
+    <h1 class="font-weight-light text-warning text-center bg-dark"
+        style="width: 60%; margin-bottom:0; color: rgba(0,0,0,0.7); font-family: 'Agency FB', serif;">
+        STATISTIKY
+    </h1>
+    <hr style="margin-top:0; background-color: #eee">
+    <div class="row"  style="margin-bottom: 32px">
+        <div class="col-sm-12" id="app">
+            <div class="border shadow-sm" style="padding: 16px; background-color: rgba(0,0,0,0.1)">
+                <div id="search" n:syntax="off" data-aos="fade-left" data-aos-duration="1500">
+                    <div style="background-color:rgba(255, 255, 255,0.3) !important; padding: 16px">
                         <h4 class="font-weight-normal text-dark">Vyhledat hráče podle nicku</h4>
                         <input type="text" v-model="button.player"  id="playerInput" maxlength="16" class="form-control green-focus" placeholder="např: DarkMilan">
-                        <span class="small text-muted" style="margin-bottom:500px">
-                            Zveřejňujeme pouze herní data, nikoliv osobní údaje
-                        </span>
-                        <button type="button" class="btn btn-success w-100" style="margin-top:16px" v-on:click="submitPlayer" :disabled="button.player ? false : true">
+                        <button type="button" class="btn w-100 btn-secondary" style="margin-top:16px; border-radius: 0;"
+                                v-on:click="submitPlayer" :disabled="button.player ? false : true">
                             Zobrazit hráče {{button.player }}
                         </button>
                     </div>
                 </div>
-            </main>
-            <footer>
-            </footer>
+            </div>
         </div>
-        <div class="col-sm-4 "
-             style="background-color: rgba(191, 201, 147,0.65);padding: 32px;-webkit-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);-moz-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);">
-            <div class="text-center" style="margin:0">
-                <h3 class="font-weight-light" style="font-size: 35px">{$nazev}</h3>
-                <ul class="list-group transparent-items " style="color: rgba(255,255,255,0.75)">
-                    <a n:href=":Front:Page:home">
-                        <li class="list-group-item">Přejít na hlavní web</li>
-                    </a>
-                    <a n:href=":Panel:Login:main">
-                        <li class="list-group-item">Přejít do infopanelu</li>
-                    </a>
+    </div>
+    <h1 class="font-weight-light text-warning text-center bg-dark" style="width: 60%; margin-bottom:0; color: rgba(0,0,0,0.7); font-family: 'Agency FB', serif;">
+        NETWORK
+    </h1>
+    <hr color="#eee" style="margin-top:0;">
+    <div class="row">
+        <div class="col-sm-8">
+            <div class="bg-warning shadow-sm" style="padding: 16px">
+                <h3 class="font-weight-mini-bold">Czech-Craft</h3>
+                <hr>
+                <ul>
+                    <li>Počet hlasů: <strong>{$votesCount}</strong></li>
+                    <li>Hlasy za poslední měsíc: <strong>{$votesLastMonth}</strong></li>
+                    <li>Top hlasujicí: <strong>{$topVoter->username}, zahlasoval {$topVoter->votes}</strong></li>
+                    <li>Pořadí networku: <strong>{$czechCraftPosition}</strong></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="h-100 w-100 shadow-sm" style="padding: 16px; background-color: rgba(94, 252, 130,0.5); color: rgba(0,0,0,0.95)">
+                <h3 class="font-weight-mini-bold">
+                    Status
+                </h3>
+                <hr>
+                <ul>
+                    <li>
+                        IP: <b>{$nastaveni->ip}</b>
+                    </li>
+                    <li>
+                        Hráčů online: <strong>{if !$nastaveni->udrzba && isset($status->online) && $status->online}
+                                {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}
+                            {else}
+                                *neznámo*
+                            {/if}</strong>
+                    </li>
+                    <li>
+                        Dostupný: <strong>
+                            {if !$nastaveni->udrzba && isset($status->online) && $status->online}
+                                Ano
+                            {else}
+                                {if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+                                {if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+                                {if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+                            {/if}
+                        </strong>
+                    </li>
+                    <li>Verze: <b>{if $status && isset($status->version)}{$status->version}{else}Neznámá{/if}</b></li>
                 </ul>
             </div>
         </div>

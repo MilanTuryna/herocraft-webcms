@@ -37,11 +37,11 @@
 					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:home') ? active : 'bg-transparent'"
 					n:href="Page:home">Úvod</a>
 			{foreach $stranky as $stranka}
-					<a style="color: rgba(255,255,255,0.75)"
-							n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:page', $stranka->url) ? active : 'bg-transparent'"
-							n:href="Page:page $stranka->url">
-						{$stranka->name}
-					</a>
+				<a style="color: rgba(255,255,255,0.75)"
+						n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:page', $stranka->url) ? active : 'bg-transparent'"
+						n:href="Page:page $stranka->url">
+					{$stranka->name}
+				</a>
 			{/foreach}
 			<a style="color: rgba(255,255,255,0.75)"
 					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archiv') ? active : 'bg-transparent'"
@@ -57,7 +57,7 @@
 		<nav class="navbar navbar-expand-lg navbar-dark border-bottom bg-dark">
 			<span class="navbar-toggler-icon float-left d-block" id="menu-toggle" style="cursor:pointer; font-size: 20px"> </span>
 		</nav>
-		<div class="container-fluid" style="background-color: #fff3e0; margin-top:0">
+		<div class="container-fluid" style="margin-top:0">
 			<div class="row" style="padding-bottom: 64px; padding-top:16px">
 				<div class="col-lg-9">
 					{include content}
@@ -93,7 +93,6 @@
 	AOS.init({
 		once: true
 	});
-
 	$("#menu-toggle").click(function(e) {
 		e.preventDefault();
 		$("#wrapper").toggleClass("toggled");

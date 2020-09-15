@@ -20,7 +20,7 @@ class CzechCraft
      * @param $request
      * @return bool|mixed
      */
-    private function getJSON($request = '') {
+    private static function getJSON($request = '') {
         try {
             return Json::decode(@file_get_contents(CzechCraft::API . CzechCraft::SERVER_SLUG . "/" . $request));
         } catch (JsonException $e) {
@@ -28,18 +28,22 @@ class CzechCraft
         }
     }
 
+    public static function getServer() {
+        return self::getJSON();
+    }
+
     /**
      * @param string $nick
      * @return bool|mixed
      */
-    public function getPlayerInformation(string $nick) {
-        return $this->getJSON('player/' . $nick);
+    public static function getPlayerInformation(string $nick) {
+        return self::getJSON('player/' . $nick);
     }
 
     /**
      * @return bool|mixed
      */
-    public function getTopPlayers() {
-        return $this->getJSON('voters');
+    public static function getTopPlayers() {
+        return self::getJSON('voters');
     }
 }

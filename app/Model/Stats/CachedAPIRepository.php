@@ -2,6 +2,7 @@
 
 namespace App\Model\Stats;
 
+use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\FastLogin;
 use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\LiteBans;
@@ -149,6 +150,34 @@ class CachedAPIRepository
         }
 
         return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCzechCraftServer() {
+        $cacheName = 'API_czechCraftServer';
+        if(is_null($this->cache->load($cacheName))) {
+            $this->cache->save($cacheName, CzechCraft::getServer(), [
+                Cache::EXPIRE => '1 hour'
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTopVoters() {
+        $cacheName = 'API_czechCraftTopVoters';
+        if(is_null($this->cache->load($cacheName))) {
+            $this->cache->save($cacheName, CzechCraft::getTopPlayers(), [
+               Cache::EXPIRE => '24 hour'
+            ]);
+        }
+
+        return $this->cache->load($cacheName)->data;
     }
 
     /**
