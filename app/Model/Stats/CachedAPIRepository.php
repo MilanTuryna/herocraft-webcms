@@ -7,7 +7,6 @@ use App\Model\API\Plugin\FastLogin;
 use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\LiteBans;
 use App\Model\API\Plugin\LuckPerms;
-use App\Model\API\Plugin\PlayerTime;
 use App\Model\API\Plugin\TokenManager;
 use App\Model\API\Plugin\Verus;
 use App\Model\Panel\AuthMeRepository;
@@ -27,7 +26,6 @@ class CachedAPIRepository
     private FastLogin $fastLogin;
     private Friends $friends;
     private TokenManager $tokenManager;
-    private PlayerTime $playerTime;
     private LiteBans $liteBans;
     private Verus $verus;
     private LuckPerms $luckPerms;
@@ -39,13 +37,12 @@ class CachedAPIRepository
      * @param FastLogin $fastLogin
      * @param Friends $friends
      * @param TokenManager $tokenManager
-     * @param PlayerTime $playerTime
      * @param LiteBans $liteBans
      * @param Verus $verus
      * @param LuckPerms $luckPerms
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage, FastLogin $fastLogin,
-                                Friends $friends, TokenManager $tokenManager, PlayerTime $playerTime,
+                                Friends $friends, TokenManager $tokenManager,
                                 LiteBans $liteBans, Verus $verus, LuckPerms $luckPerms)
     {
         $this->authMeRepository = $authMeRepository;
@@ -53,7 +50,6 @@ class CachedAPIRepository
         $this->fastLogin = $fastLogin;
         $this->friends = $friends;
         $this->tokenManager = $tokenManager;
-        $this->playerTime = $playerTime;
         $this->liteBans = $liteBans;
         $this->verus = $verus;
         $this->luckPerms = $luckPerms;
@@ -177,15 +173,6 @@ class CachedAPIRepository
         }
 
         return $this->cache->load($cacheName)->data;
-    }
-
-    /**
-     * @param $name
-     * @deprecated
-     * @return mixed
-     */
-    public function getPlayedTime($name) {
-        return $this->playerTime->getPlayedTime($name);
     }
 
     /**
