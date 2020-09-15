@@ -38,11 +38,11 @@ class MainPresenter extends BasePresenter
         $status = new Status((string)$nastaveni->ip, $this->cache);
         $this->template->status = !$nastaveni->udrzba ? $status->getCachedJson() : null;
 
-        $czechcraft = $this->cachedAPIRepository->getCzechCraftServer();
+        //$czechcraft = $this->cachedAPIRepository->getCzechCraftServer();
 
-        $this->template->votesCount = $czechcraft->votes;
-        $this->template->czechCraftOrder = $czechcraft->position;
+        //$this->template->votesCount = $czechcraft->votes;
+        //$this->template->czechCraftOrder = $czechcraft->position;
         $this->template->votesLastMonth = '';
-        $this->template->topVoter = $this->cachedAPIRepository->getTopVoters()[0];
+        //$this->template->topVoter = $this->cachedAPIRepository->getTopVoters()[0];
     }
 }
