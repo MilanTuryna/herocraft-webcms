@@ -36,6 +36,6 @@ services:
 	- App\Model\API\Plugin\Survival\RoyaleEconomy(@database.royaleeconomy.context)
 	- App\Model\API\Plugin\LiteBans(@database.litebans.context)
 	- App\Model\Stats\CachedSurvivalRepository
-	- App\Model\API\Plugin\PlayerTime(@database.playertime.context)
+	- App\Model\API\Plugin\Deprecated\PlayerTime(@database.playertime.context)
 	- App\Model\API\Plugin\Verus(@database.verus.context)
 	router: App\Router\RouterFactory::createRouter
