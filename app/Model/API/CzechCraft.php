@@ -13,7 +13,7 @@ use Nette\Utils\JsonException;
  */
 class CzechCraft
 {
-    const SERVER_SLUG = 'pvpcraft';
+    const SERVER_SLUG = 'herocraft'; // TODO: Dynamic configuration in neon
     const API = 'https://czech-craft.eu/api/server/';
 
     /**
