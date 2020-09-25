@@ -8,7 +8,6 @@ use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\LiteBans;
 use App\Model\API\Plugin\LuckPerms;
 use App\Model\API\Plugin\TokenManager;
-use App\Model\API\Plugin\Verus;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
@@ -27,7 +26,6 @@ class CachedAPIRepository
     private Friends $friends;
     private TokenManager $tokenManager;
     private LiteBans $liteBans;
-    private Verus $verus;
     private LuckPerms $luckPerms;
 
     /**
@@ -38,12 +36,11 @@ class CachedAPIRepository
      * @param Friends $friends
      * @param TokenManager $tokenManager
      * @param LiteBans $liteBans
-     * @param Verus $verus
      * @param LuckPerms $luckPerms
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage, FastLogin $fastLogin,
                                 Friends $friends, TokenManager $tokenManager,
-                                LiteBans $liteBans, Verus $verus, LuckPerms $luckPerms)
+                                LiteBans $liteBans, LuckPerms $luckPerms)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -51,7 +48,6 @@ class CachedAPIRepository
         $this->friends = $friends;
         $this->tokenManager = $tokenManager;
         $this->liteBans = $liteBans;
-        $this->verus = $verus;
         $this->luckPerms = $luckPerms;
     }
 
@@ -182,7 +178,7 @@ class CachedAPIRepository
     public function isBanned($name) {
         $cacheName = 'API_ban_' . $name;
         if(is_null($this->cache->load($cacheName))) {
-            $this->cache->save($cacheName, $this->verus->isBanned($name) || $this->liteBans->isBanned($name), [
+            $this->cache->save($cacheName,  $this->liteBans->isBanned($name), [
                 Cache::EXPIRE => "24 hours"
             ]);
         }
