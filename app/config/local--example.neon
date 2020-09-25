@@ -53,3 +53,7 @@ database:
         dsn:
         user:
         password:
+    chatlog:
+        dsn:
+        user:
+        password:
