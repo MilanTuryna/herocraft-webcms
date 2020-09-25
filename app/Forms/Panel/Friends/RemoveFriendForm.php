@@ -3,6 +3,7 @@
 namespace App\Forms\Panel\Friends;
 
 use App\Model\API\Plugin\Friends;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
@@ -38,7 +39,7 @@ class RemoveFriendForm
     /**
      * @param Form $form
      * @param \stdClass $values
-     * @throws \Nette\Application\AbortException
+     * @throws AbortException
      */
     public function success(Form $form, \stdClass $values) {
         [$player, $friendId] = $this->friendRelation;
