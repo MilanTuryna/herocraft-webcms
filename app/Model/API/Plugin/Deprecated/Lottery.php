@@ -1,22 +1,27 @@
 <?php
 
-namespace App\Model\API\Plugin\Survival;
+namespace App\Model\API\Plugin\Survival\Deprecated;
 
 use Nette\Database\Context;
 use Nette\Database\IRow;
 use Nette\Database\Table\ActiveRow;
 
-class RoyaleEconomy
+/**
+ * Class Lottery
+ * @package App\Model\API\Plugin\Survival
+ * @deprecated
+ */
+class Lottery
 {
     private Context $context;
 
-    const TABLE = 'PlayerPurse';
+    const TABLE = 'Lottery';
 
     /**
      * EpicLevels constructor.
      * @param Context $context
      *
-     * database.epiclevels
+     * database.lottery
      */
     public function __construct(Context $context)
     {
@@ -24,10 +29,10 @@ class RoyaleEconomy
     }
 
     /**
-     * @param $username
+     * @param $uuid
      * @return IRow|ActiveRow|null
      */
-    public function getRow($username) {
-        return $this->context->table(self::TABLE)->where('username = ?', $username)->fetch();
+    public function getRow($uuid) {
+        return $this->context->table(self::TABLE)->where('uuid = ?', $uuid)->fetch();
     }
 }

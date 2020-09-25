@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\API\Plugin\Survival;
+namespace App\Model\API\Plugin\Deprecated;
 
 use Nette\Database\Context;
 use Nette\Database\IRow;
@@ -8,6 +8,7 @@ use Nette\Database\Table\ActiveRow;
 
 /**
  * Class EpicLevels
+ * @deprecated
  * @package App\Model\API\Plugin\Survival
  */
 class EpicLevels

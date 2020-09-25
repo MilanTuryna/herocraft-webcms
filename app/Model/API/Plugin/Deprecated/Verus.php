@@ -1,13 +1,14 @@
 <?php
 
 
-namespace App\Model\API\Plugin;
+namespace App\Model\API\Plugin\Deprecated;
 
 
 use Nette\Database\Context;
 
 /**
  * Class Verus
+ * @deprecated
  * @package App\Model\API\Plugin
  */
 class Verus

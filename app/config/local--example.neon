@@ -25,31 +25,11 @@ database:
         dsn:
         user:
         password:
-    playertime:
-        dsn:
-        user:
-        password:
     litebans:
         dsn:
         user:
         password:
-    verus:
-        dsn:
-        user:
-        password:
     luckperms:
-        dsn:
-        user:
-        password:
-    lottery:
-        dsn:
-        user:
-        password:
-    epiclevels:
-        dsn:
-        user:
-        password:
-    royaleeconomy:
         dsn:
         user:
         password:
