@@ -5,7 +5,6 @@ namespace App\Presenters\StatsModule;
 use App\Model\Panel\MojangRepository;
 use App\Model\Responses\PrettyJsonResponse;
 use App\Model\Stats\CachedAPIRepository;
-use App\Model\Stats\CachedSurvivalRepository;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Presenter;
 
@@ -17,21 +16,18 @@ class APIPresenter extends Presenter {
 
     private CachedAPIRepository $cachedAPIRepository;
     private MojangRepository $mojangRepository;
-    private CachedSurvivalRepository $cachedSurvivalRepository;
 
     /**
      * APIPresenter constructor.
      * @param CachedAPIRepository $cachedAPIRepository
      * @param MojangRepository $mojangRepository
-     * @param CachedSurvivalRepository $cachedSurvivalRepository
      */
-    public function __construct(CachedAPIRepository $cachedAPIRepository, MojangRepository $mojangRepository, CachedSurvivalRepository $cachedSurvivalRepository)
+    public function __construct(CachedAPIRepository $cachedAPIRepository, MojangRepository $mojangRepository)
     {
         parent::__construct();
 
         $this->cachedAPIRepository = $cachedAPIRepository;
         $this->mojangRepository = $mojangRepository;
-        $this->cachedSurvivalRepository = $cachedSurvivalRepository;
     }
 
     /**
@@ -82,11 +78,7 @@ class APIPresenter extends Presenter {
                         'list' => $this->cachedAPIRepository->getFriendsList($name),
                     ], 'tokens' =>  $this->cachedAPIRepository->getTokenManager($name)->tokens,
                 ], 'servers' => [
-                    'survival' => [
-                        'levels' => $this->cachedSurvivalRepository->getLevels($uuid),
-                        'lottery' => $this->cachedSurvivalRepository->getLottery($uuid),
-                        'economy' => $this->cachedSurvivalRepository->getEconomy($name)
-                    ],
+
                 ]
             ];
         } else {
