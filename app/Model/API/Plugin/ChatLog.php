@@ -5,6 +5,8 @@ namespace App\Model\API\Plugin;
 
 
 use Nette\Database\Context;
+use Nette\Database\Table\IRow;
+use Nette\Database\Table\Selection;
 
 /**
  * Class ChatLog
@@ -26,7 +28,26 @@ class ChatLog
         $this->context = $context;
     }
 
-    public function findAllRows() {
-        return $this->context->table(self::TABLE);
+    /**
+     * @param string $columns
+     * @return Selection
+     */
+    public function findAllRows(string $columns = '*') {
+        return $this->context->table(self::TABLE)->select($columns);
+    }
+
+    /**
+     * @param $nickname
+     * @return array|IRow[]
+     */
+    public function getPlayerMessages(string $nickname) {
+        return $this->context->table(self::TABLE)->where("Username", $nickname)->fetchAll();
+    }
+
+    /**
+     * @return Context
+     */
+    public function getPluginDatabase(): Context {
+        return $this->context;
     }
 }
