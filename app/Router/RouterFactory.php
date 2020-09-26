@@ -24,6 +24,8 @@ final class RouterFactory
             ->addRoute('/admin/clanky/edit/<url>', 'Article:edit')
             ->addRoute('/admin/clanky/odstranit/<url>', 'Article:delete')
 
+            ->addRoute('/admin/minecraft', 'Minecraft:overview')
+
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
             ->addRoute('/admin/stranky/edit/<url>', 'Page:edit')
