@@ -1,7 +1,7 @@
 <?php
 
 /**
- * CMS for czech minecraft server "PvpCraft Network" created in PHP with Nette
+ * CMS for czech minecraft server "Herocraft" created in PHP with Nette
  *
  * @author MilanT
  * @see https://github.com/MilanTuryna
