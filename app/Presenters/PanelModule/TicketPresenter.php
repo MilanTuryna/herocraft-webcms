@@ -74,7 +74,8 @@ class TicketPresenter extends PanelBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage) {
+        // TODO: Check if bug fixed
+        if($page > $lastPage+1) {
             $this->redirect("Ticket:list");
         }
     }
