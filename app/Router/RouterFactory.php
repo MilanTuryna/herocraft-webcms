@@ -25,6 +25,7 @@ final class RouterFactory
             ->addRoute('/admin/clanky/odstranit/<url>', 'Article:delete')
 
             ->addRoute('/admin/minecraft', 'Minecraft:overview')
+            ->addRoute('/admin/minecraft/chat[/<page>]', 'Minecraft:chat')
 
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
