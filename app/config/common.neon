@@ -32,5 +32,4 @@ services:
 	- App\Model\Stats\CachedAPIRepository
 	- App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
 	- App\Model\API\Plugin\LiteBans(@database.litebans.context)
-	- App\Model\Stats\CachedSurvivalRepository
 	router: App\Router\RouterFactory::createRouter
