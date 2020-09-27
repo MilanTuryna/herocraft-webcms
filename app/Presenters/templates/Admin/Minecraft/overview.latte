@@ -10,5 +10,13 @@
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
-    dddddd
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title" style="margin:0">
+                <a n:href="Minecraft:chat" class="text-dark">
+                    Chat ve hře <span class="text-muted">(klik)</span>
+                </a>
+            </h5>
+        </div>
+    </div>
 {/block}
