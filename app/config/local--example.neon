@@ -37,3 +37,7 @@ database:
         dsn:
         user:
         password:
+    events:
+        dsn:
+        user:
+        password:

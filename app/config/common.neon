@@ -29,6 +29,7 @@ services:
 	- App\Model\API\Plugin\Friends(@database.friends.context)
 	- App\Model\API\Plugin\FastLogin(@database.fastlogin.context)
 	- App\Model\API\Plugin\ChatLog(@database.chatlog.context)
+	- App\Model\API\Plugin\Events(@database.events.context)
 	- App\Model\Security\Auth\SupportAuthenticator
 	- App\Model\Stats\CachedAPIRepository
 	- App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
