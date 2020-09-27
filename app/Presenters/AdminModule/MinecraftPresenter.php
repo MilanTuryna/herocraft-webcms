@@ -28,7 +28,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $messages = $this->chatLog->findAllRows();
 
         $lastPage = 0;
-        $paginatorData = $messages->page($page, 20, $lastPage);
+        $paginatorData = $messages->page($page, 75, $lastPage);
         $this->template->messages = $paginatorData;
 
         $this->template->page = $page;

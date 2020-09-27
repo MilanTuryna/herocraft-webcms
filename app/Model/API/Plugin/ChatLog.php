@@ -30,10 +30,11 @@ class ChatLog
 
     /**
      * @param string $columns
+     * @param string $timeOrder
      * @return Selection
      */
-    public function findAllRows(string $columns = '*') {
-        return $this->context->table(self::TABLE)->select($columns);
+    public function findAllRows(string $columns = '*', string $timeOrder = 'DESC') {
+        return $this->context->table(self::TABLE)->select($columns)->order('Time ' . $timeOrder);
     }
 
     /**
