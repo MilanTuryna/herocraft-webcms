@@ -41,3 +41,7 @@ database:
         dsn:
         user:
         password:
+    playertime:
+        dsn:
+        user:
+        password:
