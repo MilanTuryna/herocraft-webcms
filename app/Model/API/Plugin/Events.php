@@ -42,11 +42,27 @@ class Events
         return $this->context->table(self::PLAYERS_TABLE)->where("event_passed > ? OR event_giveup > ?", 1,1);
     }
 
+    /**
+     * @param $id
+     * @return Selection
+     */
     public function getPlayerById($id) {
-        return $this->context->table("event_players")->where("id = ?", $id);
+        return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id);
     }
 
+    /**
+     * @param $id
+     * @return Selection
+     */
+    public function getPlayersByEventId($id) {
+        return $this->context->table(self::PLAYERS_TABLE)->where("event_id = ?", $id);
+    }
+
+    /**
+     * @param $id
+     * @return int
+     */
     public function deleteRecordById($id) {
-        return $this->context->table("event_players")->where("id = ?", $id)->delete();
+        return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id)->delete();
     }
 }
