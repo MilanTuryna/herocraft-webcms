@@ -26,8 +26,9 @@ final class RouterFactory
 
             ->addRoute('/admin/minecraft', 'Minecraft:overview')
             ->addRoute('/admin/minecraft/chat[/<page>]', 'Minecraft:chat')
-            ->addRoute('/admin/minecraft/eventy/<eventId>', 'Minecraft:event')
             ->addRoute('/admin/minecraft/eventy', 'Minecraft:eventList')
+            ->addRoute('/admin/minecraft/eventy/zaznam/<recordId>', 'Minecraft:editEventRecord')
+            ->addRoute('/admin/minecraft/eventy/<eventId>', 'Minecraft:event')
 
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
