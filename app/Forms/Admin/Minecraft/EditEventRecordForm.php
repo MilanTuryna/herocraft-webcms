@@ -35,6 +35,9 @@ class EditEventRecordForm
      */
     public function create(): Form {
         $form = new Form;
+        $form->addInteger('event_passed');
+        $form->addInteger('event_giveup');
+        $form->addSubmit('submit')->setRequired();
         return $form;
     }
 
