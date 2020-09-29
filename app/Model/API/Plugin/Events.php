@@ -14,7 +14,7 @@ use Nette\Database\Table\Selection;
 class Events
 {
     const EVENTS_TABLE = "events",
-        PLAYERS_TABLE = "events_players";
+        PLAYERS_TABLE = "event_players";
 
     private Context $context;
 
@@ -48,6 +48,10 @@ class Events
      */
     public function getPlayerById($id) {
         return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id);
+    }
+
+    public function getEventById($id) {
+        return $this->context->table(self::EVENTS_TABLE)->where("event_id = ?", $id);
     }
 
     /**

@@ -32,6 +32,7 @@ services:
 	- App\Model\API\Plugin\Events(@database.events.context)
 	- App\Model\Security\Auth\SupportAuthenticator
 	- App\Model\Stats\CachedAPIRepository
+
 	- App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
 	- App\Model\API\Plugin\LiteBans(@database.litebans.context)
 	router: App\Router\RouterFactory::createRouter
