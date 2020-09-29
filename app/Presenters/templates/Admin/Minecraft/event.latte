@@ -20,13 +20,14 @@
                     <table class="table table-sm table-striped" style="text-align: center">
                         <thead class="thead-light">
                         <tr>
-                            <th scope="col">Pořadí</th>
+                            <th scope="col">#</th>
                             <th scope="col">Nick</th>
                             <th scope="col">Čas</th>
                             <th scope="col">Úspěšně</th>
                             <th scope="col">Neúspěšně</th>
-                            <th scope="col">Nejlepší výsledek</th>
-                            <th scope="col">Poslední pokus</th>
+                            <th scope="col">Nejlepší</th>
+                            <th scope="col">Poslední</th>
+                            <th scope="col">#</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -39,6 +40,7 @@
                                 <td>{$player->event_giveup}</td>
                                 <td>{$player->best_played|date:'j.n.Y H:i'}</td>
                                 <td>{$player->last_played|date:'j.n.Y H:i'}</td>
+                                <td>EDIT</td>
                             </tr>
                         {/foreach}
                         </tbody>
