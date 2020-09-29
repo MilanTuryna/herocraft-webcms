@@ -59,7 +59,8 @@ class Events
      * @return Selection
      */
     public function getPlayersByEventId($id) {
-        return $this->context->table(self::PLAYERS_TABLE)->where("event_id = ?", $id)->order("CAST(-best_time AS DECIMAL) DESC, event_passed DESC, event_giveup DESC");
+        return $this->context->table(self::PLAYERS_TABLE)->where("event_id = ? AND event_giveup != 0 OR event_id = ? AND event_passed != 0", $id, $id)->order(
+            "CAST(-best_time AS DECIMAL) DESC, event_passed DESC, event_giveup DESC");
     }
 
     /**
