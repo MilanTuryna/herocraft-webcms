@@ -63,6 +63,20 @@ class MinecraftPresenter extends AdminBasePresenter
     }
 
     /**
+     * @param $recordId
+     * @throws AbortException
+     */
+    public function renderEditEventRecord($recordId) {
+        $record = $this->events->getPlayerById($recordId)->fetch(); // record (player)
+        if($record) {
+            $this->template->record = $record;
+            $this->template->event = $this->events->getEventById($record->event_id)->fetch();
+        } else {
+            $this->redirect("Minecraft:eventList");
+        }
+    }
+
+    /**
      * @return Multiplier
      */
     public function createComponentEditEventRecordForm(): Multiplier {

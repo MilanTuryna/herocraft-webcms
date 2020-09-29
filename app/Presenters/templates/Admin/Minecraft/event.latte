@@ -43,7 +43,7 @@
                                 <td>{$player->event_giveup}</td>
                                 <td>{$player->best_played|date:'j.n.Y H:i'}</td>
                                 <td>{$player->last_played|date:'j.n.Y H:i'}</td>
-                                <td><a href="">EDIT</a></td>
+                                <td><a n:href="Minecraft:editEventRecord, $player->id">EDIT</a></td>
                             </tr>
                         {/foreach}
                         </tbody>

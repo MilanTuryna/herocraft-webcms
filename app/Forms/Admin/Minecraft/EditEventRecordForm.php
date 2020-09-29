@@ -43,6 +43,5 @@ class EditEventRecordForm
      * @param \stdClass $values
      */
     public function success(Form $form, \stdClass $values) {
-
     }
 }

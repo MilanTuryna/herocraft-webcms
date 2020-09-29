@@ -1,0 +1,40 @@
+{layout '../layout.latte'}
+{block title}
+    Editace záznamu #{$record->id}
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:eventList">Eventy</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:event $event->event_id">Event - {$event->event_name}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editace záznamu #{$record->id}</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Záznam #{$record->id}</h5>
+            <div class="card-text">
+                <div class="bg-light border" style="padding: 8px">
+                    <b>Event: </b>{$event->event_name}<br>
+                    <b>Jméno: </b>{$record->username}<br>
+                    <b>Čas: </b>{$record->best_time}<br>
+                    <b>Úspěšné: </b>{$record->event_passed}<br>
+                    <b>Neúspěšné </b>{$record->event_giveup}<br>
+                    <b>Nejlepší výsledek </b>{$record->best_played|date:'j.n.Y H:i'}<br>
+                    <b>Poslední výsledek </b>{$record->last_played|date:'j.n.Y H:i'}<br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Editace záznamu</h5>
+            <div class="card-text">
+                
+            </div>
+        </div>
+    </div>
+{/block}
