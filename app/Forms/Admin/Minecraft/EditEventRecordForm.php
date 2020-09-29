@@ -15,10 +15,19 @@ class EditEventRecordForm
     private Events $events;
     private Presenter $presenter;
 
-    public function __construct(Events $events, Presenter $presenter)
+    private $eventId;
+
+    /**
+     * EditEventRecordForm constructor.
+     * @param Events $events
+     * @param Presenter $presenter
+     * @param $eventId
+     */
+    public function __construct(Events $events, Presenter $presenter, $eventId)
     {
         $this->events = $events;
         $this->presenter = $presenter;
+        $this->eventId = $eventId;
     }
 
     /**

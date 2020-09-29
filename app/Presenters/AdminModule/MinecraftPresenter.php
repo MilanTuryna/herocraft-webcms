@@ -4,11 +4,13 @@
 namespace App\Presenters\AdminModule;
 
 
+use App\Forms\Minecraft\EditEventRecordForm;
 use App\Model\API\Plugin\ChatLog;
 use App\Model\API\Plugin\Events;
 use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 use Nette\Application\AbortException;
+use Nette\Application\UI\Multiplier;
 
 class MinecraftPresenter extends AdminBasePresenter
 {
@@ -58,5 +60,14 @@ class MinecraftPresenter extends AdminBasePresenter
         } else {
             $this->redirect("Minecraft:eventList");
         }
+    }
+
+    /**
+     * @return Multiplier
+     */
+    public function createComponentEditEventRecordForm(): Multiplier {
+        return new Multiplier(function ($eventId) {
+            return new EditEventRecordForm($this->events, $this, $eventId);
+        });
     }
 }
