@@ -16,7 +16,34 @@
         <div class="card-body">
             <h5 class="card-title">Event: {$event->event_name}</h5>
             <div class="card-text">
-                dd
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped" style="text-align: center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Pořadí</th>
+                            <th scope="col">Nick</th>
+                            <th scope="col">Čas</th>
+                            <th scope="col">Úspěšně</th>
+                            <th scope="col">Neúspěšně</th>
+                            <th scope="col">Nejlepší výsledek</th>
+                            <th scope="col">Poslední pokus</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach $eventPlayers as $player}
+                            <tr>
+                                <th scope="row">{$iterator->getCounter()}</th>
+                                <td>{$player->username}</td>
+                                <td>{$player->best_time}</td>
+                                <td>{$player->event_passed}</td>
+                                <td>{$player->event_giveup}</td>
+                                <td>{$player->best_played|date:'j.n.Y H:i'}</td>
+                                <td>{$player->last_played|date:'j.n.Y H:i'}</td>
+                            </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
