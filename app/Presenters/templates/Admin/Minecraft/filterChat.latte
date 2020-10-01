@@ -8,10 +8,27 @@
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:chat">Chat ve hře</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Filtrace</li>
+            <li class="breadcrumb-item active" aria-current="page">Filtrovaný chat</li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+        <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Filter</h5>
+            <div class="card-text">
+                Nastaveno období od {$timeStart} do {$timeEnd}<br>
+                <hr>
+                <b style="text-decoration: underline">Označení hráči:</b>
+                <ul>
+                    <li n:foreach="$filteredPlayers as $player">
+                        <a n:href=":Stats:Main:app?player=$player" class="text-info">{$player}</a>
+                    </li>
+                </ul>
+                <hr>
+                <a href="" class="btn btn-danger float-right" style="border-radius: 0">Resetovat filtr</a>
+            </div>
+        </div>
+    </div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
             <h5 class="card-title">Zprávy</h5>

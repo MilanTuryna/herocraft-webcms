@@ -51,8 +51,8 @@ class ChatLog
         $timeStart = \DateTime::createFromFormat('d/m/Y', $timeStart)->format('Y-m-d 00:00');
         $timeEnd = \DateTime::createFromFormat('d/m/Y', $timeEnd)->format('Y-m-d 23:59');
         return $this->context->table(self::TABLE)->select($columns)
-            ->where("Username IN (?) AND Time BETWEEN ? AND ?",
-                join(',', $players), $timeStart, $timeEnd)
+            ->where("Username",  $players)
+            ->where("Time BETWEEN ? AND ?", $timeStart, $timeEnd)
             ->order('Time ' . $timeOrder);
     }
 
