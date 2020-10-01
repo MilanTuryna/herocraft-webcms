@@ -41,17 +41,18 @@ class ChatLog
      * @param array $players
      * @param string $timeStart
      * @param string $timeEnd
-     * @param string $format
      * @param string $columns
      * @param string $timeOrder
      * @return Selection
      */
-    public function filterAllRows(array $players, string $timeStart, string $timeEnd, string $format = "%d/%m/%y",
+    public function filterAllRows(array $players, string $timeStart, string $timeEnd,
                                   string $columns = "*", string $timeOrder = 'DESC')
     {
+        $timeStart = \DateTime::createFromFormat('d/m/Y', $timeStart)->format('Y-m-d 00:00');
+        $timeEnd = \DateTime::createFromFormat('d/m/Y', $timeEnd)->format('Y-m-d 23:59');
         return $this->context->table(self::TABLE)->select($columns)
-            ->where("Time > TIMESTAMP(STR_TO_DATE(?, ?)) AND Time < TIMESTAMP(STR_TO_DATE(?, ?), '23:59') AND Nickname IN (?)",
-                $timeStart, $format, $timeEnd, $format, join("','", $players))
+            ->where("Username IN (?) AND Time BETWEEN ? AND ?",
+                join(',', $players), $timeStart, $timeEnd)
             ->order('Time ' . $timeOrder);
     }
 

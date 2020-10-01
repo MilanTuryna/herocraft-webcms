@@ -1,0 +1,34 @@
+{layout '../layout.latte'}
+{block title}
+    Chat ve hře
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:chat">Chat ve hře</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Filtrace</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Zprávy</h5>
+            <div class="card-text">
+                <span class="" n:if="!$messages">
+                    Žádná zpráva nebyla nalezena, to není možný!
+                </span>
+                <div class="bg-light border" style="padding: 8px">
+                    {foreach $messages as $message}
+                        <span>
+                            <a n:href=":Stats:Main:app?player=$message->Username" class="text-info" style="text-decoration: underline">{$message->Username}</a>
+                            ({$message->World}, {$message->Time|date:'j.n.Y H:i'})> {$message->Chat}</span>
+                        <br>
+                    {/foreach}
+                </div>
+            </div>
+        </div>
+
+    </div>
+{/block}

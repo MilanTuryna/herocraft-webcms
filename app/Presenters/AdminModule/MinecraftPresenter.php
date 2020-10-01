@@ -11,6 +11,7 @@ use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Multiplier;
+use Nette\Utils\Arrays;
 
 class MinecraftPresenter extends AdminBasePresenter
 {
@@ -42,6 +43,23 @@ class MinecraftPresenter extends AdminBasePresenter
         if($page > $lastPage+1) {
             $this->redirect("Minecraft:chat");
         }
+    }
+
+
+    /**
+     * @param $timeStart
+     * @param $timeEnd
+     * @param $players
+     * @throws AbortException
+     */
+    public function renderFilterChat($timeStart, $timeEnd, array $players) {
+            $messages = $this->chatLog->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
+            if($messages) {
+                $this->template->messages = $messages;
+            } else {
+                $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+                $this->redirect("Minecraft:chat");
+            }
     }
 
     public function renderEventList() {
