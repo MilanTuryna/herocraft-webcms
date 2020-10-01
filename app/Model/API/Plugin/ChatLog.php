@@ -38,6 +38,24 @@ class ChatLog
     }
 
     /**
+     * @param array $players
+     * @param string $timeStart
+     * @param string $timeEnd
+     * @param string $format
+     * @param string $columns
+     * @param string $timeOrder
+     * @return Selection
+     */
+    public function filterAllRows(array $players, string $timeStart, string $timeEnd, string $format = "%d/%m/%y",
+                                  string $columns = "*", string $timeOrder = 'DESC')
+    {
+        return $this->context->table(self::TABLE)->select($columns)
+            ->where("Time > TIMESTAMP(STR_TO_DATE(?, ?)) AND Time < TIMESTAMP(STR_TO_DATE(?, ?), '23:59') AND Nickname IN (?)",
+                $timeStart, $format, $timeEnd, $format, join("','", $players))
+            ->order('Time ' . $timeOrder);
+    }
+
+    /**
      * @param $nickname
      * @return array|IRow[]
      */
