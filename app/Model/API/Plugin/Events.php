@@ -86,4 +86,6 @@ class Events
     public function deleteRecordById($id) {
         return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id)->delete();
     }
+
+    // TODO: Add filtering
 }
