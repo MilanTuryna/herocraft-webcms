@@ -21,10 +21,10 @@
                     <b>Event: </b>{$event->event_name}<br>
                     <b>Jméno: </b>{$record->username}<br>
                     <b>Čas: </b>{$record->best_time}<br>
-                    <b>Úspěšné: </b>{$record->event_passed}<br>
-                    <b>Neúspěšné </b>{$record->event_giveup}<br>
-                    <b>Nejlepší výsledek </b>{$record->best_played|date:'j.n.Y H:i'}<br>
-                    <b>Poslední výsledek </b>{$record->last_played|date:'j.n.Y H:i'}<br>
+                    <b>Úspěšné pokusy: </b>{$record->event_passed}<br>
+                    <b>Neúspěšné pokusy: </b>{$record->event_giveup}<br>
+                    <b>Nejlepší výsledek: </b>{$record->best_played|date:'j.n.Y H:i'}<br>
+                    <b>Poslední výsledek: </b>{$record->last_played|date:'j.n.Y H:i'}<br>
                 </div>
             </div>
         </div>
@@ -33,7 +33,53 @@
         <div class="card-body">
             <h5 class="card-title">Editace záznamu</h5>
             <div class="card-text">
-
+                <form n:name="editEventRecordForm-$record->id">
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="username">Nickname</label>
+                        <div class="col-sm-10">
+                            <input n:name="username" spellcheck="false" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="best_time">Čas</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" n:name="best_time" type="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="event_passed">Úspěšné pokusy</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" n:name="event_passed" type="number" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="event_giveup">Neúspěšné pokusy</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="number" n:name="event_giveup" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="best_played">Nejlepší výsledek</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" n:name="best_played" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="last_played">Poslední výsledek</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" n:name="last_played" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><br></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success float-right" n:name="submit">Aplikovat změny</button>
+                            <br>
+                            <br>
+                            <a class="text-danger small float-right">Odstranit záznam (duplikace, podvádění..)</a>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

@@ -80,8 +80,8 @@ class MinecraftPresenter extends AdminBasePresenter
      * @return Multiplier
      */
     public function createComponentEditEventRecordForm(): Multiplier {
-        return new Multiplier(function ($eventId) {
-            return new EditEventRecordForm($this->events, $this, $eventId);
+        return new Multiplier(function ($recordId) {
+            return (new EditEventRecordForm($this->events, $this, $recordId))->create();
         });
     }
 }

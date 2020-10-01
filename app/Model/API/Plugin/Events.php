@@ -64,6 +64,22 @@ class Events
     }
 
     /**
+     * @param \stdClass $record
+     * @param $id
+     * @return int
+     */
+    public function updateRecord(\stdClass $record, $id) {
+        return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id)->update([
+            "username" => $record->username,
+            "best_time" => $record->best_time,
+            "event_passed" => $record->event_passed,
+            "event_giveup" => $record->event_giveup,
+            "best_played" => $record->best_played,
+            "last_played" => $record->last_played
+        ]);
+    }
+
+    /**
      * @param $id
      * @return int
      */
