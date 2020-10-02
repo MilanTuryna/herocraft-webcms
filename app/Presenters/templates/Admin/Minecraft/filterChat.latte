@@ -8,7 +8,7 @@
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:chat">Chat ve hře</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Filtrovaný cha (dle nastavení)t</li>
+            <li class="breadcrumb-item active" aria-current="page">Filtrovaný chat (dle nastavení)</li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
@@ -16,7 +16,7 @@
         <div class="card-body">
             <h5 class="card-title">Filter</h5>
             <div class="card-text">
-                Nastaveno období od {$timeStart} do {$timeEnd}<br>
+                Nastaveno období od {$timeStart|date:'j.n.Y H:i'} do {$timeEnd|date:'j.n.Y'} 23:59<br>
                 <hr>
                 <b style="text-decoration: underline">Označení hráči:</b>
                 <ul>
