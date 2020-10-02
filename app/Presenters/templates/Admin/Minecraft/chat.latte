@@ -15,24 +15,24 @@
         <div class="card-body">
             <h5 class="card-title">Nastavení filteru</h5>
             <div class="card-text">
-                <form>
+                <form n:name="chatFilterForm">
                     <div class="form-row">
                         <div class="col">
                             Od
-                            <input type="date" class="form-control" placeholder="First name">
+                            <input type="date" n:name="timeStart" class="form-control" placeholder="Od">
                         </div>
                         <div class="col">
                             Do
-                            <input type="date" class="form-control" placeholder="Last name">
+                            <input type="date" n:name="timeEnd" class="form-control" placeholder="Do">
                         </div>
                     </div>
 
                     <div style="margin-top:12px">
                         <span >Seznam filtrovaných hráčů</span>
-                        <input type="text" class="form-control"  placeholder='Nicky hráčů, separujte pomocí čárky ","'/>
+                        <input n:name="players" type="text" class="form-control"  placeholder='Nicky hráčů, oddělujte pomocí mezery'/>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-success float-right">Filtrovat</button>
+                    <button n:name="submit" type="submit" class="btn btn-success float-right">Filtrovat</button>
                 </form>
             </div>
         </div>

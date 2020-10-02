@@ -48,8 +48,8 @@ class ChatLog
     public function filterAllRows(array $players, string $timeStart, string $timeEnd,
                                   string $columns = "*", string $timeOrder = 'DESC')
     {
-        $timeStart = \DateTime::createFromFormat('d/m/Y', $timeStart)->format('Y-m-d 00:00');
-        $timeEnd = \DateTime::createFromFormat('d/m/Y', $timeEnd)->format('Y-m-d 23:59');
+        $timeStart = date_create($timeStart)->format('Y-m-d 00:00');
+        $timeEnd = date_create($timeEnd)->format('Y-m-d 23:59');
         return $this->context->table(self::TABLE)->select($columns)
             ->where("Username",  $players)
             ->where("Time BETWEEN ? AND ?", $timeStart, $timeEnd)

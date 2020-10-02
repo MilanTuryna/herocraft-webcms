@@ -4,12 +4,14 @@
 namespace App\Presenters\AdminModule;
 
 
+use App\Forms\Minecraft\ChatFilterForm;
 use App\Forms\Minecraft\EditEventRecordForm;
 use App\Model\API\Plugin\ChatLog;
 use App\Model\API\Plugin\Events;
 use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 use Nette\Application\AbortException;
+use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
 use Nette\Utils\Arrays;
 
@@ -109,5 +111,12 @@ class MinecraftPresenter extends AdminBasePresenter
         return new Multiplier(function ($recordId) {
             return (new EditEventRecordForm($this->events, $this, $recordId))->create();
         });
+    }
+
+    /**
+     * @return Form
+     */
+    public function createComponentChatFilterForm(): Form {
+        return (new ChatFilterForm($this->chatLog, $this))->create();
     }
 }
