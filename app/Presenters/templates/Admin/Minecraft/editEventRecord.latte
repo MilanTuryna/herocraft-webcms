@@ -76,7 +76,9 @@
                             <button type="submit" class="btn btn-success float-right" n:name="submit">Aplikovat změny</button>
                             <br>
                             <br>
-                            <a class="text-danger small float-right">Odstranit záznam (duplikace, podvádění..)</a>
+                            <a class="text-danger small float-right" n:href="Minecraft:deleteEventRecord, $record->id, $event->event_id">
+                                Odstranit záznam (duplikace, podvádění..)
+                            </a>
                         </div>
                     </div>
                 </form>

@@ -12,6 +12,9 @@ final class RouterFactory
 {
 	use Nette\StaticClass;
 
+    /**
+     * @return RouteList
+     */
 	public static function createRouter(): RouteList
 	{
 		$router = new RouteList;
@@ -26,10 +29,12 @@ final class RouterFactory
 
             ->addRoute('/admin/minecraft', 'Minecraft:overview')
             ->addRoute('/admin/minecraft/chat/filter/?timeStart=<timeStart>&timeEnd=<timeEnd>&players[]=<players=null>',  'Minecraft:filterChat')
+            ->addRoute('/admin/minecraft/chat[/<page>]', 'Minecraft:chat')
+
             ->addRoute('/admin/minecraft/eventy', 'Minecraft:eventList')
+            ->addRoute('/admin/minecraft/eventy/zaznam/odstranit/<recordId>?returnEventID=<eventId=1>', 'Minecraft:deleteEventRecord')
             ->addRoute('/admin/minecraft/eventy/zaznam/<recordId>', 'Minecraft:editEventRecord')
             ->addRoute('/admin/minecraft/eventy/<eventId>', 'Minecraft:event')
-            ->addRoute('/admin/minecraft/chat[/<page>]', 'Minecraft:chat')
 
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')

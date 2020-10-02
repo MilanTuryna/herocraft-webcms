@@ -105,6 +105,25 @@ class MinecraftPresenter extends AdminBasePresenter
     }
 
     /**
+     * @param $recordId
+     * @param $eventId
+     * @throws AbortException
+     */
+    public function actionDeleteEventRecord(int $recordId, int $eventId = 0) {
+        $deleted = $this->events->deleteRecordById($recordId);
+        if($deleted) {
+            $this->flashMessage("Záznam #" . $recordId . " byl úspešně odstraněn", 'success');
+        } else {
+            $this->flashMessage("Tento záznam nemohl být odstraněn, jelikož neexistuje!", 'danger');
+        }
+        if($eventId !== 0) {
+            $this->redirect("Minecraft:event", $eventId);
+        } else {
+            $this->redirect("Minecraft:eventList");
+        }
+    }
+
+    /**
      * @return Multiplier
      */
     public function createComponentEditEventRecordForm(): Multiplier {
