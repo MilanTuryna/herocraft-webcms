@@ -13,6 +13,32 @@
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
+            <h5 class="card-title">Nastavení filteru</h5>
+            <div class="card-text">
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            Od
+                            <input type="date" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="col">
+                            Do
+                            <input type="date" class="form-control" placeholder="Last name">
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px">
+                        <span >Seznam filtrovaných hráčů</span>
+                        <input type="text" class="form-control"  placeholder='Nicky hráčů, separujte pomocí čárky ","'/>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-success float-right">Filtrovat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
             <h5 class="card-title">Zprávy</h5>
             <div class="card-text">
                 <span class="" n:if="!$messages">
