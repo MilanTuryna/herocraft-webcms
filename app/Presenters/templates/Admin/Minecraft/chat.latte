@@ -29,7 +29,7 @@
 
                     <div style="margin-top:12px">
                         <span >Seznam filtrovaných hráčů</span>
-                        <input n:name="players" type="text" class="form-control"  placeholder='Nicky hráčů, oddělujte pomocí mezery'/>
+                        <input n:name="players" type="text" class="form-control"  placeholder='K separaci nicků využijte mezeru'/>
                     </div>
                     <br>
                     <button n:name="submit" type="submit" class="btn btn-success float-right">Filtrovat</button>
@@ -39,7 +39,7 @@
     </div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
-            <h5 class="card-title">Zprávy</h5>
+            <h5 class="card-title">Zprávy (nefiltrované)</h5>
             <div class="card-text">
                 <span class="" n:if="!$messages">
                     Žádná zpráva nebyla nalezena, to není možný!
