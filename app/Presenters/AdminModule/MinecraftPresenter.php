@@ -13,13 +13,22 @@ use App\Presenters\AdminBasePresenter;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
-use Nette\Utils\Arrays;
 
+/**
+ * Class MinecraftPresenter
+ * @package App\Presenters\AdminModule
+ */
 class MinecraftPresenter extends AdminBasePresenter
 {
     private ChatLog $chatLog;
     private Events $events;
 
+    /**
+     * MinecraftPresenter constructor.
+     * @param Authenticator $authenticator
+     * @param ChatLog $chatLog
+     * @param Events $events
+     */
     public function __construct(Authenticator $authenticator, ChatLog $chatLog, Events $events)
     {
         parent::__construct($authenticator);
