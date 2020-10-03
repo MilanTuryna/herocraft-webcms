@@ -25,6 +25,7 @@
                     <li><u>Název webu</u> – {$web->nazev}</li>
                     <li><u>Údržba</u> (na serveru) – {!$web->udrzba ? "neaktivní" : "aktivní"}</li>
                     <li><u>IP</u> – {$web->ip}</li>
+                    <li><u>Logo</u - {ifset $logo[0]}<a href="{$basePath}/{$logo[0]}" target="_blank">(zobrazit)</a>{else}nenastaveno{/ifset}></li>
                 </ul>
             </div>
         </div>

@@ -49,6 +49,7 @@ class MainPresenter extends AdminBasePresenter
     /* přehledy, a nastavení webu */
     public function renderHome(): void {
         $this->template->web = $this->db->table('nastaveni')->get(1);
+        $this->template->logo = $this->settingsRepository->getLogo();
         $this->template->stats = [
             "clanky" => $this->db->table('articles')->count('*'),
             "stranky" => $this->db->table('pages')->count('*'),
