@@ -33,6 +33,10 @@ database:
         dsn:
         user:
         password:
+    bans:
+        dsn:
+        user:
+        password:
     events:
         dsn:
         user:
