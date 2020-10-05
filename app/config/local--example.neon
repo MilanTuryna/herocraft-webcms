@@ -25,10 +25,6 @@ database:
         dsn:
         user:
         password:
-    litebans:
-        dsn:
-        user:
-        password:
     luckperms:
         dsn:
         user:
