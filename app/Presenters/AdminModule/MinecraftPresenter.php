@@ -33,6 +33,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @param Authenticator $authenticator
      * @param ChatLog $chatLog
      * @param Events $events
+     * @param Bans $bans
      */
     public function __construct(Authenticator $authenticator, ChatLog $chatLog, Events $events, Bans $bans)
     {
@@ -134,6 +135,16 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->lastPage = $lastPage;
 
         if($page > $lastPage+1) {
+            $this->redirect("Minecraft:banList");
+        }
+    }
+
+    public function renderEditBan($nick) {
+        $ban = $this->bans->getBanByNick($nick);
+        if($ban) {
+            $this->template->ban = $ban;
+        } else {
+            $this->flashMessage("Hráč " . $nick . " není zabanován!", "danger");
             $this->redirect("Minecraft:banList");
         }
     }
