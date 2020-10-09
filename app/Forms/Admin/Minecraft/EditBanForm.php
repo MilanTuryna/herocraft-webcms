@@ -33,6 +33,11 @@ class EditBanForm
 
     public function create(): Form {
         $form = new Form;
+        $form->addSubmit('submit')->setRequired();
+        $form->onSuccess[] = [$this, 'success'];
+        $form->onError[] = function() use ($form) {
+            foreach($form->getErrors() as $error) $this->presenter->flashMessage($error, 'danger');
+        };
         return $form;
     }
 
