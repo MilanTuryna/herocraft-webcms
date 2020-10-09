@@ -36,6 +36,8 @@ final class RouterFactory
             ->addRoute('/admin/minecraft/eventy/zaznam/<recordId>', 'Minecraft:editEventRecord')
             ->addRoute('/admin/minecraft/eventy/<eventId>', 'Minecraft:event')
 
+            ->addRoute('/admin/minecraft/bany[/<page>]', 'Minecraft:banList')
+
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
             ->addRoute('/admin/stranky/edit/<url>', 'Page:edit')

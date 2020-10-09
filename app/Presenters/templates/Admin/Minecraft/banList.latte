@@ -1,0 +1,80 @@
+{layout '../layout.latte'}
+{block title}
+    Bany
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Bany</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Nastavení filteru</h5>
+            <div class="card-text">
+                <form>
+                    <div class="form-row">
+                        <div class="col">
+                            Od
+                            <input type="date" class="form-control" placeholder="Od">
+                        </div>
+                        <div class="col">
+                            Do
+                            <input type="date" class="form-control" placeholder="Do">
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px">
+                        <span >Seznam filtrovaných hráčů</span>
+                        <input type="text" class="form-control"  placeholder='K separaci nicků využijte mezeru'/>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-success float-right">Filtrovat</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Bany (nefiltrované, seřazené od nejnovějších)</h5>
+            <div class="card-text">
+                {if $bans}
+                    <div class="table-responsive">
+                        <table class="table table-striped" style="text-align: center">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Hráč</th>
+                                <th scope="col">Důvod</th>
+                                <th scope="col">Admin</th>
+                                <th scope="col">Čas údálosti</th>
+                                <th scope="col">Expirace</th>
+                                <th scope="col">#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $bans as $ban}
+                                <tr>
+                                    <th scope="row">{$iterator->getCounter()}</th>
+                                    <td>{$ban->name}</td>
+                                    <td>{$ban->reason}</td>
+                                    <td>{$ban->banner}</td>
+                                    <td>{$ban->time}</td>
+                                    <td>{$ban->expires}</td>
+                                    <td><a href="">EDIT</a></td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                {else}
+                    Žádný ban nebyl v databázi nalezen.
+                {/if}
+            </div>
+        </div>
+
+    </div>
+{/block}

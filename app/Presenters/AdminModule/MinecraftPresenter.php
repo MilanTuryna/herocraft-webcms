@@ -6,10 +6,14 @@ namespace App\Presenters\AdminModule;
 
 use App\Forms\Minecraft\ChatFilterForm;
 use App\Forms\Minecraft\EditEventRecordForm;
+
+use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
 use App\Model\API\Plugin\Events;
 use App\Model\Security\Auth\Authenticator;
+
 use App\Presenters\AdminBasePresenter;
+
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
@@ -22,6 +26,7 @@ class MinecraftPresenter extends AdminBasePresenter
 {
     private ChatLog $chatLog;
     private Events $events;
+    private Bans $bans;
 
     /**
      * MinecraftPresenter constructor.
@@ -29,12 +34,13 @@ class MinecraftPresenter extends AdminBasePresenter
      * @param ChatLog $chatLog
      * @param Events $events
      */
-    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Events $events)
+    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Events $events, Bans $bans)
     {
         parent::__construct($authenticator);
 
         $this->chatLog = $chatLog;
         $this->events = $events;
+        $this->bans = $bans;
     }
 
     /**
@@ -110,6 +116,25 @@ class MinecraftPresenter extends AdminBasePresenter
             $this->template->event = $this->events->getEventById($record->event_id)->fetch();
         } else {
             $this->redirect("Minecraft:eventList");
+        }
+    }
+
+    /**
+     * @param int $page
+     * @throws AbortException
+     */
+    public function renderBanList(int $page = 1) {
+        $bans = $this->bans->getAllBans();
+
+        $lastPage = 0;
+        $paginatorData = $bans->page($page, 15, $lastPage);
+        $this->template->bans = $paginatorData;
+
+        $this->template->page = $page;
+        $this->template->lastPage = $lastPage;
+
+        if($page > $lastPage+1) {
+            $this->redirect("Minecraft:banList");
         }
     }
 
