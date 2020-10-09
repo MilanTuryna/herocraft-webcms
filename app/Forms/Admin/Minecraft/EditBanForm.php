@@ -16,16 +16,19 @@ class EditBanForm
 {
     private Presenter $presenter;
     private Bans $bans;
+    private string $bannedPlayer;
 
     /**
      * EditBanForm constructor.
      * @param Presenter $presenter
      * @param Bans $bans
+     * @param string $bannedPlayer
      */
-    public function __construct(Presenter $presenter, Bans $bans)
+    public function __construct(Presenter $presenter, Bans $bans, string $bannedPlayer)
     {
         $this->presenter = $presenter;
         $this->bans = $bans;
+        $this->bannedPlayer = $bannedPlayer;
     }
 
     public function create(): Form {
@@ -34,6 +37,6 @@ class EditBanForm
     }
 
     public function success(Form $form, \stdClass $values): void {
-        
+
     }
 }
