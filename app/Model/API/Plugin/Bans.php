@@ -67,10 +67,20 @@ class Bans
     }
 
     /**
+     * @param string $order
      * @return Selection
      */
-    public function getAllBans($order = 'DESC') {
-        return $this->context->table(self::BANS_TABLE)->order("time DESC");
+    public function getAllBans(string $order = 'DESC') {
+        return $this->context->table(self::BANS_TABLE)->order("time " . $order);
+    }
+
+    /**
+     * @param iterable $datas
+     * @param $nick
+     * @return int
+     */
+    public function updateBanByNick(iterable $datas, $nick) {
+        return $this->context->table(self::BANS_TABLE)->where("name = ?", strtolower($nick))->update($datas);
     }
 
     /**
