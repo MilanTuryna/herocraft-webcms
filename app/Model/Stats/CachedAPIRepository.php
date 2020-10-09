@@ -25,7 +25,6 @@ class CachedAPIRepository
     private FastLogin $fastLogin;
     private Friends $friends;
     private TokenManager $tokenManager;
-    private LiteBans $liteBans;
     private LuckPerms $luckPerms;
 
     /**
@@ -35,19 +34,16 @@ class CachedAPIRepository
      * @param FastLogin $fastLogin
      * @param Friends $friends
      * @param TokenManager $tokenManager
-     * @param LiteBans $liteBans
      * @param LuckPerms $luckPerms
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage, FastLogin $fastLogin,
-                                Friends $friends, TokenManager $tokenManager,
-                                LiteBans $liteBans, LuckPerms $luckPerms)
+                                Friends $friends, TokenManager $tokenManager, LuckPerms $luckPerms)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
         $this->fastLogin = $fastLogin;
         $this->friends = $friends;
         $this->tokenManager = $tokenManager;
-        $this->liteBans = $liteBans;
         $this->luckPerms = $luckPerms;
     }
 
@@ -171,8 +167,11 @@ class CachedAPIRepository
         return $this->cache->load($cacheName)->data;
     }
 
+    // TODO: Delete liteBans from all uses, and use new plugin-class Bans
+
     /**
      * @param $name
+     * @deprecated
      * @return mixed
      */
     public function isBanned($name) {
