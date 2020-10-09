@@ -69,8 +69,8 @@ class Bans
     /**
      * @return Selection
      */
-    public function getAllBans() {
-        return $this->context->table(self::BANS_TABLE);
+    public function getAllBans($order = 'DESC') {
+        return $this->context->table(self::BANS_TABLE)->order("time DESC");
     }
 
     /**
