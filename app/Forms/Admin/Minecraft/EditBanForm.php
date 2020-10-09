@@ -32,7 +32,11 @@ class EditBanForm
     }
 
     public function create(): Form {
+        $ban = $this->bans->getBanByNick($this->bannedPlayer);
+
         $form = new Form;
+        $form->addText("reason")->setRequired()->setDefaultValue($ban->reason);
+        $form->addText('expired')->setDefaultValue($ban->expired);
         $form->addSubmit('submit')->setRequired();
         $form->onSuccess[] = [$this, 'success'];
         $form->onError[] = function() use ($form) {
