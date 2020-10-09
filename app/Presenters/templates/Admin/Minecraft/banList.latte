@@ -39,7 +39,7 @@
     </div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
-            <h5 class="card-title">Bany (nefiltrované, seřazené od nejnovějších)</h5>
+            <h5 class="card-title">Bany (nefiltrované, seřazené dle času události)</h5>
             <div class="card-text">
                 {if $bans}
                     <div class="table-responsive">
@@ -62,8 +62,10 @@
                                     <td>{$ban->name}</td>
                                     <td>{$ban->reason}</td>
                                     <td>{$ban->banner}</td>
-                                    <td>{$ban->time}</td>
-                                    <td>{$ban->expires}</td>
+                                    {var $time = round($ban->time/1000,0)}
+                                    {var $expires = round($ban->expires/1000,0)}
+                                    <td>{$time|date:'j.n.Y H:i'}</td>
+                                    <td>{if $expires}{$expires|date:'j.n.Y H:i'}{else}Permanentní{/if}</td>
                                     <td><a href="">EDIT</a></td>
                                 </tr>
                             {/foreach}
