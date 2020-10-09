@@ -128,7 +128,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $bans = $this->bans->getAllBans();
 
         $lastPage = 0;
-        $paginatorData = $bans->page($page, 15, $lastPage);
+        $paginatorData = $bans->page($page, 30, $lastPage);
         $this->template->bans = $paginatorData;
 
         $this->template->page = $page;
