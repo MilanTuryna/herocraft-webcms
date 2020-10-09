@@ -37,6 +37,7 @@ final class RouterFactory
             ->addRoute('/admin/minecraft/eventy/<eventId>', 'Minecraft:event')
 
             ->addRoute('/admin/minecraft/bany[/<page>]', 'Minecraft:banList')
+            ->addRoute('/admin/minecraft/bany/zaznam/<nick>', 'Minecraft:editBan')
 
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
