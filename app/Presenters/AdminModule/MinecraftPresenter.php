@@ -140,7 +140,7 @@ class MinecraftPresenter extends AdminBasePresenter
     }
 
     public function renderEditBan($nick) {
-        $ban = $this->bans->getBanByNick($nick);
+        $ban = $this->bans->getBanByNick($nick)->fetch();
         if($ban) {
             $this->template->ban = $ban;
         } else {
