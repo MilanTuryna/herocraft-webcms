@@ -7,6 +7,7 @@ namespace App\Forms\Minecraft;
 use App\Model\API\Plugin\Bans;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
+use Nette\Utils\DateTime;
 use stdClass;
 
 /**
@@ -36,7 +37,7 @@ class EditBanForm
         $ban = $this->bans->getBanByNick($this->bannedPlayer);
 
         $form = new Form;
-        $form->addText("reason")->setRequired()->setDefaultValue($ban->reason);
+        $form->addText("reason")->setRequired()->setDefaultValue(DateTime::from($ban->reason/1000)->format("j.n.Y H:i"));
         $form->addText('expired')->setDefaultValue($ban->expired);
         $form->addSubmit('submit')->setRequired();
         $form->onSuccess[] = [$this, 'success'];
@@ -51,10 +52,10 @@ class EditBanForm
      * @param stdClass $values
      */
     public function success(Form $form, stdClass $values): void {
-        // TODO: Add functions to transfer data in people-like format to timestamp*1000
+        // TODO: Test if all  working
         $this->bans->updateBanByNick([
             "reason" => $values->reason,
-            "expired" => $values->expired,
+            "expired" => DateTime::from($values->expired)->getTimestamp()*1000,
         ], $this->bannedPlayer);
         $this->presenter->flashMessage("Záznam hráče " . $this->bannedPlayer . " byl úspěšně změněn, podle zadaných hodnot.", "success");
     }
