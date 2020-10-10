@@ -37,7 +37,7 @@ class EditBanForm
      * @return Form
      */
     public function create(): Form {
-        $ban = $this->bans->getBanByNick($this->bannedPlayer);
+        $ban = $this->bans->getBanByNick($this->bannedPlayer)->fetch();
 
         $form = new Form;
         $form->addText("reason")->setRequired()->setDefaultValue(DateTime::from($ban->reason/1000)->format("j.n.Y H:i"));
