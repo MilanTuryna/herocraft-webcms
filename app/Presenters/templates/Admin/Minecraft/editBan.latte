@@ -16,10 +16,10 @@
         <div class="card-body">
             <h5 class="card-title">Podrobnosti o banu</h5>
             <div class="card-text">
-                Neposedný hráč: {$ban->name}<br>
-                Důvod banu: {$ban->reason}<br>
-                Čas události: {(round($ban->time/1000,0))|date:'j.n.Y H:i'}<br>
-                Expirace banu: {if $expires}{(round($ban->expires/1000,0))}{else}Permanentní, nekonečný{/if}<br>
+                <b>Neposedný hráč</b>: {$ban->name}<br>
+                <b>Důvod banu</b>: {$ban->reason}<br>
+                <b>Čas události</b>: {(round($ban->time/1000,0))|date:'j.n.Y H:i'}<br>
+                <b>Expirace banu</b>: {if $ban->expires}{(round($ban->expires/1000,0))}{else}Permanentní, nekonečný{/if}<br>
             </div>
         </div>
     </div>
