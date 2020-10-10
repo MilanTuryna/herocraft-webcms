@@ -33,6 +33,9 @@ class EditBanForm
         $this->bannedPlayer = $bannedPlayer;
     }
 
+    /**
+     * @return Form
+     */
     public function create(): Form {
         $ban = $this->bans->getBanByNick($this->bannedPlayer);
 
