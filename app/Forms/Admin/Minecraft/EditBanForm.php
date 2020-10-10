@@ -5,6 +5,7 @@ namespace App\Forms\Minecraft;
 
 
 use App\Model\API\Plugin\Bans;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Utils\DateTime;
@@ -54,13 +55,18 @@ class EditBanForm
     /**
      * @param Form $form
      * @param stdClass $values
+     * @throws AbortException
      */
     public function success(Form $form, stdClass $values): void {
-        // TODO: Test if all  working
-        $this->bans->updateBanByNick([
-            "reason" => $values->reason,
-            "expires" => DateTime::from($values->expired)->getTimestamp()*1000,
-        ], $this->bannedPlayer);
-        $this->presenter->flashMessage("Záznam hráče " . $this->bannedPlayer . " byl úspěšně změněn, podle zadaných hodnot.", "success");
+        try {
+            $expires = DateTime::from($values->expires)->getTimestamp()*1000;
+            $this->bans->updateBanByNick([
+                "reason" => $values->reason,
+                "expires" => $expires], $this->bannedPlayer);
+            $this->presenter->flashMessage("Záznam hráče " . $this->bannedPlayer . " byl úspěšně změněn, podle zadaných hodnot.", "success");
+        } catch (\Exception $e) {
+            $this->presenter->flashMessage("Zkontrolujte si prosím, jestli jste zadal čas ve validním časovém formátu", "danger");
+            $this->presenter->redirect("Minecraft:editBan", $this->bannedPlayer);
+        }
     }
 }
