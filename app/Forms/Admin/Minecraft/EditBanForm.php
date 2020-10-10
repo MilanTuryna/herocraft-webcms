@@ -9,6 +9,7 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Utils\DateTime;
 use stdClass;
+use Tracy\Debugger;
 
 /**
  * Class EditBanForm
@@ -40,8 +41,8 @@ class EditBanForm
         $ban = $this->bans->getBanByNick($this->bannedPlayer)->fetch();
 
         $form = new Form;
-        $form->addText("reason")->setRequired()->setDefaultValue(DateTime::from($ban->reason/1000)->format("j.n.Y H:i"));
-        $form->addText('expired')->setDefaultValue($ban->expired);
+        $form->addText("reason")->setRequired()->setDefaultValue($ban->reason);
+        $form->addText('expires')->setDefaultValue(DateTime::from((round($ban->expires/1000)))->format("j.n.Y H:i"));
         $form->addSubmit('submit')->setRequired();
         $form->onSuccess[] = [$this, 'success'];
         $form->onError[] = function() use ($form) {
@@ -58,7 +59,7 @@ class EditBanForm
         // TODO: Test if all  working
         $this->bans->updateBanByNick([
             "reason" => $values->reason,
-            "expired" => DateTime::from($values->expired)->getTimestamp()*1000,
+            "expires" => DateTime::from($values->expired)->getTimestamp()*1000,
         ], $this->bannedPlayer);
         $this->presenter->flashMessage("Záznam hráče " . $this->bannedPlayer . " byl úspěšně změněn, podle zadaných hodnot.", "success");
     }
