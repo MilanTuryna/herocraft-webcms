@@ -19,7 +19,7 @@
                 <b>Neposedný hráč</b>: {$ban->name}<br>
                 <b>Důvod banu</b>: {$ban->reason}<br>
                 <b>Čas události</b>: {(round($ban->time/1000,0))|date:'j.n.Y H:i'}<br>
-                <b>Expirace banu</b>: {if $ban->expires}{(round($ban->expires/1000,0))}{else}Permanentní, nekonečný{/if}<br>
+                <b>Expirace banu</b>: {if $ban->expires}{(round($ban->expires/1000,0))|date:'j.n.Y H:i'}{else}Permanentní, nekonečný{/if}<br>
             </div>
         </div>
     </div>
