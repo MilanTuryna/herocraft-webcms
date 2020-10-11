@@ -64,6 +64,7 @@ class EditBanForm
                 "reason" => $values->reason,
                 "expires" => $expires], $this->bannedPlayer);
             $this->presenter->flashMessage("Záznam hráče " . $this->bannedPlayer . " byl úspěšně změněn, podle zadaných hodnot.", "success");
+            $this->presenter->redirect("Minecraft:editBan", $this->bannedPlayer);
         } catch (\Exception $e) {
             $this->presenter->flashMessage("Zkontrolujte si prosím, jestli jste zadal čas ve validním časovém formátu", "danger");
             $this->presenter->redirect("Minecraft:editBan", $this->bannedPlayer);
