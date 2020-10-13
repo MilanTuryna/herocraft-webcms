@@ -8,7 +8,7 @@
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:ipBanList">IP banlist</a></li>
-            <li class="breadcrumb-item active" aria-current="page">IP ban - {$ban->ip}</li>
+            <li class="breadcrumb-item active" aria-current="page">IP ban - {$ipBan->ip}</li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
@@ -16,10 +16,10 @@
         <div class="card-body">
             <h5 class="card-title">Podrobnosti o IP banu</h5>
             <div class="card-text">
-                <b>IP adresa</b>: {$ban->ip}<br>
-                <b>Důvod banu</b>: {$ban->reason}<br>
-                <b>Čas události</b>: {(round($ban->time/1000,0))|date:'j.n.Y H:i'}<br>
-                <b>Expirace banu</b>: {if $ban->expires}{(round($ban->expires/1000,0))|date:'j.n.Y H:i'}{else}Permanentní, nekonečný{/if}<br>
+                <b>IP adresa</b>: {$ipBan->ip}<br>
+                <b>Důvod banu</b>: {$ipBan->reason}<br>
+                <b>Čas události</b>: {(round($ipBan->time/1000,0))|date:'j.n.Y H:i'}<br>
+                <b>Expirace banu</b>: {if $ipBan->expires}{(round($ipBan->expires/1000,0))|date:'j.n.Y H:i'}{else}Permanentní, nekonečný{/if}<br>
             </div>
         </div>
     </div>
