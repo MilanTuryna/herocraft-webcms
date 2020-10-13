@@ -89,7 +89,7 @@ class MinecraftPresenter extends AdminBasePresenter
             $this->redirect("Minecraft:chat");
         }
     }
-
+    
     public function renderEventList() {
         $this->template->events = $this->events->findAllEvents()->fetchAll();
     }
@@ -141,6 +141,10 @@ class MinecraftPresenter extends AdminBasePresenter
         }
     }
 
+    /**
+     * @param $nick
+     * @throws AbortException
+     */
     public function renderEditBan($nick) {
         $ban = $this->bans->getBanByNick($nick)->fetch();
         if($ban) {
