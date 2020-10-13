@@ -4,6 +4,7 @@
 namespace App\Presenters\AdminModule;
 
 
+use App\Forms\Minecraft\BanFilterForm;
 use App\Forms\Minecraft\ChatFilterForm;
 use App\Forms\Minecraft\EditBanForm;
 use App\Forms\Minecraft\EditEventRecordForm;
@@ -183,6 +184,13 @@ class MinecraftPresenter extends AdminBasePresenter
      */
     public function createComponentChatFilterForm(): Form {
         return (new ChatFilterForm($this->chatLog, $this))->create();
+    }
+
+    /**
+     * @return Form
+     */
+    public function createComponentBanFilterForm(): Form {
+        return (new BanFilterForm($this->bans, $this))->create();
     }
 
     /**
