@@ -53,7 +53,7 @@ class Bans
             ->order('time ' . $timeOrder);
     }
 
-    public function filterAllIPBans(array $ips, string $timeStart, string $timeEnd, string $columns = "*", string $timeOrder = 'DESC') {
+    public function filterAllIpBans(array $ips, string $timeStart, string $timeEnd, string $columns = "*", string $timeOrder = 'DESC') {
         $timeStart = date_create($timeStart)->getTimestamp()*1000;
         $timeEnd = date_create($timeEnd)->getTimestamp()*1000;
         return $this->context->table(self::BANS_TABLE)->select($columns)
