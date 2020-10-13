@@ -1,0 +1,53 @@
+{layout '../layout.latte'}
+{block title}
+    Editovat IP ban - {$ipBan->ip}
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:IpBanList">IP banlist</a></li>
+            <li class="breadcrumb-item active" aria-current="page">IP ban - {$ban->ip}</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Podrobnosti o IP banu</h5>
+            <div class="card-text">
+                <b>IP adresa</b>: {$ban->ip}<br>
+                <b>Důvod banu</b>: {$ban->reason}<br>
+                <b>Čas události</b>: {(round($ban->time/1000,0))|date:'j.n.Y H:i'}<br>
+                <b>Expirace banu</b>: {if $ban->expires}{(round($ban->expires/1000,0))|date:'j.n.Y H:i'}{else}Permanentní, nekonečný{/if}<br>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Změnit</h5>
+            <div class="card-text">
+                <form n:name="editIpBanForm-$ipBan->ip">
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="reason">Důvod banu</label>
+                        <div class="col-sm-10">
+                            <input n:name="reason" spellcheck="false" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="expires">Expirace banu</label>
+                        <div class="col-sm-10">
+                            <input n:name="expires" spellcheck="false" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><br></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success float-right" n:name="submit">Aplikovat změny</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
