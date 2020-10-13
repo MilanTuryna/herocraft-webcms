@@ -15,7 +15,7 @@ class Bans
     private Context $context;
 
     const BANS_TABLE = "bans";
-    const IPBANS_TABLE = "ip_bans";
+    const IPBANS_TABLE = "ipbans";
 
     /**
      * Bans constructor.
