@@ -89,7 +89,31 @@ class MinecraftPresenter extends AdminBasePresenter
             $this->redirect("Minecraft:chat");
         }
     }
-    
+
+    /**
+     * @param $timeStart
+     * @param $timeEnd
+     * @param array $players
+     * @throws AbortException
+     */
+    public function renderFilterBan($timeStart, $timeEnd, array $players) {
+        if($timeEnd && $timeStart && $players) {
+            $messages = $this->bans->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
+            if($messages) {
+                $this->template->messages = $messages;
+                $this->template->timeStart = $timeStart;
+                $this->template->timeEnd = $timeEnd;
+                $this->template->filteredPlayers = $players;
+            } else {
+                $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+                $this->redirect("Minecraft:chat");
+            }
+        } else {
+            $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+            $this->redirect("Minecraft:chat");
+        }
+    }
+
     public function renderEventList() {
         $this->template->events = $this->events->findAllEvents()->fetchAll();
     }
