@@ -18,6 +18,11 @@ class Bans
     const IPBANS_TABLE = "ipbans";
 
     /**
+     * Constant to replacing dots in IP when IP is giving to multiplier object but component name must be non-empty alphanumeric string
+     */
+    const MULTIPLIER_REPLACING_IP_CHARACTER = "z";
+
+    /**
      * Bans constructor.
      * @param Context $context
      * database.bans
