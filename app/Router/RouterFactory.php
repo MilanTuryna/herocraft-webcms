@@ -40,6 +40,11 @@ final class RouterFactory
             ->addRoute('/admin/minecraft/bany/zaznam/<nick>', 'Minecraft:editBan')
             ->addRoute('/admin/minecraft/bany[/<page>]', 'Minecraft:banList')
 
+            // TODO: Check why IPS & players parameter is null
+            ->addRoute('/admin/minecraft/ipbany/filter/?timeStart=<timeStart>&timeEnd=<timeEnd>&ips[]=<ips=null>',  'Minecraft:filterIpBan')
+            ->addRoute('/admin/minecraft/ipbany/zaznam/<nick>', 'Minecraft:editIpBan')
+            ->addRoute('/admin/minecraft/ipbany[/<page>]', 'Minecraft:ipBanList')
+
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
             ->addRoute('/admin/stranky/edit/<url>', 'Page:edit')
