@@ -301,7 +301,7 @@ class MinecraftPresenter extends AdminBasePresenter
      */
     public function createComponentEditIpBanForm(): Multiplier {
         return new Multiplier(function ($ip) {
-            return (new EditIpBanForm($this->bans, $this, $ip))->create();
+            return (new EditIpBanForm($this->bans, $this, str_replace(".", Bans::MULTIPLIER_REPLACING_IP_CHARACTER, $ip)))->create();
         });
     }
 }
