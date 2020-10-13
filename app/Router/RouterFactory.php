@@ -42,7 +42,7 @@ final class RouterFactory
 
             // TODO: Check why IPS & players parameter is null, after ipBans completed
             ->addRoute('/admin/minecraft/ipbany/filter/?timeStart=<timeStart>&timeEnd=<timeEnd>&ips[]=<ips=null>',  'Minecraft:filterIpBan')
-            ->addRoute('/admin/minecraft/ipbany/zaznam/<nick>', 'Minecraft:editIpBan')
+            ->addRoute('/admin/minecraft/ipbany/zaznam/<ip>', 'Minecraft:editIpBan')
             ->addRoute('/admin/minecraft/ipbany[/<page>]', 'Minecraft:ipBanList')
 
             ->addRoute('/admin/stranky', 'Page:list')
