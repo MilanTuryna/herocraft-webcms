@@ -217,6 +217,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $ipBan = $this->bans->getIPBanByIP($ip)->fetch();
         if($ipBan) {
             $this->template->ipBan = $ipBan;
+            $this->template->multiplierReplaceCharacter = Bans::MULTIPLIER_REPLACING_IP_CHARACTER;
         } else {
             $this->flashMessage("IP adresa " . $ip . " není zabanována!", "danger");
             $this->redirect("Minecraft:ipBanList");
