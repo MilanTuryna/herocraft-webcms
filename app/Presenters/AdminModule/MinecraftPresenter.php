@@ -89,6 +89,8 @@ class MinecraftPresenter extends AdminBasePresenter
         }
     }
 
+    // TODO: Check CachedAPIRepository and delete old LiteBans method
+
     /**
      * @param $timeStart
      * @param $timeEnd
@@ -179,6 +181,20 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->lastPage = $lastPage;
 
         if($page > $lastPage+1) {
+            $this->redirect("Minecraft:ipBanList");
+        }
+    }
+
+    /**
+     * @param $ip
+     * @throws AbortException
+     */
+    public function renderEditIpBan($ip) {
+        $ipBan = $this->bans->getIPBanByIP($ip);
+        if($ipBan) {
+            $this->template->ipBan = $ipBan;
+        } else {
+            $this->flashMessage("IP adresa " . $ip . " není zabanována!", "danger");
             $this->redirect("Minecraft:ipBanList");
         }
     }
