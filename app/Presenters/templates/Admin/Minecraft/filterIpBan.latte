@@ -1,0 +1,74 @@
+{layout '../layout.latte'}
+{block title}
+    Filtrovaný IP banlist
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:ipBanList">IP Bany</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Filtrovaný IP banlist (dle nastavení)</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Filter</h5>
+            <div class="card-text">
+                Nastaveno období od {$timeStart|date:'j.n.Y H:i'} do {$timeEnd|date:'j.n.Y'} 23:59<br>
+                <hr>
+                <b style="text-decoration: underline">Označené IP adresy:</b>
+                <ul>
+                    <li n:foreach="$filteredIps as $ip">
+                        {$ip}
+                    </li>
+                </ul>
+                <hr>
+                <a n:href="Minecraft:ipBanList" class="btn btn-danger float-right" style="border-radius: 0">Resetovat filtr</a>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">IP bany (filtrované, seřazené dle času události)</h5>
+            <div class="card-text">
+                {if $ipBans}
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped" style="text-align: center">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">IP</th>
+                                <th scope="col">Důvod</th>
+                                <th scope="col">Admin</th>
+                                <th scope="col">Čas údálosti</th>
+                                <th scope="col">Expirace</th>
+                                <th scope="col">#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $ipBans as $ban}
+                                <tr>
+                                    <th scope="row">{$iterator->getCounter()}</th>
+                                    <td>{$ban->ip}</td>
+                                    <td>{$ban->reason}</td>
+                                    <td>{$ban->banner}</td>
+                                    {var $time = round($ban->time/1000,0)}
+                                    {var $expires = round($ban->expires/1000,0)}
+                                    <td>{$time|date:'j.n.Y H:i'}</td>
+                                    <td>{if $expires}{$expires|date:'j.n.Y H:i'}{else}Permanentní{/if}</td>
+                                    <td><a n:href="Minecraft:editIpBan, $ban->ip">EDIT</a></td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                {else}
+                    Žádný ban nebyl v databázi nalezen.
+                {/if}
+            </div>
+        </div>
+
+    </div>
+{/block}
