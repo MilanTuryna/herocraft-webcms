@@ -5,6 +5,7 @@ namespace App\Forms\Minecraft;
 
 
 use App\Model\API\Plugin\Bans;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use stdClass;
@@ -51,8 +52,18 @@ class BanFilterForm
     /**
      * @param Form $form
      * @param stdClass $values
+     * @throws AbortException
      */
     public function success(Form $form, stdClass $values) {
-
+        if($values->timeStart < $values->timeEnd) {
+            $players = explode(" ", $values->players);
+            if($players) {
+                $this->presenter->redirect("Minecraft:filterBan", [
+                    $values->timeStart, $values->timeEnd, $players
+                ]);
+            } else {
+                $form->addError("Žádného hráče jste nezadal!");
+            }
+        }
     }
 }
