@@ -15,24 +15,24 @@
         <div class="card-body">
             <h5 class="card-title">Nastavení filteru</h5>
             <div class="card-text">
-                <form>
+                <form n:name="banFilterForm">
                     <div class="form-row">
                         <div class="col">
                             Od
-                            <input type="date" class="form-control" placeholder="Od">
+                            <input type="date" n:name="timeStart" class="form-control" placeholder="Od">
                         </div>
                         <div class="col">
                             Do
-                            <input type="date" class="form-control" placeholder="Do">
+                            <input type="date" n:name="timeEnd" class="form-control" placeholder="Do">
                         </div>
                     </div>
 
                     <div style="margin-top:12px">
                         <span >Seznam filtrovaných hráčů</span>
-                        <input type="text" class="form-control"  placeholder='K separaci nicků využijte mezeru'/>
+                        <input type="text" n:name="players" class="form-control"  placeholder='K separaci nicků využijte mezeru'/>
                     </div>
                     <br>
-                    <button type="submit" class="btn btn-success float-right">Filtrovat</button>
+                    <button type="submit" n:name="submit" class="btn btn-success float-right">Filtrovat</button>
                 </form>
             </div>
         </div>
