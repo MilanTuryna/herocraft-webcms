@@ -125,7 +125,7 @@ class MinecraftPresenter extends AdminBasePresenter
         if($timeEnd && $timeStart && $ips) {
             $ipBans = $this->bans->filterAllIpBans($ips, $timeStart, $timeEnd)->fetchAll();
             if($ipBans) {
-                $this->template->bans = $ipBans;
+                $this->template->ipBans = $ipBans;
                 $this->template->timeStart = $timeStart;
                 $this->template->timeEnd = $timeEnd;
                 $this->template->filteredIps = $ips;
