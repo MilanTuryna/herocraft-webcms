@@ -75,7 +75,7 @@ class Bans
      * @return Selection
      */
     public function getIPBanByIP($ip) {
-        return $this->context->table(self::IPBANS_TABLE)->where("ip = ?");
+        return $this->context->table(self::IPBANS_TABLE)->where("ip = ?", $ip);
     }
 
     /**
