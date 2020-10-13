@@ -3,9 +3,6 @@
 
 namespace App\Presenters\AdminModule;
 
-
-use App\Forms\Minecraft\BanFilterForm;
-use App\Forms\Minecraft\ChatFilterForm;
 use App\Forms\Minecraft\EditBanForm;
 use App\Forms\Minecraft\EditEventRecordForm;
 
