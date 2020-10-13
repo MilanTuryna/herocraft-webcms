@@ -32,7 +32,7 @@ class FilterForm
 
         $form->addText('timeStart', 'Od')->setHtmlType("date")->setRequired();
         $form->addText('timeEnd', 'Do')->setHtmlType("date")->setRequired();
-        $form->addText('subject')->setRequired();
+        $form->addText('subjects')->setRequired();
         $form->addSubmit('submit')->setRequired();
 
         $form->onSuccess[] = [$this, 'success'];
