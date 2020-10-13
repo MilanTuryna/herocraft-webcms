@@ -50,7 +50,7 @@ class FilterForm
      */
     public function success(Form $form, stdClass $values) {
         if($values->timeStart < $values->timeEnd) {
-            $subjects = explode(" ", $values->subject);
+            $subjects = explode(" ", $values->subjects);
             if($subjects) {
                 $this->presenter->redirect($this->successRedirect, [
                     $values->timeStart, $values->timeEnd, $subjects
