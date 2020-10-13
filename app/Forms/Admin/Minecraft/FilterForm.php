@@ -32,7 +32,7 @@ class FilterForm
 
         $form->addText('timeStart', 'Od')->setHtmlType("date")->setRequired();
         $form->addText('timeEnd', 'Do')->setHtmlType("date")->setRequired();
-        $form->addText("players")->setRequired();
+        $form->addText('subject')->setRequired();
         $form->addSubmit('submit')->setRequired();
 
         $form->onSuccess[] = [$this, 'success'];
@@ -50,10 +50,10 @@ class FilterForm
      */
     public function success(Form $form, stdClass $values) {
         if($values->timeStart < $values->timeEnd) {
-            $players = explode(" ", $values->players);
-            if($players) {
+            $subjects = explode(" ", $values->subject);
+            if($subjects) {
                 $this->presenter->redirect($this->successRedirect, [
-                    $values->timeStart, $values->timeEnd, $players
+                    $values->timeStart, $values->timeEnd, $subjects
                 ]);
             } else {
                 $form->addError("Žádného hráče jste nezadal!");
