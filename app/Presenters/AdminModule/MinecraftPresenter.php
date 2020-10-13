@@ -167,6 +167,25 @@ class MinecraftPresenter extends AdminBasePresenter
     }
 
     /**
+     * @param int $page
+     * @throws AbortException
+     */
+    public function renderIpBanList(int $page = 1) {
+        $ipbans = $this->bans->getAllIPBans();
+
+        $lastPage = 0;
+        $paginatorData = $ipbans->page($page, 30, $lastPage);
+        $this->template->ipbans = $paginatorData;
+
+        $this->template->page = $page;
+        $this->template->lastPage = $lastPage;
+
+        if($page > $lastPage+1) {
+            $this->redirect("Minecraft:ipBanList");
+        }
+    }
+
+    /**
      * @param $nick
      * @throws AbortException
      */
