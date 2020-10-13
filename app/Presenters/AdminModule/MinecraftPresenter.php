@@ -171,11 +171,11 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderIpBanList(int $page = 1) {
-        $ipbans = $this->bans->getAllIPBans();
+        $ipBans = $this->bans->getAllIPBans();
 
         $lastPage = 0;
-        $paginatorData = $ipbans->page($page, 30, $lastPage);
-        $this->template->ipbans = $paginatorData;
+        $paginatorData = $ipBans->page($page, 30, $lastPage);
+        $this->template->ipBans = $paginatorData;
 
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
