@@ -75,6 +75,23 @@
                 {else}
                     Žádný ban nebyl v databázi nalezen.
                 {/if}
+                <div class="pagination d-block text-center" style="margin-top:8px;">
+                    {if $page > 1}
+                        <a n:href="Minecraft:chat, 1">Nejnovější</a>
+                        &nbsp;|&nbsp;
+                        <a n:href="Minecraft:chat, $page-1">Novější</a>
+                        &nbsp;|&nbsp;
+                    {/if}
+
+                    Stránka {$page} z {$lastPage}
+
+                    {if $page < $lastPage}
+                        &nbsp;|&nbsp;
+                        <a n:href="Minecraft:chat, $page+1">Starší</a>
+                        &nbsp;|&nbsp;
+                        <a n:href="Minecraft:chat, $lastPage">Nejstarší</a>
+                    {/if}
+                </div>
             </div>
         </div>
 
