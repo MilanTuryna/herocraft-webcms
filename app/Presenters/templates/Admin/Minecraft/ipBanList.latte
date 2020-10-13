@@ -59,14 +59,14 @@
                             {foreach $ipBans as $ban}
                                 <tr>
                                     <th scope="row">{$iterator->getCounter()}</th>
-                                    <td>{$ban->IP}</td>
+                                    <td>{$ban->ip}</td>
                                     <td>{$ban->reason}</td>
                                     <td>{$ban->banner}</td>
                                     {var $time = round($ban->time/1000,0)}
                                     {var $expires = round($ban->expires/1000,0)}
                                     <td>{$time|date:'j.n.Y H:i'}</td>
                                     <td>{if $expires}{$expires|date:'j.n.Y H:i'}{else}Permanentní{/if}</td>
-                                    <td><a n:href="Minecraft:editBan, $ban->name">EDIT</a></td>
+                                    <td><a n:href="Minecraft:editIpBan, $ban->ip">EDIT</a></td>
                                 </tr>
                             {/foreach}
                             </tbody>
