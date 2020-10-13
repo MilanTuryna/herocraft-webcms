@@ -4,30 +4,26 @@
 namespace App\Forms\Minecraft;
 
 
-use App\Model\API\Plugin\Bans;
+use App\Model\API\Plugin\ChatLog;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use stdClass;
 
-/**
- * Class BanFilterForm
- * @package App\Forms\Minecraft
- */
-class BanFilterForm
+class FilterForm
 {
-    Private Bans $bans;
-    Private Presenter $presenter;
+    private Presenter $presenter;
+    private string $successRedirect;
 
     /**
-     * BanFilterForm constructor.
-     * @param Bans $bans
+     * ChatFilterForm constructor.
      * @param Presenter $presenter
+     * @param string $successRedirect
      */
-    public function __construct(Bans $bans, Presenter $presenter)
+    public function __construct(Presenter $presenter, string $successRedirect)
     {
-        $this->bans = $bans;
         $this->presenter = $presenter;
+        $this->successRedirect = $successRedirect;
     }
 
     /**
@@ -36,8 +32,8 @@ class BanFilterForm
     public function create(): Form {
         $form = new Form;
 
-        $form->addText('timeEnd', 'Do')->setHtmlType("date")->setRequired();
         $form->addText('timeStart', 'Od')->setHtmlType("date")->setRequired();
+        $form->addText('timeEnd', 'Do')->setHtmlType("date")->setRequired();
         $form->addText("players")->setRequired();
         $form->addSubmit('submit')->setRequired();
 
@@ -58,12 +54,14 @@ class BanFilterForm
         if($values->timeStart < $values->timeEnd) {
             $players = explode(" ", $values->players);
             if($players) {
-                $this->presenter->redirect("Minecraft:filterBan", [
+                $this->presenter->redirect($this->successRedirect, [
                     $values->timeStart, $values->timeEnd, $players
                 ]);
             } else {
                 $form->addError("Žádného hráče jste nezadal!");
             }
+        } else {
+            $form->addError("První datum (od) musí být vždy časově dřív, jak druhý datum (do)");
         }
     }
 }

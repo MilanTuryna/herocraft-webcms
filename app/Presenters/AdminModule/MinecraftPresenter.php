@@ -9,6 +9,7 @@ use App\Forms\Minecraft\ChatFilterForm;
 use App\Forms\Minecraft\EditBanForm;
 use App\Forms\Minecraft\EditEventRecordForm;
 
+use App\Forms\Minecraft\FilterForm;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
 use App\Model\API\Plugin\Events;
@@ -211,14 +212,14 @@ class MinecraftPresenter extends AdminBasePresenter
      * @return Form
      */
     public function createComponentChatFilterForm(): Form {
-        return (new ChatFilterForm($this->chatLog, $this))->create();
+        return (new FilterForm($this, "Minecraft:filterChat"))->create();
     }
 
     /**
      * @return Form
      */
     public function createComponentBanFilterForm(): Form {
-        return (new BanFilterForm($this->bans, $this))->create();
+        return (new FilterForm($this, "Minecraft:filterBan"))->create();
     }
 
     /**
