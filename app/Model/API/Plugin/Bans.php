@@ -46,8 +46,18 @@ class Bans
     public function filterAllRows(array $players, string $timeStart, string $timeEnd, string $columns = "*", string $timeOrder = "DESC") {
         $timeStart = date_create($timeStart)->getTimestamp()*1000;
         $timeEnd = date_create($timeEnd)->getTimestamp()*1000;
+        $players = array_map('strtolower', $players);
         return $this->context->table(self::BANS_TABLE)->select($columns)
             ->where("name",  $players)
+            ->where("time BETWEEN ? AND ?", $timeStart, $timeEnd)
+            ->order('time ' . $timeOrder);
+    }
+
+    public function filterAllIPBans(array $ips, string $timeStart, string $timeEnd, string $columns = "*", string $timeOrder = 'DESC') {
+        $timeStart = date_create($timeStart)->getTimestamp()*1000;
+        $timeEnd = date_create($timeEnd)->getTimestamp()*1000;
+        return $this->context->table(self::BANS_TABLE)->select($columns)
+            ->where("ip",  $ips)
             ->where("time BETWEEN ? AND ?", $timeStart, $timeEnd)
             ->order('time ' . $timeOrder);
     }
