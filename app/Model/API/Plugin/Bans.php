@@ -36,6 +36,21 @@ class Bans
     }
 
     /**
+     * @param array $players
+     * @param string $timeStart
+     * @param string $timeEnd
+     * @param string $columns
+     * @param string $timeOrder
+     * @return Selection
+     */
+    public function filterAllRows(array $players, string $timeStart, string $timeEnd, string $columns = "*", string $timeOrder = "DESC") {
+        return $this->context->table(self::BANS_TABLE)->select($columns)
+            ->where("Username",  $players)
+            ->where("Time BETWEEN ? AND ?", $timeStart, $timeEnd)
+            ->order('Time ' . $timeOrder);
+    }
+
+    /**
      * @param $ip
      * @return int
      */
