@@ -214,7 +214,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderEditIpBan($ip) {
-        $ipBan = $this->bans->getIPBanByIP($ip);
+        $ipBan = $this->bans->getIPBanByIP($ip)->fetch();
         if($ipBan) {
             $this->template->ipBan = $ipBan;
         } else {
