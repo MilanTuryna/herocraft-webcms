@@ -111,6 +111,15 @@ class Bans
     }
 
     /**
+     * @param iterable $datas
+     * @param $ip
+     * @return int
+     */
+    public function updateIPBanByIP(iterable $datas, $ip) {
+        return $this->context->table(self::IPBANS_TABLE)->where("ip = ?", $ip)->update($datas);
+    }
+
+    /**
      * @return Context
      */
     public function getDatabaseContext(): Context {
