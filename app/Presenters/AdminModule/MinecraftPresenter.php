@@ -107,11 +107,11 @@ class MinecraftPresenter extends AdminBasePresenter
                 $this->template->filteredPlayers = $players;
             } else {
                 $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
-                $this->redirect("Minecraft:chat");
+                $this->redirect("Minecraft:banList");
             }
         } else {
             $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
-            $this->redirect("Minecraft:chat");
+            $this->redirect("Minecraft:banList");
         }
     }
 
