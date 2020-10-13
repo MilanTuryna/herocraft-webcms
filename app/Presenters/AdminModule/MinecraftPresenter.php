@@ -242,6 +242,13 @@ class MinecraftPresenter extends AdminBasePresenter
     }
 
     /**
+     * @return Form
+     */
+    public function createComponentIpBanFilterForm(): Form {
+        return (new FilterForm($this, "Minecraft:filterIpBan"))->create();
+    }
+
+    /**
      * @return Multiplier
      */
     public function createComponentEditBanForm(): Multiplier {
