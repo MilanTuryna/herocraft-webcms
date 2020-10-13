@@ -99,9 +99,9 @@ class MinecraftPresenter extends AdminBasePresenter
      */
     public function renderFilterBan($timeStart, $timeEnd, array $players) {
         if($timeEnd && $timeStart && $players) {
-            $messages = $this->bans->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
-            if($messages) {
-                $this->template->messages = $messages;
+            $bans = $this->bans->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
+            if($bans) {
+                $this->template->bans = $bans;
                 $this->template->timeStart = $timeStart;
                 $this->template->timeEnd = $timeEnd;
                 $this->template->filteredPlayers = $players;
