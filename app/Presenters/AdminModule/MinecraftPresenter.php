@@ -115,6 +115,30 @@ class MinecraftPresenter extends AdminBasePresenter
         }
     }
 
+    /**
+     * @param $timeStart
+     * @param $timeEnd
+     * @param array $ips
+     * @throws AbortException
+     */
+    public function renderFilterIpBan($timeStart, $timeEnd, array $ips) {
+        if($timeEnd && $timeStart && $ips) {
+            $ipBans = $this->bans->filterAllIpBans($ips, $timeStart, $timeEnd)->fetchAll();
+            if($ipBans) {
+                $this->template->bans = $ipBans;
+                $this->template->timeStart = $timeStart;
+                $this->template->timeEnd = $timeEnd;
+                $this->template->filteredIps = $ips;
+            } else {
+                $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+                $this->redirect("Minecraft:ipBanList");
+            }
+        } else {
+            $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+            $this->redirect("Minecraft:ipBanList");
+        }
+    }
+
     public function renderEventList() {
         $this->template->events = $this->events->findAllEvents()->fetchAll();
     }
