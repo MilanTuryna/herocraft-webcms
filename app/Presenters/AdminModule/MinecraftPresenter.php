@@ -9,6 +9,7 @@ use App\Forms\Minecraft\ChatFilterForm;
 use App\Forms\Minecraft\EditBanForm;
 use App\Forms\Minecraft\EditEventRecordForm;
 
+use App\Forms\Minecraft\EditIpBanForm;
 use App\Forms\Minecraft\FilterForm;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
@@ -254,6 +255,15 @@ class MinecraftPresenter extends AdminBasePresenter
     public function createComponentEditBanForm(): Multiplier {
         return new Multiplier(function ($bannedPlayer) {
            return (new EditBanForm($this, $this->bans, $bannedPlayer))->create();
+        });
+    }
+
+    /**
+     * @return Multiplier
+     */
+    public function createComponentEditIpBanForm(): Multiplier {
+        return new Multiplier(function ($ip) {
+            return (new EditIpBanForm($this->bans, $this, $ip))->create();
         });
     }
 }
