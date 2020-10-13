@@ -27,7 +27,7 @@ class ChatFilterForm
      * @param $chatLog
      * @param $presenter
      */
-    public function __construct($chatLog, $presenter)
+    public function __construct(ChatLog $chatLog, Presenter $presenter)
     {
         $this->chatLog = $chatLog;
         $this->presenter = $presenter;
