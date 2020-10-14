@@ -4,9 +4,7 @@ namespace App\Presenters\PanelModule;
 use App\Forms\Panel\Main\ChangePasswordForm;
 use App\Forms\Panel\Main\FastLoginForm;
 use App\Model\API\Minecraft;
-use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\TokenManager;
-use App\Model\API\Plugin\FastLogin;
 use App\Model\Panel\AuthMeRepository;
 use App\Model\Panel\MojangRepository;
 use App\Model\Security\Auth\PluginAuthenticator;
@@ -27,10 +25,8 @@ class MainPresenter extends PanelBasePresenter
 {
     private PluginAuthenticator $pluginAuthenticator;
     private ActiveRow $user;
-    private FastLogin $fastLogin;
     private MojangRepository $mojangRepository;
     private TokenManager $tokenManager;
-    private Friends $friends;
     private CachedAPIRepository $cachedAPIRepository;
     private AuthMeRepository $authMeRepository;
 
@@ -39,28 +35,24 @@ class MainPresenter extends PanelBasePresenter
      * @param PluginAuthenticator $pluginAuthenticator
      * @param SettingsRepository $settingsRepository
      * @param AuthMeRepository $authMeRepository
-     * @param FastLogin $fastLogin
      * @param MojangRepository $mojangRepository
      * @param TokenManager $tokenManager
-     * @param Friends $friends
      * @param CachedAPIRepository $cachedAPIRepository
      */
     public function __construct(PluginAuthenticator $pluginAuthenticator,
                                 SettingsRepository $settingsRepository,
                                 AuthMeRepository $authMeRepository,
-                                FastLogin $fastLogin,
+
                                 MojangRepository $mojangRepository,
                                 TokenManager $tokenManager,
-                                Friends $friends, CachedAPIRepository $cachedAPIRepository)
+                                CachedAPIRepository $cachedAPIRepository)
     {
         parent::__construct($settingsRepository);
 
         $this->cachedAPIRepository = $cachedAPIRepository;
         $this->pluginAuthenticator = $pluginAuthenticator;
-        $this->fastLogin = $fastLogin;
         $this->mojangRepository = $mojangRepository;
         $this->tokenManager = $tokenManager;
-        $this->friends = $friends;
         $this->authMeRepository = $authMeRepository;
     }
 
@@ -85,11 +77,9 @@ class MainPresenter extends PanelBasePresenter
 
         $networkStats = new \stdClass();
         $networkStats->tokenRow = $this->tokenManager->getRow($this->user->realname);
-        $networkStats->friendsCount = $this->friends->countOfFriends($this->user->realname);
 
         $this->template->isBanned = $this->cachedAPIRepository->isBanned($this->user->realname);
         $this->template->user = $this->user;
-        $this->template->fastLogin = $this->fastLogin->getRow($this->user->realname);
         $this->template->networkStats = $networkStats;
     }
 
