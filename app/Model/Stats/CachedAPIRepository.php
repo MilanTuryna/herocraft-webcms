@@ -59,30 +59,6 @@ class CachedAPIRepository
     }
 
     /**
-     * @param $name
-     * @return mixed
-     */
-    public function getFastLogin($name) {
-        $cacheName = 'API_fastLogin_' . $name;
-        if (is_null($this->cache->load($cacheName))) {
-            $db = $this->fastLogin->getRow($name);
-            $this->cache->save($cacheName,  $db ? ArrayHash::from($db->toArray()) : null, [
-                Cache::EXPIRE => self::EXPIRE_TIME
-            ]);
-        }
-
-        return $this->cache->load($cacheName);
-    }
-
-    /**
-     * @param $user
-     * @return mixed
-     */
-    public function getCountFriends($user) {
-        return $this->friends->countOfFriends($user);
-    }
-
-    /**
      * @param $user
      * @return mixed
      */
@@ -106,27 +82,6 @@ class CachedAPIRepository
         $cacheName = 'API_permGroups_' . $uuid;
         if(is_null($this->cache->load($cacheName))) {
             $this->cache->save($cacheName, $this->luckPerms->getUserGroups($uuid), [
-                Cache::EXPIRE => self::EXPIRE_TIME
-            ]);
-        }
-
-        return $this->cache->load($cacheName);
-    }
-
-    /**
-     * @param $user
-     * @return mixed
-     */
-    public function getFriendsList($user) {
-        $cacheName = 'API_friendsList_' . $user;
-        if (is_null($this->cache->load($cacheName))) {
-            $db = $this->friends->getFriends($user);
-            $this->cache->save($cacheName, $db ? array_map(function ($n) {
-                $n->lastOnline = strtotime(((array)$n->lastOnline)['date'])*1000;
-                $n->headImageUrl = "https://minotar.net/avatar/{$n->player_name}.png";
-                unset($n->player_id);
-                return $n;
-            }, $this->friends->getFriends($user)) : null, [
                 Cache::EXPIRE => self::EXPIRE_TIME
             ]);
         }
