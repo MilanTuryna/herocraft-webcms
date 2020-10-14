@@ -6,7 +6,6 @@ use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\FastLogin;
 use App\Model\API\Plugin\Friends;
-use App\Model\API\Plugin\LiteBans;
 use App\Model\API\Plugin\LuckPerms;
 use App\Model\API\Plugin\TokenManager;
 use App\Model\Panel\AuthMeRepository;
