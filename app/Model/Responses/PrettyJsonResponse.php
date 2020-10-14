@@ -54,7 +54,6 @@ class PrettyJsonResponse implements AppResponse
      */
     function send(IRequest $httpRequest, IResponse $httpResponse): void
     {
-        // TODO: Implement send() method.
         $httpResponse->setContentType($this->contentType, 'utf-8');
         echo Json::encode($this->payload, Json::PRETTY);
     }
