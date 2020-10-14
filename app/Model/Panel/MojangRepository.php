@@ -60,10 +60,12 @@ class MojangRepository
     /**
      * @param $username
      * @return mixed
+     *
+     * TODO: null because Friends is deleted
      */
     public function getUUID($username) {
         if(is_null($this->cache->load('mojang_uuid_' . $username))) {
-            $this->cache->save('mojang_uuid_' . $username,  $this->friends->getRowByName($username)->player_uuid, [
+            $this->cache->save('mojang_uuid_' . $username,  null, [
                 Cache::EXPIRE => "24 hours"
             ]);
         }
