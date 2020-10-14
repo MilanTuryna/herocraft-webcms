@@ -4,8 +4,6 @@ namespace App\Model\Stats;
 
 use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\Bans;
-use App\Model\API\Plugin\FastLogin;
-use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\LuckPerms;
 use App\Model\API\Plugin\TokenManager;
 use App\Model\Panel\AuthMeRepository;
@@ -22,8 +20,6 @@ class CachedAPIRepository
 
     private AuthMeRepository $authMeRepository;
     private Cache $cache;
-    private FastLogin $fastLogin;
-    private Friends $friends;
     private TokenManager $tokenManager;
     private LuckPerms $luckPerms;
     private Bans $bans;
@@ -32,19 +28,15 @@ class CachedAPIRepository
      * CachedAPIRepository constructor.
      * @param AuthMeRepository $authMeRepository
      * @param IStorage $storage
-     * @param FastLogin $fastLogin
-     * @param Friends $friends
      * @param TokenManager $tokenManager
      * @param LuckPerms $luckPerms
      * @param Bans $bans
      */
-    public function __construct(AuthMeRepository $authMeRepository, IStorage $storage, FastLogin $fastLogin,
-                                Friends $friends, TokenManager $tokenManager, LuckPerms $luckPerms, Bans $bans)
+    public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
+                                TokenManager $tokenManager, LuckPerms $luckPerms, Bans $bans)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
-        $this->fastLogin = $fastLogin;
-        $this->friends = $friends;
         $this->tokenManager = $tokenManager;
         $this->luckPerms = $luckPerms;
         $this->bans = $bans;
