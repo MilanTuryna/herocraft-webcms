@@ -16,7 +16,7 @@
         <div class="card-body">
             <h5 class="card-title">Podrobnosti o banu</h5>
             <div class="card-text">
-                <b>Neposedný hráč</b>: {$ban->name}<br>
+                <b>Neposedný hráč</b>: <a n:href=":Stats:Main:app?player=$ban->name">{$ban->name}</a><br>
                 <b>Důvod banu</b>: {$ban->reason}<br>
                 <b>Čas události</b>: {(round($ban->time/1000,0))|date:'j.n.Y H:i'}<br>
                 <b>Expirace banu</b>: {if $ban->expires}{(round($ban->expires/1000,0))|date:'j.n.Y H:i'}{else}Permanentní, nekonečný{/if}<br>
