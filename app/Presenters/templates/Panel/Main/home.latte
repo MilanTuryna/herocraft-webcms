@@ -40,23 +40,15 @@
             </div>
         </div>
         <div class="default-margin-bot d-lg-block d-none"> </div>
-        <div id="originalni-minecraft" class="alert w-100 border-radius-0" style="background-color:rgba(255,165,0,0.3);">
+        <!--<div id="originalni-minecraft" class="alert w-100 border-radius-0" style="background-color:rgba(255,165,0,0.3);">
             <h1 class="display-4" style="font-size:25px">
-                Máš originální minecraft?
+                Máš originální minecraft? ZMĚĚĚNIIIT NA ZMĚNU HESLA
             </h1>
             <p>
                 Jestliže máš originální minecraft, už se nemusíš přihlašovat, stačí kliknout na tlačítko Aktivovat a příště už se k nám dostaneš bez přihlášení!
                 Ale dávej pozor, pokud originální minecraft nemáš, tak ti to nepůjde a nepotřebuješ na nic klikat.
             </p>
-            <form n:name="fastLoginForm-$user->realname">
-                <input type="submit" n:name="original" class="btn btn-success d-none d-345-block" style="margin-right: 16px" value="Original"/>
-                <input type="submit" n:name="warez" class="btn btn-danger d-none d-345-block default-margin-top" value="Warez"/>
-            </form>
-            <form n:name="fastLoginForm-$user->realname">
-                <input type="submit" n:name="original" class="btn btn-success d-345-none float-left" style="margin-right: 16px" value="Original"/>
-                <input type="submit" n:name="warez" class="btn btn-danger d-345-none float-left" value="Warez"/>
-            </form>
-        </div>
+        </div>-->
 {/block}
 {block second_col}
     {var $lastlogin = $fastLogin->LastLogin}
@@ -64,7 +56,6 @@
         <h5 class="font-weight-light pink-color">Tvé info</h5>
             <ul class="text-white-50">
                 <li>Nick: <span class="pink-color">{$user->realname}</span></li>
-                <li>Typ účtu: <span class="pink-color">{$fastLogin->Premium ? 'Original' : 'Warez'} (zde na serveru)</span></li>
                 <li>Zabanovaný: <span class="pink-color">{$isBanned ? 'Ano' : 'Ne'}</span></li>
                 <li>Poslední přihlášení: <span class="pink-color">{$lastlogin|date:'d.n.Y H:i'}</span></li>
             </ul>
@@ -72,14 +63,4 @@
     <a n:href=":Stats:Main:app?player=$user->realname" class="bg-opacity-green d-block text-center text-white-50 white-hover" style="padding: 4px">
         Mé podrobné statistiky
     </a>
-    <div style="padding: 16px" class="bg-opacity-blue">
-        <h5 class="font-weight-light text-warning">
-            Network statistiky
-        </h5>
-        <small class="small text-white-50">Některé statistiky se neaktualizují ihned!</small>
-        <ul class="text-white-50">
-            <li>PVPcoiny: <span class="text-warning">{$networkStats->tokenRow ? $networkStats->tokenRow->tokens : 'První se připoj na server!'}</span></li>
-            <li>Počet přátel: <span class="text-warning">{$networkStats->friendsCount ? $networkStats->friendsCount : 'První se připoj na server!'}</span></li>
-        </ul>
-    </div>
 {/block}
