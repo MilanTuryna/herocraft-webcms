@@ -45,3 +45,11 @@ database:
         dsn:
         user:
         password:
+    senior_iconomy:
+        dsn:
+        user:
+        password:
+    survival_iconomy:
+        dsn:
+        user:
+        password:
