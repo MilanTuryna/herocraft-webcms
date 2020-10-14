@@ -26,8 +26,6 @@ services:
 	- App\Model\Panel\Core\TicketRepository
 	- App\Model\Panel\AuthMeRepository(@database.authme.context)
 	- App\Model\API\Plugin\TokenManager(@database.tokenmanager.context)
-	- App\Model\API\Plugin\Friends(@database.friends.context)
-	- App\Model\API\Plugin\FastLogin(@database.fastlogin.context)
 	- App\Model\API\Plugin\ChatLog(@database.chatlog.context)
 	- App\Model\API\Plugin\Events(@database.events.context)
 	- App\Model\API\Plugin\Bans(@database.bans.context)
