@@ -14,6 +14,8 @@ class PlayerTime
 {
     private Context $context;
 
+    const TABLE_NAME = "playtime";
+
     /**
      * PlayerTime constructor.
      * @param Context $context
@@ -22,5 +24,9 @@ class PlayerTime
     public function __construct(Context $context)
     {
         $this->context = $context;
+    }
+
+    public function getRowByName($name) {
+        return $this->context->table(self::TABLE_NAME)->where("username = ?", $name);
     }
 }
