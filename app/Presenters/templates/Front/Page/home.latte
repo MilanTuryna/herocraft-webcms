@@ -21,11 +21,6 @@
 	</style>
 	<div class="header shadow-lg">
 		<div class="container" data-aos="fade-right"  data-aos-duration="1500">
-			<!--{ifset $logo[0]}
-					<img draggable="false" class="not-drag center-img" onmousedown="return false" src="{$basePath}/{$logo[0]}" id="logo" alt="logo">
-			{else}
-				<span class="invisible">&nbsp;</span>
-			{/ifset}-->
 			<h2 class="font-weight-light text-white">
 				{if !$nastaveni->udrzba && isset($status->online) && $status->online}
 						Na serveru je momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
