@@ -3,6 +3,7 @@
 namespace App\Model\Stats;
 
 use App\Model\API\CzechCraft;
+use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\FastLogin;
 use App\Model\API\Plugin\Friends;
 use App\Model\API\Plugin\LiteBans;
@@ -26,6 +27,7 @@ class CachedAPIRepository
     private Friends $friends;
     private TokenManager $tokenManager;
     private LuckPerms $luckPerms;
+    private Bans $bans;
 
     /**
      * CachedAPIRepository constructor.
@@ -35,9 +37,10 @@ class CachedAPIRepository
      * @param Friends $friends
      * @param TokenManager $tokenManager
      * @param LuckPerms $luckPerms
+     * @param Bans $bans
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage, FastLogin $fastLogin,
-                                Friends $friends, TokenManager $tokenManager, LuckPerms $luckPerms)
+                                Friends $friends, TokenManager $tokenManager, LuckPerms $luckPerms, Bans $bans)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -45,6 +48,7 @@ class CachedAPIRepository
         $this->friends = $friends;
         $this->tokenManager = $tokenManager;
         $this->luckPerms = $luckPerms;
+        $this->bans = $bans;
     }
 
     /**
@@ -167,17 +171,14 @@ class CachedAPIRepository
         return $this->cache->load($cacheName)->data;
     }
 
-    // TODO: Delete liteBans from all uses, and use new plugin-class Bans
-
     /**
      * @param $name
-     * @deprecated
      * @return mixed
      */
     public function isBanned($name) {
         $cacheName = 'API_ban_' . $name;
         if(is_null($this->cache->load($cacheName))) {
-            $this->cache->save($cacheName,  $this->liteBans->isBanned($name), [
+            $this->cache->save($cacheName,  (bool)$this->bans->getBanByNick($name)->fetch(), [
                 Cache::EXPIRE => "24 hours"
             ]);
         }
