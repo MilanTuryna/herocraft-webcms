@@ -80,10 +80,7 @@ final class RouterFactory
 
             ->addRoute('/panel/tickety/pridat', 'Ticket:add')
             ->addRoute('/panel/tickety/zobrazit/<id>', 'Ticket:view')
-            ->addRoute('/panel/tickety[/<page>]', 'Ticket:list')
-
-            ->addRoute('/panel/pratele', 'Friends:list')
-            ->addRoute('/panel/pratele/<friend>', 'Friends:info');
+            ->addRoute('/panel/tickety[/<page>]', 'Ticket:list');
 
         $router->withModule('HelpDesk')
             ->addRoute('/help/login', 'Login:main')
