@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\API\Plugin;
+namespace App\Model\API\Plugin\Deprecated;
 
 use Nette\Database\Context;
 use Nette\Database\IRow;
@@ -10,6 +10,7 @@ use Nette\Http\Request;
 
 /**
  * Class FastLogin
+ * @deprecated
  * @package App\Model\Panel
  */
 class FastLogin

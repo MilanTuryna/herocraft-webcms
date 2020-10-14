@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\API\Plugin;
+namespace App\Model\API\Plugin\Deprecated;
 
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
@@ -11,6 +11,7 @@ use Nette\Database\Table\ActiveRow;
 
 /**
  * Class Friends
+ * @deprecated
  * @package App\Model\API\Plugin
  */
 class Friends
