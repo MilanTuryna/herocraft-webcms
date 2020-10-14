@@ -10,40 +10,53 @@
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+
     <div class="card classic-shadow default-margin-bot">
-        <div class="card-body">
-            <h5 class="card-title" style="margin:0">
-                <a n:href="Minecraft:chat" class="text-dark">
-                    Chat ve hře <span class="text-muted">(klik)</span>
-                </a>
-            </h5>
+    <div class="card-body">
+        <h5 class="card-title">
+            Záběr všech serverů
+        </h5>
+        <div class="card-text">
+            <ul>
+                <li><a n:href="Minecraft:chat" class="text-success">Chat ve hře</a></li>
+                <li><a n:href="Minecraft:eventList" class="text-success">Eventy</a></li>
+                <li><a n:href="Minecraft:banList" class="text-success">Bany</li>
+                <li><a n:href="Minecraft:ipBanList" class="text-success">IP bany</a></li>
+            </ul>
         </div>
     </div>
-    <div class="card classic-shadow default-margin-bot">
-        <div class="card-body">
-            <h5 class="card-title" style="margin:0">
-                <a n:href="Minecraft:eventList" class="text-dark">
-                   Eventy <span class="text-muted">(klik)</span>
-                </a>
-            </h5>
-        </div>
     </div>
-    <div class="card classic-shadow default-margin-bot">
+    <div class="card classic-shadow default-margin-bot" style="">
         <div class="card-body">
-            <h5 class="card-title" style="margin:0">
-                <a n:href="Minecraft:banList" class="text-dark">
-                    Bany <span class="text-muted">(klik)</span>
-                </a>
+            <h5 class="card-title">
+                Servery
             </h5>
-        </div>
-    </div>
-    <div class="card classic-shadow default-margin-bot">
-        <div class="card-body">
-            <h5 class="card-title" style="margin:0">
-                <a n:href="Minecraft:ipBanList" class="text-dark">
-                    IP bany <span class="text-muted">(klik)</span>
-                </a>
-            </h5>
+            <div class="row">
+                <div class="col">
+                    <div class="card classic-shadow default-margin-bot" style="background: #c5e1a5">
+                        <div class="card-body">
+                            <h5 class="card-title" style="margin:0">Classic</h5>
+                            <div class="card-text">
+                                <ul>
+                                    <li><a  href="" class="text-dark">Ekonomika</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card classic-shadow default-margin-bot" style="background: #eddbda">
+                        <div class="card-body">
+                            <h5 class="card-title" style="margin:0">Senior</h5>
+                            <div class="card-text">
+                                <ul>
+                                    <li><a  href="" class="text-dark">Ekonomika</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {/block}
