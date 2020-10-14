@@ -54,7 +54,6 @@ class APIPresenter extends Presenter {
         ];
 
         if($user) {
-            $fastLogin = $this->cachedAPIRepository->getFastLogin($name);
             $uuid = $this->mojangRepository->getUUID($name);
             $response = [
                 'updateTime' => CachedAPIRepository::EXPIRE_TIME,
@@ -72,10 +71,6 @@ class APIPresenter extends Presenter {
                     ], 'auth' => [
                         'userID' => $user->id,
                         'regtime' => $user->regdate,
-                        'lastlogin' => strtotime($fastLogin->LastLogin->date)*1000,
-                    ], 'friends' => [
-                        'count' => $this->cachedAPIRepository->getCountFriends($name),
-                        'list' => $this->cachedAPIRepository->getFriendsList($name),
                     ], 'tokens' =>  $this->cachedAPIRepository->getTokenManager($name)->tokens,
                 ], 'servers' => [
 
