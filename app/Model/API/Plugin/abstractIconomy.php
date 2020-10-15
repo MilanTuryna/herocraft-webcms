@@ -10,9 +10,9 @@ use Nette\Database\Table\Selection;
  * Class IConomy
  * @package App\Model\API\Plugin
  *
- * This class isn't registered in DI container, because constructor Context parameter is dynamic (survival ionomy, skyblock iconomy etc.)
+ * This class isn't registered in DI container, because constructor Context parameter is dynamic (survival iconomy, skyblock iconomy etc.)
  */
-class IConomy
+abstract class abstractIconomy
 {
     private Context $context;
 

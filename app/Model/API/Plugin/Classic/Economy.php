@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\API\Plugin\Games;
+namespace App\Model\API\Plugin\Classic;
 
 use App\Model\API\Plugin\abstractIconomy;
 use Nette\Database\Context;
@@ -17,7 +17,7 @@ class Economy extends abstractIconomy
      * Economy constructor.
      * @param Context $context
      *
-     * database.gamesEconomy
+     * database.classicEconomy
      */
     public function __construct(Context $context)
     {

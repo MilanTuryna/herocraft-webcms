@@ -33,11 +33,11 @@ database:
         dsn:
         user:
         password:
-    senior_iconomy:
+    games_iconomy:
         dsn:
         user:
         password:
-    survival_iconomy:
+    classic_iconomy:
         dsn:
         user:
         password:
