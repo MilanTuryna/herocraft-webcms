@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\API\Plugin;
+namespace App\Model\API\Plugin\Games;
 
 use Nette\Database\Context;
 use Nette\Database\Table\ActiveRow;
