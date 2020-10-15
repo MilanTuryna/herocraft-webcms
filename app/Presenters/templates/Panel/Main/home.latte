@@ -52,13 +52,12 @@
         </div>-->
 {/block}
 {block second_col}
-    {var $lastlogin = $fastLogin->LastLogin}
     <div style="background: rgba(0,0,0,0.3); padding: 16px">
         <h5 class="font-weight-light pink-color">Tvé info</h5>
             <ul class="text-white-50">
                 <li>Nick: <span class="pink-color">{$user->realname}</span></li>
                 <li>Zabanovaný: <span class="pink-color">{$isBanned ? 'Ano' : 'Ne'}</span></li>
-                <li>Poslední přihlášení: <span class="pink-color">{$lastlogin|date:'d.n.Y H:i'}</span></li>
+                <li>Poslední přihlášení: <span class="pink-color">NULL</span></li>
             </ul>
     </div>
     <a n:href=":Stats:Main:app?player=$user->realname" class="bg-opacity-green d-block text-center text-white-50 white-hover" style="padding: 4px">
