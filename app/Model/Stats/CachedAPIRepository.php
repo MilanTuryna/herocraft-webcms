@@ -33,7 +33,7 @@ class CachedAPIRepository
      * @param Bans $bans
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                TokenManager $tokenManager, LuckPerms $luckPerms, Bans $bans)
+                                LuckPerms $luckPerms, Bans $bans)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
