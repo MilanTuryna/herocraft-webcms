@@ -27,6 +27,7 @@ services:
 	- App\Model\Panel\AuthMeRepository(@database.authme.context)
 	- App\Model\API\Plugin\ChatLog(@database.chatlog.context)
 	- App\Model\API\Plugin\Events(@database.events.context)
+	- App\Model\API\Plugin\HeavySpleef(@database.heavyspleef.context)
 	- App\Model\API\Plugin\Bans(@database.bans.context)
 	- App\Model\Security\Auth\SupportAuthenticator
 	- App\Model\Stats\CachedAPIRepository

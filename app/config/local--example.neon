@@ -37,3 +37,7 @@ database:
         dsn:
         user:
         password:
+    heavyspleef:
+        dsn:
+        user:
+        password:
