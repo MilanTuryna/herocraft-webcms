@@ -41,3 +41,7 @@ database:
         dsn:
         user:
         password:
+    hideandseek:
+        dsn:
+        user:
+        password:
