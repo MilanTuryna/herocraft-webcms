@@ -26,13 +26,13 @@ services:
 	- App\Model\Panel\Core\TicketRepository
 	- App\Model\Panel\AuthMeRepository(@database.authme.context)
 	- App\Model\API\Plugin\ChatLog(@database.chatlog.context)
-	- App\Model\API\Plugin\Events(@database.events.context)
-	- App\Model\API\Plugin\HeavySpleef(@database.heavyspleef.context)
+	- App\Model\API\Plugin\Games\Events(@database.events.context)
+	- App\Model\API\Plugin\Games\HeavySpleef(@database.heavyspleef.context)
 	- App\Model\API\Plugin\Bans(@database.bans.context)
 	- App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
 	- App\Model\API\Plugin\Games\Economy(@database.gamesEconomy)
 	- App\Model\API\Plugin\Classic\Economy(@database.classicEconomy)
-	- App\Model\API\Plugin\HideAndSeek(@database.hideandseek.context)
+	- App\Model\API\Plugin\Games\HideAndSeek(@database.hideandseek.context)
 	- App\Model\Security\Auth\SupportAuthenticator
 	- App\Model\Stats\CachedAPIRepository
 	router: App\Router\RouterFactory::createRouter
