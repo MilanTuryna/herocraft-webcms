@@ -2,9 +2,7 @@
 namespace App\Presenters\PanelModule;
 
 use App\Forms\Panel\Main\ChangePasswordForm;
-use App\Forms\Panel\Main\FastLoginForm;
 use App\Model\API\Minecraft;
-use App\Model\API\Plugin\TokenManager;
 use App\Model\Panel\AuthMeRepository;
 use App\Model\Panel\MojangRepository;
 use App\Model\Security\Auth\PluginAuthenticator;
@@ -14,7 +12,6 @@ use App\Presenters\PanelBasePresenter;
 
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
-use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -26,7 +23,6 @@ class MainPresenter extends PanelBasePresenter
     private PluginAuthenticator $pluginAuthenticator;
     private ActiveRow $user;
     private MojangRepository $mojangRepository;
-    private TokenManager $tokenManager;
     private CachedAPIRepository $cachedAPIRepository;
     private AuthMeRepository $authMeRepository;
 
@@ -36,7 +32,6 @@ class MainPresenter extends PanelBasePresenter
      * @param SettingsRepository $settingsRepository
      * @param AuthMeRepository $authMeRepository
      * @param MojangRepository $mojangRepository
-     * @param TokenManager $tokenManager
      * @param CachedAPIRepository $cachedAPIRepository
      */
     public function __construct(PluginAuthenticator $pluginAuthenticator,
@@ -44,7 +39,6 @@ class MainPresenter extends PanelBasePresenter
                                 AuthMeRepository $authMeRepository,
 
                                 MojangRepository $mojangRepository,
-                                TokenManager $tokenManager,
                                 CachedAPIRepository $cachedAPIRepository)
     {
         parent::__construct($settingsRepository);
@@ -52,7 +46,6 @@ class MainPresenter extends PanelBasePresenter
         $this->cachedAPIRepository = $cachedAPIRepository;
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->mojangRepository = $mojangRepository;
-        $this->tokenManager = $tokenManager;
         $this->authMeRepository = $authMeRepository;
     }
 
@@ -76,7 +69,6 @@ class MainPresenter extends PanelBasePresenter
         parent::beforeRender();
 
         $networkStats = new \stdClass();
-        $networkStats->tokenRow = $this->tokenManager->getRow($this->user->realname);
 
         $this->template->isBanned = $this->cachedAPIRepository->isBanned($this->user->realname);
         $this->template->user = $this->user;
@@ -102,14 +94,5 @@ class MainPresenter extends PanelBasePresenter
      */
     public function createComponentChangePassForm(): Form {
         return (new ChangePasswordForm($this, $this->user, $this->authMeRepository))->create();
-    }
-
-    /**
-     * @return Multiplier
-     */
-    public function createComponentFastLoginForm(): Multiplier {
-        return new Multiplier(function ($username) {
-            return (new FastLoginForm($this, $this->fastLogin, $username))->create();
-        });
     }
 }
