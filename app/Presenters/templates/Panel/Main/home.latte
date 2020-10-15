@@ -4,7 +4,8 @@
 {/block}
 {block first_col}
     {var $regdate = round($user->regdate/1000, 0)}
-    {var $lastlogin = $fastLogin->LastLogin}
+    {var $lastlogin = null}
+    {}
         <h1 class="display-4 font-30">Hráčský panel</h1>
         <hr>
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
@@ -32,7 +33,7 @@
                 <div class="col-12 col-lg-9">
                     <div class="alert border-radius-0 bg-opacity-blue" role="alert">
                         <h4 class="alert-heading">A teď něco o tobě</h4>
-                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'j.n.Y'}. Naposledy jsi tu hrál {$lastlogin|date:'j.n.Y'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
+                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'j.n.Y'}. Naposledy jsi tu hrál NULL a jsi přibližně {$user->id}. registrovaný hráč.</p>
                         <hr>
                         <p class="mb-0">Nejen tyto statistiky jsou veřejně dostupné <a n:href=":Stats:Main:app?player=$user->realname" class="text-danger" target="_blank">ZDE</a></p>
                     </div>
