@@ -5,7 +5,6 @@ namespace App\Model\Panel;
 
 
 use App\Model\API\Minecraft;
-use App\Model\API\Plugin\Friends;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 

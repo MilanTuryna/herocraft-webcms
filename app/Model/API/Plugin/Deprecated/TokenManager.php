@@ -9,6 +9,7 @@ use Nette\Database\Table\ActiveRow;
 
 /**
  * Class TokenManager
+ * @deprecated
  * @package App\Model\API
  */
 class TokenManager

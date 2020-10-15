@@ -6,6 +6,11 @@ namespace App\Model\API\Plugin;
 
 use Nette\Database\Context;
 
+/**
+ * Class LuckPerms
+ * @package App\Model\API\Plugin
+ * @deprecated
+ */
 class LuckPerms
 {
     const USER_TABLE_PERM = 'luckperms_user_permissions';
