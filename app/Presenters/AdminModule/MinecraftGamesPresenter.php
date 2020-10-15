@@ -6,7 +6,10 @@ namespace App\Presenters\AdminModule;
 
 use App\Forms\Minecraft\EditEventRecordForm;
 use App\Model\API\Plugin\Games\Events;
+use App\Model\API\Plugin\Games\HeavySpleef;
+use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\Security\Auth\Authenticator;
+
 use App\Presenters\AdminBasePresenter;
 
 use Nette\Application\AbortException;
@@ -19,12 +22,16 @@ use Nette\Application\UI\Multiplier;
 class MinecraftGamesPresenter extends AdminBasePresenter
 {
     Private Events $events;
+    Private HideAndSeek $hideAndSeek;
+    Private HeavySpleef $heavySpleef;
 
-    public function __construct(Authenticator $authenticator, Events $events)
+    public function __construct(Authenticator $authenticator, Events $events, HeavySpleef $heavySpleef, HideAndSeek $hideAndSeek)
     {
         parent::__construct($authenticator);
 
         $this->events = $events;
+        $this->heavySpleef = $heavySpleef;
+        $this->hideAndSeek = $hideAndSeek;
     }
 
     public function renderEventList() {
