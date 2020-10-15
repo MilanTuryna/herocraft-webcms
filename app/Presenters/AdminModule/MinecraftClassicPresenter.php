@@ -4,7 +4,9 @@
 namespace App\Presenters\AdminModule;
 
 
-class MinecraftClassicPresenter
+use App\Presenters\AdminBasePresenter;
+
+class MinecraftClassicPresenter extends AdminBasePresenter
 {
 
 }
