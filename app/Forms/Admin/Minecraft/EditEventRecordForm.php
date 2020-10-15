@@ -2,7 +2,7 @@
 
 namespace App\Forms\Minecraft;
 
-use App\Model\API\Plugin\Events;
+use App\Model\API\Plugin\Games\Events;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
