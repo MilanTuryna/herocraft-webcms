@@ -26,22 +26,19 @@ use Nette\Application\UI\Multiplier;
 class MinecraftPresenter extends AdminBasePresenter
 {
     private ChatLog $chatLog;
-    private Events $events;
     private Bans $bans;
 
     /**
      * MinecraftPresenter constructor.
      * @param Authenticator $authenticator
      * @param ChatLog $chatLog
-     * @param Events $events
      * @param Bans $bans
      */
-    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Events $events, Bans $bans)
+    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Bans $bans)
     {
         parent::__construct($authenticator);
 
         $this->chatLog = $chatLog;
-        $this->events = $events;
         $this->bans = $bans;
     }
 
@@ -139,38 +136,6 @@ class MinecraftPresenter extends AdminBasePresenter
         }
     }
 
-    public function renderEventList() {
-        $this->template->events = $this->events->findAllEvents()->fetchAll();
-    }
-
-    /**
-     * @param $eventId
-     * @throws AbortException
-     */
-    public function renderEvent($eventId) {
-        $event = $this->events->getEventById($eventId)->fetch();
-        if($event) {
-            $this->template->event = $event;
-            $this->template->eventPlayers = $this->events->getPlayersByEventId($eventId);
-        } else {
-            $this->redirect("Minecraft:eventList");
-        }
-    }
-
-    /**
-     * @param $recordId
-     * @throws AbortException
-     */
-    public function renderEditEventRecord($recordId) {
-        $record = $this->events->getPlayerById($recordId)->fetch(); // record (player)
-        if($record) {
-            $this->template->record = $record;
-            $this->template->event = $this->events->getEventById($record->event_id)->fetch();
-        } else {
-            $this->redirect("Minecraft:eventList");
-        }
-    }
-
     /**
      * @param int $page
      * @throws AbortException
@@ -236,34 +201,6 @@ class MinecraftPresenter extends AdminBasePresenter
             $this->flashMessage("Hráč " . $nick . " není zabanován!", "danger");
             $this->redirect("Minecraft:banList");
         }
-    }
-
-    /**
-     * @param $recordId
-     * @param $eventId
-     * @throws AbortException
-     */
-    public function actionDeleteEventRecord(int $recordId, int $eventId = 0) {
-        $deleted = $this->events->deleteRecordById($recordId);
-        if($deleted) {
-            $this->flashMessage("Záznam #" . $recordId . " byl úspešně odstraněn", 'success');
-        } else {
-            $this->flashMessage("Tento záznam nemohl být odstraněn, jelikož neexistuje!", 'danger');
-        }
-        if($eventId !== 0) {
-            $this->redirect("Minecraft:event", $eventId);
-        } else {
-            $this->redirect("Minecraft:eventList");
-        }
-    }
-
-    /**
-     * @return Multiplier
-     */
-    public function createComponentEditEventRecordForm(): Multiplier {
-        return new Multiplier(function ($recordId) {
-            return (new EditEventRecordForm($this->events, $this, $recordId))->create();
-        });
     }
 
     /**
