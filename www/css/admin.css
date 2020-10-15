@@ -13,6 +13,10 @@
     text-decoration: underline;
 }
 
+.li-underline *:hover {
+    text-decoration: none;
+}
+
 .opacity-dropdown:hover, .opacity-dropdown:focus {
     border-style: solid;
     border-width: 1px;
