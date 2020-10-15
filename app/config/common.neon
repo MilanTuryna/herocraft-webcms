@@ -25,11 +25,9 @@ services:
 	- App\Model\Panel\MojangRepository
 	- App\Model\Panel\Core\TicketRepository
 	- App\Model\Panel\AuthMeRepository(@database.authme.context)
-	- App\Model\API\Plugin\TokenManager(@database.tokenmanager.context)
 	- App\Model\API\Plugin\ChatLog(@database.chatlog.context)
 	- App\Model\API\Plugin\Events(@database.events.context)
 	- App\Model\API\Plugin\Bans(@database.bans.context)
 	- App\Model\Security\Auth\SupportAuthenticator
 	- App\Model\Stats\CachedAPIRepository
-	- App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
 	router: App\Router\RouterFactory::createRouter

@@ -9,15 +9,7 @@ database:
         dsn:
         user:
         password:
-    tokenmanager:
-        dsn:
-        user:
-        password:
     skinrestorer:
-        dsn:
-        user:
-        password:
-    luckperms:
         dsn:
         user:
         password:
