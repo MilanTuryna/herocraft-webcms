@@ -9,7 +9,6 @@ use Nette\Database\Context;
 /**
  * Class LuckPerms
  * @package App\Model\API\Plugin
- * @deprecated
  */
 class LuckPerms
 {
