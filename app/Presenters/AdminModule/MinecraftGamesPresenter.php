@@ -79,9 +79,9 @@ class MinecraftGamesPresenter extends AdminBasePresenter
             $this->flashMessage("Tento záznam nemohl být odstraněn, jelikož neexistuje!", 'danger');
         }
         if($eventId !== 0) {
-            $this->redirect("Minecraft:event", $eventId);
+            $this->redirect("MinecraftGames:event", $eventId);
         } else {
-            $this->redirect("Minecraft:eventList");
+            $this->redirect("MinecraftGames:eventList");
         }
     }
 
