@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\API\Plugin\Deprecated;
+namespace App\Model\API\Plugin;
 
 
 use Nette\Database\Context;
