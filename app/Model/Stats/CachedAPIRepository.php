@@ -4,8 +4,6 @@ namespace App\Model\Stats;
 
 use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\Bans;
-use App\Model\API\Plugin\LuckPerms;
-use App\Model\API\Plugin\TokenManager;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
@@ -20,25 +18,19 @@ class CachedAPIRepository
 
     private AuthMeRepository $authMeRepository;
     private Cache $cache;
-    private TokenManager $tokenManager;
-    private LuckPerms $luckPerms;
     private Bans $bans;
 
     /**
      * CachedAPIRepository constructor.
      * @param AuthMeRepository $authMeRepository
      * @param IStorage $storage
-     * @param TokenManager $tokenManager
-     * @param LuckPerms $luckPerms
      * @param Bans $bans
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                LuckPerms $luckPerms, Bans $bans)
+                                Bans $bans)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
-        $this->tokenManager = $tokenManager;
-        $this->luckPerms = $luckPerms;
         $this->bans = $bans;
     }
 
@@ -59,29 +51,14 @@ class CachedAPIRepository
     }
 
     /**
-     * @param $user
-     * @return mixed
-     */
-    public function getTokenManager($user) {
-        $cacheName = 'API_tokenManager_' . $user;
-        if (is_null($this->cache->load($cacheName))) {
-            $db = $this->tokenManager->getRow($user);
-            $this->cache->save($cacheName,  $db ? ArrayHash::from($db->toArray()) : null, [
-                Cache::EXPIRE => self::EXPIRE_TIME
-            ]);
-        }
-
-        return $this->cache->load($cacheName);
-    }
-
-    /**
+     * TODO: Complete this method
      * @param $uuid
      * @return mixed
      */
     public function getPermGroups($uuid) {
         $cacheName = 'API_permGroups_' . $uuid;
         if(is_null($this->cache->load($cacheName))) {
-            $this->cache->save($cacheName, $this->luckPerms->getUserGroups($uuid), [
+            $this->cache->save($cacheName, null, [
                 Cache::EXPIRE => self::EXPIRE_TIME
             ]);
         }
