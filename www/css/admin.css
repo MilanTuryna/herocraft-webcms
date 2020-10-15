@@ -9,6 +9,10 @@
     transition:0.5s;
 }
 
+.li-underline * {
+    text-decoration: underline;
+}
+
 .opacity-dropdown:hover, .opacity-dropdown:focus {
     border-style: solid;
     border-width: 1px;
