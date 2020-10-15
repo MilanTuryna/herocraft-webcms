@@ -16,17 +16,15 @@ use Nette\Caching\IStorage;
 class MojangRepository
 {
     private Cache $cache;
-    private Friends $friends;
 
     /**
      * MojangRepository constructor.
      * @param IStorage $storage
-     * @param Friends $friends
      */
-    public function __construct(IStorage $storage, Friends $friends)
+    public function __construct(IStorage $storage)
     {
         $this->cache = new Cache($storage);
-        $this->friends = $friends;
+
     }
 
     /**
