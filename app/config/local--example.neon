@@ -25,6 +25,10 @@ database:
         dsn:
         user:
         password:
+    luckperms:
+        dsn:
+        user:
+        password:
     playertime:
         dsn:
         user:
