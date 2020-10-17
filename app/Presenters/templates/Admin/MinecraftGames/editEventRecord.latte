@@ -7,8 +7,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:eventList">Eventy</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:event $event->event_id">Event - {$event->event_name}</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:eventList">Eventy</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGamesevent $event->event_id">Event - {$event->event_name}</a></li>
             <li class="breadcrumb-item active" aria-current="page">Editace záznamu #{$record->id}</li>
         </ol>
     </nav>
@@ -76,7 +76,7 @@
                             <button type="submit" class="btn btn-success float-right" n:name="submit">Aplikovat změny</button>
                             <br>
                             <br>
-                            <a class="text-danger small float-right" n:href="Minecraft:deleteEventRecord, $record->id, $event->event_id">
+                            <a class="text-danger small float-right" n:href="MinecraftGames:deleteEventRecord, $record->id, $event->event_id">
                                 Odstranit záznam (duplikace, podvádění..)
                             </a>
                         </div>
