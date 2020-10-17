@@ -53,7 +53,7 @@
             </div>
             <div class="list-group">
                 <a n:href="Main:home" n:class="$presenter->isLinkCurrent('Main:home') ? aktivni, 'list-group-item', 'list-group-item-action'">Přehled webu</a>
-                <a n:href="Minecraft:overview" n:class="$presenter->isLinkCurrent('Minecraft:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Minecraft</a>
+                <a n:href="Minecraft:overview" n:class="$presenter->isLinkCurrent('Minecraft:*') || $presenter->isLinkCurrent('MinecraftGames:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Minecraft</a>
                 <a n:href="User:list" n:class="$presenter->isLinkCurrent('User:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Uživatelé</a>
                 <a n:href="Article:list" n:class="$presenter->isLinkCurrent('Article:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Články</a>
                 <a n:href="Category:list" n:class="$presenter->isLinkCurrent('Category:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Kategorie</a>
