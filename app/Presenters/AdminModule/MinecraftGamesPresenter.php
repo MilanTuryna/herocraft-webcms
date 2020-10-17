@@ -4,7 +4,7 @@
 namespace App\Presenters\AdminModule;
 
 
-use App\Forms\Minecraft\EditEventRecordForm;
+use App\Forms\Minecraft\Games\EditEventRecordForm;
 use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HeavySpleef;
 use App\Model\API\Plugin\Games\HideAndSeek;

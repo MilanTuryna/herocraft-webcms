@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Forms\Minecraft;
+namespace App\Forms\Minecraft\Games;
 
 use App\Model\API\Plugin\Games\Events;
 use Nette\Application\UI\Form;
