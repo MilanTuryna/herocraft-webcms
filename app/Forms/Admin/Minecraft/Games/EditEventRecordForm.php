@@ -3,6 +3,7 @@
 namespace App\Forms\Minecraft\Games;
 
 use App\Model\API\Plugin\Games\Events;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
@@ -56,9 +57,11 @@ class EditEventRecordForm
     /**
      * @param Form $form
      * @param \stdClass $values
+     * @throws AbortException
      */
     public function success(Form $form, \stdClass $values) {
         $this->events->updateRecord($values, $this->recordId);
         $this->presenter->flashMessage("Záznam #" . $this->recordId . " (tento) byl úspěšně změněn!", "success");
+        $this->presenter->redirect("MinecraftGames:editEventRecord", $this->recordId);
     }
 }
