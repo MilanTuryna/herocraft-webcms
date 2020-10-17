@@ -14,10 +14,9 @@ class LuckPerms
 {
     const USER_TABLE_PERM = 'luckperms_user_permissions';
     const GROUPS = [
-        'developer' => 'group.developer',
         'helper' => 'group.helper',
-        'owner' => 'group.owner',
-        'admin' => 'group.admin'
+        'owner' => 'group.majitel',
+        'admin' => 'group.admini',
     ];
 
     private Context $context;
