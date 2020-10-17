@@ -7,7 +7,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:eventList">Eventy</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:eventList">Eventy</a></li>
             <li class="breadcrumb-item active" aria-current="page">Event - {$event->event_name}</li>
         </ol>
     </nav>
@@ -43,7 +43,7 @@
                                 <td>{$player->event_giveup}</td>
                                 <td>{$player->best_played|date:'j.n.Y H:i'}</td>
                                 <td>{$player->last_played|date:'j.n.Y H:i'}</td>
-                                <td><a n:href="Minecraft:editEventRecord, $player->id">EDIT</a></td>
+                                <td><a n:href="MinecraftGames:editEventRecord, $player->id">EDIT</a></td>
                             </tr>
                         {/foreach}
                         </tbody>
