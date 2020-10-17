@@ -20,7 +20,7 @@
                 </span>
                 <div class="bg-light border" style="padding: 8px">
                     {foreach $events as $event}
-                        <a n:href="Minecraft:event, $event->event_id" class="black-href text-underline">{$event->event_name}</a>
+                        <a n:href="MinecraftGames:event, $event->event_id" class="black-href text-underline">{$event->event_name}</a>
                         <span class="text-muted">(vytvořen dne: {$event->event_created|date:'j.n.Y H:i'})</span><br>
                     {/foreach}
                 </div>
