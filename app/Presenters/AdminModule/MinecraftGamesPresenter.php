@@ -34,6 +34,10 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         $this->hideAndSeek = $hideAndSeek;
     }
 
+    /*
+     * EVENTS
+     */
+
     public function renderEventList() {
         $this->template->events = $this->events->findAllEvents()->fetchAll();
     }
@@ -84,6 +88,30 @@ class MinecraftGamesPresenter extends AdminBasePresenter
             $this->redirect("MinecraftGames:eventList");
         }
     }
+
+    /*
+     * HIDE AND SEEK
+     */
+
+    /**
+     * @param int $page
+     * @throws AbortException
+     */
+    public function renderHideAndSeekStats(int $page = 1) {
+        $records = $this->hideAndSeek->getAllRows();
+
+        $paginatorData = $records->page($page, 30, $lastPage);
+        $this->template->records = $paginatorData;
+
+        $this->template->page = $page;
+        $this->template->lastPag = $lastPage;
+
+        if($page > $lastPage+1) {
+            $this->redirect("MinecraftGames:hideAndSeekStats");
+        }
+    }
+
+    /* COMPONENTY */
 
     /**
      * @return Multiplier
