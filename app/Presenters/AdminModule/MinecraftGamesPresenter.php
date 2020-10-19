@@ -104,11 +104,15 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         $this->template->records = $paginatorData;
 
         $this->template->page = $page;
-        $this->template->lastPag = $lastPage;
+        $this->template->lastPage = $lastPage;
 
         if($page > $lastPage+1) {
             $this->redirect("MinecraftGames:hideAndSeekStats");
         }
+    }
+
+    public function renderEditHASrecord($playerId) {
+
     }
 
     /* COMPONENTY */
