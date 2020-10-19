@@ -6,12 +6,12 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
-            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Games</a></li>
             <li class="breadcrumb-item active" aria-current="page">Hide And Seek</li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
-    <div class="card classic-shadow default-margin-bot">
+    <div class="card classic-shadow">
         <div class="card-body">
             <h5 class="card-title">HideAndSeek statistiky (seřazeno podle XP)</h5>
             <div class="card-text">
@@ -55,6 +55,22 @@
                 </div>
             </div>
         </div>
+        <div class="pagination d-block text-center" style="margin-bottom: 16px;">
+            {if $page > 1}
+                <a n:href="Minecraft:chat, 1">Nejnovější</a>
+                &nbsp;|&nbsp;
+                <a n:href="Minecraft:chat, $page-1">Novější</a>
+                &nbsp;|&nbsp;
+            {/if}
 
+            Stránka {$page} z {$lastPage}
+
+            {if $page < $lastPage}
+                &nbsp;|&nbsp;
+                <a n:href="Minecraft:chat, $page+1">Starší</a>
+                &nbsp;|&nbsp;
+                <a n:href="Minecraft:chat, $lastPage">Nejstarší</a>
+            {/if}
+        </div>
     </div>
 {/block}
