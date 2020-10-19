@@ -100,6 +100,7 @@ class MinecraftGamesPresenter extends AdminBasePresenter
     public function renderHideAndSeekStats(int $page = 1) {
         $records = $this->hideAndSeek->getAllRows();
 
+        $lastPage = 0;
         $paginatorData = $records->page($page, 30, $lastPage);
         $this->template->records = $paginatorData;
 

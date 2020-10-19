@@ -37,7 +37,7 @@ final class RouterFactory
             ->addRoute('/admin/minecraft/games/eventy/<eventId>', 'MinecraftGames:event')
 
             ->addRoute('/admin/minecraft/games/hideandseek/zaznam/<playerId>', 'MinecraftGames:editHASrecord')
-            ->addRoute('/admin/minecraft/games/hideandseek[/<pageId>]', 'MinecraftGames:hideAndSeekStats')
+            ->addRoute('/admin/minecraft/games/hideandseek[/<page>]', 'MinecraftGames:hideAndSeekStats')
 
             ->addRoute('/admin/minecraft/bany/filter/?timeStart=<timeStart>&timeEnd=<timeEnd>&players[]=<players=null>',  'Minecraft:filterBan')
             ->addRoute('/admin/minecraft/bany/zaznam/<nick>', 'Minecraft:editBan')
