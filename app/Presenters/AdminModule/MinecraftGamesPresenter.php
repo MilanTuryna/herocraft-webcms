@@ -121,7 +121,7 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         if($record) {
             $this->template->record = $record;
         } else {
-            $this->flashMessage("Tento záznam neexistuje", 'danger');
+            $this->flashMessage("Zadaný záznam neexistuje, nespletl jsi se?", 'danger');
             $this->redirect("MinecraftGames:hideAndSeekStats");
         }
     }
