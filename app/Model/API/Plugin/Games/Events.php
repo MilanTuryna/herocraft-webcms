@@ -80,6 +80,14 @@ class Events
     }
 
     /**
+     * @param $nick
+     * @return Selection
+     */
+    public function getPlayerRecordsByName($nick) {
+        return $this->context->table(self::PLAYERS_TABLE)->where("username = ?", $nick);
+    }
+
+    /**
      * @param $id
      * @return int
      */
