@@ -6,8 +6,8 @@ namespace App\Presenters\AdminModule;
 
 use App\Forms\Minecraft\Games\EditEventRecordForm;
 use App\Model\API\Plugin\Games\Events;
-use App\Model\API\Plugin\Games\HeavySpleef;
 use App\Model\API\Plugin\Games\HideAndSeek;
+use App\Model\API\Plugin\Games\SpleefX;
 use App\Model\Security\Auth\Authenticator;
 
 use App\Presenters\AdminBasePresenter;
@@ -23,14 +23,14 @@ class MinecraftGamesPresenter extends AdminBasePresenter
 {
     Private Events $events;
     Private HideAndSeek $hideAndSeek;
-    Private HeavySpleef $heavySpleef;
+    private SpleefX $spleefX;
 
-    public function __construct(Authenticator $authenticator, Events $events, HeavySpleef $heavySpleef, HideAndSeek $hideAndSeek)
+    public function __construct(Authenticator $authenticator, Events $events, SpleefX $spleefX, HideAndSeek $hideAndSeek)
     {
         parent::__construct($authenticator);
 
         $this->events = $events;
-        $this->heavySpleef = $heavySpleef;
+        $this->spleefX = $spleefX;
         $this->hideAndSeek = $hideAndSeek;
     }
 
