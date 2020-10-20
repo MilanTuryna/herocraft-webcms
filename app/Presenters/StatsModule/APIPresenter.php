@@ -52,6 +52,8 @@ class APIPresenter extends Presenter {
             'method' => $this->getHttpRequest()->getMethod(),
             'ip' => $this->getHttpRequest()->getRemoteAddress(),
         ];
+        $hideAndSeekCache =
+            $this->cachedAPIRepository->getHideAndSeekRow($name);
 
         if($user) {
             $uuid = $this->mojangRepository->getUUID($name);
@@ -80,27 +82,15 @@ class APIPresenter extends Presenter {
                                 'bestPlayed' => '',
                                 'eventPassed' => '',
                                 'event_giveUp' => ''
-                            ], 'hideAndSeek' => [
-                                "uuid" => '',
-                                "hidersKilled" => '',
-                                "seekersKilled" => '',
-                                "wins" => '',
-                                "coins" => '',
-                                "karma" => '',
-                                "gamesPlayed" => '',
-                                'hiderChance' => '',
-                                'playedTime' => '',
-                                'xp' => '',
-                                'modifier' => '',
-                                'special_blocks' => '',
-                                'perks' => '',
-                                'trail' => '',
-                                'id' => ''
-                            ]
+                            ], 'hideAndSeek' => $this->cachedAPIRepository->getHideAndSeekRow($name)
+                        ], 'senior' => [
+
+                        ], 'classic' => [
+                            
                         ]
                     ]
-                    ]
-                ];
+                ]
+            ];
         } else {
             $response = [
                 'http' => $http,
@@ -109,6 +99,7 @@ class APIPresenter extends Presenter {
                 ]
             ];
         }
+
 
         $this->sendResponseJson($response);
     }
