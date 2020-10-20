@@ -4,8 +4,10 @@ namespace App\Model\Stats;
 
 use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\Bans;
+use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\Panel\AuthMeRepository;
+use App\Model\Utils;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Utils\ArrayHash;
@@ -21,6 +23,7 @@ class CachedAPIRepository
     private Cache $cache;
     private Bans $bans;
     private HideAndSeek $hideAndSeek;
+    private Events $events;
 
     /**
      * CachedAPIRepository constructor.
@@ -28,14 +31,16 @@ class CachedAPIRepository
      * @param IStorage $storage
      * @param Bans $bans
      * @param HideAndSeek $hideAndSeek
+     * @param Events $events
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                Bans $bans, HideAndSeek $hideAndSeek)
+                                Bans $bans, HideAndSeek $hideAndSeek, Events $events)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
         $this->bans = $bans;
         $this->hideAndSeek = $hideAndSeek;
+        $this->events = $events;
     }
 
     /**
@@ -122,6 +127,27 @@ class CachedAPIRepository
         if(is_null($this->cache->load($cacheName))) {
             $db = $this->hideAndSeek->getRowByName($name)->fetch();
             $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null, [
+                Cache::EXPIRE => "24 hours"
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getPlayerEventsRecords($name) {
+        $cacheName = 'API_events_' . $name;
+
+        if(is_null($this->cache->load($cacheName))) {
+            $db = $this->events->getPlayerRecordsByName($name);
+            $events = [];
+            foreach ($db as $d) {
+                $events[$d->id] = ArrayHash::from(iterator_to_array($d));
+            }
+            $this->cache->save($cacheName, $events, [
                 Cache::EXPIRE => "24 hours"
             ]);
         }
