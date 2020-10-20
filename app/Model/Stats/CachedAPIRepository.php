@@ -140,7 +140,8 @@ class CachedAPIRepository
     public function getPlayerEventsRecords($name) {
         $cacheName = 'API_events_' . $name;
 
-        if(is_null($this->cache->load($cacheName))) {
+        $load = $this->cache->load($cacheName);
+        if(is_null($this->cache->load($cacheName)) && !is_array($load)) {
             $db = $this->events->getPlayerRecordsByName($name);
             $events = [];
             foreach ($db as $d) {
