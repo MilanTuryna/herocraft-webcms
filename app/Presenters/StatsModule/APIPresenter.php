@@ -71,17 +71,42 @@ class APIPresenter extends Presenter {
                     ], 'auth' => [
                         'userID' => $user->id,
                         'regtime' => $user->regdate,
-                    ], 'tokens' =>  $this->cachedAPIRepository->getTokenManager($name)->tokens,
-                ], 'servers' => [
-
-                ]
-            ];
+                    ], 'servers' => [
+                        'games' => [
+                            'events' => [
+                                'registered' => "",
+                                'best_time' => "",
+                                'lastPlayed' => '',
+                                'bestPlayed' => '',
+                                'eventPassed' => '',
+                                'event_giveUp' => ''
+                            ], 'hideAndSeek' => [
+                                "uuid" => '',
+                                "hidersKilled" => '',
+                                "seekersKilled" => '',
+                                "wins" => '',
+                                "coins" => '',
+                                "karma" => '',
+                                "gamesPlayed" => '',
+                                'hiderChance' => '',
+                                'playedTime' => '',
+                                'xp' => '',
+                                'modifier' => '',
+                                'special_blocks' => '',
+                                'perks' => '',
+                                'trail' => '',
+                                'id' => ''
+                            ]
+                        ]
+                    ]
+                    ]
+                ];
         } else {
             $response = [
-              'http' => $http,
-              'player' => [
-                  'exists' => false
-              ]
+                'http' => $http,
+                'player' => [
+                    'exists' => false
+                ]
             ];
         }
 
