@@ -73,7 +73,8 @@ class APIPresenter extends Presenter {
                         'regtime' => $user->regdate,
                     ], 'servers' => [
                         'games' => [
-                            'events' => $this->cachedAPIRepository->getPlayerEventsRecords($name), 'hideAndSeek' => $this->cachedAPIRepository->getHideAndSeekRow($name)
+                            'events' => $this->cachedAPIRepository->getPlayerEventsRecords($name),
+                            'hideAndSeek' => $this->cachedAPIRepository->getHideAndSeekRow($name)
                         ], 'senior' => [
 
                         ], 'classic' => [
