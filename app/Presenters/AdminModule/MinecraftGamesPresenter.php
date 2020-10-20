@@ -112,8 +112,18 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         }
     }
 
+    /**
+     * @param $playerId
+     * @throws AbortException
+     */
     public function renderEditHASrecord($playerId) {
-
+        $record = $this->hideAndSeek->getRowById($playerId);
+        if($record) {
+            $this->template->record = $record;
+        } else {
+            $this->flashMessage("Tento záznam neexistuje", 'danger');
+            $this->redirect("MinecraftGames:hideAndSeekStats");
+        }
     }
 
     /* COMPONENTY */
