@@ -120,7 +120,9 @@ class CachedAPIRepository
         $cacheName = 'API_hideAndSeek_' . $name;
         if(is_null($this->cache->load($cacheName))) {
             $db = $this->hideAndSeek->getRowByName($name)->fetch();
-            $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null);
+            $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null, [
+                Cache::EXPIRE => "24 hours"
+            ]);
         }
     }
 }
