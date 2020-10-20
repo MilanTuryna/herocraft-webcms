@@ -115,6 +115,7 @@ class CachedAPIRepository
 
     /**
      * @param $name
+     * @return mixed
      */
     public function getHideAndSeekRow($name) {
         $cacheName = 'API_hideAndSeek_' . $name;
@@ -124,5 +125,7 @@ class CachedAPIRepository
                 Cache::EXPIRE => "24 hours"
             ]);
         }
+
+        return $this->cache->load($cacheName);
     }
 }
