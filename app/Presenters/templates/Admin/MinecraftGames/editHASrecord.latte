@@ -1,0 +1,47 @@
+{layout '../layout.latte'}
+{block title}
+    Editace záznamu #{$record->id}
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Games</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:hideAndSeekStats">Hide and Seek</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:editHASrecord $event->event_id">Záznam hráče {$record->player_name}</a></li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Záznam hráe {$record->player_name} (#{$record->id})</h5>
+            <div class="card-text">
+                <div class="bg-light border" style="padding: 8px">
+                    <b>Nick: </b>{$record->player_name}<br>
+                    <b>UUID: </b>{$record->player_uuid}<br>
+                    <b>Výhry: </b>{$record->wins}<br>
+                    <b>Prohry: </b>{$record->games_played - $record->wins}<br>
+                    <b>Odehraných her: </b>{$record->games_played}<br>
+                    <b>Zabitých seekerů: </b>{$record->seekers_killed}<br>
+                    <b>Zabitých hiderů: </b>{$record->hiders_killed}<br>
+                    <b>Coiny: </b>{$record->coins}<br>
+                    <b>Modifier: </b>{$record->modifier}<br>
+                    <b>Šance na hidera: </b>{$record->hider_chance}<br>
+                    <b>Odehraný čas: </b>{$record->play_time}<br>
+                    <b>Perks: </b>{$record->perks}<br>
+                    <b>XP: </b>{$record->exp}<br>
+                    <b>Spec. bloky: </b>{$record->special_blocks}<br>
+                    <b>Karma: </b>{$record->karma}<br>
+                    <b>ID: </b>{$record->id}<br>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Editace záznamu</h5>
+            <div class="card-text">
+            </div>
+        </div>
+    </div>
+{/block}
