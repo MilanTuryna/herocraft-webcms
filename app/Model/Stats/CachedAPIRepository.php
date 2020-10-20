@@ -4,6 +4,7 @@ namespace App\Model\Stats;
 
 use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\Bans;
+use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
@@ -19,19 +20,22 @@ class CachedAPIRepository
     private AuthMeRepository $authMeRepository;
     private Cache $cache;
     private Bans $bans;
+    private HideAndSeek $hideAndSeek;
 
     /**
      * CachedAPIRepository constructor.
      * @param AuthMeRepository $authMeRepository
      * @param IStorage $storage
      * @param Bans $bans
+     * @param HideAndSeek $hideAndSeek
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                Bans $bans)
+                                Bans $bans, HideAndSeek $hideAndSeek)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
         $this->bans = $bans;
+        $this->hideAndSeek = $hideAndSeek;
     }
 
     /**
@@ -107,5 +111,16 @@ class CachedAPIRepository
         }
 
         return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @param $name
+     */
+    public function getHideAndSeekRow($name) {
+        $cacheName = 'API_hideAndSeek_' . $name;
+        if(is_null($this->cache->load($cacheName))) {
+            $db = $this->hideAndSeek->getRowByName($name)->fetch();
+            $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null);
+        }
     }
 }
