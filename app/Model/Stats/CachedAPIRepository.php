@@ -7,7 +7,6 @@ use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\Panel\AuthMeRepository;
-use App\Model\Utils;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
 use Nette\Utils\ArrayHash;
