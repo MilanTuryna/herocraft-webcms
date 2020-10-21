@@ -6,6 +6,7 @@ use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
+use App\Model\API\Plugin\LuckPerms;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
@@ -23,6 +24,7 @@ class CachedAPIRepository
     private Bans $bans;
     private HideAndSeek $hideAndSeek;
     private Events $events;
+    private LuckPerms $luckPerms;
 
     /**
      * CachedAPIRepository constructor.
@@ -31,15 +33,17 @@ class CachedAPIRepository
      * @param Bans $bans
      * @param HideAndSeek $hideAndSeek
      * @param Events $events
+     * @param LuckPerms $luckPerms
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                Bans $bans, HideAndSeek $hideAndSeek, Events $events)
+                                Bans $bans, HideAndSeek $hideAndSeek, Events $events, LuckPerms $luckPerms)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
         $this->bans = $bans;
         $this->hideAndSeek = $hideAndSeek;
         $this->events = $events;
+        $this->luckPerms = $luckPerms;
     }
 
     /**
@@ -66,7 +70,7 @@ class CachedAPIRepository
     public function getPermGroups($uuid) {
         $cacheName = 'API_permGroups_' . $uuid;
         if(is_null($this->cache->load($cacheName))) {
-            $this->cache->save($cacheName, null, [
+            $this->cache->save($cacheName, $this->luckPerms->getUserGroups($uuid), [
                 Cache::EXPIRE => self::EXPIRE_TIME
             ]);
         }
