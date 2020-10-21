@@ -5,8 +5,10 @@ namespace App\Model\Panel;
 
 
 use App\Model\API\Minecraft;
+use App\Model\API\Plugin\LuckPerms;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
+use Nette\Utils\ArrayHash;
 
 /**
  * Class MojangRepository
@@ -15,15 +17,17 @@ use Nette\Caching\IStorage;
 class MojangRepository
 {
     private Cache $cache;
+    private LuckPerms $luckPerms;
 
     /**
      * MojangRepository constructor.
      * @param IStorage $storage
+     * @param LuckPerms $luckPerms
      */
-    public function __construct(IStorage $storage)
+    public function __construct(IStorage $storage, LuckPerms $luckPerms)
     {
         $this->cache = new Cache($storage);
-
+        $this->luckPerms = $luckPerms;
     }
 
     /**
@@ -58,11 +62,10 @@ class MojangRepository
      * @param $username
      * @return mixed
      *
-     * TODO: null because Friends is deleted
      */
     public function getUUID($username) {
         if(is_null($this->cache->load('mojang_uuid_' . $username))) {
-            $this->cache->save('mojang_uuid_' . $username,  null, [
+            $this->cache->save('mojang_uuid_' . $username,  ArrayHash::from($this->luckPerms->getUuidByNick($username)->toArray())->uuid, [
                 Cache::EXPIRE => "24 hours"
             ]);
         }
