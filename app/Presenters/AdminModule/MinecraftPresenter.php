@@ -9,6 +9,7 @@ use App\Forms\Minecraft\EditIpBanForm;
 use App\Forms\Minecraft\FilterForm;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
+use App\Model\API\Plugin\LuckPerms;
 use App\Model\Security\Auth\Authenticator;
 
 use App\Presenters\AdminBasePresenter;
@@ -25,19 +26,22 @@ class MinecraftPresenter extends AdminBasePresenter
 {
     private ChatLog $chatLog;
     private Bans $bans;
+    private LuckPerms $luckPerms;
 
     /**
      * MinecraftPresenter constructor.
      * @param Authenticator $authenticator
      * @param ChatLog $chatLog
      * @param Bans $bans
+     * @param LuckPerms $luckPerms
      */
-    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Bans $bans)
+    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Bans $bans, LuckPerms $luckPerms)
     {
         parent::__construct($authenticator);
 
         $this->chatLog = $chatLog;
         $this->bans = $bans;
+        $this->luckPerms = $luckPerms;
     }
 
     /**
