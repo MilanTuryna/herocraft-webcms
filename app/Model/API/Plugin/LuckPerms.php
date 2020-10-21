@@ -5,6 +5,8 @@ namespace App\Model\API\Plugin;
 
 
 use Nette\Database\Context;
+use Nette\Database\IRow;
+use Nette\Database\Table\ActiveRow;
 
 /**
  * Class LuckPerms
@@ -13,6 +15,7 @@ use Nette\Database\Context;
 class LuckPerms
 {
     const USER_TABLE_PERM = 'luckperms_user_permissions';
+    const REGISTER_TABLE = 'luckperms_players';
     const GROUPS = [
         'helper' => 'group.helper',
         'owner' => 'group.majitel',
@@ -34,18 +37,26 @@ class LuckPerms
     /**
      * Oveří zda je hráč helper (použije se při HelpDesk authenticatoru)
      * @param string $uuid
+     * @param string $server
      * @return bool
      */
-    public function isUserHelper(string $uuid) {
-        $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ?', $uuid)->fetchAll();
+    public function isUserHelper(string $uuid, $server = 'hranice') {
+        $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ? AND server=?', $uuid, $server)->fetchAll();
         foreach ($rows as $row) {
             if($row->permission == self::GROUPS['helper']
                 || $row->permission == self::GROUPS['owner']
-                || $row->permission == self::GROUPS['admin']
-                || $row->permission == self::GROUPS['developer'])
+                || $row->permission == self::GROUPS['admin'])
                 return true;
         }
         return false;
+    }
+
+    /**
+     * @param $nick
+     * @return IRow|ActiveRow|null
+     */
+    public function getUuidByNick($nick) {
+        return $this->context->table(self::REGISTER_TABLE)->where("username = ?", $nick)->fetch();
     }
 
     /**
@@ -57,7 +68,7 @@ class LuckPerms
         $groups = [];
         foreach ($rows as $row) {
             if(mb_substr($row->permission, 0, 6) == 'group.') {
-                array_push($groups, mb_substr($row->permission, 6, strlen($row->permission)));
+                $groups[$row->server] = mb_substr($row->permission, 6, strlen($row->permission));
             }
         }
 
