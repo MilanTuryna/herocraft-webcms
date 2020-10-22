@@ -106,6 +106,17 @@ class CachedAPIRepository
         return $this->cache->load($cacheName)->data;
     }
 
+    public function getCzechCraftPlayer($player) {
+        $cacheName = 'API_czechCraft_' . $player;
+        if(is_null($this->cache->load($cacheName))) {
+            $this->cache->save($cacheName, CzechCraft::getPlayerInformation($player), [
+                Cache::EXPIRE => '24 hour'
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
     /**
      * @param $name
      * @return mixed

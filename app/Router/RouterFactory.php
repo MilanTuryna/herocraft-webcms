@@ -93,6 +93,7 @@ final class RouterFactory
         
         $router->withModule('Stats')
             ->addRoute('/statistiky/', 'Main:app')
+            ->addRoute('/statistiky/api', 'API:serverView')
             ->addRoute('/statistiky/api/<name>', 'API:view');
 
         $router->withModule('Front')

@@ -39,6 +39,31 @@ class APIPresenter extends Presenter {
     }
 
     /**
+     * @throws AbortException
+     */
+    public function actionServerView() {
+        $response = [];
+        $http = [
+            'code' => 200,
+            'requestTime' => time()*1000,
+            'url' => $this->getHttpRequest()->getUrl(),
+            'method' => $this->getHttpRequest()->getMethod(),
+            'ip' => $this->getHttpRequest()->getRemoteAddress(),
+        ];
+
+        $response = [
+            'updateTime' => CachedAPIRepository::EXPIRE_TIME,
+            'http' => $http,
+            'czechCraft' => [
+                'server' => $this->cachedAPIRepository->getCzechCraftServer(),
+                'topVoters' => $this->cachedAPIRepository->getTopVoters()
+            ]
+        ];
+
+        $this->sendResponseJson($response);
+    }
+
+    /**
      * @param $name
      * @throws AbortException
      */
@@ -65,6 +90,7 @@ class APIPresenter extends Presenter {
                     'playertime' => null,
                     'uuid' => $uuid,
                     'originalUuid' => $this->mojangRepository->getMojangUUID($name),
+                    'czechCraft' => $this->cachedAPIRepository->getCzechCraftPlayer($name),
                     'headImageURL' => "https://minotar.net/avatar/{$name}.png",
                     'perms' => [
                         'groups' => $this->cachedAPIRepository->getPermGroups($uuid)
