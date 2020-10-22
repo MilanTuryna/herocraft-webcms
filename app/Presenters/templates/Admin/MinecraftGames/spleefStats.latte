@@ -27,7 +27,6 @@
                             <thead class="thead-light">
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Nick</th>
                                 <th scope="col">UUID</th>
                                 <th scope="col">Coiny</th>
                                 <th scope="col">Výhry</th>
@@ -39,11 +38,10 @@
                             {foreach $records as $record}
                                 <tr>
                                     <th scope="row">{$iterator->getCounter()}</th>
-                                    <td>d</td>
                                     <td>{$record->PlayerUUID}</td>
                                     <td>{$record->Coins}</td>
-                                    <td>d</td>
-                                    <td>d</td>
+                                    <td>{php echo(Nette\Utils\Json::decode($record->GlobalStats)->WINS)}</td>
+                                    <td>{php echo(Nette\Utils\Json::decode($record->GlobalStats)->LOSSES)}</td>
                                     <td><a n:href="MinecraftGames:editSpleefRecord $record->PlayerUUID">PODROBNOSTI</a></td>
                                 </tr>
                             {/foreach}
