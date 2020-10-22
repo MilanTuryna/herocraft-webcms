@@ -56,7 +56,7 @@ class LuckPerms
      * @return IRow|ActiveRow|null
      */
     public function getUuidByNick($nick) {
-        return $this->context->table(self::REGISTER_TABLE)->where("username = ?", $nick)->fetch();
+        return $this->context->table(self::REGISTER_TABLE)->where("username = ?", strtolower($nick))->fetch();
     }
 
     public function getNickByUuid($uuid) {
