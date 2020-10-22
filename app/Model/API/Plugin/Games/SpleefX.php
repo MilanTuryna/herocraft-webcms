@@ -5,6 +5,7 @@ namespace App\Model\API\Plugin\Games;
 
 
 use Nette\Database\Context;
+use Nette\Database\Table\Selection;
 
 /**
  * Class SpleefX
@@ -25,5 +26,13 @@ class SpleefX
     public function __construct(Context $context)
     {
         $this->context = $context;
+    }
+
+    /**
+     * @param $uuid
+     * @return Selection
+     */
+    public function getRowByUuid($uuid) {
+        return $this->context->table(self::TABLE)->where("PlayerUUID = ?", $uuid);
     }
 }
