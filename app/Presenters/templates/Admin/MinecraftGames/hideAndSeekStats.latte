@@ -57,9 +57,9 @@
         </div>
         <div class="pagination d-block text-center" style="margin-bottom: 16px;">
             {if $page > 1}
-                <a n:href="Minecraft:hideAndSeekStats, 1">Nejnovější</a>
+                <a n:href="MinecraftGames:hideAndSeekStats, 1">Nejnovější</a>
                 &nbsp;|&nbsp;
-                <a n:href="Minecraft:hideAndSeekStats, $page-1">Novější</a>
+                <a n:href="MinecraftGames:hideAndSeekStats, $page-1">Novější</a>
                 &nbsp;|&nbsp;
             {/if}
 
@@ -67,9 +67,9 @@
 
             {if $page < $lastPage}
                 &nbsp;|&nbsp;
-                <a n:href="Minecraft:hideAndSeekStats, $page+1">Starší</a>
+                <a n:href="MinecraftGames:hideAndSeekStats, $page+1">Starší</a>
                 &nbsp;|&nbsp;
-                <a n:href="Minecraft:hideAndSeekStats, $lastPage">Nejstarší</a>
+                <a n:href="MinecraftGames:hideAndSeekStats, $lastPage">Nejstarší</a>
             {/if}
         </div>
     </div>
