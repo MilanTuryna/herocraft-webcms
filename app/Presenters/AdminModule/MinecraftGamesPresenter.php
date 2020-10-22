@@ -89,6 +89,10 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         }
     }
 
+    /*
+     * SPLEEF
+     */
+
     /**
      * @param int $page
      * @throws AbortException
