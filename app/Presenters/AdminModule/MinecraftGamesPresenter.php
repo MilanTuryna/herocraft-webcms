@@ -89,6 +89,39 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         }
     }
 
+    /**
+     * @param int $page
+     * @throws AbortException
+     */
+    public function renderSpleefStats(int $page = 1) {
+        $records = $this->spleefX->getAllRows();
+
+        $lastPage = 0;
+        $paginatorData = $records->page($page, 30, $lastPage);
+        $this->template->records = $paginatorData;
+
+        $this->template->page = $page;
+        $this->template->lastPage = $lastPage;
+
+        if($page > $lastPage+1) {
+            $this->redirect("MinecraftGames:spleefStats");
+        }
+    }
+
+    /**
+     * @param $playerUUID
+     * @throws AbortException
+     */
+    public function renderEditSpleefRecord($playerUUID) {
+        $record = $this->spleefX->getRowByUuid($playerUUID)->fetch();
+        if($record) {
+            $this->template->record = $record;
+        } else {
+            $this->flashMessage("Hráč se zadaným UUID neexistuje, jsi si jistý, že zadáváš správné?", "danger");
+            $this->redirect("MinecraftGames:spleefStats");
+        }
+    }
+
     /*
      * HIDE AND SEEK
      */
