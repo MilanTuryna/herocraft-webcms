@@ -8,6 +8,7 @@ use App\Forms\Minecraft\Games\EditEventRecordForm;
 use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\API\Plugin\Games\SpleefX;
+use App\Model\API\Plugin\LuckPerms;
 use App\Model\Security\Auth\Authenticator;
 
 use App\Presenters\AdminBasePresenter;
@@ -24,6 +25,7 @@ class MinecraftGamesPresenter extends AdminBasePresenter
     Private Events $events;
     Private HideAndSeek $hideAndSeek;
     private SpleefX $spleefX;
+    private LuckPerms $luckPerms;
 
     /**
      * MinecraftGamesPresenter constructor.
@@ -31,14 +33,16 @@ class MinecraftGamesPresenter extends AdminBasePresenter
      * @param Events $events
      * @param SpleefX $spleefX
      * @param HideAndSeek $hideAndSeek
+     * @param LuckPerms $luckPerms
      */
-    public function __construct(Authenticator $authenticator, Events $events, SpleefX $spleefX, HideAndSeek $hideAndSeek)
+    public function __construct(Authenticator $authenticator, Events $events, SpleefX $spleefX, HideAndSeek $hideAndSeek, LuckPerms $luckPerms)
     {
         parent::__construct($authenticator);
 
         $this->events = $events;
         $this->spleefX = $spleefX;
         $this->hideAndSeek = $hideAndSeek;
+        $this->luckPerms = $luckPerms;
     }
 
     /*
@@ -129,6 +133,8 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         $record = $this->spleefX->getRowByUuid($playerUUID)->fetch();
         if($record) {
             $this->template->record = $record;
+            $luckPerms = $this->luckPerms->getNickByUuid($playerUUID);
+            $this->template->playerName = $luckPerms ? $luckPerms->username : "*CHYBA: NENALEZEN*";
         } else {
             $this->flashMessage("Hráč se zadaným UUID neexistuje, jsi si jistý, že zadáváš správné?", "danger");
             $this->redirect("MinecraftGames:spleefStats");

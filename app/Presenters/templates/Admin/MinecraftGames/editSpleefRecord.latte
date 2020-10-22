@@ -1,0 +1,37 @@
+{layout '../layout.latte'}
+{block title}
+    Editace záznamu hráče
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Games</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:hideAndSeekStats">Spleef</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href">Záznam hráče </a></li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Záznam hráče {$playerName}</h5>
+            <div class="card-text">
+                <div class="bg-light border" style="padding: 8px">
+                    {var $decodedJsonStats = Nette\Utils\Json::decode($record->GlobalStats)}
+                    <b>Nick: </b>{$playerName}<br>
+                    <b>UUID: </b>{$record->PlayerUUID}<br>
+                    <b>Výhry: </b>{$decodedJsonStats->WINS}<br>
+                    <b>Prohry: </b>{$decodedJsonStats->LOSSES}<br>
+                    <b>Remízy: </b>{$decodedJsonStats->DRAWS}<br>
+                    <b>Odehraných her: </b>{$decodedJsonStats->GAMES_PLAYED}<br>
+                    <b>Skóre: </b>{$decodedJsonStats->SCORE}<br>
+                    <b>Rozbitých bloků: </b>{$decodedJsonStats->BLOCKS_MINED}<br>
+                    <b>SpleggShots: </b>{$decodedJsonStats->SPLEGG_SHOTS}<br>
+                    <b>Bow Shots: </b>{$decodedJsonStats->BOW_SPLEEF_SHOTS}<br>
+                    <b>Aktivní upgrade: </b>{$record->SpleggUpgrade}<br>
+                    <b>Seznam koupených upgradů: </b><ul><li n:foreach="json_decode($record->PurchasedSpleggUpgrades) as $upgrade">{$upgrade}</li></ul><br>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
