@@ -8,7 +8,7 @@
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Games</a></li>
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:hideAndSeekStats">Hide and Seek</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:editHASrecord $record->id">Záznam hráče {$record->player_name} (#{$record->id})</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href">Záznam hráče {$record->player_name} (#{$record->id})</a></li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
