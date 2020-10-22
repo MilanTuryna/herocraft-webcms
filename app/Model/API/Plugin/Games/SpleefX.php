@@ -35,4 +35,12 @@ class SpleefX
     public function getRowByUuid($uuid) {
         return $this->context->table(self::TABLE)->where("PlayerUUID = ?", $uuid);
     }
+
+    /**
+     * @param string $order
+     * @return Selection
+     */
+    public function getAllRows($order = "COINS desc") {
+        return $this->context->table(self::TABLE)->order($order);
+    }
 }
