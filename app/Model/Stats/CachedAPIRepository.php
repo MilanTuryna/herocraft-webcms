@@ -6,6 +6,7 @@ use App\Model\API\CzechCraft;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
+use App\Model\API\Plugin\Games\SpleefX;
 use App\Model\API\Plugin\LuckPerms;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
@@ -25,6 +26,7 @@ class CachedAPIRepository
     private HideAndSeek $hideAndSeek;
     private Events $events;
     private LuckPerms $luckPerms;
+    private SpleefX $spleefX;
 
     /**
      * CachedAPIRepository constructor.
@@ -34,9 +36,10 @@ class CachedAPIRepository
      * @param HideAndSeek $hideAndSeek
      * @param Events $events
      * @param LuckPerms $luckPerms
+     * @param SpleefX $spleefX
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                Bans $bans, HideAndSeek $hideAndSeek, Events $events, LuckPerms $luckPerms)
+                                Bans $bans, HideAndSeek $hideAndSeek, Events $events, LuckPerms $luckPerms, SpleefX $spleefX)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -44,6 +47,7 @@ class CachedAPIRepository
         $this->hideAndSeek = $hideAndSeek;
         $this->events = $events;
         $this->luckPerms = $luckPerms;
+        $this->spleefX = $spleefX;
     }
 
     /**
@@ -156,13 +160,29 @@ class CachedAPIRepository
         $cacheName = 'API_events_' . $name;
 
         $load = $this->cache->load($cacheName);
-        if(is_null($this->cache->load($cacheName)) && !is_array($load)) {
+        if(is_null($load) && !is_array($load)) {
             $db = $this->events->getPlayerRecordsByName($name);
             $events = [];
             foreach ($db as $d) {
                 $events[$d->id] = ArrayHash::from(iterator_to_array($d));
             }
             $this->cache->save($cacheName, $events, [
+                Cache::EXPIRE => "24 hours"
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @param $uuid
+     * @return mixed
+     */
+    public function getSpleefStatsByUUID($uuid) {
+        $cacheName = 'API_playerSpleefStats_' . $uuid;
+        if(is_null($this->cache->load($cacheName))) {
+            $db = $this->spleefX->getRowByUuid($uuid)->fetch();
+            $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null, [
                 Cache::EXPIRE => "24 hours"
             ]);
         }

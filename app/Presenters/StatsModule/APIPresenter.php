@@ -100,7 +100,8 @@ class APIPresenter extends Presenter {
                     ], 'servers' => [
                         'games' => [
                             'events' => $this->cachedAPIRepository->getPlayerEventsRecords($name),
-                            'hideAndSeek' => $this->cachedAPIRepository->getHideAndSeekRow($name)
+                            'hideAndSeek' => $this->cachedAPIRepository->getHideAndSeekRow($name),
+                            'spleef' => $this->cachedAPIRepository->getSpleefStatsByUUID($uuid)
                         ], 'senior' => [
 
                         ], 'classic' => [
