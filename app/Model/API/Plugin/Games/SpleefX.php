@@ -40,7 +40,7 @@ class SpleefX
      * @param string $order
      * @return Selection
      */
-    public function getAllRows($order = "COINS desc") {
+    public function getAllRows($order = "Coins DESC") {
         return $this->context->table(self::TABLE)->order($order);
     }
 }

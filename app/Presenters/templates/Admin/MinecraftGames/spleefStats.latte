@@ -30,9 +30,8 @@
                                 <th scope="col">Nick</th>
                                 <th scope="col">UUID</th>
                                 <th scope="col">Coiny</th>
-                                <th scope="col">Karma</th>
-                                <th scope="col">Odehraných her</th>
-                                <th scope="col">XP</th>
+                                <th scope="col">Výhry</th>
+                                <th scope="col">Prohry</th>
                                 <th scope="col">#</th>
                             </tr>
                             </thead>
@@ -40,13 +39,12 @@
                             {foreach $records as $record}
                                 <tr>
                                     <th scope="row">{$iterator->getCounter()}</th>
-                                    <td>{$record->player_name}</td>
-                                    <td>{$record->wins}</td>
-                                    <td>{$record->coins}</td>
-                                    <td>{$record->karma}</td>
-                                    <td>{$record->games_played}</td>
-                                    <td>{$record->exp}</td>
-                                    <td><a n:href="MinecraftGames:editHASrecord $record->id">PODROBNOSTI</a></td>
+                                    <td>d</td>
+                                    <td>{$record->PlayerUUID}</td>
+                                    <td>{$record->Coins}</td>
+                                    <td>d</td>
+                                    <td>d</td>
+                                    <td><a n:href="MinecraftGames:editSpleefRecord $record->PlayerUUID">PODROBNOSTI</a></td>
                                 </tr>
                             {/foreach}
                             </tbody>

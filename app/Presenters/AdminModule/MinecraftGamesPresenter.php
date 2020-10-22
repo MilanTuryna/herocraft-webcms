@@ -25,6 +25,13 @@ class MinecraftGamesPresenter extends AdminBasePresenter
     Private HideAndSeek $hideAndSeek;
     private SpleefX $spleefX;
 
+    /**
+     * MinecraftGamesPresenter constructor.
+     * @param Authenticator $authenticator
+     * @param Events $events
+     * @param SpleefX $spleefX
+     * @param HideAndSeek $hideAndSeek
+     */
     public function __construct(Authenticator $authenticator, Events $events, SpleefX $spleefX, HideAndSeek $hideAndSeek)
     {
         parent::__construct($authenticator);
@@ -92,6 +99,8 @@ class MinecraftGamesPresenter extends AdminBasePresenter
     /*
      * SPLEEF
      */
+
+    // TODO: ZKONTROLOVAT PAGINATOR
 
     /**
      * @param int $page
