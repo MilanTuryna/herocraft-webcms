@@ -7,8 +7,8 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Games</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:hideAndSeekStats">Spleef</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="black-href">Záznam hráče </a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftGames:spleefStats">Spleef</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href">Záznam hráče {$playerName}</a></li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
