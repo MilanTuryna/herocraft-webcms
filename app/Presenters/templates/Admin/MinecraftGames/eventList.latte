@@ -13,6 +13,8 @@
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
+            <a href="" class="text-info">Otevřít veřejné statistiky na nové kartě</a>
+            <hr>
             <h5 class="card-title">Seznam eventů</h5>
             <div class="card-text">
                 <span class="" n:if="!$events">
