@@ -25,6 +25,7 @@
                     <b>Neúspěšné pokusy: </b>{$record->event_giveup}<br>
                     <b>Nejlepší výsledek: </b>{$record->best_played|date:'j.n.Y H:i'}<br>
                     <b>Poslední výsledek: </b>{$record->last_played|date:'j.n.Y H:i'}<br>
+                    <a n:href=":Stats:Main:app?player=$record->username" class="text-info">Otevřít veškerou statistiku hráče <b>(V NOVÉM OKNĚ)</b></a>
                 </div>
             </div>
         </div>
