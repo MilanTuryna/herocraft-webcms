@@ -72,9 +72,22 @@ let app = new Vue({
                 let friends = {
                     list: [],
                 };
+
+                let groups = data.player.perms.groups;
+                let groupsKeys = Object.keys(groups);
+                let groupLiBuilder = '';
+                groupsKeys.forEach(function (key) {
+                    if(groups[key] === "default" && groupsKeys.length > 1) return;
+
+                    groupLiBuilder += `<li><b>${Utils.string.capitalizeFirstLetter(key.replace("global", "Network"))}</b>: 
+${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}</li>`;
+                });
+
+
                 if(data.player.perms.groups.length > 1) {
                     data.player.perms.groups = data.player.perms.groups.filter(x => x !== "default");
                 }
+
                 history.pushState(null, `Statistiky - ${data.player.nickname}`, '?player=' + data.player.nickname);
                 bootbox.alert({
                     title: data.player.nickname + `<img src="${data.player.headImageURL}" style="width:20px; margin-left:5px;"/>`,
@@ -123,7 +136,9 @@ let app = new Vue({
                             <b>Hodnost</b>
                         </div>
                         <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
-                            ${Utils.string.capitalizeFirstLetter(data.player.perms.groups.join(", ").replace("default", "hráč"))}
+                            <ul style="margin-bottom: 0">
+                            ${groupLiBuilder}
+                            </ul>
                         </div> 
                     </div>
         </div>
