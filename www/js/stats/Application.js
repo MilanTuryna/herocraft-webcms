@@ -113,15 +113,6 @@ let app = new Vue({
                              <img width="20" src="${data.player.headImageURL}">
                         </div>
                     </div>
-                     <div class="row border-top" style="margin:0;">
-                         <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
-                            <b>Počet přátel</b>
-                        </div>
-                        <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
-                            ${data.player.friends['count']} ${Utils.string.sklonovani(data.player.friends['count'], ['přítel', 'přátelé', 'přátel'])}
-                            (${friends.list})
-                        </div>
-                    </div>
                     <div class="row border-top" style="margin:0;">
                          <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
                             <b>Ban</b>
