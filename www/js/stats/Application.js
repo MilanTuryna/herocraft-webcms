@@ -72,9 +72,6 @@ let app = new Vue({
                 let friends = {
                     list: [],
                 };
-                data.player.friends.list.forEach(e => {
-                    friends.list.push(`<a href="?player=${e.player_name}">${e.player_name}</a>`);
-                });
                 if(data.player.perms.groups.length > 1) {
                     data.player.perms.groups = data.player.perms.groups.filter(x => x !== "default");
                 }
