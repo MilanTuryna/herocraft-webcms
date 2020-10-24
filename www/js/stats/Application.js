@@ -79,8 +79,8 @@ let app = new Vue({
                 groupsKeys.forEach(function (key) {
                     if(groups[key] === "default" && groupsKeys.length > 1) return;
 
-                    groupLiBuilder += `<li><b>${Utils.string.capitalizeFirstLetter(key.replace("global", "Network"))}</b>: 
-${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}</li>`;
+                    groupLiBuilder += `<b>${Utils.string.capitalizeFirstLetter(key.replace("global", "Network"))}</b>: 
+${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<br>`;
                 });
 
 
@@ -136,10 +136,16 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
                             <b>Hodnost</b>
                         </div>
                         <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
-                            <ul style="margin-bottom: 0">
                             ${groupLiBuilder}
-                            </ul>
                         </div> 
+                    </div>
+                    <div class="row border-top" style="margin:0;">
+                         <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
+                            <b>Počet hlasů (czechCraft)</b>
+                        </div>
+                        <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
+                            ${data.player.czechCraft ? data.player.czechCraft.vote_count : "0"}
+                        </div>  
                     </div>
         </div>
     </div>`,
