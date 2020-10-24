@@ -58,7 +58,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage+1) {
+        if($page > $lastPage) {
             $this->redirect("Minecraft:chat");
         }
     }
@@ -152,7 +152,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage+1) {
+        if($page > $lastPage) {
             $this->redirect("Minecraft:banList");
         }
     }
@@ -171,7 +171,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage+1) {
+        if($page > $lastPage) {
             $this->redirect("Minecraft:ipBanList");
         }
     }

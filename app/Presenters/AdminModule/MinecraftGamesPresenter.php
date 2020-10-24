@@ -120,7 +120,7 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage+1) {
+        if($page > $lastPage) {
             $this->redirect("MinecraftGames:spleefStats");
         }
     }
