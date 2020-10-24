@@ -6,6 +6,10 @@ body {
     background-image: url('https://assets.rockpapershotgun.com/images/2020/06/BSL-Shaders.jpg');
 }
 
+.modal-dialog-scrollable .modal-body {
+    overflow-y: scroll;
+}
+
 .modal-body-padding {
     padding:1rem;
 }
