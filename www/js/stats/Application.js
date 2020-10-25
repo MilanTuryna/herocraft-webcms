@@ -69,24 +69,34 @@ let app = new Vue({
                     lastlogin: new Date(data.player.auth.lastlogin),
                     regtime: new Date(data.player.auth.regtime),
                 };
-                let friends = {
-                    list: [],
-                };
+
+                let spleefGames = data.player.servers.games.spleef;
+                let spleefStatsBuilder = '';
+                if(spleefGames) {
+                    let spleefGamesStats = JSON.parse(spleefGames.GlobalStats);
+                    spleefStatsBuilder = `<ul><li><b>Coins:</b> ${spleefGames.Coins}</li>
+                           <li><b>Výhry:</b>  ${spleefGamesStats.WINS}</li>
+                           <li><b>Prohry: </b> ${spleefGamesStats.LOSSES}</li>
+                           <li><b>Remízy: </b> ${spleefGamesStats.DRAWS}</li>
+                           <li><b>Skóre: </b> ${spleefGamesStats.SCORE}</li>
+                           <li><b>Rozbitých bloků: </b> ${spleefGamesStats.BLOCKS_MINED}</li>
+                           <li><b>SpleegShots: </b> ${spleefGamesStats.SPLEGG_SHOTS}</li>
+                           <li><b>BowShots: </b> ${spleefGamesStats.BOW_SPLEEF_SHOTS}</li>
+                           <li><b>Odehrané hry: </b> ${spleefGamesStats.GAMES_PLAYED}</li></ul>`;
+                } else {
+                    spleefStatsBuilder = "Žádné statistiky z této minihry (Spleef) nebyly nalezeny."
+                }
 
                 let groups = data.player.perms.groups;
                 let groupsKeys = Object.keys(groups);
                 let groupLiBuilder = '';
                 groupsKeys.forEach(function (key) {
                     if(groups[key] === "default" && groupsKeys.length > 1) return;
-
                     groupLiBuilder += `<b>${Utils.string.capitalizeFirstLetter(key.replace("global", "Network"))}</b>: 
 ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<br>`;
                 });
 
-
-                if(data.player.perms.groups.length > 1) {
-                    data.player.perms.groups = data.player.perms.groups.filter(x => x !== "default");
-                }
+                if(data.player.perms.groups.length > 1) data.player.perms.groups = data.player.perms.groups.filter(x => x !== "default");
 
                 history.pushState(null, `Statistiky - ${data.player.nickname}`, '?player=' + data.player.nickname);
                 bootbox.alert({
@@ -148,7 +158,53 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
                         </div>  
                     </div>
         </div>
-    </div>`,
+    </div>`
+                        + `<hr>`
+                        + `
+<div class="ticket bg-white">
+    <div class="ticket-head">
+        <h5>
+            <p>
+                <span>Statistiky v minihrách</span>
+            </p>
+        </h5>
+    </div>
+    <hr style="margin: 0;" />
+    <div class="ticket-body bg-light border-left border-right border-bottom">
+        <div id="accordion">
+            <div class="card" style="border-radius: 0;">
+                <div class="card-header" id="headingEvents">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseEvents" aria-expanded="true" aria-controls="collapseEvents">
+                            Eventy
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseEvents" class="collapse" aria-labelledby="headingEvents" data-parent="#accordion">
+                    <div class="card-body">
+                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
+                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
+                        excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="border-radius: 0;">
+                <div class="card-header" id="headingSpleef">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseSpleef" aria-expanded="true" aria-controls="collapseSpleef">
+                            Spleef
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseSpleef" class="collapse" aria-labelledby="headingSpleef" data-parent="#accordion">
+                    <div class="card-body">
+                       ${spleefStatsBuilder}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>`,
                     size: 'large',
                 });
             } else {
