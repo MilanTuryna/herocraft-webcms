@@ -65,9 +65,12 @@ class MojangRepository
      */
     public function getUUID($username) {
         if(is_null($this->cache->load('mojang_uuid_' . $username))) {
-            $this->cache->save('mojang_uuid_' . $username,  ArrayHash::from($this->luckPerms->getUuidByNick($username)->toArray())->uuid, [
-                Cache::EXPIRE => "24 hours"
-            ]);
+            $luckPermsRow = $this->luckPerms->getUuidByNick($username);
+            if($luckPermsRow) {
+                $this->cache->save('mojang_uuid_' . $username,  ArrayHash::from($luckPermsRow->toArray())->uuid, [
+                    Cache::EXPIRE => "24 hours"
+                ]);
+            }
         }
 
         return $this->cache->load('mojang_uuid_'. $username);
