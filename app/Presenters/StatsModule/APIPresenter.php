@@ -69,6 +69,7 @@ class APIPresenter extends Presenter {
      */
     public function actionView($name) {
         $user = $this->cachedAPIRepository->getUser($name);
+        $uuid = $this->mojangRepository->getUUID($name);
         $response = [];
         $http = [
             'code' => 200,
@@ -78,8 +79,7 @@ class APIPresenter extends Presenter {
             'ip' => $this->getHttpRequest()->getRemoteAddress(),
         ];
 
-        if($user) {
-            $uuid = $this->mojangRepository->getUUID($name);
+        if($user && $uuid) {
             $response = [
                 'updateTime' => CachedAPIRepository::EXPIRE_TIME,
                 'http' => $http,
@@ -113,6 +113,7 @@ class APIPresenter extends Presenter {
         } else {
             $response = [
                 'http' => $http,
+                'reason' => 'UUID or user not found',
                 'player' => [
                     'exists' => false
                 ]
