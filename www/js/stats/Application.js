@@ -87,6 +87,33 @@ let app = new Vue({
                     spleefStatsBuilder = "Žádné statistiky z této minihry (Spleef) nebyly nalezeny."
                 }
 
+                let eventRecords = data.player.servers.games.events;
+                let eventsStatsBuilder = `<p class="small text-muted">Pokud tu nějaký event není, znamená to, že hráč <b>${data.player.nickname}</b> ještě ten event nehrál</p>`;
+                if(eventRecords) {
+                    Object.keys(eventRecords).forEach((key) => {
+                        let thisRecord = eventRecords[key];
+                        let arr = [thisRecord.best_time, thisRecord.last_played, thisRecord.best_played, thisRecord.event_passed, thisRecord.event_giveup];
+                        if(Object.values(arr).every(e => !e)) {
+                            return;
+                        }
+
+                        eventsStatsBuilder += `<b>${key}</b>`;
+                        eventsStatsBuilder += "<br>";
+                        eventsStatsBuilder +=
+                            `  
+                             <ul>
+                               <li><u>Nejlepší čas</u> - ${thisRecord.best_time ? thisRecord.best_time : "neznámý čas"}</li>
+                               <li><u>Naposledy hráno</u> - ${thisRecord.last_played ? thisRecord.last_played : "neznámý datum"}</li>
+                               <li><u>Datum nejlepší hry</u> - ${thisRecord.best_played ? thisRecord.best_played : "neznámý datum"}</li>
+                               <li><u>Event dokončen</u> - ${thisRecord.event_passed ? thisRecord.event_passed + "x" : "neznámokrát"}</li>
+                               <li><u>Event vzdán</u> - ${thisRecord.event_giveup ? thisRecord.event_giveup + "x" : "neznámokrát"}</li>
+                             </ul>`
+                        eventsStatsBuilder += "<br>"
+                    });
+                } else {
+                    eventsStatsBuilder = "Žádné herní statistiky z eventů nebyly nalezeny."
+                }
+
                 let groups = data.player.perms.groups;
                 let groupsKeys = Object.keys(groups);
                 let groupLiBuilder = '';
@@ -182,9 +209,7 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
                 </div>
                 <div id="collapseEvents" class="collapse" aria-labelledby="headingEvents" data-parent="#accordion">
                     <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3
-                        wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan
-                        excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                    ${eventsStatsBuilder}
                     </div>
                 </div>
             </div>
