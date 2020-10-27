@@ -5,6 +5,7 @@ namespace App\Model\API\Plugin\Games;
 
 
 use Nette\Database\Context;
+use Nette\Database\ResultSet;
 use Nette\Database\Table\Selection;
 
 /**
@@ -81,10 +82,13 @@ class Events
 
     /**
      * @param $nick
-     * @return Selection
+     * @param string $eventsTable
+     * @param string $playersTable
+     * @return ResultSet
      */
-    public function getPlayerRecordsByName($nick) {
-        return $this->context->table(self::PLAYERS_TABLE)->where("username = ?", $nick);
+    public function getPlayerRecordsByName($nick, $eventsTable = self::EVENTS_TABLE, $playersTable = self::PLAYERS_TABLE) {
+            return $this->context
+                ->query("SELECT * FROM {$playersTable} LEFT JOIN {$eventsTable} ON {$playersTable}.event_id = {$eventsTable}.event_id WHERE username=? GROUP BY username, event_players.event_id", $nick)->fetchAll();
     }
 
     /**
