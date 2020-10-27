@@ -159,9 +159,11 @@ class CachedAPIRepository
     public function getPlayerEventsRecords($name) {
         $cacheName = 'API_events_' . $name;
 
-        $load = $this->cache->load($cacheName);
-        if(is_null($load) && !is_array($load)) {
-            $db = $this->events->getPlayerRecordsByName($name);
+        if(is_null($this->cache->load($cacheName))) {
+            /**
+             * Suppressing error: ->fetch() method triggering USER_NOTICE error (because duplicates)
+             */
+            $db = @$this->events->getPlayerRecordsByName($name);
             $events = [];
             foreach ($db as $d) {
                 $events[$d->id] = ArrayHash::from(iterator_to_array($d));
@@ -170,6 +172,7 @@ class CachedAPIRepository
                 Cache::EXPIRE => "24 hours"
             ]);
         }
+
 
         return $this->cache->load($cacheName);
     }
