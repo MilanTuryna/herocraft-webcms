@@ -107,7 +107,7 @@ let app = new Vue({
                                <li><u>Datum nejlepší hry</u> - ${thisRecord.best_played ? thisRecord.best_played : "neznámý datum"}</li>
                                <li><u>Event dokončen</u> - ${thisRecord.event_passed ? thisRecord.event_passed + "x" : "neznámokrát"}</li>
                                <li><u>Event vzdán</u> - ${thisRecord.event_giveup ? thisRecord.event_giveup + "x" : "neznámokrát"}</li>
-                             </ul>`
+                             </ul>`;
                         eventsStatsBuilder += "<br>"
                     });
                 } else {
@@ -117,7 +117,17 @@ let app = new Vue({
                 let hasStats = data.player.servers.games.hideAndSeek;
                 let hasStatsBuilder = '';
                 if(hasStats) {
-
+                    hasStatsBuilder +=
+                        `<ul>
+                            <li><b>Zabitých hiderů:</b> ${hasStats.hiders_killed}</li>
+                            <li><b>Zabitých seekerů:</b> ${hasStats.seekers_killed}</li>
+                            <li><b>Výher:</b> ${hasStats.wins}</li>
+                            <li><b>Proher:</b> ${hasStats.games_played - hasStats.wins}</li>
+                            <li><b>Odehraných her:</b> ${hasStats.games_played}</li>
+                            <li><b>Coins:</b> ${hasStats.coins}</li>
+                            <li><b>Karma:</b> ${hasStats.karma}</li>
+                            <li><b>XP:</b> ${hasStats['exp']}</li>
+                         </ul>`;
                 } else {
                     hasStatsBuilder = 'Žádné statistiky z této minihry (Hide and Seek) nebyly nalezeny.';
                 }
