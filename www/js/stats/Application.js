@@ -114,6 +114,14 @@ let app = new Vue({
                     eventsStatsBuilder = "Žádné herní statistiky z eventů nebyly nalezeny."
                 }
 
+                let hasStats = data.player.servers.games.hideAndSeek;
+                let hasStatsBuilder = '';
+                if(hasStats) {
+
+                } else {
+                    hasStatsBuilder = 'Žádné statistiky z této minihry (Hide and Seek) nebyly nalezeny.';
+                }
+
                 let groups = data.player.perms.groups;
                 let groupsKeys = Object.keys(groups);
                 let groupLiBuilder = '';
@@ -135,8 +143,6 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
                         `<p class="text-muted small">Požadavek zpracován v ${dateFormat}</p>` +
                         '<p>' +
                         `Tento hráč byl zaregistrován dne ${auth.regtime.getDate()}.${auth.regtime.getMonth()+1}.${auth.regtime.getFullYear()}` +
-                        `, naposledy se přihlásil dne ${auth.lastlogin.getDate()}.${auth.lastlogin.getMonth()+1}.${auth.regtime.getFullYear()} v ` +
-                        `${Utils.date.addZeroBefore(auth.lastlogin.getHours()) + ':' + Utils.date.addZeroBefore(auth.lastlogin.getMinutes())}` +
                         ` a je přibližně ${data.player.auth.userID}. zaregistrovaný hráč na našem networku.` +
                         '</p>'
                         +
@@ -224,6 +230,20 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
                 <div id="collapseSpleef" class="collapse" aria-labelledby="headingSpleef" data-parent="#accordion">
                     <div class="card-body">
                        ${spleefStatsBuilder}
+                    </div>
+                </div>
+            </div>
+            <div class="card" style="border-radius: 0;">
+                <div class="card-header" id="headingHAS">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" data-toggle="collapse" data-target="#collapseHAS" aria-expanded="true" aria-controls="collapseHAS">
+                            Hide and Seek
+                        </button>
+                    </h5>
+                </div>
+                <div id="collapseHAS" class="collapse" aria-labelledby="headingHAS" data-parent="#accordion">
+                    <div class="card-body">
+                       ${hasStatsBuilder}
                     </div>
                 </div>
             </div>
