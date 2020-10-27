@@ -166,7 +166,7 @@ class CachedAPIRepository
             $db = @$this->events->getPlayerRecordsByName($name);
             $events = [];
             foreach ($db as $d) {
-                $events[$d->id] = ArrayHash::from(iterator_to_array($d));
+                $events[$d->event_name] = ArrayHash::from(iterator_to_array($d));
             }
             $this->cache->save($cacheName, $events, [
                 Cache::EXPIRE => "24 hours"
