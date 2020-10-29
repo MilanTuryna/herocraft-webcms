@@ -49,17 +49,28 @@
     <h2 class="font-weight-light" style="font-size: 30px" data-aos="fade-left" data-aos-duration="1000">
         Eventy
     </h2>
-    <div class="border" style="background-color: rgba(255, 255, 255,0.3) !important; padding-bottom: 12px; padding-top: 12px" data-aos="fade-up" data-aos-duration="1000">
-        <ul n:if="$events" style="margin-bottom: 0" >
-            <li n:foreach="$events as $event">
-                <a n:href="Main:viewEvent $event->event_name" class="text-dark"><span style="text-decoration: underline">{$event->event_name}</span>
-                    - kliknutím zobrazíte statistiky eventu</a>
-            </li>
-        </ul>
+    <p class="text-muted small" data-aos="fade-left" data-aos-duration="1500">Výpis aktualizován každých <b>30</b> minut</p>
+    <div class="border" style="background-color: rgba(255, 255, 255,0.3) !important; padding-bottom: 12px; padding-top: 12px" data-aos="fade-down" data-aos-duration="1000">
+        {cache expire => '30 minutes'}
+            <ul n:if="$events" style="margin-bottom: 0" >
+                <li n:foreach="$events as $event">
+                    <a n:href="Main:viewEvent $event->event_name" class="text-dark"><span style="text-decoration: underline">{$event->event_name}</span>
+                        - kliknutím zobrazíte statistiky eventu</a>
+                    {var $three = $getFirstThree($event->event_id)}
+                    <ul n:if=$three>
+                        {foreach $three as $p}
+                            <li><b>{$iterator->getCounter()}.</b> {$p->username}</li>
+                        {/foreach}
+                    </ul>
+                </li>
+            </ul>
+        {/cache}
+
         <p class="text-center" n:if="!$events" style="margin:0">
             Nebyl nalezen žádný event
         </p>
     </div>
+    <br>
 {/block}
 {block endScripts}
     <script src="{$basePath}/js/stats/PlayerAPI.js"></script>

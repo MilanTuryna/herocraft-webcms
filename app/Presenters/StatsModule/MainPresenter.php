@@ -45,6 +45,9 @@ class MainPresenter extends BasePresenter
     public function renderApp() {
         $events = $this->events->findAllEvents()->fetchAll();
         $this->template->events = $events;
+        $this->template->getFirstThree = function ($eventId) {
+            return $this->events->getPlayersByEventId($eventId, 3);
+        };
     }
 
     /**
