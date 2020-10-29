@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{include title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="{$basePath}/css/stats.css" rel="stylesheet">
+</head>
+<noscript>
+    <style>
+        .body {
+            display:none;
+        }
+    </style>
+    <strong>We're sorry but this site doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+</noscript>
+<body>
+<div class="container" style="min-height: 100vh;">
+    <div class="row" style="min-height: 100vh;-webkit-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);-moz-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);">
+        <div class="col-sm-8 " style="background-color: #e9f5ea;padding-left:32px;padding-right: 32px;">
+            {include content}
+        </div>
+        <div class="col-sm-4 "
+             style="background-color: rgba(191, 201, 147,0.65);padding: 32px;-webkit-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);-moz-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);">
+            <div class="text-center" style="margin:0">
+                <h3 class="font-weight-light" style="font-size: 35px">{$nastaveni->nazev}</h3>
+                <ul class="list-group transparent-items " style="color: rgba(255,255,255,0.75)">
+                    <a href="">
+                        <li class="list-group-item">Přejít na hlavní web</li>
+                    </a>
+                    <a href="">
+                        <li class="list-group-item">Přejít do infopanelu</li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="{$basePath}/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
+{ifset #endScripts}
+    {include endScripts}
+{/ifset}
+</body>
+</html>

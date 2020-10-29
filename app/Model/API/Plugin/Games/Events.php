@@ -51,8 +51,20 @@ class Events
         return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id);
     }
 
+    /**
+     * @param $id
+     * @return Selection
+     */
     public function getEventById($id) {
         return $this->context->table(self::EVENTS_TABLE)->where("event_id = ?", $id);
+    }
+
+    /**
+     * @param $name
+     * @return Selection
+     */
+    public function getEventByName($name) {
+        return $this->context->table(self::EVENTS_TABLE)->where("event_name = ?", $name);
     }
 
     /**

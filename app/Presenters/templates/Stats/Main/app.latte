@@ -1,94 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Statistiky</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <link href="{$basePath}/css/stats.css" rel="stylesheet">
-</head>
-<noscript>
-    <style>
-        .body {
-            display:none;
-        }
-    </style>
-    <strong>We're sorry but this site doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-</noscript>
-<body>
-<div class="container" style="min-height: 100vh;">
-    <div class="row" style="min-height: 100vh;-webkit-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);-moz-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);">
-        <div class="col-sm-8 " style="background-color: #e9f5ea;padding-left:32px;padding-right: 32px;">
-            <header style="padding-top:32px">
-                <h1 class="font-weight-light" style="font-size: 40px" data-aos="fade-left" data-aos-duration="1000">
-                    Hráčské statistiky
-                </h1>
-            </header>
-            <nav>
-                <ul class="list-group transparent-items " data-aos-duration="1500" data-aos-delay="500" data-aos="fade-left" style="color: rgba(255,255,255,0.75)">
+{layout "../layout.latte"}
+{block title}
+    Statistiky
+{/block}
+{block content}
+    <header style="padding-top:32px">
+        <h1 class="font-weight-light" style="font-size: 40px" data-aos="fade-left" data-aos-duration="1000">
+            Hráčské statistiky
+        </h1>
+    </header>
+    <nav>
+        <ul class="list-group transparent-items " data-aos-duration="1500" data-aos-delay="500" data-aos="fade-left" style="color: rgba(255,255,255,0.75)">
                     <span class="importantcolor text-dark">
                         <li class="list-group-item font-weight-normal ">Informační část</li>
                     </span>
-                </ul>
-            </nav>
-            <main id="app" n:syntax="off"  style="color: rgb(255, 255, 255);">
-                <div id="status-section" data-aos-duration="1500" data-aos-delay="500" data-aos="fade-left">
-                    <div class="alert" v-if="!api.errored" style="background-color: rgba(125, 181, 138, 1); border-radius: 0">
-                        {{messages.api_online}}
-                        <hr>
-                        <p class="small" style="color: rgba(255,255,255,0.75)">
-                            {{api.time_execute}}
-                        </p>
-                    </div>
-                    <div class="alert" v-if="api.errored" style="background-color: rgba(219, 117, 112,0.5); border-radius: 0" role="alert">
-                        {{messages.api_offline}}
-                        <hr>
-                        <p class="small" style="color: rgba(255,255,255,0.75)">
-                            {{api.time_execute}}
-                        </p>
-                    </div>
-                </div>
-                <div id="search" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="750">
-                    <div class="border" style="background-color:rgba(255, 255, 255,0.3) !important; padding: 16px">
-                        <h4 class="font-weight-normal text-dark">Vyhledat hráče podle nicku</h4>
-                        <input type="text" v-model="button.player"  id="playerInput" maxlength="16" class="form-control green-focus" placeholder="např: DarkMilan">
-                        <span class="small text-muted" style="margin-bottom:500px">
-                            Zveřejňujeme pouze herní data, nikoliv osobní údaje
-                        </span>
-                        <button type="button" class="btn btn-success w-100" style="margin-top:16px" v-on:click="submitPlayer" :disabled="button.player ? false : true">
-                            Zobrazit hráče {{button.player }}
-                        </button>
-                    </div>
-                </div>
-            </main>
-            <footer>
-            </footer>
-        </div>
-        <div class="col-sm-4 "
-             style="background-color: rgba(191, 201, 147,0.65);padding: 32px;-webkit-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);-moz-box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);box-shadow: 0px 2px 29px -1px rgba(0,0,0,0.75);">
-            <div class="text-center" style="margin:0">
-                <h3 class="font-weight-light" style="font-size: 35px">{$nastaveni->nazev}</h3>
-                <ul class="list-group transparent-items " style="color: rgba(255,255,255,0.75)">
-                    <a href="">
-                        <li class="list-group-item">Přejít na hlavní web</li>
-                    </a>
-                    <a href="">
-                        <li class="list-group-item">Přejít do infopanelu</li>
-                    </a>
-                </ul>
+        </ul>
+    </nav>
+    <main id="app" n:syntax="off"  style="color: rgb(255, 255, 255);">
+        <div id="status-section" data-aos-duration="1500" data-aos-delay="500" data-aos="fade-left">
+            <div class="alert" v-if="!api.errored" style="background-color: rgba(125, 181, 138, 1); border-radius: 0">
+                {{messages.api_online}}
+                <hr>
+                <p class="small" style="color: rgba(255,255,255,0.75)">
+                    {{api.time_execute}}
+                </p>
+            </div>
+            <div class="alert" v-if="api.errored" style="background-color: rgba(219, 117, 112,0.5); border-radius: 0" role="alert">
+                {{messages.api_offline}}
+                <hr>
+                <p class="small" style="color: rgba(255,255,255,0.75)">
+                    {{api.time_execute}}
+                </p>
             </div>
         </div>
+        <div id="search" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="750">
+            <div class="border" style="background-color:rgba(255, 255, 255,0.3) !important; padding: 16px">
+                <h4 class="font-weight-normal text-dark">Vyhledat hráče podle nicku</h4>
+                <input type="text" v-model="button.player"  id="playerInput" maxlength="16" class="form-control green-focus" placeholder="např: DarkMilan">
+                <span class="small text-muted" style="margin-bottom:500px">
+                            Zveřejňujeme pouze herní data, nikoliv osobní údaje
+                        </span>
+                <button type="button" class="btn btn-success w-100" style="margin-top:16px" v-on:click="submitPlayer" :disabled="button.player ? false : true">
+                    Zobrazit hráče {{button.player }}
+                </button>
+            </div>
+        </div>
+    </main>
+    <hr>
+    <h2 class="font-weight-light" style="font-size: 30px" data-aos="fade-left" data-aos-duration="1000">
+        Eventy
+    </h2>
+    <div class="border" style="background-color: rgba(255, 255, 255,0.3) !important; padding-bottom: 12px; padding-top: 12px" data-aos="fade-up" data-aos-duration="1000">
+        <ul n:if="$events" style="margin-bottom: 0" >
+            <li n:foreach="$events as $event">
+                <a n:href="Main:viewEvent $event->event_name" class="text-dark"><span style="text-decoration: underline">{$event->event_name}</span>
+                    - kliknutím zobrazíte statistiky eventu</a>
+            </li>
+        </ul>
+        <p class="text-center" n:if="!$events" style="margin:0">
+            Nebyl nalezen žádný event
+        </p>
     </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="{$basePath}/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/5.4.0/bootbox.min.js"></script>
-<script src="{$basePath}/js/stats/PlayerAPI.js"></script>
-<script src="{$basePath}/js/stats/Application.js"></script>
-</body>
-</html>
+{/block}
+{block endScripts}
+    <script src="{$basePath}/js/stats/PlayerAPI.js"></script>
+    <script src="{$basePath}/js/stats/Application.js"></script>
+{/block}

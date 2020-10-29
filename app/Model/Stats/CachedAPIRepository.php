@@ -181,9 +181,10 @@ class CachedAPIRepository
      * @param $uuid
      * @return mixed
      */
-    public function getSpleefStatsByUUID($uuid) {
+    public function getSpleefStatsByUUID($uuid)
+    {
         $cacheName = 'API_playerSpleefStats_' . $uuid;
-        if(is_null($this->cache->load($cacheName))) {
+        if (is_null($this->cache->load($cacheName))) {
             $db = $this->spleefX->getRowByUuid($uuid)->fetch();
             $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null, [
                 Cache::EXPIRE => "24 hours"
