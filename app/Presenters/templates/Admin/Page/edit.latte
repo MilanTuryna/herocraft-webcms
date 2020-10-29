@@ -1,12 +1,12 @@
 {layout '../layout.latte'}
-{block title}Editace článku {$page->name}{/block}
-{block description}Editační stránka pro článek {$page->name}{/block}
+{block title}Editace stránky {$page->name}{/block}
+{block description}Editační stránka pro stránku {$page->name}{/block}
 {block headAdd}
     <script>
         tinymce.init({
             selector: '[data-editor="true"]',
             language: 'cs',
-            plugins: 'table | emoticons | link | image | code | charmap | preview ',
+            plugins: 'table | emoticons | link | image | code | charmap | preview | searchreplace',
             toolbar: 'code | undo redo | styleselect | forecolor | bold italic | alignleft aligncenter alignright alignjustify | outdent indent | link image | preview'
         });
     </script>
