@@ -4,6 +4,7 @@ namespace App\Forms\Admin;
 
 
 use App\Model\SettingsRepository;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Presenter;
 use Nette\Application\UI\Form;
 
@@ -56,6 +57,11 @@ class SettingsForm
         return $form;
     }
 
+    /**
+     * @param Form $form
+     * @param \stdClass $values
+     * @throws AbortException
+     */
     public function success(Form $form, \stdClass $values) {
         $this->settings->setRows([
             "nazev" => $values->name,
@@ -73,5 +79,6 @@ class SettingsForm
         }
 
         $this->presenter->flashMessage("Změna byla aplikována!", "success");
+        $this->presenter->redirect("Main:settings");
     }
 }
