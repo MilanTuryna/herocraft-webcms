@@ -47,7 +47,6 @@ class ArticlePresenter extends AdminBasePresenter
      * @throws Exception
      */
     public function renderList(): void {
-        $this->flashMessage('Před manipulací s články, doporučuji přečíst nápovědu k systému (velikosti miniatur atd.).', 'warning');
         $articles = $this->articleRepository->findPublishedArticles();
         $this->template->articles = $articles;
     }
