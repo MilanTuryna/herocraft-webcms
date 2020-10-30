@@ -15,7 +15,7 @@ class Status
 {
     use Nette\SmartObject;
 
-    private string $api = "https://api.mcsrvstat.us/2d/";
+    private string $api = "https://api.mcsrvstat.us/2/";
     private string $ip;
     private Cache $cache;
 
