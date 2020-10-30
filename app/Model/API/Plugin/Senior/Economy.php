@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\API\Plugin\Games;
+namespace App\Model\API\Plugin\Senior;
 
 use App\Model\API\Plugin\abstractIconomy;
 use Nette\Database\Context;
