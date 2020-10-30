@@ -9,7 +9,7 @@ use Nette\Database\Context;
  * Class Economy
  * @package App\Model\API\Plugin\Classic
  *
- * Economy on classic server
+ * Economy on Games server
  */
 class Economy extends abstractIconomy
 {
