@@ -15,16 +15,17 @@ use Nette\Database\Table\Selection;
 abstract class abstractIconomy
 {
     private Context $context;
-
-    const TABLE_NAME = "iconomy";
+    private string $tableName;
 
     /**
      * IConomy constructor.
      * @param Context $context
+     * @param string $tableName
      */
-    public function __construct(Context $context)
+    public function __construct(Context $context, $tableName = "iconomy")
     {
         $this->context = $context;
+        $this->tableName = $tableName;
     }
 
     /**
@@ -32,7 +33,7 @@ abstract class abstractIconomy
      * @return Selection
      */
     public function getRowByName($name) {
-        return $this->context->table(self::TABLE_NAME)->where("username = ?", $name);
+        return $this->context->table($this->tableName)->where("username = ?", $name);
     }
 
     /**
@@ -40,7 +41,7 @@ abstract class abstractIconomy
      * @return Selection
      */
     public function getRowById(int $id) {
-        return $this->context->table(self::TABLE_NAME)->wherePrimary($id);
+        return $this->context->table($this->tableName)->wherePrimary($id);
     }
 
     /**
@@ -48,7 +49,7 @@ abstract class abstractIconomy
      * @return int
      */
     public function deleteRowById(int $id) {
-        return $this->context->table(self::TABLE_NAME)->wherePrimary($id)->delete();
+        return $this->context->table($this->tableName)->wherePrimary($id)->delete();
     }
 
     /**
@@ -56,7 +57,7 @@ abstract class abstractIconomy
      * @return Selection
      */
     public function deleteRowByName($name) {
-        return $this->context->table(self::TABLE_NAME)->where("username = ?", $name);
+        return $this->context->table($this->tableName)->where("username = ?", $name);
     }
 
     /**
@@ -64,6 +65,6 @@ abstract class abstractIconomy
      * @return Selection
      */
     public function updateRowById(int $id) {
-        return $this->context->table(self::TABLE_NAME)->wherePrimary($id);
+        return $this->context->table($this->tableName)->wherePrimary($id);
     }
 }
