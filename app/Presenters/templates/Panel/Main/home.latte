@@ -32,7 +32,7 @@
                 <div class="col-12 col-lg-9">
                     <div class="alert border-radius-0 bg-opacity-blue" role="alert">
                         <h4 class="alert-heading">A teď něco o tobě</h4>
-                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'j.n.Y'}. Naposledy jsi tu hrál NULL a jsi přibližně {$user->id}. registrovaný hráč.</p>
+                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'j.n.Y'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
                         <hr>
                         <p class="mb-0">Nejen tyto statistiky jsou veřejně dostupné <a n:href=":Stats:Main:app?player=$user->realname" class="text-danger" target="_blank">ZDE</a></p>
                     </div>
@@ -40,15 +40,17 @@
             </div>
         </div>
         <div class="default-margin-bot d-lg-block d-none"> </div>
-        <!--<div id="originalni-minecraft" class="alert w-100 border-radius-0" style="background-color:rgba(255,165,0,0.3);">
+        <div id="originalni-minecraft" class="alert w-100 border-radius-0" style="background-color:rgba(255,165,0,0.3);">
             <h1 class="display-4" style="font-size:25px">
-                Máš originální minecraft? ZMĚĚĚNIIIT NA ZMĚNU HESLA
+                Změna hesla
             </h1>
             <p>
-                Jestliže máš originální minecraft, už se nemusíš přihlašovat, stačí kliknout na tlačítko Aktivovat a příště už se k nám dostaneš bez přihlášení!
-                Ale dávej pozor, pokud originální minecraft nemáš, tak ti to nepůjde a nepotřebuješ na nic klikat.
+                Přijde ti, že tvé heslo už není bezpečné, nebo jsi ho ukázal kamarádovi? No tak to bys sis ho radši měl pro všechny případy, změnit. Doporučujeme měnit heslo
+                aspoň jednou za rok, aby jsi byl v bezpečí :)
+
+                <a href="" class="text-dark" style="text-decoration: underline">ZMĚNIT</a>
             </p>
-        </div>-->
+        </div>
 {/block}
 {block second_col}
     <div style="background: rgba(0,0,0,0.3); padding: 16px">
@@ -56,7 +58,6 @@
             <ul class="text-white-50">
                 <li>Nick: <span class="pink-color">{$user->realname}</span></li>
                 <li>Zabanovaný: <span class="pink-color">{$isBanned ? 'Ano' : 'Ne'}</span></li>
-                <li>Poslední přihlášení: <span class="pink-color">NULL</span></li>
             </ul>
     </div>
     <a n:href=":Stats:Main:app?player=$user->realname" class="bg-opacity-green d-block text-center text-white-50 white-hover" style="padding: 4px">
