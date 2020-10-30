@@ -51,6 +51,9 @@ final class RouterFactory
             ->addRoute('/admin/minecraft/ipbany/zaznam/<ip>', 'Minecraft:editIpBan')
             ->addRoute('/admin/minecraft/ipbany[/<page>]', 'Minecraft:ipBanList')
 
+            ->addRoute('/admin/minecraft/senior/ekonomika/zaznam/<recordId>', "MinecraftSenior:editEconomyRecord")
+            ->addRoute('/admin/minecraft/senior/ekonomika/[<page>]', 'MinecraftSenior:economy')
+
             ->addRoute('/admin/stranky', 'Page:list')
             ->addRoute('/admin/stranky/vytvorit', 'Page:create')
             ->addRoute('/admin/stranky/edit/<url>', 'Page:edit')

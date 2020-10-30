@@ -1,0 +1,68 @@
+{layout '../layout.latte'}
+{block title}
+    SeniorCraft - ekonomika
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Senior</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ekonomika</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Záznamy</h5>
+            <div class="card-text">
+                {if $records}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-striped" style="text-align: center">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Hráč</th>
+                                <th scope="col">Obnos</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $records as $record}
+                                <tr>
+                                    <th scope="row">{$iterator->getCounter()}</th>
+                                    <td>{$record->username}</td>
+                                    <td>{$record->balance}</td>
+                                    <td>{$record->status}</td>
+                                    <td>{$record->id}</td>
+                                    <td><a n:href="MinecraftSenior:editEconomyRecord $record->id">EDIT</a></td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                {else}
+                    Žádný záznam nebyl v databázi nalezen.
+                {/if}
+                <div class="pagination d-block text-center" style="margin-top:8px;">
+                    {if $page > 1}
+                        <a n:href="MinecraftSenior:economy, 1">Nejnovější</a>
+                        &nbsp;|&nbsp;
+                        <a n:href="MinecraftSenior:economy, $page-1">Novější</a>
+                        &nbsp;|&nbsp;
+                    {/if}
+
+                    Stránka {$page} z {$lastPage}
+
+                    {if $page < $lastPage}
+                        &nbsp;|&nbsp;
+                        <a n:href="MinecraftSenior:economy, $page+1">Starší</a>
+                        &nbsp;|&nbsp;
+                        <a n:href="MinecraftSenior:economy, $lastPage">Nejstarší</a>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

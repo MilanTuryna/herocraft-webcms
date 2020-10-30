@@ -1,0 +1,55 @@
+{layout '../layout.latte'}
+{block title}
+    SeniorCraft - ekonomika hráče {$record->username}
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Senior</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftSenior:economy">Ekonomika</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ekonomika hráče {$record->username}</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Záznam #{$record->id}</h5>
+            <div class="card-text">
+                <div class="bg-light border" style="padding: 8px">
+                    <b>Hráč: </b>{$record->username}<br>
+                    <b>Obnos: </b>{$record->balance}<br>
+                    <b>Status: </b>{$record->status}<br>
+                    <a n:href=":Stats:Main:app?player=$record->username" target="_blank" class="text-info">Otevřít veškerou statistiku hráče <b>(V NOVÉM OKNĚ)</b></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Editace záznamu</h5>
+            <div class="card-text">
+                <form n:name="editEconomyRecord-$record->id">
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="username">Nickname</label>
+                        <div class="col-sm-10">
+                            <input n:name="username" spellcheck="false" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="balance">Obnos</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" n:name="balance" class="form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><br></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success float-right" n:name="submit">Aplikovat změny</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}

@@ -28,6 +28,10 @@ abstract class abstractIconomy
         $this->tableName = $tableName;
     }
 
+    public function getAllRows($order = "balance DESC") {
+        return $this->context->table($this->tableName)->order($order);
+    }
+
     /**
      * @param $name
      * @return Selection
@@ -62,9 +66,9 @@ abstract class abstractIconomy
 
     /**
      * @param int $id
-     * @return Selection
+     * @return int
      */
-    public function updateRowById(int $id) {
-        return $this->context->table($this->tableName)->wherePrimary($id);
+    public function updateRowById(int $id, iterable $data) {
+        return $this->context->table($this->tableName)->wherePrimary($id)->update($data);
     }
 }
