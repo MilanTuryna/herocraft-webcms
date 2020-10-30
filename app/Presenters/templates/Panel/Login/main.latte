@@ -21,7 +21,7 @@
             <div class="alert border-0 text-white border-radius-0 bg-opacity-danger" role="alert">
                 {if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
                 {if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
-                {if !isset($status->online)}Status se nepodařiřlo načíst!{/if}
+                {if !isset($status->online)}Status se nepodařilo načíst!{/if}
             </div>
         {/if}
         <div class="alert border-radius-0 bg-error" role="alert">
