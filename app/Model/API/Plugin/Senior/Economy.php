@@ -17,7 +17,7 @@ class Economy extends abstractIconomy
      * Economy constructor.
      * @param Context $context
      *
-     * database.gamesEconomy
+     * database.seniorEconomy
      */
     public function __construct(Context $context)
     {

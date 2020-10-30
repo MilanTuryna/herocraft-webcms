@@ -33,7 +33,7 @@ database:
         dsn:
         user:
         password:
-    games_iconomy:
+    senior_iconomy:
         dsn:
         user:
         password:
