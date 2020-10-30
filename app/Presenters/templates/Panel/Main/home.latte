@@ -5,7 +5,6 @@
 {block first_col}
     {var $regdate = round($user->regdate/1000, 0)}
     {var $lastlogin = null}
-    {}
         <h1 class="display-4 font-30">Hráčský panel</h1>
         <hr>
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
