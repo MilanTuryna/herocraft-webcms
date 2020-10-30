@@ -8,6 +8,8 @@ use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\API\Plugin\Games\SpleefX;
 use App\Model\API\Plugin\LuckPerms;
+use App\Model\API\Plugin\Senior\Economy as SeniorEconomy;
+use App\Model\API\Plugin\Classic\Economy as ClassicEconomy;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
@@ -27,6 +29,8 @@ class CachedAPIRepository
     private Events $events;
     private LuckPerms $luckPerms;
     private SpleefX $spleefX;
+    private SeniorEconomy $seniorEconomy;
+    private ClassicEconomy $classicEconomy;
 
     /**
      * CachedAPIRepository constructor.
@@ -37,9 +41,11 @@ class CachedAPIRepository
      * @param Events $events
      * @param LuckPerms $luckPerms
      * @param SpleefX $spleefX
+     * @param SeniorEconomy $seniorEconomy
+     * @param ClassicEconomy $classicEconomy
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                Bans $bans, HideAndSeek $hideAndSeek, Events $events, LuckPerms $luckPerms, SpleefX $spleefX)
+                                Bans $bans, HideAndSeek $hideAndSeek, Events $events, LuckPerms $luckPerms, SpleefX $spleefX, SeniorEconomy $seniorEconomy, ClassicEconomy $classicEconomy)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -48,6 +54,8 @@ class CachedAPIRepository
         $this->events = $events;
         $this->luckPerms = $luckPerms;
         $this->spleefX = $spleefX;
+        $this->seniorEconomy = $seniorEconomy;
+        $this->classicEconomy = $classicEconomy;
     }
 
     /**
@@ -186,6 +194,38 @@ class CachedAPIRepository
         $cacheName = 'API_playerSpleefStats_' . $uuid;
         if (is_null($this->cache->load($cacheName))) {
             $db = $this->spleefX->getRowByUuid($uuid)->fetch();
+            $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null, [
+                Cache::EXPIRE => "24 hours"
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getClassicEconomy($name) {
+        $cacheName = 'API_classicEconomy_' . $name;
+        if (is_null($this->cache->load($cacheName))) {
+            $db = $this->classicEconomy->getRowByName($name)->fetch();
+            $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null, [
+                Cache::EXPIRE => "24 hours"
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public function getSeniorEconomy($name) {
+        $cacheName = 'API_seniorEconomy_' . $name;
+        if (is_null($this->cache->load($cacheName))) {
+            $db = $this->seniorEconomy->getRowByName($name)->fetch();
             $this->cache->save($cacheName, $db ? ArrayHash::from($db->toArray()) : null, [
                 Cache::EXPIRE => "24 hours"
             ]);

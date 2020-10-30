@@ -103,9 +103,13 @@ class APIPresenter extends Presenter {
                             'hideAndSeek' => $this->cachedAPIRepository->getHideAndSeekRow($name),
                             'spleef' => $this->cachedAPIRepository->getSpleefStatsByUUID($uuid)
                         ], 'senior' => [
-
+                            'economy' => [
+                                "balance" => $this->cachedAPIRepository->getSeniorEconomy($name)
+                            ],
                         ], 'classic' => [
-
+                            'economy' => [
+                                "balance" => $this->cachedAPIRepository->getClassicEconomy($name)
+                            ]
                         ]
                     ]
                 ]
