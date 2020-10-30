@@ -259,7 +259,36 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
             </div>
         </div>
     </div>
-</div>`,
+</div>` + '<hr>' + `
+<div class="ticket bg-white" >
+        <div class="ticket-head">
+            <h5>
+                <p>
+                    <span>Ekonomika</span>
+                </p>
+            </h5>
+        </div>
+        <hr style="margin:0">
+        <div class="ticket-body bg-light border-left border-right border-bottom">
+                    <div class="row" style="margin:0;">
+                        <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
+                            <b>Classic</b>
+                        </div>
+                        <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
+                            ${data.player.servers.classic.economy.balance ? data.player.servers.classic.economy.balance : "Nenalezeno"}
+                        </div>
+                    </div>
+                    <div class="row border-top" style="margin:0;">
+                         <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
+                            <b>Senior</b>
+                        </div>
+                        <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
+                             ${data.player.servers.senior.economy.balance ? data.player.servers.senior.economy.balance : "Nenalezeno"}
+                        </div> 
+                    </div>
+        </div>
+    </div>
+`,
                     size: 'large',
                 });
             } else {
