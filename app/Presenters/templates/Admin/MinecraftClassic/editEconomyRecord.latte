@@ -1,13 +1,13 @@
 {layout '../layout.latte'}
 {block title}
-    SeniorCraft - ekonomika hráče {$record->username}
+    Classic - ekonomika hráče {$record->username}
 {/block}
 {block content}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
-            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Senior</a></li>
-            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftSenior:economy">Ekonomika</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft - Classic</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="MinecraftClassic:economy">Ekonomika</a></li>
             <li class="breadcrumb-item active" aria-current="page">Ekonomika hráče {$record->username}</li>
         </ol>
     </nav>
