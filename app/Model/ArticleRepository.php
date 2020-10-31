@@ -3,6 +3,7 @@
 
 namespace App\Model;
 
+use Exception;
 use Nette;
 use Nette\Utils\FileSystem;
 use Nette\Database\Context;
@@ -44,7 +45,7 @@ class ArticleRepository
      * @param null|int $limit
      * @param string $sort
      * @return Nette\Database\Table\Selection
-     * @throws \Exception
+     * @throws Exception
      */
     public function findPublishedArticles($limit = null, $sort = self::PROPERTIES['sorting'])
     {
@@ -56,11 +57,22 @@ class ArticleRepository
 
     /**
      * @param int $limit
+     * @param int|null $offset
      * @return Nette\Database\ResultSet
      */
-    public function findArticlesWithCategory(int $limit) {
-        return $this->context->query(
-            "SELECT articles.*, categories.name as category_name, categories.color as category_color FROM articles LEFT JOIN categories ON articles.category_id = categories.id ORDER BY created_at DESC LIMIT ?;", $limit);
+    public function findArticlesWithCategory(int $limit = 0, int $offset = null) {
+        $prepareLimit = ($limit !== null ? "LIMIT " . $limit : "");
+        $prepareOffset = ($offset !== null ? "OFFSET " . $offset : "");
+        return $this->context->query("SELECT articles.*, categories.name as category_name, categories.color as category_color FROM articles LEFT JOIN categories ON articles.category_id = categories.id ORDER BY created_at DESC ".$prepareLimit." ".$prepareOffset);
+    }
+
+    /**
+     * @return int
+     * @throws Exception
+     */
+    public function getPublishedArticlesCount(): int
+    {
+        return $this->context->fetchField('SELECT COUNT(*) FROM articles WHERE created_at < ?', new \DateTime);
     }
 
     /**
@@ -72,6 +84,8 @@ class ArticleRepository
             ->where('url = ?', $url)
             ->fetch();
     }
+
+
 
     /**
      * @param $id

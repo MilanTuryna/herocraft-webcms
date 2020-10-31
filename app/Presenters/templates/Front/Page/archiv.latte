@@ -24,6 +24,11 @@
             {foreach $articles as $article}
                 <div class="col-md-4">
                     <div class="card h-100 shadow" style="border-radius: 10px">
+                        {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
+                        <div class="card-header text-center text-white"
+                             style="padding: 4px; background-color: {$categoryColor|noescape};">
+                            {$article->category_name ? $article->category_name : "Nezařazeno"}
+                        </div>
                         {ifset $articleRepository->getMiniature($article->id)[0]}
                             <img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="card-img-top img-fluid" alt="Miniatura"/>
                         {/ifset}

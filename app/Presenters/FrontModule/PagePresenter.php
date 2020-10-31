@@ -105,11 +105,21 @@ final class PagePresenter extends BasePresenter
      */
     public function renderArchiv(int $page = 1): void // list článků
     {
-        $articles = $this->articleRepository->findPublishedArticles();
-        $lastPage = 0;
+        $articlesCount = $this->articleRepository->getPublishedArticlesCount();
 
-        $this->template->articles = $articles->page($page, ArticleRepository::PROPERTIES['per_page'], $lastPage);
+        $paginator = new Nette\Utils\Paginator;
+        $paginator->setItemCount($articlesCount); // celkový počet článků
+        $paginator->setItemsPerPage(ArticleRepository::PROPERTIES['per_page']); // počet položek na stránce
+        $paginator->setPage($page); // číslo aktuální stránky
+
         $this->template->articleProperties = ArticleRepository::PROPERTIES;
+        $this->template->paginator = $paginator;
+
+        $articles = $this->articleRepository->findArticlesWithCategory($paginator->getLength(), $paginator->getOffset());
+        $this->template->articles = $articles;
+
+        $lastPage = $paginator->getLastPage();
+
         $this->template->logged = (bool)$this->authenticator->getUser();
 
         if($page > $lastPage) {
