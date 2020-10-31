@@ -41,7 +41,12 @@
 					{ifset $articleRepository->getMiniature($article->id)[0]}
 						<img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="card-img-top img-fluid" alt="Miniatura"/>
 					{/ifset}
-					<div class="card-body pb-0">
+					{var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
+					<div class="card-header text-center text-white"
+						 style="padding: 4px; background-color: {$categoryColor|noescape};">
+						{$article->category_name ? $article->category_name : "Nezařazeno"}
+					</div>
+					<div class="card-body pb-0 ">
 						<h4 class="card-title">{$article->name}</h4>
 						<small>
 							{$article->content|substr:0:395|noescape|}{if strlen($article->content) > 395}...{/if}

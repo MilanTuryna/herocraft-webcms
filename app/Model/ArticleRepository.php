@@ -55,6 +55,15 @@ class ArticleRepository
     }
 
     /**
+     * @param int $limit
+     * @return Nette\Database\ResultSet
+     */
+    public function findArticlesWithCategory(int $limit) {
+        return $this->context->query(
+            "SELECT articles.*, categories.name as category_name, categories.color as category_color FROM articles LEFT JOIN categories ON articles.category_id = categories.id ORDER BY created_at DESC LIMIT ?;", $limit);
+    }
+
+    /**
      * @param $url
      * @return Nette\Database\IRow|Nette\Database\Table\ActiveRow|null
      */

@@ -77,7 +77,7 @@ final class PagePresenter extends BasePresenter
      * @throws Exception
      */
     public function renderHome(): void {
-        $articles = $this->articleRepository->findPublishedArticles(6)->fetchAll();
+        $articles = $this->articleRepository->findArticlesWithCategory(6)->fetchAll();
         $articlesArr = [];
 
         foreach ($articles as $article) array_push($articlesArr, $article);
