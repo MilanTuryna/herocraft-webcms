@@ -27,7 +27,7 @@
                         {ifset $articleRepository->getMiniature($article->id)[0]}
                             <img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="card-img-top img-fluid" alt="Miniatura"/>
                         {/ifset}
-                        <div class="card-body pb-0 mb-5">
+                        <div class="card-body pb-0">
                             <h4 class="card-title">{$article->name}</h4>
                             <small>
                                 {$article->content|substr:0:395|noescape|}{if strlen($article->content) > 395}...{/if}

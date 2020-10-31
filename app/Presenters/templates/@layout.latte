@@ -44,7 +44,7 @@
 				</a>
 			{/foreach}
 			<a style="color: rgba(255,255,255,0.75)"
-					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archiv') ? active : 'bg-transparent'"
+					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archiv') || $presenter->isLinkCurrent('Page:article') ? active : 'bg-transparent'"
 					n:href="Page:archiv">Archiv novinek</a>
 		</div>
 		<div class="list-group list-group-flush navbar-list" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000">
