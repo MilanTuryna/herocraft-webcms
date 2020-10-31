@@ -41,7 +41,7 @@ class LuckPerms
      * @return bool
      */
     public function isUserHelper(string $uuid, $server = 'hranice') {
-        $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ? AND server=?', $uuid, $server)->fetchAll();
+        $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ? AND server=? OR server=?', $uuid, $server, 'global')->fetchAll();
         foreach ($rows as $row) {
             if($row->permission == self::GROUPS['helper']
                 || $row->permission == self::GROUPS['owner']
