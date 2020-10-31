@@ -12,6 +12,7 @@ use App\Model\Security\Auth\Authenticator;
 use App\Forms\Front\SignInForm;
 use App\Model\Security\Exceptions\AuthException;
 use App\Model\API\Status;
+use Tracy\Debugger;
 
 /**
  * Class LoginPresenter
@@ -69,7 +70,7 @@ class LoginPresenter extends BasePresenter
             $this->flashMessage('Byl jsi odhlášen, pro další manipulaci s administrací se přihlaš!', 'success');
             $this->redirect('Login:main');
         } catch (AuthException $e) {
-            $this->flashMessage($e->getMessage(), 'danger');
+            $this->redirect("Login:main");
         }
     }
 
