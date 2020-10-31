@@ -12,6 +12,8 @@
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
+            <small class="text-muted">Uložit se dají pouze obrázky, a to do maximální velikosti <b>10 MB</b>.</small>
+            <hr>
             <form n:name="uploadForm">
                 <div class="form-group row">
                     <label n:name="upload" class="col-sm-2">Soubory</label>
@@ -19,6 +21,7 @@
                         <input n:name="upload" spellcheck="false" type="file" class="form-control" style="height: auto" multiple>
                     </div>
                 </div>
+                <hr>
                 <div class="row">
                     <div class="col-sm-2 text-black-50 small"></div>
                     <div class="col-sm-10">
