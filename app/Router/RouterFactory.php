@@ -82,6 +82,8 @@ final class RouterFactory
             ->addRoute('/admin/social/edit/<id>', 'Social:edit')
             ->addRoute('/admin/social/odstranit/<id>', 'Social:delete')
 
+            ->addRoute('/admin/upload', "Main:upload")
+            ->addRoute('/admin/upload/odstranit/<file>', 'Main:removeUpload')
             ->addRoute('/admin/nastaveni-webu', 'Main:settings');
 
         $router->withModule('Panel')

@@ -1,0 +1,70 @@
+{layout '../layout.latte'}
+{block title}
+    Upload obrázků
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Upload</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <form n:name="uploadForm">
+                <div class="form-group row">
+                    <label n:name="upload" class="col-sm-2">Soubory</label>
+                    <div class="col-sm-10">
+                        <input n:name="upload" spellcheck="false" type="file" class="form-control" style="height: auto" multiple>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-black-50 small"></div>
+                    <div class="col-sm-10">
+                        <button type="submit" n:name="submit" class="btn btn-success float-right">Uložit soubory</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <div class="card-text">
+                <small class="text-muted">Pokud jsi na menším zařízení, pro správné zobrazení tabulky využij posuvník a posouvej s tabulkou horizontálně.</small>
+                <br>
+                <br>
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped" style="text-align: center">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Název souboru</th>
+                            <th scope="col">Typ souboru</th>
+                            <th scope="col">Velikost</th>
+                            <th scope="col">Poslední změna</th>
+                            <th scope="col">#</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach $files as $file}
+                            <tr>
+                                <th scope="row">{$iterator->getCounter()}</th>
+                                <td><a href="{$basePath}/upload/{$file->getFileName()}"">{$file->getFileName()} (klik)</a></td>
+                                <td>{$file->getExtension()}</td>
+                                <td>{round($file->getSize()/1000)}kb</td>
+                                <td>{$file->getCTime()|date:'j.n.Y H:i'}</td>
+                                {var $fileName = $file->getFileName()}
+                                <td><a n:href="Main:removeUpload, str_replace('.', '-', $fileName)">Odstranit</a></td>
+                            </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
+{block end_body}
+    <script src="{$basePath}/js/netteForms.js"></script>
+{/block}

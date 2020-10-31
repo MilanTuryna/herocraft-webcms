@@ -4,6 +4,8 @@
 namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\SettingsForm; // __construct(Presenter, Context);
+use App\Forms\Admin\UploadForm;
+use App\Model\Admin\UploadManager;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
 use App\Presenters\AdminBasePresenter;
@@ -61,6 +63,35 @@ class MainPresenter extends AdminBasePresenter
         $this->template->logo = $this->settingsRepository->getLogo();
     }
 
+    public function renderUpload() {
+        $this->template->files = UploadManager::getUploads();
+    }
+
+    /**
+     * @param $file
+     * @throws AbortException
+     */
+    public function actionRemoveUpload($file) {
+        try {
+            UploadManager::deleteUpload(str_replace('-', '.', $file));
+            $this->flashMessage("Zadaný soubor byl úspěšně odstraněn.", "success");
+        } catch (Nette\FileNotFoundException $exception) {
+            $this->flashMessage("Zadaný soubor nemohl být odstraněn, jelikož neexistuje.", "danger");
+        }
+
+        $this->redirect("Main:upload");
+    }
+
+    /**
+     * @return Form
+     */
+    protected function createComponentUploadForm(): Form {
+        return (new UploadForm($this))->create();
+    }
+
+    /**
+     * @return Form
+     */
     protected function createComponentSettingsForm(): Form
     {
         return (new SettingsForm($this, $this->settingsRepository))->create();
