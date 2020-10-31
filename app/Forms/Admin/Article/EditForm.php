@@ -45,7 +45,8 @@ class EditForm
         $form = new Form;
         $article = $this->articleRepository->findArticleById($this->articleId);
         $categories = $this->articleRepository->getCategoryRepository()->findCategories();
-        $nowCategory = $this->articleRepository->getCategoryRepository()->findCategoryById($this->articleId) ?: ['name' => 'Nezařazeno', 'id' => false];
+        $category = $this->articleRepository->getCategoryRepository()->findCategoryById($article->category_id);
+        $nowCategory = $category ?: ["name" => "Nezařazeno", "id" => "Nezařazeno"];
 
         $form->addText('name', 'Název článku')
             ->setRequired()
@@ -77,7 +78,7 @@ class EditForm
 
         $form->addSelect('category', 'Category', $categoriesValues)
             ->setRequired()
-            ->setDefaultValue($nowCategory['id'] ?: $nowCategory['name']);
+            ->setDefaultValue($nowCategory['id']);
 
         $form->addSubmit('submit')
             ->setRequired()
@@ -111,7 +112,7 @@ class EditForm
                 'description' => $values->description,
                 'keywords' => $values->keywords,
                 'content' => $values->content,
-                'category_id' => $values->category !== "NEZAŘAZENO" ? $values->category : ''
+                'category_id' => $values->category !== "Nezařazeno" ? $values->category : ''
             ]);
             if($values->miniature->isOk() && $values->miniature->isImage()) {
                 if($this->articleRepository->getMiniature($this->articleId)) {
