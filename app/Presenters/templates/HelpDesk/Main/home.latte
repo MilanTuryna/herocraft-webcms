@@ -32,20 +32,22 @@
         </div>
     </div>
     <div class="pagination d-block text-center" style="margin-top: 8px">
-        {if $page > 1}
-            <a n:href="Main:home, 1">První</a>
-            &nbsp;|&nbsp;
-            <a n:href="Main:home, $page-1">Předchozí</a>
-            &nbsp;|&nbsp;
-        {/if}
+        {if $lastPage !== 0}
+            {if $page > 1}
+                <a n:href="Main:home, 1">První</a>
+                &nbsp;|&nbsp;
+                <a n:href="Main:home, $page-1">Předchozí</a>
+                &nbsp;|&nbsp;
+            {/if}
 
-        Stránka {$page} z {$lastPage}
+            Stránka {$page} z {$lastPage}
 
-        {if $page < $lastPage}
-            &nbsp;|&nbsp;
-            <a n:href="Main:home, $page+1">Další</a>
-            &nbsp;|&nbsp;
-            <a n:href="Main:home, $lastPage">Poslední</a>
+            {if $page < $lastPage}
+                &nbsp;|&nbsp;
+                <a n:href="Main:home, $page+1">Další</a>
+                &nbsp;|&nbsp;
+                <a n:href="Main:home, $lastPage">Poslední</a>
+            {/if}
         {/if}
     </div>
 {/block}

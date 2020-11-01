@@ -67,13 +67,14 @@ class MainPresenter extends HelpBasePresenter
         $tickets = $this->ticketRepository->getAllTickets();
         $lastPage = 0;
 
-        $ticketsOffset = $tickets->page($page, 5, $lastPage);
-        if($page >! $lastPage) {
-            $this->template->page = $page;
-            $this->template->lastPage = $lastPage;
-            $this->template->tickets = $ticketsOffset;
-        } else {
-            $this->redirect('Main:home');
+        $paginatorData = $tickets->page($page, 6, $lastPage);
+
+        $this->template->tickets = $paginatorData;
+        $this->template->page = $page;
+        $this->template->lastPage = $lastPage;
+
+        if($page > $lastPage && $lastPage !== 0 || $page < 1) {
+            $this->redirect("Main:home");
         }
     }
 
