@@ -7,10 +7,11 @@
     <span class="text-muted" style="margin-bottom:8px;">Pokud jsi přihlášen na mobilním telefonu, pro zobrazení celé tabulky posouvejte ze strany na stranu.</span>
     <div class="container-fluid bg-light border" style="border-radius: 5px">
         <div class="table-responsive">
-            <table class="table">
+            <table class="table" style="zoom:90%">
                 <thead>
                 <tr>
                     <th scope="col" class="border-top-0">Název</th>
+                    <th scope="col" class="border-top-0">Předmět</th>
                     <th scope="col" class="border-top-0">Autor</th>
                     <th scope="col" class="border-top-0">Datum</th>
                     <th scope="col" class="border-top-0">Stav</th>
@@ -21,6 +22,7 @@
                 {foreach $tickets as $ticket}
                     <tr>
                         <td><a n:href="Main:ticket $ticket->id" class="text-primary">{$ticket->name}</a></td>
+                        <td>{$ticket->subject}</td>
                         <td>{$ticket->author}</td>
                         <td>{$ticket->time}</td>
                         <td><span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></td>
