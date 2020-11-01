@@ -22,6 +22,31 @@ class TicketRepository
         'player' => 'Hráč'
     ];
 
+    const SUBJECTS = [
+        "Porušení pravidel" => [
+            "Nahlášení hackera" => "Nahlášení hackera",
+            "Nevhodná komunikace" => "Nevhodná komunikace",
+            "Reklama" => "Reklama" ,
+            "Spam" => "Spam",
+        ], "Žádosti" => [
+            "Žádost u unban" => "Žádost u unban",
+            "Žádost o A-T pozici" => "Žádost o A-T pozici",
+            "Žádost o jiné.." => "Žádost o jiné..",
+        ], "Spolupráce" => [
+            "Nabídka partnerství" => "Nabídka partnerství",
+            "Chci být YouTuber" => "Chci být YouTuber"
+        ], "Nápady" => [
+            "Návrhy na web" =>  "Návrhy na web",
+            "Návrh k minecraftu" => "Návrh k minecraftu"
+        ], "Ostatní" => [
+            "Nahlášení hráče na discordu" => "Nahlášení hráče na discordu",
+            "Nahlášení chyby na webu" =>  "Nahlášení chyby na webu",
+            "Nahlášení chyby ve hře" => "Nahlášení chyby ve hře",
+            "Jiné" => "Jiné"
+        ]
+    ];
+
+
     private Context $context;
 
     /**
@@ -116,6 +141,7 @@ class TicketRepository
         return $this->context->table(self::TABLE)->insert([
             'name' => $ticket['name'],
             'author' => $ticket['author'],
+            'subject' => $ticket['subject'],
             'time' => Utils::sqlNow()
         ]);
     }

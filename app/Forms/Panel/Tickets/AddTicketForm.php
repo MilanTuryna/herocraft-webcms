@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Forms\Panel\Tickets;
-
 
 use App\Model\Panel\Core\TicketRepository;
 use Nette\Application\AbortException;
@@ -36,9 +34,19 @@ class AddTicketForm
 
     public function create(): Form {
         $form = new Form;
-        $form->addText('name', 'Název ticketu')->setRequired();
-        $form->addTextArea('content', 'Obsah ticketu (první odpověď)')->setRequired();
+        $form->addText('name', 'Název ticketu')
+            ->addRule($form::MIN_LENGTH, "Název musí obsahovat aspoň 10 znaků", 10)
+            ->addRule($form::MAX_LENGTH, 'Název nemůže být delší než 70 znaků', 70)
+            ->setRequired();
+        $form->addSelect('subject', 'Předmět ticketu', TicketRepository::SUBJECTS)
+            ->setPrompt("Vyber předmět")
+            ->setRequired();
+        $form->addTextArea('content', 'Obsah ticketu (první odpověď)')
+            ->addRule($form::MIN_LENGTH, "Obsah ticketu musí mít alespoň 150 znaků", 150)
+            ->addRule($form::MAX_LENGTH, "Obsah ticketů nemůže mít více než 10000 znaků", 10000)
+            ->setRequired();
         $form->addSubmit('submit');
+
         $form->onSuccess[] = [$this, 'success'];
         $form->onError[] = function() use ($form) {
             foreach($form->getErrors() as $error) $this->presenter->flashMessage($error, 'error');
@@ -55,6 +63,7 @@ class AddTicketForm
         $row = $this->ticketRepository->addTicket([
             'name' => $values->name,
             'author' => $this->user->realname,
+            'subject' => $values->subject,
         ]);
         $this->ticketRepository->addResponse($row->id, [
             'author' => $this->user->realname,
