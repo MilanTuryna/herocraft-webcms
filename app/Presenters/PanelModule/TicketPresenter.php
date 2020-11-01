@@ -17,6 +17,7 @@ use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
+use Tracy\Debugger;
 
 /**
  * Class TicketPresenter
@@ -61,7 +62,6 @@ class TicketPresenter extends PanelBasePresenter
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderList(int $page = 1) {
         $tickets = $this->ticketRepository->getTicketsByAuthor($this->user->realname);
@@ -74,9 +74,8 @@ class TicketPresenter extends PanelBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        // TODO: Check if bug fixed
-        if($page > $lastPage+1) {
-            $this->redirect("Ticket:list");
+        if($lastPage === 0) {
+            $this->template->page = 0;
         }
     }
 

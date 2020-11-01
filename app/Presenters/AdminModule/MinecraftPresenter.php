@@ -46,7 +46,6 @@ class MinecraftPresenter extends AdminBasePresenter
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderChat(int $page = 1) {
         $messages = $this->chatLog->findAllRows();
@@ -58,9 +57,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage) {
-            $this->redirect("Minecraft:chat");
-        }
+        if($lastPage === 0) $this->template->page = 0;
     }
 
 
@@ -140,7 +137,6 @@ class MinecraftPresenter extends AdminBasePresenter
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderBanList(int $page = 1) {
         $bans = $this->bans->getAllBans();
@@ -152,14 +148,11 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage) {
-            $this->redirect("Minecraft:banList");
-        }
+        if($lastPage === 0) $this->template->page = 0;
     }
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderIpBanList(int $page = 1) {
         $ipBans = $this->bans->getAllIPBans();
@@ -171,9 +164,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage) {
-            $this->redirect("Minecraft:ipBanList");
-        }
+        if($lastPage === 0) $this->template->page = 0;
     }
 
     /**

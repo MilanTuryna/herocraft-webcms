@@ -68,9 +68,7 @@ class MainPresenter extends BasePresenter
             $this->template->page = $page;
             $this->template->lastPage = $lastPage;
 
-            if($page > $lastPage) {
-                $this->redirect("Main:viewEvent", [$eventName,1]);
-            }
+            if($lastPage === 0) $this->template->page = 0;
         } else {
             $this->flashMessage("Event, na který směřuje tvůj odkaz, neexistuje.", "danger");
             $this->redirect("Main:app");

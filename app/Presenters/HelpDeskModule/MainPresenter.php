@@ -14,6 +14,7 @@ use Nette\Application\AbortException;
 use App\Model\Security\Form\Captcha;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
+use Tracy\Debugger;
 
 /**
  * Class MainPresenter
@@ -61,7 +62,6 @@ class MainPresenter extends HelpBasePresenter
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderHome(int $page = 1) {
         $tickets = $this->ticketRepository->getAllTickets();
@@ -73,8 +73,8 @@ class MainPresenter extends HelpBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage && $lastPage !== 0 || $page < 1) {
-            $this->redirect("Main:home");
+        if($lastPage === 0) {
+            $this->template->page = 0;
         }
     }
 

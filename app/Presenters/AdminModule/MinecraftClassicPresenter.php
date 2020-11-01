@@ -33,7 +33,6 @@ class MinecraftClassicPresenter extends AdminBasePresenter
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderEconomy(int $page = 1) {
         $records = $this->classicEconomy->getAllRows();
@@ -45,8 +44,8 @@ class MinecraftClassicPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage) {
-            $this->redirect("MinecraftClassic:economy");
+        if($lastPage === 0) {
+            $this->template->page = 0;
         }
     }
 

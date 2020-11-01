@@ -104,11 +104,8 @@ class MinecraftGamesPresenter extends AdminBasePresenter
      * SPLEEF
      */
 
-    // TODO: ZKONTROLOVAT PAGINATOR
-
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderSpleefStats(int $page = 1) {
         $records = $this->spleefX->getAllRows();
@@ -120,8 +117,8 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage) {
-            $this->redirect("MinecraftGames:spleefStats");
+        if($lastPage === 0) {
+            $this->template->page = 0;
         }
     }
 
@@ -147,7 +144,6 @@ class MinecraftGamesPresenter extends AdminBasePresenter
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderHideAndSeekStats(int $page = 1) {
         $records = $this->hideAndSeek->getAllRows();
@@ -159,9 +155,7 @@ class MinecraftGamesPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage+1) {
-            $this->redirect("MinecraftGames:hideAndSeekStats");
-        }
+        if($lastPage === 0) $this->template->page = 0;
     }
 
     /**

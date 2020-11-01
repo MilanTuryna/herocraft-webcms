@@ -100,7 +100,6 @@ final class PagePresenter extends BasePresenter
 
     /**
      * @param int $page
-     * @throws Nette\Application\AbortException
      * @throws Exception
      */
     public function renderArchiv(int $page = 1): void // list článků
@@ -122,12 +121,10 @@ final class PagePresenter extends BasePresenter
 
         $this->template->logged = (bool)$this->authenticator->getUser();
 
-        if($page > $lastPage) {
-            $this->redirect('Page:archiv');
-        }
-
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
+
+        if($lastPage === 0) $this->template->page = 0;
     }
 
     /**

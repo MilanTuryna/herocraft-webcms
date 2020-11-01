@@ -34,7 +34,6 @@ class MinecraftSeniorPresenter extends AdminBasePresenter
 
     /**
      * @param int $page
-     * @throws AbortException
      */
     public function renderEconomy(int $page = 1) {
         $records = $this->economy->getAllRows();
@@ -46,11 +45,13 @@ class MinecraftSeniorPresenter extends AdminBasePresenter
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
-        if($page > $lastPage) {
-            $this->redirect("MinecraftSenior:economy");
-        }
+        if($lastPage === 0) $this->template->page = 0;
     }
 
+    /**
+     * @param $recordId
+     * @throws AbortException
+     */
     public function renderEditEconomyRecord($recordId) {
         $record = $this->economy->getRowById($recordId)->fetch();
         if($record) {
