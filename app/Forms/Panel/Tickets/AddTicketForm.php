@@ -42,7 +42,7 @@ class AddTicketForm
             ->setPrompt("Vyber předmět")
             ->setRequired();
         $form->addTextArea('content', 'Obsah ticketu (první odpověď)')
-            ->addRule($form::MIN_LENGTH, "Obsah ticketu musí mít alespoň 150 znaků", 150)
+            ->addRule($form::MIN_LENGTH, "Obsah ticketu musí mít alespoň 100 znaků", 100)
             ->addRule($form::MAX_LENGTH, "Obsah ticketů nemůže mít více než 10000 znaků", 10000)
             ->setRequired();
         $form->addSubmit('submit');

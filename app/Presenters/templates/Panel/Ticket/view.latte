@@ -10,11 +10,12 @@
     <p class="small text-muted">
         Pokud jsi na menším zářízení, k zobrazení celé tabulky posouvej horizontálně ze strany na stranu.
     </p>
-        <div class="table-responsive">
+        <div class="table-responsive" style="zoom: 80%">
             <table class="table table-striped table-light shadow-sm table-center">
                 <thead>
                 <tr>
                     <th scope="col">Ticket</th>
+                    <th scope="col">Předmět</th>
                     <th scope="col">Založen dne</th>
                     <th scope="col">Poslední odpověď</th>
                     <th scope="col">Stav</th>
@@ -24,6 +25,9 @@
                  <tr>
                      <td>
                          {$ticket->name|truncate:25}
+                     </td>
+                     <td>
+                         {$ticket->subject}
                      </td>
                      <td>
                          {$ticket->time|date:'j.n.Y'}
@@ -41,7 +45,7 @@
     <p class="small text-muted">
         Nelekej se, pokud jsi označený jako "Hráč" i když máš rank, je to nezávislé na herních rankách.
     </p>
-    <div class="ticket bg-white shadow">
+    <div class="ticket bg-white shadow" style="zoom: 80%">
         <div class="ticket-head" style="padding:16px 16px 0 16px">
             <h5>
                 <p>
