@@ -16,6 +16,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Ticket</th>
+                    <th scope="col">Předmět</th>
                     <th scope="col">Založen dne</th>
                     <th scope="col">Stav</th>
                     <th scope="col">ID</th>
@@ -26,6 +27,9 @@
                     <tr>
                         <td>
                             <a n:href="Ticket:view $ticket->id" class="text-{$ticket->locked ? 'danger' : 'success'}">{$ticket->name|truncate:25}</a>
+                        </td>
+                        <td>
+                            <span>{$ticket->subject}</span>
                         </td>
                         <td>
                             {$ticket->time|date:'j.n.Y'}

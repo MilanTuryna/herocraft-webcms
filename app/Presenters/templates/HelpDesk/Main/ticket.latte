@@ -9,8 +9,9 @@
             <thead>
             <tr>
                 <th scope="col" class="border-top-0">Název</th>
+                <th scope="col" class="border-top-0">Předmět</th>
                 <th scope="col" class="border-top-0">Autor</th>
-                <th scope="col" class="border-top-0">Datum</th>
+                <th scope="col" class="border-top-0">Založen</th>
                 <th scope="col" class="border-top-0">Stav</th>
                 <th scope="col" class="border-top-0">ID</th>
             </tr>
@@ -18,6 +19,7 @@
             <tbody>
             <tr>
                 <td>{$ticket->name}</a></td>
+                <td>{$ticket->subject}</td>
                 <td>{$ticket->author}</td>
                 <td>{$ticket->time}</td>
                 <td><span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></td>
