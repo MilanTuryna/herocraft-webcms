@@ -20,6 +20,7 @@ class LuckPerms
         'helper' => 'group.helper',
         'owner' => 'group.majitel',
         'admin' => 'group.admini',
+        'helpdesk' => 'web.helpdesk'
     ];
 
     private Context $context;
@@ -45,7 +46,8 @@ class LuckPerms
         foreach ($rows as $row) {
             if($row->permission == self::GROUPS['helper']
                 || $row->permission == self::GROUPS['owner']
-                || $row->permission == self::GROUPS['admin'])
+                || $row->permission == self::GROUPS['admin']
+                || $row->permission == self::GROUPS['helpdesk'])
                 return true;
         }
         return false;
