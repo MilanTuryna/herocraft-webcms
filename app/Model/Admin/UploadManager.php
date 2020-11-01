@@ -9,6 +9,10 @@ use Nette\Http\FileUpload;
 use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
 
+/**
+ * Class UploadManager
+ * @package App\Model\Admin
+ */
 class UploadManager
 {
     const PATH = "upload/";

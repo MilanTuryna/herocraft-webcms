@@ -3,7 +3,7 @@ parameters:
 
 application:
 	errorPresenter: Error
-	catchExceptions: false
+	catchExceptions: true
 	mapping:
 		Error: App\Presenters\*Presenter
 		*: App\Presenters\*Module\*Presenter
