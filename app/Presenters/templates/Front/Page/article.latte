@@ -26,8 +26,8 @@
             </a>
         {/ifset}
         <hr>
-        <span class="float-right">
-        napsal: {$article->author}, dne {php echo explode(" ",$article->created_at)[0]}
+        <span class="float-right text-muted">
+        {$article->author}, {$article->created_at|date:'j.n.Y'}
     </span>
         <div class="kategorie default-margin-bot">
             {if $category}
