@@ -53,7 +53,7 @@
                         {foreach $files as $file}
                             <tr>
                                 <th scope="row">{$iterator->getCounter()}</th>
-                                <td><a href="{$basePath}/upload/{$file->getFileName()}"">{$file->getFileName()} (klik)</a></td>
+                                <td><a href="{$basePath}/upload/{$file->getFileName()}" target="_blank">{$file->getFileName()} (klik)</a></td>
                                 <td>{$file->getExtension()}</td>
                                 <td>{round($file->getSize()/1000)}kb</td>
                                 <td>{$file->getCTime()|date:'j.n.Y H:i'}</td>
