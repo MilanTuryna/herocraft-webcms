@@ -10,6 +10,7 @@ use App\Forms\Minecraft\FilterForm;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
 use App\Model\API\Plugin\LuckPerms;
+use App\Model\API\Plugin\OnlinePlayers;
 use App\Model\Security\Auth\Authenticator;
 
 use App\Presenters\AdminBasePresenter;
@@ -27,6 +28,7 @@ class MinecraftPresenter extends AdminBasePresenter
     private ChatLog $chatLog;
     private Bans $bans;
     private LuckPerms $luckPerms;
+    private OnlinePlayers $onlinePlayers;
 
     /**
      * MinecraftPresenter constructor.
@@ -34,14 +36,16 @@ class MinecraftPresenter extends AdminBasePresenter
      * @param ChatLog $chatLog
      * @param Bans $bans
      * @param LuckPerms $luckPerms
+     * @param OnlinePlayers $onlinePlayers
      */
-    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Bans $bans, LuckPerms $luckPerms)
+    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Bans $bans, LuckPerms $luckPerms, OnlinePlayers $onlinePlayers)
     {
         parent::__construct($authenticator);
 
         $this->chatLog = $chatLog;
         $this->bans = $bans;
         $this->luckPerms = $luckPerms;
+        $this->onlinePlayers = $onlinePlayers;
     }
 
     /**
@@ -194,6 +198,10 @@ class MinecraftPresenter extends AdminBasePresenter
             $this->flashMessage("Hráč " . $nick . " není zabanován!", "danger");
             $this->redirect("Minecraft:banList");
         }
+    }
+
+    public function renderOnlinePlayers() {
+        $this->template->players = $this->onlinePlayers->getOnlinePlayers()->fetchAll();
     }
 
     /**

@@ -1,0 +1,31 @@
+{layout '../layout.latte'}
+{block title}
+    Online hráči
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Online hráči</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Online hráči</h5>
+            <div class="card-text">
+                {if $players}
+                    <ul>
+                        <li n:foreach="$players as $player">
+                            {$player->nick} <a n:href=":Stats:Main:app?player=$player->nick" target="_blank">(otevřít)</a>
+                        </li>
+                    </ul>
+                {else}
+                    Žádný hráč na serveru momentálně nehraje
+                {/if}
+            </div>
+        </div>
+
+    </div>
+{/block}
