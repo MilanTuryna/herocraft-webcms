@@ -49,3 +49,7 @@ database:
         dsn:
         user:
         password:
+    onlineplayers:
+         dsn:
+         user:
+         password:
