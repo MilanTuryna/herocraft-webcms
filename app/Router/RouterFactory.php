@@ -100,6 +100,7 @@ final class RouterFactory
 
         $router->withModule('HelpDesk')
             ->addRoute('/help/login', 'Login:main')
+            ->addRoute('/help/tickety/odstranit/<id>', 'Main:deleteTicket')
             ->addRoute('/help/tickety/<id>', 'Main:ticket')
             ->addRoute('/help/odhlasit-se', 'Main:logout')
             ->addRoute('/help[/<page>]', 'Main:home');

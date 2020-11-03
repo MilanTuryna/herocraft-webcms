@@ -12,8 +12,8 @@ use App\Constants;
 class Captcha
 {
     const freqMethods = [
-      'No' => ['Neni', 'Ne', 'Nie'],
-      'Yes' => ['Ano', 'Je', 'Jo']
+      'No' => ['Neni', 'Ne', 'Nie', 'n', 'nn'],
+      'Yes' => ['Ano', 'Je', 'Jo', 'j', 'jj']
     ];
 
     const methods = [
@@ -23,7 +23,7 @@ class Captcha
         'Jaké je hlavní město České Republiky?' => ['Praha', 'Prague'],
         'Je Frankfurt v česku?' => self::freqMethods['No'],
         'Je černá tmavá barva?' => self::freqMethods['Yes'],
-        'Je slunce hvězda nebo planeta?' => ['Hvezda'],
+        'Je slunce hvězda nebo planeta?' => ['Hvezda', 'Hvezd', 'Hvezdy'],
         'Žijeme v 19. století nebo 21. století?' => ['21.', '21'],
         'Je Praha na slovensku?' => self::freqMethods['No'],
         'Je Praha v česku?' => self::freqMethods['Yes'],

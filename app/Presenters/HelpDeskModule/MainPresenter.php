@@ -92,6 +92,21 @@ class MainPresenter extends HelpBasePresenter
     }
 
     /**
+     * @param $ticketId
+     * @throws AbortException
+     */
+    public function actionDeleteTicket($ticketId) {
+        $deleted = $this->ticketRepository->removeTicket($ticketId);
+        if($deleted) {
+            $this->flashMessage("Ticket " . $ticketId . " byl úspěšně odstraněn.", "success");
+        } else {
+            $this->flashMessage("Ticket nemohl být odstraněn, jelikož neexistuje.", "danger");
+        }
+
+        $this->redirect("Main:home");
+    }
+
+    /**
      * @throws AbortException
      * @throws AuthException
      */
