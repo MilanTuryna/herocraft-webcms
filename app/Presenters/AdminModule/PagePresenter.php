@@ -45,14 +45,15 @@ class PagePresenter extends AdminBasePresenter
 
     /**
      * @param string $url
-     * @throws BadRequestException
+     * @throws AbortException
      */
     public function renderEdit(string $url): void {
         $page = $this->pageRepository->findPageByUrl($url);
         if($page) {
             $this->template->page = $page;
         } else {
-            $this->error('Tato stránka neexistuje');
+            $this->flashMessage('Stránka, na kterou jste odkazovali, nemůže být odstraněna, jelikož neexistuje', 'danger');
+            $this->redirect("Page:list");
         }
     }
 
