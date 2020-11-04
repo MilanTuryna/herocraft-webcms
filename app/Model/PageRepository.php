@@ -35,7 +35,7 @@ class PageRepository
      * @param $url
      * @return Nette\Database\Table\ActiveRow
      */
-    public function findPageByUrl($url): Nette\Database\Table\ActiveRow {
+    public function findPageByUrl($url) {
         return $this->context->table('pages')->where('url = ?', $url)->fetch();
     }
 
@@ -43,7 +43,7 @@ class PageRepository
      * @param $id
      * @return Nette\Database\Table\ActiveRow
      */
-    public function findPageById($id): Nette\Database\Table\ActiveRow {
+    public function findPageById($id) {
         return $this->context->table('pages')->get($id);
     }
 
