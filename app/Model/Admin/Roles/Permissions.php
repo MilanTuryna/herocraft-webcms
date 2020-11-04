@@ -4,6 +4,8 @@
 namespace App\Model\Admin\Roles;
 
 /**
+ * A static class for manipulating with roles permissions.
+ *
  * Class Permissions
  * @package App\Model\Admin\Roles
  */
