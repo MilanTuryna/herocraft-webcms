@@ -124,7 +124,7 @@ class EditForm
             }
             // author, created_at pouze "na parádu", nic se nebude měnit
             $this->presenter->flashMessage('Změna byla aplikována', 'success');
-            $this->presenter->redirect('Article:edit', $values->url);
+            $this->presenter->redirect('Article:edit', App\Model\Utils::parseURL($values->url));
         } else {
             $form->addError('Článek se stejným URL názvem již existuje, prosím zvolte jiný název..');
         }

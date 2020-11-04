@@ -99,7 +99,7 @@ class EditForm
                 'content' => $values->content,
             ]);
             $this->presenter->flashMessage('Změna byla aplikována', 'success');
-            $this->presenter->redirect('Page:edit', $values->url);
+            $this->presenter->redirect('Page:edit', Utils::parseURL($values->url));
         } else {
             $form->addError('Stránka se stejným URL názvem již existuje, prosím zvolte jinou URL.');
         }
