@@ -1,7 +1,7 @@
 {
-	"name": "pvpcraft/cms",
-	"description": "Webový systém pro PvpCraft Network",
-	"keywords": ["nette"],
+	"name": "herocraft/cms",
+	"description": "Webový systém pro HeroCraft Network, https://turyna.eu",
+	"keywords": ["nette", "herocraft", "webovy-system", "system", "cms"],
 	"type": "project",
 	"license": ["MIT", "BSD-3-Clause", "GPL-2.0", "GPL-3.0"],
 	"require": {
