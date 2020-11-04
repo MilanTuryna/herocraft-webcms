@@ -32,7 +32,7 @@
                 <div class="col-12 col-lg-9">
                     <div class="alert border-radius-0 bg-opacity-blue" role="alert">
                         <h4 class="alert-heading">A teď něco o tobě</h4>
-                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'j.n.Y'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
+                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'d.m.Y H:i:s'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
                         <hr>
                         <p class="mb-0">Nejen tyto statistiky jsou veřejně dostupné <a n:href=":Stats:Main:app?player=$user->realname" class="text-danger" target="_blank">ZDE</a></p>
                     </div>
