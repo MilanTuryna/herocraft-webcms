@@ -86,7 +86,7 @@ class Permissions
      * @return string
      */
     public static function getNoPermMessage(string $node): string {
-        return 'K této sekci nemáš přístup. (' . self::getSelectBox()[$node] . ')';
+        return 'K této sekci nemáš přístup.';
     }
 
     /**
@@ -95,6 +95,6 @@ class Permissions
      * @return array
      */
     public static function listToArray(string $unparsedList): array {
-        return explode(",", preg_replace('/\s+/', '', $unparsedList));
+        return array_filter(explode(",", preg_replace('/\s+/', '', $unparsedList)));
     }
 }
