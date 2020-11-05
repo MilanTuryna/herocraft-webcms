@@ -5,6 +5,7 @@ namespace App\Presenters\AdminModule;
 
 
 use App\Forms\Minecraft\EditEconomyRecord;
+use App\Model\Admin\Roles\Permissions;
 use App\Model\API\Plugin\Senior\Economy;
 use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
@@ -27,7 +28,7 @@ class MinecraftSeniorPresenter extends AdminBasePresenter
      */
     public function __construct(Authenticator $authenticator, Economy $economy)
     {
-        parent::__construct($authenticator);
+        parent::__construct($authenticator, Permissions::ADMIN_MC_SENIOR);
 
         $this->economy = $economy;
     }

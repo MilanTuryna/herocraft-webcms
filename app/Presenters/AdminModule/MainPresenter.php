@@ -5,6 +5,7 @@ namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\SettingsForm; // __construct(Presenter, Context);
 use App\Forms\Admin\UploadForm;
+use App\Model\Admin\Roles\Permissions;
 use App\Model\Admin\UploadManager;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
@@ -59,12 +60,28 @@ class MainPresenter extends AdminBasePresenter
         ];
     }
 
+    /**
+     * @throws AbortException
+     */
     public function renderSettings() {
-        $this->template->logo = $this->settingsRepository->getLogo();
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_GLOBAL_SETTINGS)) {
+            $this->template->logo = $this->settingsRepository->getLogo();
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_GLOBAL_SETTINGS) , 'danger');
+            $this->redirect("Main:home");
+        }
     }
 
+    /**
+     * @throws AbortException
+     */
     public function renderUpload() {
-        $this->template->files = UploadManager::getUploads();
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_UPLOAD)) {
+            $this->template->files = UploadManager::getUploads();
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_UPLOAD) , 'danger');
+            $this->redirect("Main:home");
+        }
     }
 
     /**
@@ -72,14 +89,19 @@ class MainPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function actionRemoveUpload($file) {
-        try {
-            UploadManager::deleteUpload(str_replace('-', '.', $file));
-            $this->flashMessage("Zadaný soubor byl úspěšně odstraněn.", "success");
-        } catch (Nette\FileNotFoundException $exception) {
-            $this->flashMessage("Zadaný soubor nemohl být odstraněn, jelikož neexistuje.", "danger");
-        }
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_UPLOAD)) {
+            try {
+                UploadManager::deleteUpload(str_replace('-', '.', $file));
+                $this->flashMessage("Zadaný soubor byl úspěšně odstraněn.", "success");
+            } catch (Nette\FileNotFoundException $exception) {
+                $this->flashMessage("Zadaný soubor nemohl být odstraněn, jelikož neexistuje.", "danger");
+            }
 
-        $this->redirect("Main:upload");
+            $this->redirect("Main:upload");
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_UPLOAD) , 'danger');
+            $this->redirect("Main:home");
+        }
     }
 
     /**

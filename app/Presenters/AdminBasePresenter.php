@@ -4,6 +4,7 @@
 namespace App\Presenters;
 
 
+use App\Model\Admin\Roles\Permissions;
 use App\Model\Security\Auth\Authenticator;
 
 use Nette\Application\AbortException;
@@ -15,17 +16,21 @@ use Nette\Application\AbortException;
 class AdminBasePresenter extends BasePresenter
 {
     private Authenticator $authenticator;
+    private string $permissionNode;
+
     protected array $admin;
 
     /**
      * AdminBasePresenter constructor.
      * @param Authenticator $authenticator
+     * @param string $permissionNode
      */
-    public function __construct(Authenticator $authenticator)
+    public function __construct(Authenticator $authenticator, string $permissionNode = Permissions::SPECIAL_WITHOUT_PERMISSION)
     {
         parent::__construct();
 
         $this->authenticator = $authenticator;
+        $this->permissionNode = $permissionNode;
     }
 
     /**
@@ -39,12 +44,21 @@ class AdminBasePresenter extends BasePresenter
             $this->flashMessage('Pro manipulaci s administrací, proveďte autorizaci.', 'danger');
             $this->redirect(':Front:Login:main');
         } else {
-            $this->admin = [
-                'name' => $user->name,
-                'email' => $user->email,
-                'id' => $user->id,
-            ];
-            $this->template->admin = $this->admin;
+            $permissions = Permissions::listToArray($user->permissions);
+            $permissionsSelectBox = Permissions::getSelectBox();
+            if(Permissions::checkPermission($permissions, $this->permissionNode)) {
+                $this->admin = [
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'id' => $user->id,
+                    'permissions' => $permissions
+                ];
+                $this->template->admin = $this->admin;
+                $this->template->permissionsSelectBox = $permissionsSelectBox;
+            } else {
+                $this->flashMessage(Permissions::getNoPermMessage($this->permissionNode) , 'danger');
+                $this->redirect("Main:home");
+            }
         }
     }
 }

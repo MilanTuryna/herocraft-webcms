@@ -7,6 +7,7 @@ use App\Forms\Minecraft\EditBanForm;
 
 use App\Forms\Minecraft\EditIpBanForm;
 use App\Forms\Minecraft\FilterForm;
+use App\Model\Admin\Roles\Permissions;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
 use App\Model\API\Plugin\LuckPerms;
@@ -50,18 +51,24 @@ class MinecraftPresenter extends AdminBasePresenter
 
     /**
      * @param int $page
+     * @throws AbortException
      */
     public function renderChat(int $page = 1) {
-        $messages = $this->chatLog->findAllRows();
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_CHATLOG)) {
+            $messages = $this->chatLog->findAllRows();
 
-        $lastPage = 0;
-        $paginatorData = $messages->page($page, 150, $lastPage);
-        $this->template->messages = $paginatorData;
+            $lastPage = 0;
+            $paginatorData = $messages->page($page, 150, $lastPage);
+            $this->template->messages = $paginatorData;
 
-        $this->template->page = $page;
-        $this->template->lastPage = $lastPage;
+            $this->template->page = $page;
+            $this->template->lastPage = $lastPage;
 
-        if($lastPage === 0) $this->template->page = 0;
+            if($lastPage === 0) $this->template->page = 0;
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_CHATLOG) , 'danger');
+            $this->redirect("Main:home");
+        }
     }
 
 
@@ -72,24 +79,27 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderFilterChat($timeStart, $timeEnd, array $players) {
-        if($timeEnd && $timeStart && $players) {
-            $messages = $this->chatLog->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
-            if($messages) {
-                $this->template->messages = $messages;
-                $this->template->timeStart = $timeStart;
-                $this->template->timeEnd = $timeEnd;
-                $this->template->filteredPlayers = $players;
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_CHATLOG)) {
+            if($timeEnd && $timeStart && $players) {
+                $messages = $this->chatLog->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
+                if($messages) {
+                    $this->template->messages = $messages;
+                    $this->template->timeStart = $timeStart;
+                    $this->template->timeEnd = $timeEnd;
+                    $this->template->filteredPlayers = $players;
+                } else {
+                    $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+                    $this->redirect("Minecraft:chat");
+                }
             } else {
                 $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
                 $this->redirect("Minecraft:chat");
             }
         } else {
-            $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
-            $this->redirect("Minecraft:chat");
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_CHATLOG) , 'danger');
+            $this->redirect("Main:home");
         }
     }
-
-    // TODO: Check CachedAPIRepository and delete old LiteBans method
 
     /**
      * @param $timeStart
@@ -98,20 +108,66 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderFilterBan($timeStart, $timeEnd, array $players) {
-        if($timeEnd && $timeStart && $players) {
-            $bans = $this->bans->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
-            if($bans) {
-                $this->template->bans = $bans;
-                $this->template->timeStart = $timeStart;
-                $this->template->timeEnd = $timeEnd;
-                $this->template->filteredPlayers = $players;
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_BANLIST)) {
+            if($timeEnd && $timeStart && $players) {
+                $bans = $this->bans->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
+                if($bans) {
+                    $this->template->bans = $bans;
+                    $this->template->timeStart = $timeStart;
+                    $this->template->timeEnd = $timeEnd;
+                    $this->template->filteredPlayers = $players;
+                } else {
+                    $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+                    $this->redirect("Minecraft:banList");
+                }
             } else {
                 $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
                 $this->redirect("Minecraft:banList");
             }
         } else {
-            $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
-            $this->redirect("Minecraft:banList");
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_BANLIST) , 'danger');
+            $this->redirect("Main:home");
+        }
+    }
+
+    /**
+     * @param $nick
+     * @throws AbortException
+     */
+    public function renderEditBan($nick) {
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_BANLIST)) {
+            $ban = $this->bans->getBanByNick($nick)->fetch();
+            if($ban) {
+                $this->template->ban = $ban;
+            } else {
+                $this->flashMessage("Hráč " . $nick . " není zabanován!", "danger");
+                $this->redirect("Minecraft:banList");
+            }
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_BANLIST) , 'danger');
+            $this->redirect("Main:home");
+        }
+    }
+
+    /**
+     * @param int $page
+     * @throws AbortException
+     */
+    public function renderBanList(int $page = 1) {
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_BANLIST)) {
+            $bans = $this->bans->getAllBans();
+
+            $lastPage = 0;
+            $paginatorData = $bans->page($page, 30, $lastPage);
+            $this->template->bans = $paginatorData;
+
+            $this->template->page = $page;
+            $this->template->lastPage = $lastPage;
+
+            if($lastPage === 0) $this->template->page = 0;
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_BANLIST) , 'danger');
+            $this->redirect("Main:home");
         }
     }
 
@@ -122,53 +178,48 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderFilterIpBan($timeStart, $timeEnd, array $ips) {
-        if($timeEnd && $timeStart && $ips) {
-            $ipBans = $this->bans->filterAllIpBans($ips, $timeStart, $timeEnd)->fetchAll();
-            if($ipBans) {
-                $this->template->ipBans = $ipBans;
-                $this->template->timeStart = $timeStart;
-                $this->template->timeEnd = $timeEnd;
-                $this->template->filteredIps = $ips;
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+            if($timeEnd && $timeStart && $ips) {
+                $ipBans = $this->bans->filterAllIpBans($ips, $timeStart, $timeEnd)->fetchAll();
+                if($ipBans) {
+                    $this->template->ipBans = $ipBans;
+                    $this->template->timeStart = $timeStart;
+                    $this->template->timeEnd = $timeEnd;
+                    $this->template->filteredIps = $ips;
+                } else {
+                    $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
+                    $this->redirect("Minecraft:ipBanList");
+                }
             } else {
                 $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
                 $this->redirect("Minecraft:ipBanList");
             }
         } else {
-            $this->flashMessage("Bohuzel, data s timto filtrem, jsme nenasli.", "danger");
-            $this->redirect("Minecraft:ipBanList");
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_IPBANLIST) , 'danger');
+            $this->redirect("Main:home");
         }
     }
 
     /**
      * @param int $page
-     */
-    public function renderBanList(int $page = 1) {
-        $bans = $this->bans->getAllBans();
-
-        $lastPage = 0;
-        $paginatorData = $bans->page($page, 30, $lastPage);
-        $this->template->bans = $paginatorData;
-
-        $this->template->page = $page;
-        $this->template->lastPage = $lastPage;
-
-        if($lastPage === 0) $this->template->page = 0;
-    }
-
-    /**
-     * @param int $page
+     * @throws AbortException
      */
     public function renderIpBanList(int $page = 1) {
-        $ipBans = $this->bans->getAllIPBans();
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+            $ipBans = $this->bans->getAllIPBans();
 
-        $lastPage = 0;
-        $paginatorData = $ipBans->page($page, 30, $lastPage);
-        $this->template->ipBans = $paginatorData;
+            $lastPage = 0;
+            $paginatorData = $ipBans->page($page, 30, $lastPage);
+            $this->template->ipBans = $paginatorData;
 
-        $this->template->page = $page;
-        $this->template->lastPage = $lastPage;
+            $this->template->page = $page;
+            $this->template->lastPage = $lastPage;
 
-        if($lastPage === 0) $this->template->page = 0;
+            if($lastPage === 0) $this->template->page = 0;
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_IPBANLIST) , 'danger');
+            $this->redirect("Main:home");
+        }
     }
 
     /**
@@ -176,32 +227,31 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderEditIpBan($ip) {
-        $ipBan = $this->bans->getIPBanByIP($ip)->fetch();
-        if($ipBan) {
-            $this->template->ipBan = $ipBan;
-            $this->template->multiplierReplaceCharacter = Bans::MULTIPLIER_REPLACING_IP_CHARACTER;
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+            $ipBan = $this->bans->getIPBanByIP($ip)->fetch();
+            if($ipBan) {
+                $this->template->ipBan = $ipBan;
+                $this->template->multiplierReplaceCharacter = Bans::MULTIPLIER_REPLACING_IP_CHARACTER;
+            } else {
+                $this->flashMessage("IP adresa " . $ip . " není zabanována!", "danger");
+                $this->redirect("Minecraft:ipBanList");
+            }
         } else {
-            $this->flashMessage("IP adresa " . $ip . " není zabanována!", "danger");
-            $this->redirect("Minecraft:ipBanList");
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_IPBANLIST) , 'danger');
+            $this->redirect("Main:home");
         }
     }
 
     /**
-     * @param $nick
      * @throws AbortException
      */
-    public function renderEditBan($nick) {
-        $ban = $this->bans->getBanByNick($nick)->fetch();
-        if($ban) {
-            $this->template->ban = $ban;
-        } else {
-            $this->flashMessage("Hráč " . $nick . " není zabanován!", "danger");
-            $this->redirect("Minecraft:banList");
-        }
-    }
-
     public function renderOnlinePlayers() {
-        $this->template->players = $this->onlinePlayers->getOnlinePlayers()->fetchAll();
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+            $this->template->players = $this->onlinePlayers->getOnlinePlayers()->fetchAll();
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_ONLINEPLAYERS) , 'danger');
+            $this->redirect("Main:home");
+        }
     }
 
     /**

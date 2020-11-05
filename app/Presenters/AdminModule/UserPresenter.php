@@ -4,6 +4,7 @@
 namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\User\CreateForm;
+use App\Model\Admin\Roles\Permissions;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\UserManager;
 use App\Model\UserRepository;
@@ -30,7 +31,7 @@ class UserPresenter extends AdminBasePresenter
      */
     public function __construct(Authenticator $authenticator, UserManager $userManager)
     {
-        parent::__construct($authenticator);
+        parent::__construct($authenticator, Permissions::ADMIN_FULL);
 
         $this->userManager = $userManager;
         $this->userRepository = $userManager->getRepository();

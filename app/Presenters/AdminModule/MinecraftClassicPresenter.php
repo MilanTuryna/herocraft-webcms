@@ -4,6 +4,7 @@
 namespace App\Presenters\AdminModule;
 
 
+use App\Model\Admin\Roles\Permissions;
 use App\Model\API\Plugin\Classic\Economy;
 use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
@@ -26,7 +27,7 @@ class MinecraftClassicPresenter extends AdminBasePresenter
      */
     public function __construct(Authenticator $authenticator, Economy $classicEconomy)
     {
-        parent::__construct($authenticator);
+        parent::__construct($authenticator, Permissions::ADMIN_MC_CLASSIC);
 
         $this->classicEconomy = $classicEconomy;
     }

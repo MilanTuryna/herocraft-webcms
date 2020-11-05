@@ -5,6 +5,7 @@ namespace App\Presenters\AdminModule;
 
 
 use App\Forms\Minecraft\Games\EditEventRecordForm;
+use App\Model\Admin\Roles\Permissions;
 use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\API\Plugin\Games\SpleefX;
@@ -37,7 +38,7 @@ class MinecraftGamesPresenter extends AdminBasePresenter
      */
     public function __construct(Authenticator $authenticator, Events $events, SpleefX $spleefX, HideAndSeek $hideAndSeek, LuckPerms $luckPerms)
     {
-        parent::__construct($authenticator);
+        parent::__construct($authenticator, Permissions::ADMIN_MC_GAMES);
 
         $this->events = $events;
         $this->spleefX = $spleefX;

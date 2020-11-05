@@ -3,6 +3,7 @@
 
 namespace App\Presenters\AdminModule;
 
+use App\Model\Admin\Roles\Permissions;
 use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
 use Exception;
@@ -33,7 +34,7 @@ class ArticlePresenter extends AdminBasePresenter
      */
     public function __construct(Authenticator $authenticator, ArticleRepository $articleRepository)
     {
-        parent::__construct($authenticator);
+        parent::__construct($authenticator, Permissions::ADMIN_ARTICLES);
 
         $this->articleRepository = $articleRepository;
     }

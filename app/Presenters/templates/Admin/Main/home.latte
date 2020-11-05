@@ -17,6 +17,18 @@
             </div>
         </div>
     </div>
+    <div class="card classic-shadow default-margin-bot" style="background-color:#dceafc">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Tvé oprávnění</h5>
+            <div class="card-text">
+                {foreach $admin['permissions'] as $permNode}
+                    <ul>
+                        <li>{$permissionsSelectBox[$permNode]}</li>
+                    </ul>
+                {/foreach}
+            </div>
+        </div>
+    </div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
             <h5 style="margin:0!important;" class="card-title">Globální nastavení systému</h5>

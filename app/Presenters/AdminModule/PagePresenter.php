@@ -4,6 +4,7 @@
 namespace App\Presenters\AdminModule;
 
 use App\Forms\Admin\Pages\CreateForm;
+use App\Model\Admin\Roles\Permissions;
 use App\Model\PageRepository;
 use App\Model\Security\Auth\Authenticator;
 use App\Presenters\AdminBasePresenter;
@@ -29,7 +30,7 @@ class PagePresenter extends AdminBasePresenter
      */
     public function __construct(Authenticator $authenticator, PageRepository $pageRepository)
     {
-        parent::__construct($authenticator);
+        parent::__construct($authenticator, Permissions::ADMIN_PAGES);
 
         $this->pageRepository = $pageRepository;
     }
