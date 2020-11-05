@@ -95,6 +95,6 @@ class Permissions
      * @return array
      */
     public static function listToArray(string $unparsedList): array {
-        return explode(",", $unparsedList);
+        return explode(",", preg_replace('/\s+/', '', $unparsedList));
     }
 }
