@@ -11,6 +11,8 @@ namespace App\Model\Admin\Roles;
  */
 class Permissions
 {
+    const ADMIN_FULL = "*";
+
     const ADMIN_ARTICLES = "admin.articles";
     const ADMIN_PAGES = "admin.pages";
     const ADMIN_CATEGORIES = "admin.categories";
@@ -55,7 +57,18 @@ class Permissions
      * Returning a array with all permissions nodes, will be used Fulladmin group permissions
      * @return array
      */
-    public static function getAllPermissions() {
+    public static function getAllPermissions(): array {
         return array_keys(self::getSelectBox());
+    }
+
+    /**
+     * Checking if permission node is includes in permissions
+     *
+     * @param array $permArray
+     * @param string $node
+     * @return bool
+     */
+    public static function checkPermission(array $permArray, string $node): bool {
+        return in_array($node, $permArray) || in_array(self::ADMIN_FULL, $permArray);
     }
 }
