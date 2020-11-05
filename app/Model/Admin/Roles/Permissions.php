@@ -16,7 +16,7 @@ class Permissions
     const ADMIN_ARTICLES = "admin.articles";
     const ADMIN_PAGES = "admin.pages";
     const ADMIN_CATEGORIES = "admin.categories";
-    const ADMIN_USERS = "admin.users";
+    //const ADMIN_USERS = "admin.users"; // permission to manage users is same as ADMIN_FULL;
 
     const ADMIN_MC_CHATLOG = "admin.minecraft_chatlog";
     const ADMIN_MC_BANLIST = "admin.minecraft_banlist";
@@ -38,7 +38,7 @@ class Permissions
             self::ADMIN_ARTICLES => "Správa článků",
             self::ADMIN_PAGES => "Správa stránek",
             self::ADMIN_CATEGORIES => "Správa kategorií",
-            self::ADMIN_USERS => "Správa uživatelů/administrátorů",
+            //self::ADMIN_USERS => "Správa uživatelů/administrátorů",
 
             self::ADMIN_MC_CHATLOG => "Minecraft > Chatlog",
             self::ADMIN_MC_BANLIST => "Minecraft > Banlist",
