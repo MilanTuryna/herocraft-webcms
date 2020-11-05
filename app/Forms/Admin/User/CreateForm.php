@@ -2,6 +2,7 @@
 
 namespace App\Forms\Admin\User;
 
+use App\Model\Admin\Roles\Permissions;
 use App\Model\DuplicateNameException;
 use App\Model\UserManager;
 
@@ -27,6 +28,7 @@ class CreateForm
         $form->addText('name', 'Uživatel')
             ->setRequired()
             ->setMaxLength(25);
+        $form->addCheckboxList('permissions', "Práva", Permissions::getSelectBox());
         $form->addEmail('email', 'Email')
             ->setRequired()
             ->setMaxLength(70);
@@ -47,7 +49,7 @@ class CreateForm
      */
     public function success(Form $form, \stdClass $values) {
         try {
-            $this->userManager->add($values->name, $values->email, $values->password);
+            $this->userManager->add($values->name, $values->email, $values->password, $values->permissions);
             $this->presenter->flashMessage('Uživatel byl úspěšně přidán', 'success');
             $this->presenter->redirect('User:list');
         } catch (DuplicateNameException $e) {

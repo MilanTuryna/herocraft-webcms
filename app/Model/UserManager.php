@@ -42,12 +42,13 @@ final class UserManager
      * @param string $username
      * @param string $email
      * @param string $password
+     * @param string $permissions
      * @throws DuplicateNameException
      */
-    public function add(string $username, string $email, string $password): void
+    public function add(string $username, string $email, string $password, string $permissions): void
     {
         try {
-            $this->userRepository->addUser($username, $email, $this->passwords->hash($password));
+            $this->userRepository->addUser($username, $email, $this->passwords->hash($password), $permissions);
         } catch (Nette\Database\UniqueConstraintViolationException $e) {
             throw new DuplicateNameException;
         }
@@ -56,15 +57,17 @@ final class UserManager
     /**
      * @param $id
      * @param $name
-     * @param $pass
      * @param $email
+     * @param $pass
+     * @param $permissions
      * @throws DuplicateNameException
      */
-    public function edit($id, $name, $email, $pass): void {
+    public function edit($id, $name, $email, $pass, $permissions): void {
         try {
             $arr =  [
                 'name' => $name,
-                'email' => $email
+                'email' => $email,
+                'permissions' => $permissions,
             ];
             if($pass) $arr['pass'] = $this->passwords->hash($pass);
             $this->userRepository->update($id, $arr);
