@@ -27,12 +27,12 @@ class UserRepository
         return $this->context->table('admin')->get($id);
     }
 
-    public function addUser($user, $email, $pass, $permission) {
+    public function addUser($user, $email, $pass, $permissions) {
         return $this->context->table('admin')->insert([
             'name' => $user,
             'email' => $email,
             'pass' => $pass,
-            'permission' => $permission,
+            'permissions' => $permissions,
         ]);
     }
 
