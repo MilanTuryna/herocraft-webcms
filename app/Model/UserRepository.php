@@ -36,14 +36,26 @@ class UserRepository
         ]);
     }
 
+    /**
+     * @param $id
+     * @return int
+     */
     public function deleteUser($id) {
         return $this->context->table('admin')->wherePrimary($id)->delete();
     }
 
-    public function update($id, array $values) {
-        $this->context->table('admin')->wherePrimary($id)->update($values);
+    /**
+     * @param $id
+     * @param iterable $values
+     * @return int
+     */
+    public function update($id, iterable $values) {
+        return $this->context->table('admin')->wherePrimary($id)->update($values);
     }
 
+    /**
+     * @return int
+     */
     public function countAll() {
         return $this->context->table('admin')->count('*');
     }

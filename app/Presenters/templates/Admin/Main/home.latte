@@ -21,11 +21,12 @@
         <div class="card-body">
             <h5 style="margin:0!important;" class="card-title">Tvé oprávnění</h5>
             <div class="card-text">
+                <ul>
                 {foreach $admin['permissions'] as $permNode}
-                    <ul>
                         <li>{$permissionsSelectBox[$permNode]}</li>
-                    </ul>
                 {/foreach}
+                    <li n:if="!$admin['permissions']">Bez nastavených práv</li>
+                </ul>
             </div>
         </div>
     </div>
@@ -45,7 +46,7 @@
             <div class="float-left">
                 Přehled základních informací webového systému
             </div>
-            <div class="float-right">
+            <div class="float-right" n:if="$havePermission['settings']">
                 <a class="link-color" n:href="settings">Změnit</a>
             </div>
         </div>
@@ -85,28 +86,28 @@
                     <li>
                         <a n:href="Main:home" class="black-href">Přehled</a>
                     </li>
-                    <li>Články
+                    <li n:if="$havePermission['articles']">Články
                         <ul>
                             <li><a n:href="Article:create" class="black-href">Přidat článek</a></li>
                             <li>Odstranit článek (v seznamu článků)</li>
                             <li>Editovat článek (v seznamu článků)</li>
                         </ul>
                     </li>
-                    <li>Stránky
+                    <li n:if="$havePermission['pages']">Stránky
                         <ul>
                             <li><a n:href="Page:create" class="black-href">Přidat stránku</a></li>
                             <li>Odstranit stránku (v seznamu)</li>
                             <li>Editovat stránku (v seznamu)</li>
                         </ul>
                     </li>
-                    <li>Kategorie
+                    <li n:if="$havePermission['categories']">Kategorie
                         <ul>
                             <li><a n:href="Category:create" class="black-href">Přidat kategorii</a></li>
                             <li>Odstranit kategorii (v seznamu)</li>
                             <li>Editovat kategorii (v seznamu)</li>
                         </ul>
                     </li>
-                    <li>
+                    <li n:if="$isFullAdmin">
                         Uživatelé
                         <ul>
                             <li><a n:href="User:create" class="black-href">Přidat uživatele</a></li>
@@ -115,14 +116,15 @@
                             <li><a n:href="User:edit $admin['id']" class="black-href">Změnit informace o svém účtu</a></li>
                         </ul>
                     </li>
-                    <li>
+                    <li n:if="$havePermission['minecraft_chatlog'] || $havePermission['minecraft_games'] || $havePermission['minecraft_banlist']
+                    || $havePermission['minecraft_senior'] || $havePermission['minecraft_ipbanlist'] || $havePermission['minecraft_classic']">
                         Minecraft
                         <ul>
-                            <li><a n:href="Minecraft:chat" class="black-href">Log chatu</a></li>
-                            <li><a n:href="Minecraft:banList" class="black-href">Banlist</a></li>
-                            <li><a n:href="Minecraft:ipBanList" class="black-href">IP banlist</a></li>
-                            <hr>
-                            <li>
+                            <li><a n:href="Minecraft:chat" class="black-href" n:if="$havePermission['minecraft_chatlog']">Log chatu</a></li>
+                            <li><a n:href="Minecraft:banList" class="black-href" n:if="$havePermission['minecraft_banlist']">Banlist</a></li>
+                            <li><a n:href="Minecraft:ipBanList" class="black-href" n:if="$havePermission['minecraft_ipbanlist']">IP banlist</a></li>
+                            <hr n:if="$havePermission['minecraft_games']">
+                            <li n:if="$havePermission['minecraft_games']">
                                 Games
                                 <ul>
                                     <li><a n:href="MinecraftGames:eventList" class="black-href">Eventy</a></li>
@@ -130,15 +132,15 @@
                                     <li><a n:href="MinecraftGames:spleefStats" class="black-href">Spleef</a></li>
                                 </ul>
                             </li>
-                            <hr>
-                            <li>
+                            <hr n:if="$havePermission['minecraft_senior']">
+                            <li n:if="$havePermission['minecraft_senior']">
                                 Senior
                                 <ul>
                                     <li><a n:href="MinecraftSenior:economy" class="black-href">Ekonomika</a></li>
                                 </ul>
                             </li>
-                            <hr>
-                            <li>
+                            <hr n:if="$havePermission['minecraft_classic']">
+                            <li n:if="$havePermission['minecraft_classic']">
                                 Classic
                                 <ul>
                                     <li><a n:href="MinecraftClassic:economy" class="black-href">Ekonomika</a></li>
@@ -146,10 +148,10 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    <li n:if="$havePermission['upload']">
                         <a n:href="Main:upload" class="black-href">Upload obrázků</a>
                     </li>
-                    <li>
+                    <li n:if="$havePermission['settings']">
                         <a n:href="Main:settings" class="black-href">Nastavení</a>
                     </li>
                 </ul>

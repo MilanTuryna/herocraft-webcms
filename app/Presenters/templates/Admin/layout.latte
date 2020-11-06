@@ -25,8 +25,10 @@
         </button>
         <div class="dropdown-menu w-100 dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
             <h6 class="dropdown-header">{$admin['name']}</h6>
+            {if $isFullAdmin}
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" n:href="User:edit $admin['id']">Účet</a>
+            {/if}
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" n:href=":Front:Login:logout">Odhlásit se</a>
         </div>
@@ -53,15 +55,29 @@
             </div>
             <div class="list-group">
                 <a n:href="Main:home" n:class="$presenter->isLinkCurrent('Main:home') ? aktivni, 'list-group-item', 'list-group-item-action'">Přehled webu</a>
-                <a n:href="Minecraft:overview" n:class="$presenter->isLinkCurrent('Minecraft:*')
+                <a n:href="Minecraft:overview"
+                        n:if="$havePermission['minecraft_chatlog'] || $havePermission['minecraft_games'] || $havePermission['minecraft_banlist']
+                        || $havePermission['minecraft_senior'] || $havePermission['minecraft_ipbanlist'] || $havePermission['minecraft_classic']"
+                        n:class="$presenter->isLinkCurrent('Minecraft:*')
                 || $presenter->isLinkCurrent('MinecraftGames:*') || $presenter->isLinkCurrent('MinecraftSenior:*')
                 || $presenter->isLinkCurrent('MinecraftClassic:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Minecraft</a>
-                <a n:href="User:list" n:class="$presenter->isLinkCurrent('User:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Uživatelé</a>
-                <a n:href="Article:list" n:class="$presenter->isLinkCurrent('Article:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Články</a>
-                <a n:href="Category:list" n:class="$presenter->isLinkCurrent('Category:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Kategorie</a>
-                <a n:href="Page:list" n:class="$presenter->isLinkCurrent('Page:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Stránky</a>
-                <a n:href="Main:upload" n:class="$presenter->isLinkCurrent('Main:upload') ? aktivni, 'list-group-item', 'list-group-item-action'">Upload obrázků</a>
-                <a n:href="Main:settings" n:class="$presenter->isLinkCurrent('Main:settings') ? aktivni, 'list-group-item', 'list-group-item-action'">Nastavení webu</a>
+                <a n:href="User:list" n:if="$isFullAdmin"
+                        n:class="$presenter->isLinkCurrent('User:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Uživatelé</a>
+                <a n:href="Article:list"
+                        n:if="$havePermission['articles']"
+                        n:class="$presenter->isLinkCurrent('Article:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Články</a>
+                <a n:href="Category:list"
+                        n:if="$havePermission['categories']"
+                        n:class="$presenter->isLinkCurrent('Category:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Kategorie</a>
+                <a n:href="Page:list"
+                        n:if="$havePermission['pages']"
+                        n:class="$presenter->isLinkCurrent('Page:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Stránky</a>
+                <a n:href="Main:upload"
+                        n:if="$havePermission['upload']"
+                        n:class="$presenter->isLinkCurrent('Main:upload') ? aktivni, 'list-group-item', 'list-group-item-action'">Upload obrázků</a>
+                <a n:href="Main:settings"
+                        n:if="$havePermission['settings']"
+                        n:class="$presenter->isLinkCurrent('Main:settings') ? aktivni, 'list-group-item', 'list-group-item-action'">Nastavení webu</a>
             </div>
             <span class="float-right default-margin-top">
                 <a href="{$basePath}/files/administrace.docx" style="color:#000;">Nápověda k systému (WORD)</a>

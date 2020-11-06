@@ -49,7 +49,7 @@ class CreateForm
      */
     public function success(Form $form, \stdClass $values) {
         try {
-            $this->userManager->add($values->name, $values->email, $values->password, $values->permissions);
+            $this->userManager->add($values->name, $values->email, $values->password, Permissions::arrayToUnparsedList($values->permissions));
             $this->presenter->flashMessage('Uživatel byl úspěšně přidán', 'success');
             $this->presenter->redirect('User:list');
         } catch (DuplicateNameException $e) {

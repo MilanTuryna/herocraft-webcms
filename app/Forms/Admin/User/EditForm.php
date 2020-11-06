@@ -51,7 +51,8 @@ class EditForm
             }
         }
 
-        $form->addCheckboxList('permissions', "Práva", Permissions::getSelectBox())->setDefaultValue($defaultValues);
+        $form->addCheckboxList('permissions', "Práva", Permissions::getSelectBox())
+            ->setDefaultValue($defaultValues);
         $form->addSubmit('submit')->setRequired();
         $form->onSuccess[] = [$this, 'success'];
         $form->onError[] = function() use ($form) {
@@ -70,7 +71,7 @@ class EditForm
     public function success(Form $form, \stdClass $values) {
         try {
             if(empty($values->password)) $values->password = false;
-            $this->userManager->edit($this->userId, $values->name, $values->email, $values->password, $values->permissions);
+            $this->userManager->edit($this->userId, $values->name, $values->email, $values->password, Permissions::arrayToUnparsedList($values->permissions));
             $this->presenter->flashMessage('Uživatel byl úspěšně změněn','success');
             $this->presenter->redirect('User:list');
         } catch (DuplicateNameException $e) {
