@@ -63,7 +63,7 @@
                             <span class="badge badge-{$response->type === $responseTypes['player'] ? 'info' : 'danger'}">{$response->type}</span>
                             <p class="text-muted small">{$response->time|date:'j.n.Y H:i'}</p>
                         </div>
-                        <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
+                        <div class="col-sm-8 padding-sm-top-none" style="padding: 16px; word-break: break-word;">
                             {$response->content}
                         </div>
                     </div>
