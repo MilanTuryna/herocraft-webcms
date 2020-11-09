@@ -7,6 +7,7 @@
     <h1 class="display-4 font-30">Nový ticket</h1>
     <hr>
     <div class="bg-opacity-white padding-32">
+        <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
         <form n:name="addTicketForm">
             <div class="form-group">
                 <label>Název ticketu</label>
