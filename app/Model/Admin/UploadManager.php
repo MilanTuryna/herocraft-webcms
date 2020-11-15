@@ -10,6 +10,8 @@ use Nette\Utils\FileSystem;
 use Nette\Utils\Finder;
 
 /**
+ * A class for administration of uploaded files in "www/upload/" folder from administration.
+ *
  * Class UploadManager
  * @package App\Model\Admin
  */
