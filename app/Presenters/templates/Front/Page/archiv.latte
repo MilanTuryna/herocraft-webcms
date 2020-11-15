@@ -22,8 +22,8 @@
         {/if}
         <div class="row" id="clankyRow" style="margin-top:16px">
             {foreach $articles as $article}
-                <article>
                     <div class="col-md-4">
+                        <article>
                         <div class="card h-100 shadow" style="border-radius: 10px">
                             {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
                             <div class="card-header text-center text-white"
@@ -47,8 +47,8 @@
                                     <small class="text-muted float-right">{$article->created_at|date:'j.n.Y H:i'}</small></p>
                             </div>
                         </div>
+                        </article>
                     </div>
-                </article>
             {/foreach}
         </div>
         <div class="paginace" style="margin-bottom: 16px">
