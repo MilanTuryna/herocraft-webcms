@@ -9,10 +9,6 @@ database:
         dsn:
         user:
         password:
-    skinrestorer:
-        dsn:
-        user:
-        password:
     chatlog:
         dsn:
         user:
