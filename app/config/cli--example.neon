@@ -1,0 +1,5 @@
+database:
+    default:
+        dsn:
+        user:
+        password:
