@@ -73,9 +73,8 @@ class LuckPerms
         $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ?', $uuid)->fetchAll();
         $groups = [];
         foreach ($rows as $row) {
-            if(mb_substr($row->permission, 0, 6) == 'group.') {
+            if(mb_substr($row->permission, 0, 6) == 'group.')
                 $groups[$row->server] = mb_substr($row->permission, 6, strlen($row->permission));
-            }
         }
 
         return $groups;
