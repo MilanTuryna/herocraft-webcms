@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+/* CLI script for saving helpers playtime. (every week - cron)*/
+
 namespace App\Cli;
 
 use App\Bootstrap;
