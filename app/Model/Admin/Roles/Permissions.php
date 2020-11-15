@@ -18,6 +18,7 @@ class Permissions
     const ADMIN_CATEGORIES = "admin.categories";
     //const ADMIN_USERS = "admin.users"; // permission to manage users is same as ADMIN_FULL;
 
+    const ADMIN_MC_PLAYTIME = "admin.minecraft_playtime";
     const ADMIN_MC_CHATLOG = "admin.minecraft_chatlog";
     const ADMIN_MC_BANLIST = "admin.minecraft_banlist";
     const ADMIN_MC_IPBANLIST = "admin.minecraft_ipbanlist";
@@ -48,6 +49,7 @@ class Permissions
             self::ADMIN_CATEGORIES => "Správa kategorií",
             //self::ADMIN_USERS => "Správa uživatelů/administrátorů",
 
+            self::ADMIN_MC_PLAYTIME => "Minecraft > Odehraný čas",
             self::ADMIN_MC_CHATLOG => "Minecraft > Chatlog",
             self::ADMIN_MC_BANLIST => "Minecraft > Banlist",
             self::ADMIN_MC_IPBANLIST => "Minecraft > IP banlist",
