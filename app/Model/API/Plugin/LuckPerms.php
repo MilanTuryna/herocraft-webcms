@@ -36,7 +36,7 @@ class LuckPerms
     }
 
     /**
-     * Oveří zda je hráč helper (použije se při HelpDesk authenticatoru)
+     * Check if the player is a helper or has special privileges - helpdesk permission, default checking on server Hranice and global.
      * @param string $uuid
      * @param string $server
      * @return bool

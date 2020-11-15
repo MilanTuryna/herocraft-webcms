@@ -12,7 +12,7 @@ use Nette\Application\IResponse as AppResponse;
 /**
  * Class Json
  *
- * Alternative for JsonResponse.php in Nette SRC for pretty-print
+ * Alternative for JsonResponse.php in Nette SRC for adding pretty-print to generated JSON in PrettyJsonResponse::send
  */
 class PrettyJsonResponse implements AppResponse
 {
