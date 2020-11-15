@@ -21,7 +21,7 @@
 	</style>
 	<div class="header shadow-lg">
 		<div class="container" data-aos="fade-right"  data-aos-duration="1500">
-			<h2 class="font-weight-light text-white">
+			<h2 class="font-weight-light text-white" style="font-size: 1.6rem;">
 				{if !$nastaveni->udrzba && isset($status->online) && $status->online}
 						Na serveru {$sklonovani($status->players->online, ["je", "jsou", "je"])}
 					momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
