@@ -32,54 +32,60 @@
 				<img draggable="false" width="200" class="not-drag center-img" onmousedown="return false" src="https://test.turyna.eu/img/logo.png" alt="logo">
 			</a>
 		</h1>
-		<div class="list-group list-group-flush navbar-list" data-aos-delay="150" data-aos="fade-right" data-aos-duration="1000">
-			<a style="color: rgba(255,255,255,0.75)"
-					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:home') ? active : 'bg-transparent'"
-					n:href="Page:home">Úvod</a>
-			{foreach $stranky as $stranka}
+		<nav>
+			<div class="list-group list-group-flush navbar-list" data-aos-delay="150" data-aos="fade-right" data-aos-duration="1000">
 				<a style="color: rgba(255,255,255,0.75)"
-						n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:page', $stranka->url) ? active : 'bg-transparent'"
-						n:href="Page:page $stranka->url">
-					{$stranka->name}
-				</a>
-			{/foreach}
-			<a style="color: rgba(255,255,255,0.75)"
-					n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archiv') || $presenter->isLinkCurrent('Page:article') ? active : 'bg-transparent'"
-					n:href="Page:archiv">Archiv novinek</a>
-		</div>
-		<div class="list-group list-group-flush navbar-list" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000">
-			<a n:href=":Stats:Main:app" target="_blank" class="list-group-item list-group-item-action text-warning bg-transparent">Statistiky</a>
-			<a n:href=":Panel:Login:main" target="_blank" class="list-group-item list-group-item-action bg-transparent" style="color:#52B869">Hráčský panel</a>
-		</div>
+						n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:home') ? active : 'bg-transparent'"
+						n:href="Page:home">Úvod</a>
+				{foreach $stranky as $stranka}
+					<a style="color: rgba(255,255,255,0.75)"
+							n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:page', $stranka->url) ? active : 'bg-transparent'"
+							n:href="Page:page $stranka->url">
+						{$stranka->name}
+					</a>
+				{/foreach}
+				<a style="color: rgba(255,255,255,0.75)"
+						n:class="'list-group-item list-group-item-action', $presenter->isLinkCurrent('Page:archiv') || $presenter->isLinkCurrent('Page:article') ? active : 'bg-transparent'"
+						n:href="Page:archiv">Archiv novinek</a>
+			</div>
+			<div class="list-group list-group-flush navbar-list" data-aos-delay="350" data-aos="fade-right" data-aos-duration="1000">
+				<a n:href=":Stats:Main:app" target="_blank" class="list-group-item list-group-item-action text-warning bg-transparent">Statistiky</a>
+				<a n:href=":Panel:Login:main" target="_blank" class="list-group-item list-group-item-action bg-transparent" style="color:#52B869">Hráčský panel</a>
+			</div>
+		</nav>
 		<p class="small text-muted text-center"  data-aos-delay="350" data-aos="fade-up" data-aos-duration="1000" style="margin-top:8px">Developed by <a href="https://turyna.eu" target="_blank" class="text-info">Milan Turyna</a></p>
 	</div>
 	<div id="page-content-wrapper">
-		<nav class="navbar navbar-expand-lg navbar-dark border-bottom bg-dark">
+		<div class="navbar navbar-expand-lg navbar-dark border-bottom bg-dark">
 			<span class="navbar-toggler-icon float-left d-block" id="menu-toggle" style="cursor:pointer; font-size: 20px"> </span>
-		</nav>
+		</div>
 		<div class="container-fluid" style="margin-top:0">
 			<div class="row" style="padding-bottom: 64px; padding-top:16px">
 				<div class="col-lg-9">
-					{include content}
+					<main>
+						{include content}
+					</main>
 				</div>
 				<div class="col-lg-3">
-					{if !$nastaveni->udrzba && isset($status->online) && $status->online}
-						<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color: #4f7546" role="alert">
-							<b>Status:</b> Online (bez problémů)
-						</div>
-					{else}
-						<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color:#b35340" role="alert">
-							{if $nastaveni->udrzba}Status: údržba{/if}
-							{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
-							{if !isset($status->online)}Status se nepodařilo načíst :({/if}
-						</div>
-					{/if}
-					{$widget->code|noescape}
-					<div class="bg-dark shadow text-muted">
+					<aside>
+						{if !$nastaveni->udrzba && isset($status->online) && $status->online}
+							<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color: #4f7546" role="alert">
+								<b>Status:</b> Online (bez problémů)
+							</div>
+						{else}
+							<div class="alert shadow text-white" data-aos="fade-down" data-aos-duration="1000" data-aos-delay="400" style="background-color:#b35340" role="alert">
+								{if $nastaveni->udrzba}Status: údržba{/if}
+								{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+								{if !isset($status->online)}Status se nepodařilo načíst :({/if}
+							</div>
+						{/if}
+						{$widget->code|noescape}
+					</aside>
+					<footer class="bg-dark shadow text-muted">
 						<p class="small text-muted text-center" style="padding: 4px">
 							<a n:href=":Front:Login:main" class="text-light">Administrace</a> /
 							<a n:href=":HelpDesk:Login:main" class="text-light">Helpdesk</a></p>
-					</div>
+					</footer>
 				</div>
 			</div>
 		</div>

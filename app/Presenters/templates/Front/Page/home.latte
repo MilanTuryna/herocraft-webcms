@@ -19,48 +19,52 @@
 		}
 		{/if}
 	</style>
-	<div class="header shadow-lg">
-		<div class="container" data-aos="fade-right"  data-aos-duration="1500">
-			<h2 class="font-weight-light text-white" style="font-size: 1.6rem;">
-				{if !$nastaveni->udrzba && isset($status->online) && $status->online}
+	<header>
+		<div class="header shadow-lg">
+			<div class="container" data-aos="fade-right"  data-aos-duration="1500">
+				<h2 class="font-weight-light text-white" style="font-size: 1.6rem;">
+					{if !$nastaveni->udrzba && isset($status->online) && $status->online}
 						Na serveru {$sklonovani($status->players->online, ["je", "jsou", "je"])}
-					momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+						momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
 						Připoj se i ty na <strong>{$nastaveni->ip}</strong>
-				{else}
+					{else}
 						{if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
 						{if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
 						{if !isset($status->online)}Status se nepodařilo načíst!{/if}
-				{/if}
-			</h2>
+					{/if}
+				</h2>
+			</div>
 		</div>
-	</div>
+	</header>
 	<hr>
 	<div class="row" id="clankyRow" style="margin-top:16px" data-aos="fade-left" data-aos-duration="1500">
 		{foreach $articles as $article}
 			<div class="col-md-4">
-				<div class="card h-100 shadow" style="border-radius: 10px">
-					{var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
-					<div class="card-header text-center text-white"
-						 style="padding: 4px; background-color: {$categoryColor|noescape};">
-						{$article->category_name ? $article->category_name : "Nezařazeno"}
-					</div>
-					{ifset $articleRepository->getMiniature($article->id)[0]}
-						<img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="card-img-top img-fluid" alt="Miniatura"/>
-					{/ifset}
-					<div class="card-body pb-0 ">
-						<h4 class="card-title">{$article->name}</h4>
-						<small>
-							{$article->content|substr:0:395|noescape|}{if strlen($article->content) > 395}...{/if}
-						</small>
+				<article>
+					<div class="card h-100 shadow" style="border-radius: 10px">
+						{var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
+						<div class="card-header text-center text-white"
+							 style="padding: 4px; background-color: {$categoryColor|noescape};">
+							{$article->category_name ? $article->category_name : "Nezařazeno"}
+						</div>
+						{ifset $articleRepository->getMiniature($article->id)[0]}
+							<img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="card-img-top img-fluid" alt="Miniatura"/>
+						{/ifset}
+						<div class="card-body pb-0 ">
+							<h4 class="card-title">{$article->name}</h4>
+							<small>
+								{$article->content|substr:0:395|noescape|}{if strlen($article->content) > 395}...{/if}
+							</small>
 							<a n:href="article, $article->url">
 								<button type="button" class="btn btn-secondary btn-sm read-more w-100" style="margin-top:8px;">Zobrazit příspěvek</button>
 							</a>
+						</div>
+						<div class="card-footer">
+							<p class="card-text"><small class="text-muted float-left">{$article->author}</small>
+								<small class="text-muted float-right">{$article->created_at|date:'j.n.Y H:i'}</small></p>
+						</div>
 					</div>
-					<div class="card-footer">
-						<p class="card-text"><small class="text-muted float-left">{$article->author}</small>
-							<small class="text-muted float-right">{$article->created_at|date:'j.n.Y H:i'}</small></p>
-					</div>
-				</div>
+				</article>
 			</div>
 		{/foreach}
 	</div>
