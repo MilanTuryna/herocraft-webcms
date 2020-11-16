@@ -48,6 +48,7 @@ services:
 	- App\Model\Panel\MojangRepository
 	- App\Model\Panel\Core\TicketRepository
 	- App\Model\Panel\AuthMeRepository(@database.authme.context)
+	- App\Model\API\Plugin\PlayerTime(@database.playertime.context)
 	- App\Model\API\Plugin\ChatLog(@database.chatlog.context)
 	- App\Model\API\Plugin\Games\Events(@database.events.context)
 	- App\Model\API\Plugin\Games\SpleefX(@database.spleefx.context)
