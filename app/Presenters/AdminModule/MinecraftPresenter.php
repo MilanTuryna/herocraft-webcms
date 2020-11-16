@@ -12,6 +12,7 @@ use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
 use App\Model\API\Plugin\LuckPerms;
 use App\Model\API\Plugin\OnlinePlayers;
+use App\Model\API\Plugin\PlayerTime;
 use App\Model\Security\Auth\Authenticator;
 
 use App\Presenters\AdminBasePresenter;
@@ -30,6 +31,7 @@ class MinecraftPresenter extends AdminBasePresenter
     private Bans $bans;
     private LuckPerms $luckPerms;
     private OnlinePlayers $onlinePlayers;
+    private PlayerTime $playerTime;
 
     /**
      * MinecraftPresenter constructor.
@@ -38,8 +40,14 @@ class MinecraftPresenter extends AdminBasePresenter
      * @param Bans $bans
      * @param LuckPerms $luckPerms
      * @param OnlinePlayers $onlinePlayers
+     * @param PlayerTime $playerTime
      */
-    public function __construct(Authenticator $authenticator, ChatLog $chatLog, Bans $bans, LuckPerms $luckPerms, OnlinePlayers $onlinePlayers)
+    public function __construct(Authenticator $authenticator,
+                                ChatLog $chatLog,
+                                Bans $bans,
+                                LuckPerms $luckPerms,
+                                OnlinePlayers $onlinePlayers,
+                                PlayerTime $playerTime)
     {
         parent::__construct($authenticator);
 
@@ -47,6 +55,7 @@ class MinecraftPresenter extends AdminBasePresenter
         $this->bans = $bans;
         $this->luckPerms = $luckPerms;
         $this->onlinePlayers = $onlinePlayers;
+        $this->playerTime = $playerTime;
     }
 
     /**
@@ -218,6 +227,40 @@ class MinecraftPresenter extends AdminBasePresenter
             if($lastPage === 0) $this->template->page = 0;
         } else {
             $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_IPBANLIST) , 'danger');
+            $this->redirect("Main:home");
+        }
+    }
+
+    /**
+     * @throws AbortException
+     */
+    public function renderHelpers() {
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS)) {
+            $helpers = $this->luckPerms->getHelpers();
+            $this->template->helpers = $helpers;
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_HELPERS), 'danger');
+            $this->redirect("Main:home");
+        }
+    }
+
+    /**
+     * @param $helper
+     * @throws AbortException
+     */
+    public function renderHelperView($helper) {
+        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS)) {
+            $luckPerm = $this->luckPerms->getPlayerRow($helper);
+            if($luckPerm) {
+                $playerTime = $this->playerTime->getWeekPlayer($helper)->fetchAll();
+                $this->template->luckPerm = $luckPerm;
+                $this->template->playerTime = $playerTime;
+            } else {
+                $this->flashMessage("Tohoto helpera nemůžete rozklepnout, jelikož neexistuje", 'danger');
+                $this->redirect("Minecraft:overview");
+            }
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_HELPERS), 'danger');
             $this->redirect("Main:home");
         }
     }
