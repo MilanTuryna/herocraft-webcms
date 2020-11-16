@@ -5,6 +5,7 @@ namespace App\Model\API\Plugin;
 
 
 use Nette\Database\Context;
+use Nette\Database\Table\Selection;
 
 /**
  * Class PlayerTime
@@ -15,6 +16,7 @@ class PlayerTime
     private Context $context;
 
     const TABLE_NAME = "playtime";
+    const PLAYER_WEEK = "playtime_week";
 
     /**
      * PlayerTime constructor.
@@ -28,5 +30,17 @@ class PlayerTime
 
     public function getRowByName($name) {
         return $this->context->table(self::TABLE_NAME)->where("username = ?", $name);
+    }
+
+    public function getWeekPlayer($username) {
+        return $this->context->table(self::PLAYER_WEEK)->where("username = ?", $username);
+    }
+
+    /**
+     * @return Context
+     */
+    public function getContext(): Context
+    {
+        return $this->context;
     }
 }
