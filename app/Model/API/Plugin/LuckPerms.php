@@ -6,6 +6,7 @@ namespace App\Model\API\Plugin;
 
 use Nette\Database\Context;
 use Nette\Database\IRow;
+use Nette\Database\ResultSet;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -61,8 +62,31 @@ class LuckPerms
         return $this->context->table(self::REGISTER_TABLE)->where("username = ?", strtolower($nick))->fetch();
     }
 
+
+    /**
+     * @param $uuid
+     * @return IRow|ActiveRow|null
+     */
     public function getNickByUuid($uuid) {
         return $this->context->table(self::REGISTER_TABLE)->where("uuid = ?", $uuid)->fetch();
+    }
+
+    /**
+     * @param $username
+     * @return IRow
+     */
+    public function getPlayerRow($username) {
+        return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE username=?", $username)
+                ->fetch();
+    }
+
+    /**
+     * @return array|IRow[]
+     */
+    public function getHelpers() {
+        return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE permission = ? OR permission = ? OR permission = ? OR permission = ?",
+            self::GROUPS['helper'], self::GROUPS['owner'], self::GROUPS['admin'], self::GROUPS['helpdesk'])->fetchAll();
+
     }
 
     /**
