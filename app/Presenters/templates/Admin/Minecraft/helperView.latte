@@ -1,0 +1,40 @@
+{layout '../layout.latte'}
+{block title}
+    Helpeři
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Minecraft:helpers">Minecraft - Helpeři</a></li>
+            <li class="breadcrumb-item active" aria-current="page">helper</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot" style="">
+        <div class="card-body">
+            <h5 class="card-title">
+                Přehled o {$luckPerm->username}
+            </h5>
+            <div class="card-text">
+                <b>Nick:</b> {$luckPerm->username}<br>
+                <b>Jeho právo:</b> {$luckPerm->permission} <small class="text-muted">server: {$luckPerm->server}</small><br>
+                <hr>
+                <small class="text-muted">Práv může mít více, avšak podle tohoto jsme hráče identifikovali jako helpera - oprávněnou osobu.</small>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot" style="">
+        <div class="card-body">
+            <h5 class="card-title">
+                Odehraný čas
+            </h5>
+            <div class="card-text">
+                <ul n:if="$playerTime" n:foreach="$playerTime as $record">
+                    <li>{$record->timestamp|date:'j.n.Y H:i'} - {mktime(0,$record->playtime)|date:"H"}h</li>
+                </ul>
+                <span n:if="!$playerTime">Žádný záznam z týdenního hraní nebyl nalezen - příčin může být více (chyba v cronu, nový helper - admin)</span>
+            </div>
+        </div>
+    </div>
+{/block}

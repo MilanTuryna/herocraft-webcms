@@ -1,0 +1,26 @@
+{layout '../layout.latte'}
+{block title}
+    Helpeři
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Minecraft - Helpeři</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+
+    <div class="card classic-shadow default-margin-bot" style="">
+        <div class="card-body">
+            <h5 class="card-title">
+                Seznam helperů
+            </h5>
+            <div class="card-text">
+                <ul n:foreach="$helpers as $helper">
+                    <li><a n:href="Minecraft:helperView $helper->username">{$helper->username}</a> <small class="text-muted">(server: <b>{$helper->server}</b>)</small></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{/block}
