@@ -29,6 +29,8 @@ final class RouterFactory
 
             ->addRoute('/admin/minecraft', 'Minecraft:overview')
             ->addRoute('/admin/minecraft/online-hraci', 'Minecraft:onlinePlayers')
+            ->addRoute('/admin/minecraft/helpers', 'Minecraft:helpers')
+            ->addRoute('/admin/minecraft/helpers/<helper>', 'Minecraft:helperView')
 
             ->addRoute('/admin/minecraft/chat/filter/?timeStart=<timeStart>&timeEnd=<timeEnd>&players[]=<players=null>',  'Minecraft:filterChat')
             ->addRoute('/admin/minecraft/chat[/<page>]', 'Minecraft:chat')
