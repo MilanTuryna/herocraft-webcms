@@ -37,11 +37,10 @@
 		</div>
 	</header>
 	<hr>
-	<div class="row" id="clankyRow" style="margin-top:16px" data-aos="fade-left" data-aos-duration="1500">
+	<a n:href="archiv" class="btn btn-secondary w-100 btn-sm" data-aos="fade-down" data-aos-duration="1500" style="margin-bottom: 8px">ARCHIV</a>
+	<div class="card-columns shadow-none" id="clankyRow" data-aos="fade-left" data-aos-duration="1500">
 		{foreach $articles as $article}
-			<div class="col-md-4">
-				<article>
-					<div class="card h-100 shadow" style="border-radius: 10px">
+					<div class="card h-100 shadow-sm" style="border-radius: 10px">
 						{var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
 						<div class="card-header text-center text-white"
 							 style="padding: 4px; background-color: {$categoryColor|noescape};">
@@ -50,23 +49,35 @@
 						{ifset $articleRepository->getMiniature($article->id)[0]}
 							<img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="card-img-top img-fluid" alt="Miniatura"/>
 						{/ifset}
-						<div class="card-body pb-0 ">
+						<div class="card-body">
 							<h4 class="card-title">{$article->name}</h4>
-							<small>
-								{$article->content|substr:0:395|noescape|}{if strlen($article->content) > 395}...{/if}
+							<small n:class="strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
+								{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
 							</small>
+							<style>
+								.readmore p {
+									position: relative;
+								}
+
+								.readmore p:after {
+									content: "";
+									display: block;
+									height: 25px;
+									width: 100%;
+									position: absolute;
+									bottom: 0;
+									background: rgba(240,248,255,0) linear-gradient(to top,#fff,rgba(255,255,255,0)) repeat scroll 0 0;
+								}
+
+							</style>
 							<a n:href="article, $article->url">
 								<button type="button" class="btn btn-secondary btn-sm read-more w-100" style="margin-top:8px;">Zobrazit příspěvek</button>
 							</a>
 						</div>
-						<div class="card-footer">
-							<p class="card-text"><small class="text-muted float-left">{$article->author}</small>
-								<small class="text-muted float-right">{$article->created_at|date:'j.n.Y H:i'}</small></p>
+						<div class="card-footer" style="padding: 8px">
+							<p class="card-text text-right"><small class="text-muted">{$article->author} - {$article->created_at|date:'j.n.Y H:i'}</small></p>
 						</div>
 					</div>
-				</article>
-			</div>
 		{/foreach}
 	</div>
-	<a n:href="archiv" class="btn btn-secondary w-100 btn-sm" style="margin-bottom: 16px;">STARŠÍ</a>
 {/block}
