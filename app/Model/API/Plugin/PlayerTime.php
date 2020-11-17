@@ -5,7 +5,6 @@ namespace App\Model\API\Plugin;
 
 
 use Nette\Database\Context;
-use Nette\Database\Table\Selection;
 
 /**
  * Class PlayerTime
@@ -33,7 +32,7 @@ class PlayerTime
     }
 
     public function getWeekPlayer($username) {
-        return $this->context->table(self::PLAYER_WEEK)->where("username = ?", $username);
+        return $this->context->table(self::PLAYER_WEEK)->where("username = ?", $username)->order("timestamp DESC");
     }
 
     /**
