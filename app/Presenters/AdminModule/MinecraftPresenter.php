@@ -252,9 +252,11 @@ class MinecraftPresenter extends AdminBasePresenter
         if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS)) {
             $luckPerm = $this->luckPerms->getPlayerRow($helper);
             if($luckPerm) {
-                $playerTime = $this->playerTime->getWeekPlayer($helper)->fetchAll();
+                $playerTimeWeek = $this->playerTime->getWeekPlayer($helper)->fetchAll();
+                $playerTime = $this->playerTime->getRowByName($helper)->fetch();
                 $this->template->luckPerm = $luckPerm;
                 $this->template->playerTime = $playerTime;
+                $this->template->playerTimeWeek = $playerTimeWeek;
             } else {
                 $this->flashMessage("Tohoto helpera nemůžete rozklepnout, jelikož neexistuje", 'danger');
                 $this->redirect("Minecraft:overview");
