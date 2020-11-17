@@ -6,6 +6,7 @@ namespace App\Presenters\FrontModule;
 
 use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
+use App\Model\Utils;
 use App\Presenters\BasePresenter;
 
 use App\Model\ArticleRepository;
@@ -80,8 +81,8 @@ final class PagePresenter extends BasePresenter
         $articles = $this->articleRepository->findArticlesWithCategory(6)->fetchAll();
         $articlesArr = [];
 
+        $this->template->substrWithoutHTML = fn($code, $limit) => Utils::substrWithoutHTML($code, $limit);
         foreach ($articles as $article) array_push($articlesArr, $article);
-
         $this->template->articles = $articlesArr;
     }
 
