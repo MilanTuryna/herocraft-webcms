@@ -2,12 +2,15 @@
 {block title}
     Helpeři
 {/block}
+{block headAdd}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha256-t9UJPrESBeG2ojKTIcFLPGF7nHi2vEc7f5A2KpH/UBU=" crossorigin="anonymous"></script>
+{/block}
 {block content}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active"><a class="black-href" n:href="Minecraft:helpers">Minecraft - Helpeři</a></li>
-            <li class="breadcrumb-item active" aria-current="page">helper</li>
+            <li class="breadcrumb-item active" aria-current="page">{$luckPerm->username}</li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
@@ -18,22 +21,78 @@
             </h5>
             <div class="card-text">
                 <b>Nick:</b> {$luckPerm->username}<br>
-                <b>Jeho právo:</b> {$luckPerm->permission} <small class="text-muted">server: {$luckPerm->server}</small><br>
-                <hr>
-                <small class="text-muted">Práv může mít více, avšak podle tohoto jsme hráče identifikovali jako helpera - oprávněnou osobu.</small>
+                <b>Aktuální odehraný čas:</b> {round($playerTime->playtime/60,1)}h
             </div>
         </div>
     </div>
     <div class="card classic-shadow default-margin-bot" style="">
         <div class="card-body">
             <h5 class="card-title">
-                Odehraný čas
+                Křivka odehraného času
             </h5>
             <div class="card-text">
-                <ul n:if="$playerTime" n:foreach="$playerTime as $record">
-                    <li>{$record->timestamp|date:'j.n.Y H:i'} - {mktime(0,$record->playtime)|date:"H"}h</li>
-                </ul>
-                <span n:if="!$playerTime">Žádný záznam z týdenního hraní nebyl nalezen - příčin může být více (chyba v cronu, nový helper - admin)</span>
+                <div n:if="$playerTimeWeek">
+                    {var $lastTime = $playerTime->playtime}
+                    {var $recordedHours = 0}
+                    <ul n:foreach="$playerTimeWeek as $record">
+                        {var $sevendays = strtotime('-7 days', strtotime($record->timestamp))}
+                        {var $resultHours = round(($lastTime - $record->playtime)/60,1)}
+                        <li>
+                            <b>{$sevendays|date:'j.n.Y'} - {$record->timestamp|date:'j.n.Y'} </b>... {$resultHours}h
+                        </li>
+                        {var $lastTime = $record->playtime}
+                        {var $recordedHours = $recordedHours + $resultHours}
+                        {if $iterator->isLast()}
+                            <li class="text-muted">
+                                ??? - {$sevendays|date:'j.n.Y'} ... {$recordedHours}
+                            </li>
+                        {/if}
+                    </ul>
+                    <hr>
+                    <div style="margin-top:16px;">
+                        <canvas id="myChart"></canvas>
+                        <script>
+                            var ctx = document.getElementById('myChart').getContext('2d');
+                            var myChart = new Chart(ctx, {
+                                type: 'line',
+                                data: {
+                                    labels: ['??? - 25.9.2020','25.9.2020 - 2.10.2020', '2.10.2020 - 9.10.2020', '10.11.2020 - 17.11.2020'],
+                                    datasets: [{
+                                        label: 'Odehraný čas',
+                                        data: [84,34, 40, 9.8],
+                                        backgroundColor: [
+                                            'rgba(255, 99, 132, 0.2)',
+                                            'rgba(54, 162, 235, 0.2)',
+                                            'rgba(255, 206, 86, 0.2)',
+                                            'rgba(75, 192, 192, 0.2)',
+                                            'rgba(153, 102, 255, 0.2)',
+                                            'rgba(255, 159, 64, 0.2)'
+                                        ],
+                                        borderColor: [
+                                            'rgba(255, 99, 132, 1)',
+                                            'rgba(54, 162, 235, 1)',
+                                            'rgba(255, 206, 86, 1)',
+                                            'rgba(75, 192, 192, 1)',
+                                            'rgba(153, 102, 255, 1)',
+                                            'rgba(255, 159, 64, 1)'
+                                        ],
+                                        borderWidth: 1
+                                    }]
+                                },
+                                options: {
+                                    scales: {
+                                        yAxes: [{
+                                            ticks: {
+                                                beginAtZero: true
+                                            }
+                                        }]
+                                    }
+                                }
+                            });
+                        </script>
+                    </div>
+                </div>
+                <span n:if="!$playerTimeWeek">Žádný záznam z týdenního hraní nebyl nalezen - příčin může být více (chyba v cronu, nový helper - admin)</span>
             </div>
         </div>
     </div>
