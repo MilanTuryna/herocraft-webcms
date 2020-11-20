@@ -13,37 +13,50 @@ use Nette\Utils\JsonException;
  */
 class CzechCraft
 {
-    const SERVER_SLUG = 'hero-craft';
     const API = 'https://czech-craft.eu/api/server/';
 
     /**
-     * @param $request
-     * @return bool|mixed
+     * @var string $slug
      */
-    private static function getJSON($request = '') {
+    private string $slug;
+
+    /**
+     * CzechCraft constructor.
+     * @param string $slug
+     * czechcraft.server_slug (used to generate API path) from configuration - Dependency Injection
+     */
+    public function __construct(string $slug)
+    {
+        $this->slug = $slug;
+    }
+
+    private function getJSON($request = '') {
         try {
-            return Json::decode(@file_get_contents(CzechCraft::API . CzechCraft::SERVER_SLUG . "/" . $request));
+            return Json::decode(@file_get_contents(CzechCraft::API . $this->slug . "/" . $request));
         } catch (JsonException $e) {
             return false;
         }
-    }
-
-    public static function getServer() {
-        return self::getJSON();
     }
 
     /**
      * @param string $nick
      * @return bool|mixed
      */
-    public static function getPlayerInformation(string $nick) {
-        return self::getJSON('player/' . $nick);
+    public function getPlayerInformation(string $nick) {
+        return $this->getJSON('player/' . $nick);
     }
 
     /**
      * @return bool|mixed
      */
-    public static function getTopPlayers() {
-        return self::getJSON('voters');
+    public function getTopPlayers() {
+        return $this->getJSON('voters');
+    }
+
+    /**
+     * @return bool|mixed
+     */
+    public function getServer() {
+        return $this->getJSON();
     }
 }
