@@ -1,4 +1,6 @@
 parameters:
+    czechcraft:
+        server_slug: ""
 
 database:
     default:
