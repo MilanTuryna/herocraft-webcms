@@ -304,4 +304,3 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - more features in player's panel
 - better documentation
 - game permissions (luckperms) overview in administration
-- add czechcraft server slug to configuration (delete `App\Model\API\CzechCraft::SERVER_SLUG` constant)
