@@ -75,9 +75,9 @@ class LuckPerms
      * @param $username
      * @return IRow
      */
-    public function getPlayerRow($username) {
+    public function getPlayerRows($username) {
         return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE username=?", $username)
-                ->fetch();
+                ->fetchAll();
     }
 
     /**
