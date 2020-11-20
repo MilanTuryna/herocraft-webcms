@@ -10,18 +10,32 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
             <li class="breadcrumb-item active"><a class="black-href" n:href="Minecraft:helpers">Minecraft - Helpeři</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{$luckPerm->username}</li>
+            <li class="breadcrumb-item active" aria-current="page">{$playerTime->username}</li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
     <div class="card classic-shadow default-margin-bot" style="">
         <div class="card-body">
             <h5 class="card-title">
-                Přehled o {$luckPerm->username}
+                Přehled o {$playerTime->username}
             </h5>
             <div class="card-text">
-                <b>Nick:</b> {$luckPerm->username}<br>
-                <b>Aktuální odehraný čas:</b> {round($playerTime->playtime/60,1)}h
+                <b>Nick:</b> {$playerTime->username}<br>
+                <b>Statistiky hráče:</b> <a n:href=":Stats:Main:app?player={$playerTime->username}" target="_blank"></a><br>
+                <b>Aktuální odehraný čas:</b> {round($playerTime->playtime/60,1)}
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot" style="">
+        <div class="card-body">
+            <h5 class="card-title">
+                Práva (permisse)
+            </h5>
+            <div class="card-text">
+                <ul n:if="$luckPerm">
+                    <li n:foreach="$luckPerm as $lpr">{$lpr->permission} <small class="text-muted">server: <b>{$lpr->server}</b></small></li>
+                </ul>
+                <span n:if="!$luckPerm">Nebyly nalezeny žádné práva</span>
             </div>
         </div>
     </div>
