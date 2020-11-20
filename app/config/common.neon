@@ -44,7 +44,7 @@ services:
 	- App\Model\SettingsRepository
 	- App\Model\Stats\CachedAPIRepository
 	- App\Model\Panel\MojangRepository
-	- App\Model\Panel\Core\TicketRepository
+	- App\Model\Panel\Core\TicketRepository(@database.default.context, %tickets.subjects%)
 	- App\Model\Panel\AuthMeRepository(@database.authme.context)
 	- App\Model\Security\Auth\Authenticator
 	- App\Model\Security\Auth\PluginAuthenticator
