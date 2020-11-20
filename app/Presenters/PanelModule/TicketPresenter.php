@@ -17,6 +17,8 @@ use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
+use Nette\Utils\Json;
+use Nette\Utils\JsonException;
 use Tracy\Debugger;
 
 /**
@@ -76,6 +78,14 @@ class TicketPresenter extends PanelBasePresenter
 
         if($lastPage === 0) {
             $this->template->page = 0;
+        }
+    }
+
+    public function renderAdd() {
+        try {
+            $this->template->placeholderMessagesArray = Json::encode($this->ticketRepository->getSubjects());
+        } catch (JsonException $e) {
+            $this->template->placeholderMessagesArray = "{}";
         }
     }
 
