@@ -22,42 +22,19 @@ class TicketRepository
         'player' => 'Hráč'
     ];
 
-    const SUBJECTS = [
-        "Porušení pravidel" => [
-            "Nahlášení hackera" => "Nahlášení hackera",
-            "Nevhodná komunikace" => "Nevhodná komunikace",
-            "Reklama" => "Reklama" ,
-            "Spam" => "Spam",
-        ], "Žádosti" => [
-            "Žádost u unban" => "Žádost u unban",
-            "Žádost o A-T pozici" => "Žádost o A-T pozici",
-            "Žádost o jiné.." => "Žádost o jiné..",
-        ], "Spolupráce" => [
-            "Nabídka partnerství" => "Nabídka partnerství",
-            "Chci být YouTuber" => "Chci být YouTuber"
-        ], "Nápady" => [
-            "Návrhy na web" =>  "Návrhy na web",
-            "Návrh k minecraftu" => "Návrh k minecraftu"
-        ], "Ostatní" => [
-            "Nahlášení hráče na discordu" => "Nahlášení hráče na discordu",
-            "Nahlášení chyby na webu" =>  "Nahlášení chyby na webu",
-            "Nahlášení chyby ve hře" => "Nahlášení chyby ve hře",
-            "Jiné" => "Jiné"
-        ]
-    ];
-
-
     private Context $context;
+    private array $subjects;
 
     /**
      * TicketRepository constructor.
      * @param Context $context
-     *
      * database.default
+     * @param array $subjects
      */
-    public function __construct(Context $context)
+    public function __construct(Context $context, array $subjects)
     {
         $this->context = $context;
+        $this->subjects = $subjects;
     }
 
     /**
@@ -65,6 +42,15 @@ class TicketRepository
      */
     public function getAllTickets() {
         return $this->context->table(self::TABLE)->order('time DESC');
+    }
+
+    /**
+     * Method for getting ticket subjects in associative array format (for Nette Forms), exam. ["Jiné" => "Jiné"]
+     *
+     * @return array
+     */
+    public function getSelectBox() {
+        return array_map(fn (array $subject) => array_combine(array_keys($subject), array_keys($subject)), $this->subjects);
     }
 
     /**
@@ -83,10 +69,18 @@ class TicketRepository
         return $this->context->table(self::TABLE)->where('author = ?', $author);
     }
 
+    /**
+     * @param $id
+     * @return \Nette\Database\IRow|ActiveRow|null
+     */
     public function getTicketById($id) {
         return $this->context->table(self::TABLE)->wherePrimary($id)->fetch();
     }
 
+    /**
+     * @param $id
+     * @return \Nette\Database\IRow|ActiveRow|null
+     */
     public function getResponseById($id)  {
         return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($id)->fetch();
     }
@@ -163,6 +157,11 @@ class TicketRepository
         return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->delete();
     }
 
+    /**
+     * @param $responseId
+     * @param $message
+     * @return int
+     */
     public function editResponse($responseId, $message) {
         return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->update([
            'content' => $message
@@ -174,5 +173,9 @@ class TicketRepository
      */
     public function getDatabaseContext() {
         return $this->context; // database.default -> config
+    }
+
+    public function getSubjects(): array {
+        return $this->subjects;
     }
 }

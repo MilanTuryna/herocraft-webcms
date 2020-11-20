@@ -31,6 +31,7 @@ class CachedAPIRepository
     private SpleefX $spleefX;
     private SeniorEconomy $seniorEconomy;
     private ClassicEconomy $classicEconomy;
+    private CzechCraft $czechCraft;
 
     /**
      * CachedAPIRepository constructor.
@@ -43,9 +44,16 @@ class CachedAPIRepository
      * @param SpleefX $spleefX
      * @param SeniorEconomy $seniorEconomy
      * @param ClassicEconomy $classicEconomy
+     * @param CzechCraft $czechCraft
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
-                                Bans $bans, HideAndSeek $hideAndSeek, Events $events, LuckPerms $luckPerms, SpleefX $spleefX, SeniorEconomy $seniorEconomy, ClassicEconomy $classicEconomy)
+                                Bans $bans,
+                                HideAndSeek $hideAndSeek,
+                                Events $events,
+                                LuckPerms $luckPerms,
+                                SpleefX $spleefX,
+                                SeniorEconomy $seniorEconomy,
+                                ClassicEconomy $classicEconomy, CzechCraft $czechCraft)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -56,6 +64,7 @@ class CachedAPIRepository
         $this->spleefX = $spleefX;
         $this->seniorEconomy = $seniorEconomy;
         $this->classicEconomy = $classicEconomy;
+        $this->czechCraft = $czechCraft;
     }
 
     /**
@@ -96,7 +105,7 @@ class CachedAPIRepository
     public function getCzechCraftServer() {
         $cacheName = 'API_czechCraftServer';
         if(is_null($this->cache->load($cacheName))) {
-            $this->cache->save($cacheName, CzechCraft::getServer(), [
+            $this->cache->save($cacheName, $this->czechCraft->getServer(), [
                 Cache::EXPIRE => '1 hour'
             ]);
         }
@@ -110,7 +119,7 @@ class CachedAPIRepository
     public function getTopVoters() {
         $cacheName = 'API_czechCraftTopVoters';
         if(is_null($this->cache->load($cacheName))) {
-            $this->cache->save($cacheName, CzechCraft::getTopPlayers(), [
+            $this->cache->save($cacheName, $this->czechCraft->getTopPlayers(), [
                Cache::EXPIRE => '24 hour'
             ]);
         }
@@ -121,7 +130,7 @@ class CachedAPIRepository
     public function getCzechCraftPlayer($player) {
         $cacheName = 'API_czechCraft_' . $player;
         if(is_null($this->cache->load($cacheName))) {
-            $this->cache->save($cacheName, CzechCraft::getPlayerInformation($player), [
+            $this->cache->save($cacheName, $this->czechCraft->getPlayerInformation($player), [
                 Cache::EXPIRE => '24 hour'
             ]);
         }

@@ -1,4 +1,8 @@
 parameters:
+    tickets:
+        subjects:
+    czechcraft:
+        server_slug: ""
 
 database:
     default:
