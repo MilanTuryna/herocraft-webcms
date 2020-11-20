@@ -250,7 +250,7 @@ class MinecraftPresenter extends AdminBasePresenter
      */
     public function renderHelperView($helper) {
         if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS)) {
-            $luckPerm = $this->luckPerms->getPlayerRow($helper);
+            $luckPerm = $this->luckPerms->getPlayerRows($helper);
             if($luckPerm) {
                 $playerTimeWeek = $this->playerTime->getWeekPlayer($helper)->fetchAll();
                 $playerTime = $this->playerTime->getRowByName($helper)->fetch();
