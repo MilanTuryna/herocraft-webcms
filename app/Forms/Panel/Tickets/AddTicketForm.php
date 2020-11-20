@@ -38,7 +38,7 @@ class AddTicketForm
             ->addRule($form::MIN_LENGTH, "Název musí obsahovat aspoň 10 znaků", 10)
             ->addRule($form::MAX_LENGTH, 'Název nemůže být delší než 70 znaků', 70)
             ->setRequired();
-        $form->addSelect('subject', 'Předmět ticketu', TicketRepository::SUBJECTS)
+        $form->addSelect('subject', 'Předmět ticketu', $this->ticketRepository->getSelectBox())
             ->setPrompt("Vyber předmět")
             ->setRequired();
         $form->addTextArea('content', 'Obsah ticketu (první odpověď)')
