@@ -3,6 +3,21 @@
     Tvoje tickety
 {/block}
 {block first_col}
+    <script>
+        const placeholderMessages = JSON.parse(`{$placeholderMessagesArray|noescape}`);
+        let defaultPlaceholder = "Např: Ahoj, žádám o ...";
+        // Method for changing placeholder of textarea element by selected input.
+        function onSubjectChange(e) {
+            let value = e.value;
+            let optionElement = document.querySelector('option[value="' + value + '"]');
+            let label = optionElement.parentElement.getAttribute("label");
+            let arrayGroup = placeholderMessages[label];
+            [...document.getElementsByClassName("js--subject-placeholder")].forEach(el => arrayGroup
+                ? el.placeholder = arrayGroup[value] || defaultPlaceholder
+                : el.placeholder = placeholderMessages[value] || defaultPlaceholder);
+        }
+    </script>
+
     <a n:href="Ticket:list" class="small text-muted font-weight-bold">ZPĚT NA SEZNAM TICKETŮ</a>
     <h1 class="display-4 font-30">Nový ticket</h1>
     <hr>
@@ -16,12 +31,12 @@
             </div>
             <div class="form-group">
                 <label n:name="subject">Předmět</label>
-                <select class="form-control green-focus" n:name="subject">
+                <select class="form-control green-focus" onchange="onSubjectChange(this)" n:name="subject">
                 </select>
             </div>
             <div class="form-group">
                 <label for="exampleInputPassword1">Obsah ticketu</label>
-                <textarea class="form-control green-focus" n:name="content" placeholder="Např: Ahoj, žádám o ..."></textarea>
+                <textarea class="form-control js--subject-placeholder green-focus" n:name="content" placeholder="Např: Ahoj, žádám o ..."></textarea>
                 <small id="emailHelp" class="form-text text-muted">Piš prosím obsah s hlavou a patou a zkus se vyjadřovat stručně a dodržuj zásady slušného chování.</small>
             </div>
             <div class="form-group">
