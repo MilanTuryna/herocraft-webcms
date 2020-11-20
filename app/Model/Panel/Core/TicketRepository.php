@@ -50,7 +50,7 @@ class TicketRepository
      * @return array
      */
     public function getSelectBox() {
-        return array_map(fn ($subject) => array_combine(array_keys($subject), array_keys($subject)), $this->subjects);
+        return array_map(fn (array $subject) => array_combine(array_keys($subject), array_keys($subject)), $this->subjects);
     }
 
     /**
