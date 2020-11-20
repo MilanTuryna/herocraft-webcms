@@ -69,10 +69,18 @@ class TicketRepository
         return $this->context->table(self::TABLE)->where('author = ?', $author);
     }
 
+    /**
+     * @param $id
+     * @return \Nette\Database\IRow|ActiveRow|null
+     */
     public function getTicketById($id) {
         return $this->context->table(self::TABLE)->wherePrimary($id)->fetch();
     }
 
+    /**
+     * @param $id
+     * @return \Nette\Database\IRow|ActiveRow|null
+     */
     public function getResponseById($id)  {
         return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($id)->fetch();
     }
@@ -149,6 +157,11 @@ class TicketRepository
         return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->delete();
     }
 
+    /**
+     * @param $responseId
+     * @param $message
+     * @return int
+     */
     public function editResponse($responseId, $message) {
         return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->update([
            'content' => $message
@@ -160,5 +173,9 @@ class TicketRepository
      */
     public function getDatabaseContext() {
         return $this->context; // database.default -> config
+    }
+
+    public function getSubjects(): array {
+        return $this->subjects;
     }
 }
