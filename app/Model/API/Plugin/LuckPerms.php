@@ -6,7 +6,6 @@ namespace App\Model\API\Plugin;
 
 use Nette\Database\Context;
 use Nette\Database\IRow;
-use Nette\Database\ResultSet;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -49,8 +48,7 @@ class LuckPerms
             if($row->permission == self::GROUPS['helper']
                 || $row->permission == self::GROUPS['owner']
                 || $row->permission == self::GROUPS['admin']
-                || $row->permission == self::GROUPS['helpdesk']
-                || $row->permission == self::GROUPS['implement-web'])
+                || $row->permission == self::GROUPS['helpdesk'])
                 return true;
         }
         return false;
