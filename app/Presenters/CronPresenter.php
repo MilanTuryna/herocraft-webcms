@@ -39,8 +39,8 @@ class CronPresenter extends BasePresenter
             $this->context->table("playtime_week")->insert($arr);
         } {
             $this->flashMessage("Přístup zamítnut.", "danger");
-            $this->redirect(":Front:Page:home");
         }
+        $this->redirect(":Front:Page:home");
     }
 
 }
