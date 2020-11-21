@@ -21,6 +21,7 @@ class LuckPerms
         'helper' => 'group.helper',
         'owner' => 'group.majitel',
         'admin' => 'group.admini',
+        'implement-web' => 'web.implement',
         'helpdesk' => 'web.helpdesk'
     ];
 
@@ -48,7 +49,8 @@ class LuckPerms
             if($row->permission == self::GROUPS['helper']
                 || $row->permission == self::GROUPS['owner']
                 || $row->permission == self::GROUPS['admin']
-                || $row->permission == self::GROUPS['helpdesk'])
+                || $row->permission == self::GROUPS['helpdesk']
+                || $row->permission == self::GROUPS['implement-web'])
                 return true;
         }
         return false;
