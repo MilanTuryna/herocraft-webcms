@@ -67,6 +67,8 @@ class AdminBasePresenter extends BasePresenter
                     "minecraft_games" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_GAMES),
                     "minecraft_senior" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_SENIOR),
                     "minecraft_classic" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_CLASSIC),
+                    "minecraft_helpers" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS),
+                    "minecraft_onlineplayers" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_ONLINEPLAYERS),
                     "upload" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_UPLOAD),
                 ];
             } else {
