@@ -305,3 +305,5 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - better documentation
 - game permissions (luckperms) overview in administration
 - better design (modern design)
+- add google analytics to configuration
+- add metatag description to configuration/or administration
