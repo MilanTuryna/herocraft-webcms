@@ -73,7 +73,7 @@ class LuckPerms
 
     /**
      * @param $username
-     * @return IRow
+     * @return array|IRow[]
      */
     public function getPlayerRows($username) {
         return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE username=?", $username)
@@ -84,8 +84,8 @@ class LuckPerms
      * @return array|IRow[]
      */
     public function getHelpers() {
-        return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE permission = ? OR permission = ? OR permission = ? OR permission = ? GROUP BY username",
-            self::GROUPS['helper'], self::GROUPS['owner'], self::GROUPS['admin'], self::GROUPS['helpdesk'])->fetchAll();
+        return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE permission = ? OR permission = ? OR permission = ? OR permission = ? OR permission = ?",
+            self::GROUPS['helper'], self::GROUPS['owner'], self::GROUPS['admin'], self::GROUPS['helpdesk'], self::GROUPS['implement-web'])->fetchAll();
 
     }
 
