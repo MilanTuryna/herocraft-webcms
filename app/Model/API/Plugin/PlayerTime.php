@@ -28,11 +28,11 @@ class PlayerTime
     }
 
     public function getRowByName($name) {
-        return $this->context->table(self::TABLE_NAME)->where("LOWER(username) = ?", $name);
+        return $this->context->table(self::TABLE_NAME)->where("LOWER(username) = ?", strtolower($name));
     }
 
     public function getWeekPlayer($username) {
-        return $this->context->table(self::PLAYER_WEEK)->where("LOWER(username) = ?", $username)->order("timestamp DESC");
+        return $this->context->table(self::PLAYER_WEEK)->where("LOWER(username) = ?", strtolower($username))->order("timestamp DESC");
     }
 
     /**
