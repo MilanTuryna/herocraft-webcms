@@ -237,7 +237,16 @@ class MinecraftPresenter extends AdminBasePresenter
     public function renderHelpers() {
         if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS)) {
             $helpers = $this->luckPerms->getHelpers();
-            $this->template->helpers = $helpers;
+            $helpersPermissions = [];
+            foreach ($helpers as $helper) {
+                if(empty($helper->username)) break;
+                if(!isset($helpersPermissions[$helper->username])) $helpersPermissions[$helper->username] = [];
+                $data = new \stdClass();
+                $data->permission = $helper->permission;
+                $data->server = $helper->server;
+                array_push($helpersPermissions[$helper->username], $data);
+            }
+            $this->template->helpers = $helpersPermissions;
         } else {
             $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_HELPERS), 'danger');
             $this->redirect("Main:home");

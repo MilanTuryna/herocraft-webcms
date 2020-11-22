@@ -17,8 +17,16 @@
                 Seznam helperů
             </h5>
             <div class="card-text">
-                {var $arr = []}
-                ---
+                <ul n:if="$helpers">
+                    {foreach $helpers as $helper => $permissions}
+                        <li>
+                            <a n:href="Minecraft:helperView $helper">{$helper}</a>
+                            <ul>
+                                <li n:foreach="$permissions as $permission">{$permission->permission} <small class="text-muted">server: <b>{$permission->server}</b></small></li>
+                            </ul>
+                        </li>
+                    {/foreach}
+                </ul>
             </div>
         </div>
     </div>
