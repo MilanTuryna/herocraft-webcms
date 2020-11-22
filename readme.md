@@ -294,7 +294,7 @@ excluding Iconomy, which is abstract class with childs for Senior server and Cla
 - Verus
 
 #### CzechCraft
-This websystem supporting CzechCraft API (https://czech-craft.eu/api//). Server slug for calling API is `App\Model\API\CzechCraft::SERVER_SLUG`. In the future, server slug will be possible to set in the configuration
+This websystem supporting CzechCraft API (https://czech-craft.eu/api//). Server slug can be changed from configuration.
 
 #### Status API
 The status of minecraft server provides https://api.mcsrvstat.us/2/ API service. IP address of Minecraft Server can be changed in the settings (in administration).
