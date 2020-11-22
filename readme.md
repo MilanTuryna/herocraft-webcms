@@ -62,7 +62,7 @@ Administrator accounts can be managed only by administrator with * (`Permissions
 Helpdesk is a small administration for helpers, to helpdesk can be logged by game login (if the player is a helper - checking in LuckPerms). 
 #### Features (only)
 - Tickets management (locking, adding a response...)
-  - Ticket subjects: `App\Model\Panel\Core\TicketRepository::SUBJECTS`
+  - Ticket subjects: ~~`App\Model\Panel\Core\TicketRepository::SUBJECTS`~~ can be changed in configuration
 
 ## Statistics
 Statistics isn't working as classic PHP web but data of statistics is obtained from API part with Vue (only as CDN library without CLI). More of player's statistics data is in API documentation (bottom)
