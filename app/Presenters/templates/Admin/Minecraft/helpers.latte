@@ -17,8 +17,14 @@
                 Seznam helperů
             </h5>
             <div class="card-text">
+                {var $arr = []}
                 <ul n:foreach="$helpers as $helper">
-                    <li><a n:href="Minecraft:helperView $helper->username">{$helper->username}</a> <small class="text-muted">(server: <b>{$helper->server}</b>)</small></li>
+                    {if in_array($helper->username, $arr)}
+                        <li class="text-white"><span style="color:#fff; user-select: none">{$helper->username}</span> <small class="text-muted">(group: <b>{$helper->permission}</b>, server: <b>{$helper->server}</b>)</small></li>
+                    {else}
+                        <li><a n:href="Minecraft:helperView $helper->username">{$helper->username}</a> <small class="text-muted">(group: <b>{$helper->permission}</b>, server: <b>{$helper->server}</b>)</small></li>
+                        {php array_push($arr, $helper->username)}
+                    {/if}
                 </ul>
             </div>
         </div>
