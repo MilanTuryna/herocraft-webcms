@@ -62,7 +62,7 @@ class MainPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderSettings() {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_GLOBAL_SETTINGS)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_GLOBAL_SETTINGS)) {
             $this->template->logo = $this->settingsRepository->getLogo();
         } else {
             $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_GLOBAL_SETTINGS) , 'danger');
@@ -74,7 +74,7 @@ class MainPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderUpload() {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_UPLOAD)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_UPLOAD)) {
             $this->template->files = UploadManager::getUploads();
         } else {
             $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_UPLOAD) , 'danger');
@@ -87,7 +87,7 @@ class MainPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function actionRemoveUpload($file) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_UPLOAD)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_UPLOAD)) {
             try {
                 UploadManager::deleteUpload(str_replace('-', '.', $file));
                 $this->flashMessage("Zadaný soubor byl úspěšně odstraněn.", "success");
