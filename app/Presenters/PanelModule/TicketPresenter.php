@@ -12,7 +12,6 @@ use App\Model\Panel\Core\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
-use App\Model\Stats\CachedAPIRepository;
 use App\Presenters\PanelBasePresenter;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
@@ -20,7 +19,6 @@ use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
-use Tracy\Debugger;
 
 /**
  * Class TicketPresenter
