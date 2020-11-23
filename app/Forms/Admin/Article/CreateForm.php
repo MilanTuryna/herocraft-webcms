@@ -5,6 +5,7 @@ namespace App\Forms\Admin\Article;
 
 use App;
 use App\Model\ArticleRepository;
+use App\Model\Admin\Storage\Administrator;
 
 use Nette;
 use Nette\Application\UI\Form;
@@ -20,19 +21,19 @@ class CreateForm
 {
     use Nette\SmartObject;
 
-    Private ArticleRepository $articleRepository;
-    Private Presenter $presenter;
-    Private array $admin;
+    private ArticleRepository $articleRepository;
+    private Presenter $presenter;
+    private Administrator $administrator;
 
     /**
      * CreateForm constructor.
      * @param Presenter $presenter
      * @param ArticleRepository $articleRepository
-     * @param array $admin
+     * @param Administrator $administrator
      */
-    public function __construct(Presenter $presenter, ArticleRepository $articleRepository, array $admin)
+    public function __construct(Presenter $presenter, ArticleRepository $articleRepository, Administrator $administrator)
     {
-        $this->admin = $admin;
+        $this->administrator = $administrator;
         $this->presenter = $presenter;
         $this->articleRepository = $articleRepository;
     }
@@ -41,7 +42,9 @@ class CreateForm
      * @return Form
      */
     public function create(): Form {
-        $categories = $this->articleRepository->getCategoryRepository()->findCategories();
+        $categories = $this->articleRepository
+            ->getCategoryRepository()
+            ->findCategories();
 
         $form = new Form;
 
@@ -55,7 +58,7 @@ class CreateForm
         $form->addText('keywords', 'Klíčová slova')->setMaxLength(100);
         $form->addText('description', 'Popisek')->setMaxLength(170);
         $form->addTextArea('content', 'Obsah');
-        $form->addText('author', 'Autor')->setDefaultValue($this->admin['name']);
+        $form->addText('author', 'Autor')->setDefaultValue($this->administrator->getName());
         $form->addText('created_at', 'Datum vytvoření');
 
         $categoriesValues = ['Nezařazeno' => 'Nezařazeno'];
@@ -93,7 +96,7 @@ class CreateForm
                 'keywords' => $values->keywords,
                 'content' => $values->content,
                 'created_at' => date('Y-m-d H:i:s'),
-                'author' => $this->admin['name'],
+                'author' => $this->administrator->getName(),
                 'category_id' => $values->category !== "NEZAŘAZENO" ? $values->category : ''
             ]);
             if($values->miniature->isOk() && $values->miniature->isImage()) {
