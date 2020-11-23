@@ -10,6 +10,17 @@ class MojangUser
     private string $skinURL;
 
     /**
+     * MojangUser constructor.
+     * @param string $uuid
+     * @param string $skinURL
+     */
+    public function __construct(string $uuid, string $skinURL)
+    {
+        $this->uuid = $uuid;
+        $this->skinURL = $skinURL;
+    }
+
+    /**
      * @return string
      */
     public function getSkinURL(): string
