@@ -2,6 +2,7 @@
 
 namespace App\Presenters\StatsModule;
 
+use App\Model\DI\API;
 use App\Model\Panel\MojangRepository;
 use App\Model\Responses\PrettyJsonResponse;
 use App\Model\Stats\CachedAPIRepository;
@@ -16,18 +17,20 @@ class APIPresenter extends Presenter {
 
     private CachedAPIRepository $cachedAPIRepository;
     private MojangRepository $mojangRepository;
+    private API $api;
 
     /**
      * APIPresenter constructor.
      * @param CachedAPIRepository $cachedAPIRepository
      * @param MojangRepository $mojangRepository
      */
-    public function __construct(CachedAPIRepository $cachedAPIRepository, MojangRepository $mojangRepository)
+    public function __construct(CachedAPIRepository $cachedAPIRepository, MojangRepository $mojangRepository, API $api)
     {
         parent::__construct();
 
         $this->cachedAPIRepository = $cachedAPIRepository;
         $this->mojangRepository = $mojangRepository;
+        $this->api = $api;
     }
 
     /**
@@ -52,7 +55,7 @@ class APIPresenter extends Presenter {
         ];
 
         $response = [
-            'updateTime' => CachedAPIRepository::EXPIRE_TIME,
+            'updateTime' => $this->api->getExpireTime(),
             'http' => $http,
             'czechCraft' => [
                 'server' => $this->cachedAPIRepository->getCzechCraftServer(),
@@ -81,7 +84,7 @@ class APIPresenter extends Presenter {
 
         if($user && $uuid) {
             $response = [
-                'updateTime' => CachedAPIRepository::EXPIRE_TIME,
+                'updateTime' => $this->api->getExpireTime(),
                 'http' => $http,
                 'player' => [
                     'exists' => true,

@@ -1,7 +1,9 @@
 parameters:
+    api:
+        expiretime:
     googleanalytics:
         enabled: true
-        code: "G-4519WXFVK1"
+        code:
     tickets:
         subjects:
     czechcraft:
