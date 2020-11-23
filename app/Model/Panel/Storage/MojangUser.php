@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Model\Panel\Storage;
+
 /**
  * Class MojangUser
  * Class represent mojang data of player in panel.
