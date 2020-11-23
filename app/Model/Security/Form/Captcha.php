@@ -45,24 +45,42 @@ class Captcha
     private $method;
     private $methodAnswers;
 
+    /**
+     * Captcha constructor.
+     * @param $method
+     */
     public function __construct($method)
     {
         $this->method = $method;
         $this->methodAnswers = array_map(fn($data) => strtr(strtolower($data), Constants::VALID_URL), self::methods[$this->method]);
     }
 
+    /**
+     * @return mixed
+     */
     public static function getRandomMethod() {
         return array_rand(self::methods);
     }
 
+    /**
+     * @param $method
+     * @return false|int|string
+     */
     public static function getMethodOrder($method) {
         return array_search($method, array_keys(Captcha::methods));
     }
 
+    /**
+     * @return mixed
+     */
     public function getMethod() {
         return $this->method;
     }
 
+    /**
+     * @param $input
+     * @return bool
+     */
     public function verify($input) {
         return in_array(strtr(mb_strtolower($input), Constants::VALID_URL), $this->methodAnswers);
     }
