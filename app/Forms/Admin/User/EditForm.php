@@ -4,7 +4,7 @@
 namespace App\Forms\Admin\User;
 
 use App\Model\Admin\Roles\Permissions;
-use App\Model\DuplicateNameException;
+use App\Model\Security\Exceptions\DuplicateNameException;
 use App\Model\UserManager;
 
 use Nette\Application\AbortException;
