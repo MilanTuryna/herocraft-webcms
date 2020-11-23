@@ -38,6 +38,7 @@ forms:
 
 services:
 	- App\Model\UserRepository
+	- App\Model\PageManager
 	- App\Model\ArticleRepository
 	- App\Model\CategoryRepository
 	- App\Model\PageRepository
