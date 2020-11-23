@@ -2,7 +2,7 @@ parameters:
     api:
         expiretime:
     googleanalytics:
-        enabled: true
+        enabled:
         code:
     tickets:
         subjects:
