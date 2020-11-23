@@ -62,5 +62,5 @@ services:
 	- App\Model\API\Plugin\OnlinePlayers(@database.onlineplayers.context)
 	- App\Model\DI\GoogleAnalytics(%googleanalytics.code%, %googleanalytics.enabled%)
 	- App\Model\UserManager
-	- App\Model\API(%api.expire_time%)
+	- App\Model\DI\API(%api.expire_time%)
 	router: App\Router\RouterFactory::createRouter
