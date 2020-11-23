@@ -60,5 +60,6 @@ services:
 	- App\Model\API\Plugin\Classic\Economy(@database.classicEconomy.context)
 	- App\Model\API\Plugin\Games\HideAndSeek(@database.hideandseek.context)
 	- App\Model\API\Plugin\OnlinePlayers(@database.onlineplayers.context)
+	- App\Model\DI\GoogleAnalytics(%googleanalytics.code%, %googleanalytics.enabled%)
 	- App\Model\UserManager
 	router: App\Router\RouterFactory::createRouter

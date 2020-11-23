@@ -1,4 +1,7 @@
 parameters:
+    googleanalytics:
+        enabled: true
+        code: "G-4519WXFVK1"
     tickets:
         subjects:
     czechcraft:
