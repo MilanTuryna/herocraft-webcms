@@ -63,7 +63,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderChat(int $page = 1) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_CHATLOG)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_CHATLOG)) {
             $messages = $this->chatLog->findAllRows();
 
             $lastPage = 0;
@@ -88,7 +88,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderFilterChat($timeStart, $timeEnd, array $players) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_CHATLOG)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_CHATLOG)) {
             if($timeEnd && $timeStart && $players) {
                 $messages = $this->chatLog->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
                 if($messages) {
@@ -117,7 +117,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderFilterBan($timeStart, $timeEnd, array $players) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_BANLIST)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_BANLIST)) {
             if($timeEnd && $timeStart && $players) {
                 $bans = $this->bans->filterAllRows($players, $timeStart, $timeEnd)->fetchAll();
                 if($bans) {
@@ -144,7 +144,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderEditBan($nick) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_BANLIST)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_BANLIST)) {
             $ban = $this->bans->getBanByNick($nick)->fetch();
             if($ban) {
                 $this->template->ban = $ban;
@@ -163,7 +163,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderBanList(int $page = 1) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_BANLIST)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_BANLIST)) {
             $bans = $this->bans->getAllBans();
 
             $lastPage = 0;
@@ -187,7 +187,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderFilterIpBan($timeStart, $timeEnd, array $ips) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_IPBANLIST)) {
             if($timeEnd && $timeStart && $ips) {
                 $ipBans = $this->bans->filterAllIpBans($ips, $timeStart, $timeEnd)->fetchAll();
                 if($ipBans) {
@@ -214,7 +214,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderIpBanList(int $page = 1) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_IPBANLIST)) {
             $ipBans = $this->bans->getAllIPBans();
 
             $lastPage = 0;
@@ -235,7 +235,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderHelpers() {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_HELPERS)) {
             $helpers = $this->luckPerms->getHelpers();
             $helpersPermissions = [];
             foreach ($helpers as $helper) {
@@ -258,7 +258,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderHelperView($helper) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_HELPERS)) {
             $luckPerm = $this->luckPerms->getPlayerRows($helper);
             if($luckPerm) {
                 $playerTimeWeek = $this->playerTime->getWeekPlayer($helper)->fetchAll();
@@ -281,7 +281,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderEditIpBan($ip) {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_IPBANLIST)) {
             $ipBan = $this->bans->getIPBanByIP($ip)->fetch();
             if($ipBan) {
                 $this->template->ipBan = $ipBan;
@@ -300,7 +300,7 @@ class MinecraftPresenter extends AdminBasePresenter
      * @throws AbortException
      */
     public function renderOnlinePlayers() {
-        if(Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST)) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_IPBANLIST)) {
             $this->template->players = $this->onlinePlayers->getOnlinePlayers()->fetchAll();
         } else {
             $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_ONLINEPLAYERS) , 'danger');
