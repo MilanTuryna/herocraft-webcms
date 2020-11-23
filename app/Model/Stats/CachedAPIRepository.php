@@ -10,6 +10,7 @@ use App\Model\API\Plugin\Games\SpleefX;
 use App\Model\API\Plugin\LuckPerms;
 use App\Model\API\Plugin\Senior\Economy as SeniorEconomy;
 use App\Model\API\Plugin\Classic\Economy as ClassicEconomy;
+use App\Model\DI\API;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\IStorage;
@@ -20,8 +21,6 @@ use Nette\Utils\ArrayHash;
  */
 class CachedAPIRepository
 {
-    const EXPIRE_TIME = '2 hour';
-
     private AuthMeRepository $authMeRepository;
     private Cache $cache;
     private Bans $bans;
@@ -32,6 +31,7 @@ class CachedAPIRepository
     private SeniorEconomy $seniorEconomy;
     private ClassicEconomy $classicEconomy;
     private CzechCraft $czechCraft;
+    private API $api;
 
     /**
      * CachedAPIRepository constructor.
@@ -45,6 +45,7 @@ class CachedAPIRepository
      * @param SeniorEconomy $seniorEconomy
      * @param ClassicEconomy $classicEconomy
      * @param CzechCraft $czechCraft
+     * @param API $api
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
                                 Bans $bans,
@@ -53,7 +54,8 @@ class CachedAPIRepository
                                 LuckPerms $luckPerms,
                                 SpleefX $spleefX,
                                 SeniorEconomy $seniorEconomy,
-                                ClassicEconomy $classicEconomy, CzechCraft $czechCraft)
+                                ClassicEconomy $classicEconomy,
+                                CzechCraft $czechCraft, API $api)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -65,6 +67,7 @@ class CachedAPIRepository
         $this->seniorEconomy = $seniorEconomy;
         $this->classicEconomy = $classicEconomy;
         $this->czechCraft = $czechCraft;
+        $this->api = $api;
     }
 
     /**
@@ -76,7 +79,7 @@ class CachedAPIRepository
         if (is_null($this->cache->load($cacheName))) {
             $db = $this->authMeRepository->findByUsername($name);
             $this->cache->save($cacheName,  $db ? ArrayHash::from($db->toArray()) : null, [
-                Cache::EXPIRE => self::EXPIRE_TIME
+                Cache::EXPIRE => $this->api->getExpireTime()
             ]);
         }
 
@@ -92,7 +95,7 @@ class CachedAPIRepository
         $cacheName = 'API_permGroups_' . $uuid;
         if(is_null($this->cache->load($cacheName))) {
             $this->cache->save($cacheName, $this->luckPerms->getUserGroups($uuid), [
-                Cache::EXPIRE => self::EXPIRE_TIME
+                Cache::EXPIRE => $this->api->getExpireTime()
             ]);
         }
 
