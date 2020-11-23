@@ -5,10 +5,11 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4519WXFVK1"></script>
     <script n:if="$googleAnalytics->isEnabled()">
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
-
-        gtag('config', '{$googleAnalytics->getCode()}');
+        gtag('config', {$googleAnalytics->getCode()});
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffeb3b">

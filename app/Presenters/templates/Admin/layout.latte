@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="{$basePath}/css/admin.css">
     <script n:if="$googleAnalytics->isEnabled()">
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
-
-        gtag('config', '{$googleAnalytics->getCode()}');
+        gtag('config', {$googleAnalytics->getCode()});
     </script>
     <script src="https://cdn.tiny.cloud/1/zdvvwmxe1xodhep89slv548bw8471gm6zp3mljoshlfxwq2p/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
     {ifset #headAdd}

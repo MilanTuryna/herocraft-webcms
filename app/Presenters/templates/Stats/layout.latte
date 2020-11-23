@@ -5,10 +5,11 @@
     <title>{include title}</title>
     <script n:if="$googleAnalytics->isEnabled()">
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
-
-        gtag('config', '{$googleAnalytics->getCode()}');
+        gtag('config', {$googleAnalytics->getCode()});
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css" crossorigin="anonymous">
