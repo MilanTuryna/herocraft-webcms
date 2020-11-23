@@ -52,7 +52,7 @@ class AdminBasePresenter extends BasePresenter
                 $this->admin = new Administrator($user->name, $user->email, $user->id, $permissions);
                 $this->template->admin = $this->admin;
                 $this->template->permissionsSelectBox = $permissionsSelectBox;
-                $this->template->isFullAdmin = Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_FULL);
+                $this->template->isFullAdmin = Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_FULL);
                 $adminPermissions = $this->admin->getPermissions();
                 $this->template->havePermission = [
                     "settings" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_GLOBAL_SETTINGS),
