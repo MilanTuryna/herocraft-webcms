@@ -5,12 +5,7 @@ namespace App\Model;
 
 use Nette;
 use Nette\Security\Passwords;
-
-/**
- * Class DuplicateNameException
- * @package App\Model
- */
-final class DuplicateNameException extends \Exception {}
+use App\Model\Security\Exceptions\DuplicateNameException;
 
 /**
  * Class UserManager
