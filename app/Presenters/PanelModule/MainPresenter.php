@@ -6,6 +6,7 @@ use App\Model\API\Minecraft;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Panel\AuthMeRepository;
 use App\Model\Panel\MojangRepository;
+use App\Model\Panel\Storage\MojangUser;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
 use App\Model\Stats\CachedAPIRepository;
@@ -81,10 +82,7 @@ class MainPresenter extends PanelBasePresenter
 
     public function renderHome()
     {
-        $mcUser = new \stdClass();
-        $mcUser->uuid = $this->mojangRepository->getUUID($this->user->realname);
-        $mcUser->skin = Minecraft::getSkinURL($this->mojangRepository->getMojangUUID($this->user->realname));
-
+        $mcUser = new MojangUser($this->mojangRepository->getUUID($this->user->realname), Minecraft::getSkinURL($this->mojangRepository->getMojangUUID($this->user->realname)));
         $this->template->mcUser = $mcUser;
     }
 
