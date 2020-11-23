@@ -1,0 +1,109 @@
+@keyframes bgPosition--animation {
+    50% {
+        background-position-y: 10%;
+        opacity: .75;
+    }
+}
+
+body,html {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.top-ip {
+    padding:8px;
+    background-color:#ffeb3b;
+}
+
+.header-image {
+    background-size: cover;
+    background-position-y: 20%;
+    animation: bgPosition--animation 10s infinite;
+    background-image: url('https://upload.hicoria.com/files/GwGjZd6f.png');
+}
+
+.logo {
+    width: 200px;
+}
+
+.head-article {
+    background-color: #e6ee9c;
+}
+
+.news-card .card {
+    border:none;
+}
+
+.readmore p:after {
+    content: "..."
+}
+
+.extern-href {
+    color:black;}
+
+.news-card * .card-title a {
+    color:#1a237e;}
+
+.extern.href:hover, .news-card * .card-title a:hover {
+    text-decoration: none;}
+
+.extern-href, .news-card * .card-title a {
+    text-decoration: underline;}
+
+.news-card * .card-title a {
+    border-radius: 0;
+}
+
+.news-card {
+    padding: 0;
+}
+
+.padding-walls-15 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.padding-walls-32 {
+    padding-left: 32px;
+    padding-right: 32px;
+}
+
+.w-33 {
+    width:33vw;
+}
+
+.zoomed {
+    zoom: 105%;
+}
+
+.mt-32 {
+    margin-top:32px;
+}
+
+.unzoomed {
+    zoom: 90%;
+}
+
+.z-index-minus {
+    z-index: -1;
+}
+
+.herni-prvky a div {
+    transition: 0.3s;
+}
+
+.herni-prvky a div:hover {
+    opacity: 0.8;
+}
+
+.container-wrp {
+    min-height: 58.3vh;
+}
+
+.f-w-500 {
+    font-weight: 500;
+}
+
+.br-0 {
+    border-radius: 0;
+}
