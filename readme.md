@@ -2,7 +2,7 @@ Websystem for HeroCraft.cz
 =================
 
 Websystem programmed in PHP (Nette) for minecraft server HeroCraft.cz. It's customized for this server. The system can be divided into several parts - web, administration, player's panel, statistics and helpdesk. System working on MySQL database.
-All used messages are in Czech Language.
+All system messages on website are in Czech Language.
 
 ## Web (frontpage)
 - homepage
