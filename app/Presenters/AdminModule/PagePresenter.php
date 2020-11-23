@@ -35,11 +35,6 @@ class PagePresenter extends AdminBasePresenter
         $this->pageRepository = $pageRepository;
     }
 
-
-    public function startup(): void {
-        parent::startup();
-    }
-
     public function renderList(): void {
         $this->template->pages = $this->pageRepository->findPages();
     }
