@@ -5,6 +5,7 @@ namespace App\Presenters;
 
 
 use App\Model\Admin\Roles\Permissions as Permissions;
+use App\Model\Admin\Storage\Administrator;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
 
@@ -19,7 +20,7 @@ class AdminBasePresenter extends BasePresenter
     private Authenticator $authenticator;
     private string $permissionNode;
 
-    protected array $admin;
+    protected Administrator $admin;
 
     /**
      * AdminBasePresenter constructor.
@@ -48,29 +49,25 @@ class AdminBasePresenter extends BasePresenter
             $permissions = Permissions::listToArray($user->permissions);
             $permissionsSelectBox = Permissions::getSelectBox();
             if(Permissions::checkPermission($permissions, $this->permissionNode)) {
-                $this->admin = [
-                    'name' => $user->name,
-                    'email' => $user->email,
-                    'id' => $user->id,
-                    'permissions' => $permissions,
-                ];
+                $this->admin = new Administrator($user->name, $user->email, $user->id, $permissions);
                 $this->template->admin = $this->admin;
                 $this->template->permissionsSelectBox = $permissionsSelectBox;
                 $this->template->isFullAdmin = Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_FULL);
+                $adminPermissions = $this->admin->getPermissions();
                 $this->template->havePermission = [
-                    "settings" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_GLOBAL_SETTINGS),
-                    "articles" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_ARTICLES),
-                    "pages" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_PAGES),
-                    "categories" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_CATEGORIES),
-                    "minecraft_chatlog" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_CHATLOG),
-                    "minecraft_banlist" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_BANLIST),
-                    "minecraft_ipbanlist" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_IPBANLIST),
-                    "minecraft_games" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_GAMES),
-                    "minecraft_senior" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_SENIOR),
-                    "minecraft_classic" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_CLASSIC),
-                    "minecraft_helpers" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_HELPERS),
-                    "minecraft_onlineplayers" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_MC_ONLINEPLAYERS),
-                    "upload" => Permissions::checkPermission($this->admin['permissions'], Permissions::ADMIN_UPLOAD),
+                    "settings" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_GLOBAL_SETTINGS),
+                    "articles" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_ARTICLES),
+                    "pages" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_PAGES),
+                    "categories" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_CATEGORIES),
+                    "minecraft_chatlog" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_CHATLOG),
+                    "minecraft_banlist" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_BANLIST),
+                    "minecraft_ipbanlist" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_IPBANLIST),
+                    "minecraft_games" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_GAMES),
+                    "minecraft_senior" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_SENIOR),
+                    "minecraft_classic" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_CLASSIC),
+                    "minecraft_helpers" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_HELPERS),
+                    "minecraft_onlineplayers" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_ONLINEPLAYERS),
+                    "upload" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_UPLOAD),
                 ];
             } else {
                 $this->flashMessage(Permissions::getNoPermMessage($this->permissionNode) , 'danger');
