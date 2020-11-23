@@ -71,10 +71,6 @@ final class UserManager
         }
     }
 
-    public function delete() {
-
-    }
-
     /** @return UserRepository */
     public function getRepository(): UserRepository {
         return $this->userRepository;
