@@ -23,6 +23,7 @@ class APIPresenter extends Presenter {
      * APIPresenter constructor.
      * @param CachedAPIRepository $cachedAPIRepository
      * @param MojangRepository $mojangRepository
+     * @param API $api
      */
     public function __construct(CachedAPIRepository $cachedAPIRepository, MojangRepository $mojangRepository, API $api)
     {
