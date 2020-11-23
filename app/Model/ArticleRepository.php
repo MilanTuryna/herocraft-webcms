@@ -22,15 +22,6 @@ class ArticleRepository
     private Context $context;
 
     const PATH = 'img/miniatures/';
-    const PROPERTIES = [
-        "per_page" => 9,
-        "min_length" => 420,
-        "sorting" => 'DESC',
-        "MINIATURE" => [
-            "width" => 1680,
-            "height" => 720,
-        ]
-    ];
 
 
     /**
@@ -47,7 +38,7 @@ class ArticleRepository
      * @return Nette\Database\Table\Selection
      * @throws Exception
      */
-    public function findPublishedArticles($limit = null, $sort = self::PROPERTIES['sorting'])
+    public function findPublishedArticles($limit = null, $sort = "DESC")
     {
         return $this->context->table('articles')
             ->where('created_at < ', new \DateTime)
