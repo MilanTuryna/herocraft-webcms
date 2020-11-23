@@ -119,10 +119,9 @@ final class PagePresenter extends BasePresenter
 
         $paginator = new Nette\Utils\Paginator;
         $paginator->setItemCount($articlesCount); // celkový počet článků
-        $paginator->setItemsPerPage(ArticleRepository::PROPERTIES['per_page']); // počet položek na stránce
+        $paginator->setItemsPerPage(9); // počet položek na stránce
         $paginator->setPage($page); // číslo aktuální stránky
 
-        $this->template->articleProperties = ArticleRepository::PROPERTIES;
         $this->template->paginator = $paginator;
 
         $articles = $this->articleRepository->findArticlesWithCategory($paginator->getLength(), $paginator->getOffset());
