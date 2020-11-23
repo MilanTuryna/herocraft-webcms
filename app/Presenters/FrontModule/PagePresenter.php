@@ -6,20 +6,19 @@ namespace App\Presenters\FrontModule;
 
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
-use App\Model\SettingsRepository;
 use App\Model\Utils;
-use App\Presenters\BasePresenter;
-
+use App\Model\SettingsRepository;
 use App\Model\ArticleRepository;
 use App\Model\CategoryRepository;
 use App\Model\PageManager;
 use App\Model\API\Status;
 
-use Exception;
+use App\Presenters\BasePresenter;
+
 use Nette;
-use Nette\Database\Context;
 use Nette\Caching;
 
+use Exception;
 
 /**
  * Class HomepagePresenter
@@ -29,7 +28,6 @@ final class PagePresenter extends BasePresenter
 {
     use Nette\SmartObject;
 
-    private Nette\Database\Context $db;
     private PageManager $pageManager;
     private Caching\Cache $cache;
     private Nette\Http\Response $http;
@@ -40,39 +38,48 @@ final class PagePresenter extends BasePresenter
 
     /**
      * PagePresenter constructor.
-     * @param Context $db
+     * @param ArticleRepository $articleRepository
+     * @param CategoryRepository $categoryRepository
+     * @param SettingsRepository $settingsRepository
+     * @param PageManager $pageManager
      * @param Caching\IStorage $storage
      * @param Nette\Http\Response $http
      * @param Authenticator $authenticator
      * @param GoogleAnalytics $googleAnalytics
      */
-    public function __construct(Nette\Database\Context $db, Caching\IStorage $storage, Nette\Http\Response $http, Authenticator $authenticator, GoogleAnalytics $googleAnalytics)
+    public function __construct(ArticleRepository $articleRepository,
+                                CategoryRepository $categoryRepository,
+                                SettingsRepository $settingsRepository,
+                                PageManager $pageManager,
+                                Caching\IStorage $storage,
+                                Nette\Http\Response $http,
+                                Authenticator $authenticator,
+                                GoogleAnalytics $googleAnalytics)
     {
         parent::__construct($googleAnalytics);
 
         $this->http = $http;
-        $this->db = $db;
-        $this->articleRepository = new ArticleRepository($db);
-        $this->categoryRepository = new CategoryRepository($db);
+        $this->articleRepository = $articleRepository;
+        $this->categoryRepository = $categoryRepository;
         $this->cache = new Caching\Cache($storage);
-        $this->pageManager = new PageManager($db);
-        $this->settingsRepository = new SettingsRepository($db, $storage);
+        $this->pageManager = $pageManager;
+        $this->settingsRepository = $settingsRepository;
         $this->authenticator = $authenticator;
     }
 
     public function startup(): void {
         parent::startup();
 
-        $nastaveni = $this->db->table('nastaveni')->get(1);
+        $nastaveni = $this->settingsRepository->getAllRows();
 
         $status = new Status((string)$nastaveni->ip, $this->cache);
 
         $this->template->logo = $this->settingsRepository->getLogo();
-        $this->template->widget = $this->db->table('widget')->wherePrimary(1)->fetch();
+        $this->template->widget = $this->settingsRepository->getWidgetCode(1);
         $this->template->nastaveni = $nastaveni;
         $this->template->categoryRepository = $this->categoryRepository;
         $this->template->articleRepository = $this->articleRepository;
-        $this->template->stranky = $this->db->table('pages');
+        $this->template->stranky = $this->pageManager->getPages();
         $this->template->status = $status->getCachedJson(); // pokud neni udrzba nebo api nefunguje, status se vypise jinak false
     }
 
