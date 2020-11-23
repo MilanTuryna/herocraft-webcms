@@ -86,11 +86,6 @@ class MainPresenter extends PanelBasePresenter
         $this->template->mcUser = $mcUser;
     }
 
-
-
-    public function renderChangePass() {
-    }
-
     /**
      * @return Form
      */
