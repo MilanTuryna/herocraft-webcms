@@ -87,7 +87,6 @@ class CachedAPIRepository
     }
 
     /**
-     * TODO: Complete this method
      * @param $uuid
      * @return mixed
      */
