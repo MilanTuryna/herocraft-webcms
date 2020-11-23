@@ -38,6 +38,7 @@ class TicketPresenter extends PanelBasePresenter
      * @param SettingsRepository $settingsRepository
      * @param PluginAuthenticator $pluginAuthenticator
      * @param TicketRepository $ticketRepository
+     * @param GoogleAnalytics $googleAnalytics
      */
     public function __construct(SettingsRepository $settingsRepository, PluginAuthenticator $pluginAuthenticator, TicketRepository $ticketRepository, GoogleAnalytics $googleAnalytics)
     {
