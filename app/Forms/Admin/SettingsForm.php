@@ -43,6 +43,9 @@ class SettingsForm
             ->setRequired()
             ->setMaxLength(35)
             ->setDefaultValue($settings->ip);
+        $form->addText('description', 'Homepage description:')
+            ->setRequired()
+            ->setDefaultValue($settings->description);
         $form->addTextArea('widget')
             ->setDefaultValue($this->settings->getWidgetCode())
             ->setRequired();
@@ -67,6 +70,7 @@ class SettingsForm
             "nazev" => $values->name,
             "ip" => $values->ip,
             "udrzba" => $values->udrzba,
+            "description" => $values->description
         ]);
         $this->settings->setWidgetCode($values->widget);
         if($values->logo->isOk() && $values->logo->isImage()) {
