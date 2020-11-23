@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Utils;
 use Nette;
 use Nette\Application\Helpers;
@@ -12,6 +13,15 @@ use Nette\Application\Helpers;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
+    private GoogleAnalytics $googleAnalytics;
+
+    public function __construct(GoogleAnalytics $googleAnalytics)
+    {
+        parent::__construct();
+
+        $this->googleAnalytics = $googleAnalytics;
+    }
+
     /**
      * @return array
      */
@@ -32,5 +42,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
         $this->template->sklonovani = fn($pocet, $slova) => Utils::sklonovani($pocet, $slova);
         $this->template->httpRequest = $this->getHttpRequest();
+        $this->template->googleAnalytics = $this->googleAnalytics;
     }
 }

@@ -6,9 +6,14 @@ namespace App\Presenters;
 
 use App\Model\API\Plugin\LuckPerms;
 use Nette\Application\AbortException;
+use Nette\Application\UI\Presenter;
 use Nette\Database\Context;
 
-class CronPresenter extends BasePresenter
+/**
+ * Class CronPresenter
+ * @package App\Presenters
+ */
+class CronPresenter extends Presenter
 {
     private Context $context;
 

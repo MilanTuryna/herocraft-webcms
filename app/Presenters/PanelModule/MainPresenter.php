@@ -3,6 +3,7 @@ namespace App\Presenters\PanelModule;
 
 use App\Forms\Panel\Main\ChangePasswordForm;
 use App\Model\API\Minecraft;
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Panel\AuthMeRepository;
 use App\Model\Panel\MojangRepository;
 use App\Model\Security\Auth\PluginAuthenticator;
@@ -25,6 +26,7 @@ class MainPresenter extends PanelBasePresenter
     private MojangRepository $mojangRepository;
     private CachedAPIRepository $cachedAPIRepository;
     private AuthMeRepository $authMeRepository;
+    private GoogleAnalytics $googleAnalytics;
 
     /**
      * MainPresenter constructor.
@@ -33,20 +35,22 @@ class MainPresenter extends PanelBasePresenter
      * @param AuthMeRepository $authMeRepository
      * @param MojangRepository $mojangRepository
      * @param CachedAPIRepository $cachedAPIRepository
+     * @param GoogleAnalytics $googleAnalytics
      */
     public function __construct(PluginAuthenticator $pluginAuthenticator,
                                 SettingsRepository $settingsRepository,
                                 AuthMeRepository $authMeRepository,
-
                                 MojangRepository $mojangRepository,
-                                CachedAPIRepository $cachedAPIRepository)
+                                CachedAPIRepository $cachedAPIRepository,
+                                GoogleAnalytics $googleAnalytics)
     {
-        parent::__construct($settingsRepository);
+        parent::__construct($settingsRepository, $googleAnalytics);
 
         $this->cachedAPIRepository = $cachedAPIRepository;
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->mojangRepository = $mojangRepository;
         $this->authMeRepository = $authMeRepository;
+        $this->googleAnalytics = $googleAnalytics;
     }
 
     /**

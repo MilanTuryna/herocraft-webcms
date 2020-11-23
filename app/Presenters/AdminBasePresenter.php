@@ -5,6 +5,7 @@ namespace App\Presenters;
 
 
 use App\Model\Admin\Roles\Permissions as Permissions;
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
 
 use Nette\Application\AbortException;
@@ -27,7 +28,7 @@ class AdminBasePresenter extends BasePresenter
      */
     public function __construct(Authenticator $authenticator, string $permissionNode = Permissions::SPECIAL_WITHOUT_PERMISSION)
     {
-        parent::__construct();
+        parent::__construct(GoogleAnalytics::disabled()); // disable google analytics in administration section
 
         $this->authenticator = $authenticator;
         $this->permissionNode = $permissionNode;

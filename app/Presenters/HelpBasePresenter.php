@@ -4,6 +4,7 @@
 namespace App\Presenters;
 
 
+use App\Model\DI\GoogleAnalytics;
 use App\Model\SettingsRepository;
 
 /**
@@ -20,7 +21,7 @@ class HelpBasePresenter extends BasePresenter
      */
     public function __construct(SettingsRepository $settingsRepository)
     {
-        parent::__construct();
+        parent::__construct(GoogleAnalytics::disabled()); // disable google analytics because helpdesk is not public
 
         $this->settingsRepository = $settingsRepository;
     }

@@ -5,6 +5,7 @@ namespace App\Presenters\StatsModule;
 
 
 use App\Model\API\Plugin\Games\Events;
+use App\Model\DI\GoogleAnalytics;
 use App\Model\SettingsRepository;
 use App\Presenters\BasePresenter;
 use App\Model\API\Status;
@@ -22,9 +23,16 @@ class MainPresenter extends BasePresenter
     private Cache $cache;
     private Events $events;
 
-    public function __construct(SettingsRepository $settingsRepository, IStorage $storage, Events $events)
+    /**
+     * MainPresenter constructor.
+     * @param SettingsRepository $settingsRepository
+     * @param IStorage $storage
+     * @param Events $events
+     * @param GoogleAnalytics $googleAnalytics
+     */
+    public function __construct(SettingsRepository $settingsRepository, IStorage $storage, Events $events, GoogleAnalytics $googleAnalytics)
     {
-        parent::__construct();
+        parent::__construct($googleAnalytics);
 
         $this->settingsRepository = $settingsRepository;
         $this->cache = new Cache($storage);

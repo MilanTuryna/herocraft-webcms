@@ -5,6 +5,7 @@ namespace App\Presenters\HelpDeskModule;
 use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
 use App\Forms\Panel\Tickets\OpenTicketForm;
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Panel\Core\TicketRepository;
 use App\Model\Security\Auth\SupportAuthenticator;
 use App\Model\Security\Exceptions\AuthException;

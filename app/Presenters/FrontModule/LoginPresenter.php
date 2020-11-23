@@ -3,6 +3,7 @@
 
 namespace App\Presenters\FrontModule;
 
+use App\Model\DI\GoogleAnalytics;
 use App\Model\SettingsRepository;
 use Nette;
 use Nette\Database\Context;
@@ -12,7 +13,6 @@ use App\Model\Security\Auth\Authenticator;
 use App\Forms\Front\SignInForm;
 use App\Model\Security\Exceptions\AuthException;
 use App\Model\API\Status;
-use Tracy\Debugger;
 
 /**
  * Class LoginPresenter
@@ -33,10 +33,11 @@ class LoginPresenter extends BasePresenter
      * @param Context $context
      * @param Nette\Caching\IStorage $storage
      * @param SettingsRepository $settingsRepository
+     * @param GoogleAnalytics $googleAnalytics
      */
-    public function __construct(Authenticator $authenticator, Context $context, Nette\Caching\IStorage $storage, SettingsRepository $settingsRepository)
+    public function __construct(Authenticator $authenticator, Context $context, Nette\Caching\IStorage $storage, SettingsRepository $settingsRepository, GoogleAnalytics $googleAnalytics)
     {
-        parent::__construct();
+        parent::__construct($googleAnalytics);
 
         $this->settingsRepository = $settingsRepository;
         $this->context = $context;

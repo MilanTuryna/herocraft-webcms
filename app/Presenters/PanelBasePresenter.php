@@ -3,15 +3,26 @@
 
 namespace App\Presenters;
 
+use App\Model\DI\GoogleAnalytics;
 use App\Model\SettingsRepository;
 
+/**
+ * Class PanelBasePresenter
+ * @package App\Presenters
+ */
 class PanelBasePresenter extends BasePresenter
 {
     private SettingsRepository $settingsRepository;
 
-    public function __construct(SettingsRepository $settingsRepository)
+    /**
+     * PanelBasePresenter constructor.
+     * @param SettingsRepository $settingsRepository
+     * @param GoogleAnalytics $googleAnalytics
+     */
+    public function __construct(SettingsRepository $settingsRepository, GoogleAnalytics $googleAnalytics)
     {
-        parent::__construct();
+        parent::__construct($googleAnalytics);
+
         $this->settingsRepository = $settingsRepository;
     }
 

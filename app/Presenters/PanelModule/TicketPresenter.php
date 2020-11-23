@@ -7,6 +7,7 @@ namespace App\Presenters\PanelModule;
 use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\AddTicketForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Panel\Core\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use App\Model\Security\Auth\PluginAuthenticator;
@@ -38,9 +39,9 @@ class TicketPresenter extends PanelBasePresenter
      * @param PluginAuthenticator $pluginAuthenticator
      * @param TicketRepository $ticketRepository
      */
-    public function __construct(SettingsRepository $settingsRepository, PluginAuthenticator $pluginAuthenticator, TicketRepository $ticketRepository)
+    public function __construct(SettingsRepository $settingsRepository, PluginAuthenticator $pluginAuthenticator, TicketRepository $ticketRepository, GoogleAnalytics $googleAnalytics)
     {
-        parent::__construct($settingsRepository);
+        parent::__construct($settingsRepository, $googleAnalytics);
 
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->ticketRepository = $ticketRepository;

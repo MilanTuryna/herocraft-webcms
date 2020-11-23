@@ -15,9 +15,10 @@
             transition:0.5s;
         }
     </style>
-     <article style="margin-bottom: 60px">
-    <div class="card border-radius-0 bg-light">
+    <article>
+    <div class="card border-radius-0 border-0">
     <div class="card-body min-height-card">
+        <small class="text-muted font-weight-bold"><a n:href="Page:home" class="extern-href" style="color: #dc3545">ZPĚT NA AKTUALITY</a></small>
         <h3>{$article->name}</h3>
         {$article->content|noescape}
         {ifset $articleRepository->getMiniature($article->id)[0]}

@@ -3,6 +3,7 @@
 namespace App\Presenters\PanelModule;
 
 use App\Forms\Panel\SignInForm;
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\Security\Exceptions\AuthException;
 use App\Model\SettingsRepository;
@@ -11,6 +12,10 @@ use App\Presenters\PanelBasePresenter;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 
+/**
+ * Class LoginPresenter
+ * @package App\Presenters\PanelModule
+ */
 class LoginPresenter extends PanelBasePresenter
 {
     private PluginAuthenticator $pluginAuthenticator;
@@ -20,10 +25,11 @@ class LoginPresenter extends PanelBasePresenter
      * LoginPresenter constructor.
      * @param PluginAuthenticator $pluginAuthenticator
      * @param SettingsRepository $settingsRepository
+     * @param GoogleAnalytics $googleAnalytics
      */
-    public function __construct(PluginAuthenticator $pluginAuthenticator, SettingsRepository $settingsRepository)
+    public function __construct(PluginAuthenticator $pluginAuthenticator, SettingsRepository $settingsRepository, GoogleAnalytics $googleAnalytics)
     {
-        parent::__construct($settingsRepository);
+        parent::__construct($settingsRepository, $googleAnalytics);
 
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->settingsRepository = $settingsRepository;

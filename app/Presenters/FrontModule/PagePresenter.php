@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters\FrontModule;
 
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
 use App\Model\Utils;
@@ -43,10 +44,11 @@ final class PagePresenter extends BasePresenter
      * @param Caching\IStorage $storage
      * @param Nette\Http\Response $http
      * @param Authenticator $authenticator
+     * @param GoogleAnalytics $googleAnalytics
      */
-    public function __construct(Nette\Database\Context $db, Caching\IStorage $storage, Nette\Http\Response $http, Authenticator $authenticator)
+    public function __construct(Nette\Database\Context $db, Caching\IStorage $storage, Nette\Http\Response $http, Authenticator $authenticator, GoogleAnalytics $googleAnalytics)
     {
-        parent::__construct();
+        parent::__construct($googleAnalytics);
 
         $this->http = $http;
         $this->db = $db;
@@ -83,6 +85,7 @@ final class PagePresenter extends BasePresenter
 
         $this->template->substrWithoutHTML = fn($code, $limit) => Utils::substrWithoutHTML($code, $limit);
         foreach ($articles as $article) array_push($articlesArr, $article);
+        $this->template->articlesCount = $this->articleRepository->getPublishedArticlesCount();
         $this->template->articles = $articlesArr;
     }
 

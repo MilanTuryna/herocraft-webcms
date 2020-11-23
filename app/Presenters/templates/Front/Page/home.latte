@@ -4,21 +4,19 @@
 {block description}
 	Description
 {/block}
+{block breadcumb}
+	<div aria-label="breadcrumb">
+		<ol class="breadcrumb br-0 mb-0">
+			<li class="breadcrumb-item active"><a href="/" class="text-dark">HeroCraft.cz</a></li>
+			<li class="breadcrumb-item active" aria-current="page">Domovská stránka</li>
+		</ol>
+	</div>
+{/block}
 {block keywords}
 	KW
 {/block}
 {block content}
-	<style>
-		{if !$nastaveni->udrzba && isset($status->online) && $status->online}
-		.header {
-			background-image: url('{$basePath}/img/header.png');
-		}
-		{else}
-		.header {
-			background-image: url('{$basePath}/img/header_udrzba.png');
-		}
-		{/if}
-	</style>
+	<!--
 	<header>
 		<div class="header shadow-lg">
 			<div class="container" data-aos="fade-right"  data-aos-duration="1500">
@@ -79,5 +77,100 @@
 						</div>
 					</div>
 		{/foreach}
+	</div>-->
+	<div class="padding-walls-32" style="padding-bottom: 32px; margin-top:12px;">
+		<h3 class="font-weight-normal aktuality">
+			<i class="fa fa-thumb-tack font-weight-normal"></i> AKTUALITY
+			<span class="text-black-50">{="now"|date:'j.n.Y'}</span>
+		</h3>
+		<div class="card-deck">
+			<div class="row">
+				{foreach $articles as $article}
+					{var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
+					{if $iterator->isFirst()}
+						<div class="col-sm-12 news-card" >
+							<div class="card head-article border zoomed br-0">
+								<div class="card-body">
+									<h4 class="card-title"><a n:href="article, $article->url">{$article->name}</a></h4>
+									<div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
+										{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
+									</div>
+									<p class="card-text">
+										<small class="text-muted">
+											{$article->created_at|date:'j.n.Y H:i'}
+										</small>
+										<span class="badge badge-pill float-right text-white"
+											  style="background-color:{$categoryColor|noescape}">
+											{$article->category_name ? $article->category_name : "Nezařazeno"}
+										</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					{else}
+						<div n:class="'news-card', $iterator->counter === 2 || $iterator->counter === 3 ? 'col-sm-6' : 'col-sm-4'">
+							<div class="card unzoomed">
+								<div class="card-body">
+									<h5 class="card-title"><a n:href="article, $article->url">
+											{$article->name}</a>
+									</h5>
+									<div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
+										{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
+									</div>
+									<p class="card-text">
+										<small class="text-muted">{$article->created_at|date:'j.n.Y H:i'}</small>
+										<span class="badge badge-pill float-right text-white"
+											  style="background-color:{$categoryColor|noescape}">
+											{$article->category_name ? $article->category_name : "Nezařazeno"}
+										</span>
+									</p>
+								</div>
+							</div>
+						</div>
+					{/if}
+				{/foreach}
+			</div>
+		</div>
+		<div class="text-center d-block" style="margin-top:8px;">
+			{if $articlesCount - count($articles) > 0}
+				<button class="btn btn-secondary btn-sm br-0 w-33"
+						style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);" n:if="$articlesCount - count($articles) > 0">
+					ZOBRAZIT STARŠÍ <span class="text-white-50">(kolem {$articlesCount - count($articles)} {$sklonovani(2, ["článku", "článků", "článků"])})</span>
+				</button>
+			{else}
+				<button class="btn btn-secondary btn-sm br-0 w-33" style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);">
+					ZOBRAZIT ARCHIV
+				</button>
+			{/if}
+		</div>
+		<h3 class="font-weight-normal" style="margin-top:32px;"><i class="fa fa-gamepad"></i> HERNÍ PRVKY</h3>
+		<div class="shadow-sm herni-prvky" style="margin-bottom: 16px">
+			<a href="" target="_blank" class="text-dark">
+				<div class="border" style="padding: 16px; background:#e0f2f1; border-color: #aaa!important;">
+					<span class="f-w-500">HRÁČSKÝ PANEL</span> — tickety, správa herního profilu — přihlášení jako ve hře</span>
+				</div>
+			</a>
+			<a href="" target="_blank" class="text-dark">
+				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #e0f2f1; border-color: #aaa!important;">
+					<span class="f-w-500">HERNÍ STATISTIKY</span> — statistiky vybraného hráče, eventy
+				</div>
+			</a>
+			<a href="" target="_blank" class="text-dark">
+				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #e0f2f1; border-color: #aaa!important;">
+					<span class="f-w-500">BANLIST</span> — seznam neposedných hráčů
+				</div>
+			</a>
+			<a href="" target="_blank" class="text-dark">
+				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #ffebee; border-color: #aaa!important;">
+					<span class="f-w-500">HRANICE DYNMAP</span> — zobrazit herní mapu na serveru Hranice
+				</div>
+			</a>
+			<a href="" target="_blank" class="text-dark">
+				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #ffebee; border-color: #aaa!important;">
+					<span class="f-w-500">SENIOR DYNMAP</span> — zobrazit herní mapu na serveru SeniorCraft
+				</div>
+			</a>
+		</div>
+		<small class="text-muted">HeroCraft.cz</small>
 	</div>
 {/block}
