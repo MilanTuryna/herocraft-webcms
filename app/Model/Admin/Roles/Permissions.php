@@ -40,7 +40,7 @@ class Permissions
      * Returning a associative array with constant permissions nodes and user-friendly description of this permission (will be used for select/radios inputs)
      * @return array
      */
-    public static function getSelectBox() {
+    public static function getSelectBox(): array {
         return [
             self::ADMIN_FULL => "Správce - plná práva: *",
 
