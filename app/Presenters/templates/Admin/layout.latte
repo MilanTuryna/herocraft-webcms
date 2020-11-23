@@ -32,10 +32,10 @@
             Nastavení účtu
         </button>
         <div class="dropdown-menu w-100 dropdown-menu-lg-right" aria-labelledby="dropdownMenuButton">
-            <h6 class="dropdown-header">{$admin['name']}</h6>
+            <h6 class="dropdown-header">{$admin->getName()}</h6>
             {if $isFullAdmin}
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" n:href="User:edit $admin['id']">Účet</a>
+            <a class="dropdown-item" n:href="User:edit $admin->getId()">Účet</a>
             {/if}
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" n:href=":Front:Login:logout">Odhlásit se</a>
@@ -57,7 +57,7 @@
         <div class="col-md-4">
             <div class="card default-margin-bot link">
                 <div class="card-body">
-                    <span class="float-left">{$admin['name']}</span>
+                    <span class="float-left">{$admin->getName()}</span>
                     <span class="float-right"><a n:href=":Front:Login:logout" class="green-href">Odhlásit se</a></span>
                 </div>
             </div>

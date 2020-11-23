@@ -22,10 +22,10 @@
             <h5 style="margin:0!important;" class="card-title">Tvé oprávnění</h5>
             <div class="card-text">
                 <ul>
-                {foreach $admin['permissions'] as $permNode}
+                {foreach $admin->getPermissions() as $permNode}
                         <li>{$permissionsSelectBox[$permNode]}</li>
                 {/foreach}
-                    <li n:if="!$admin['permissions']">Bez nastavených práv</li>
+                    <li n:if="!$admin->getPermissions()">Bez nastavených práv</li>
                 </ul>
             </div>
         </div>
