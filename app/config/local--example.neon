@@ -1,6 +1,6 @@
 parameters:
     api:
-        expiretime:
+        expire_time:
     googleanalytics:
         enabled:
         code:
