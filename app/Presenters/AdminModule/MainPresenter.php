@@ -15,8 +15,6 @@ use Nette;
 use Nette\Database\Context;
 use Nette\Application\UI\Form;
 use Nette\Application\AbortException;
-use Nette\Application\BadRequestException;
-use Nette\Application\Responses\FileResponse;
 
 /**
  * Class AdminPresenter
