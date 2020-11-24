@@ -19,7 +19,6 @@ body,html {
     background-size: cover;
     background-position-y: 20%;
     animation: bgPosition--animation 10s infinite;
-    background-image: url('https://upload.hicoria.com/files/GwGjZd6f.png');
 }
 
 .logo {
