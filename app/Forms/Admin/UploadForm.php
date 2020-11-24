@@ -11,15 +11,26 @@ use Nette\Application\UI\Presenter;
 use Nette\Http\FileUpload;
 use stdClass;
 
+/**
+ * Class UploadForm
+ * @package App\Forms\Admin
+ */
 class UploadForm
 {
     private Presenter $presenter;
 
+    /**
+     * UploadForm constructor.
+     * @param Presenter $presenter
+     */
     public function __construct(Presenter $presenter)
     {
         $this->presenter = $presenter;
     }
 
+    /**
+     * @return Form
+     */
     public function create(): Form {
         $form = new Form;
         $form->addMultiUpload("upload")->setRequired()

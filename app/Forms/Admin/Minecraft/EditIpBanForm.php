@@ -5,6 +5,7 @@ namespace App\Forms\Minecraft;
 
 
 use App\Model\API\Plugin\Bans;
+use Exception;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
@@ -37,6 +38,7 @@ class EditIpBanForm
     /**
      * @return Form
      * @noinspection DuplicatedCode
+     * @throws Exception
      */
     public function create(): Form {
         $ipBan = $this->bans->getIPBanByIP($this->ip)->fetch();
@@ -65,7 +67,7 @@ class EditIpBanForm
                 "expires" => $expires], $this->ip);
             $this->presenter->flashMessage("Záznam IP adresy " . $this->ip . " byl úspěšně změněn, podle zadaných hodnot.", "success");
             $this->presenter->redirect("Minecraft:editBan", $this->ip);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->presenter->flashMessage("Zkontrolujte si prosím, jestli jste zadal čas ve validním časovém formátu", "danger");
             $this->presenter->redirect("Minecraft:editBan", $this->ip);
         }

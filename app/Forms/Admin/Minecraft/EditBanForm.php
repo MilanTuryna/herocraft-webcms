@@ -5,12 +5,12 @@ namespace App\Forms\Minecraft;
 
 
 use App\Model\API\Plugin\Bans;
+use Exception;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\Utils\DateTime;
 use stdClass;
-use Tracy\Debugger;
 
 /**
  * Class EditBanForm
@@ -37,6 +37,7 @@ class EditBanForm
 
     /**
      * @return Form
+     * @throws Exception
      */
     public function create(): Form {
         $ban = $this->bans->getBanByNick($this->bannedPlayer)->fetch();
@@ -65,7 +66,7 @@ class EditBanForm
                 "expires" => $expires], $this->bannedPlayer);
             $this->presenter->flashMessage("Záznam hráče " . $this->bannedPlayer . " byl úspěšně změněn, podle zadaných hodnot.", "success");
             $this->presenter->redirect("Minecraft:editBan", $this->bannedPlayer);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->presenter->flashMessage("Zkontrolujte si prosím, jestli jste zadal čas ve validním časovém formátu", "danger");
             $this->presenter->redirect("Minecraft:editBan", $this->bannedPlayer);
         }

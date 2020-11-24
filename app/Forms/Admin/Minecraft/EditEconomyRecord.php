@@ -26,6 +26,7 @@ class EditEconomyRecord
      * @param abstractIconomy $abstractIconomy
      * @param Presenter $presenter
      * @param int $recordId
+     * @param string $redirect
      */
     public function __construct(abstractIconomy $abstractIconomy, Presenter $presenter, int $recordId, string $redirect)
     {
