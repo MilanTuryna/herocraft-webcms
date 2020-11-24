@@ -2,10 +2,21 @@
     {$article->name|trim}
 {/block}
 {block description}
-    {$article->description}
+    {$article->description|trim}
 {/block}
 {block keywords}
-    {$article->keywords}
+    {$article->keywords|trim}
+{/block}
+{block breadcumb}
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb br-0 mb-0">
+            <li class="breadcrumb-item active"><a href="/" class="text-dark">{$nastaveni->nazev}</a></li>
+            <li class="breadcrumb-item active"><a href="/" class="text-dark" n:href="Page:archiv">Články</a></li>
+            <li class="breadcrumb-item" aria-current="page">
+                {$article->name|trim}
+            </li>
+        </ol>
+    </div>
 {/block}
 {block content}
     <style>
@@ -46,7 +57,7 @@
     </div>
          {if $logged}
              <br>
-             <a n:href=":Admin:Article:edit $article->url" target="_blank" class="btn dark-blue-btn dark-blue-border float-right border-radius-0 ">Editovat (administrace)</a>
+             <a n:href=":Admin:Article:edit $article->url" target="_blank" class="btn dark-blue-btn dark-blue-border float-right border-radius-0 " style="margin-bottom: 16px">Editovat (administrace)</a>
          {/if}
      </article>
 {/block}
