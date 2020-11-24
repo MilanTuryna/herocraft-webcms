@@ -15,6 +15,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     private GoogleAnalytics $googleAnalytics;
 
+    /**
+     * BasePresenter constructor.
+     * @param GoogleAnalytics $googleAnalytics
+     */
     public function __construct(GoogleAnalytics $googleAnalytics)
     {
         parent::__construct();

@@ -9,6 +9,10 @@ use App\Presenters\HelpBasePresenter;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 
+/**
+ * Class LoginPresenter
+ * @package App\Presenters\HelpDeskModule
+ */
 class LoginPresenter extends HelpBasePresenter
 {
     private SupportAuthenticator $supportAuthenticator;
