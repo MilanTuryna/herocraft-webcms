@@ -28,13 +28,14 @@ class UserPresenter extends AdminBasePresenter
      * UserPresenter constructor.
      * @param Authenticator $authenticator
      * @param UserManager $userManager
+     * @param UserRepository $userRepository
      */
-    public function __construct(Authenticator $authenticator, UserManager $userManager)
+    public function __construct(Authenticator $authenticator, UserManager $userManager, UserRepository $userRepository)
     {
         parent::__construct($authenticator, Permissions::ADMIN_FULL);
 
         $this->userManager = $userManager;
-        $this->userRepository = $userManager->getRepository();
+        $this->userRepository = $userRepository;
     }
 
     public function startup()
