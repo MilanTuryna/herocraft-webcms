@@ -19,7 +19,9 @@
 	<div class="padding-walls-32" style="padding-bottom: 32px; margin-top:12px;">
 		<h3 class="font-weight-normal aktuality">
 			<i class="fa fa-thumb-tack font-weight-normal"></i> AKTUALITY
-			<span class="text-black-50">{="now"|date:'j.n.Y'}</span>
+			<span class="text-black-50">
+				<time>{="now"|date:'j.n.Y'}</time>
+			</span>
 		</h3>
 		<div class="card-deck">
 			<div class="row">
@@ -28,41 +30,45 @@
 					{if $iterator->isFirst()}
 						<div class="col-sm-12 news-card" >
 							<div class="card head-article border zoomed br-0">
-								<div class="card-body">
-									<h4 class="card-title"><a n:href="article, $article->url">{$article->name}</a></h4>
-									<div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
-										{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
-									</div>
-									<p class="card-text">
-										<small class="text-muted">
-											{$article->created_at|date:'j.n.Y H:i'}
-										</small>
-										<span class="badge badge-pill float-right text-white"
-											  style="background-color:{$categoryColor|noescape}">
+								<article>
+									<div class="card-body">
+										<h4 class="card-title"><a n:href="article, $article->url">{$article->name}</a></h4>
+										<div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
+											{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
+										</div>
+										<p class="card-text">
+											<small class="text-muted">
+												{$article->created_at|date:'j.n.Y H:i'}
+											</small>
+											<span class="badge badge-pill float-right text-white"
+												  style="background-color:{$categoryColor|noescape}">
 											{$article->category_name ? $article->category_name : "Nezařazeno"}
 										</span>
-									</p>
-								</div>
+										</p>
+									</div>
+								</article>
 							</div>
 						</div>
 					{else}
 						<div n:class="'news-card', $iterator->counter === 2 || $iterator->counter === 3 ? 'col-sm-6' : 'col-sm-4'">
 							<div class="card unzoomed">
-								<div class="card-body">
-									<h5 class="card-title"><a n:href="article, $article->url">
-											{$article->name}</a>
-									</h5>
-									<div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
-										{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
-									</div>
-									<p class="card-text">
-										<small class="text-muted">{$article->created_at|date:'j.n.Y H:i'}</small>
-										<span class="badge badge-pill float-right text-white"
-											  style="background-color:{$categoryColor|noescape}">
+								<article>
+									<div class="card-body">
+										<h5 class="card-title"><a n:href="article, $article->url">
+												{$article->name}</a>
+										</h5>
+										<div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
+											{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
+										</div>
+										<p class="card-text">
+											<small class="text-muted">{$article->created_at|date:'j.n.Y H:i'}</small>
+											<span class="badge badge-pill float-right text-white"
+												  style="background-color:{$categoryColor|noescape}">
 											{$article->category_name ? $article->category_name : "Nezařazeno"}
 										</span>
-									</p>
-								</div>
+										</p>
+									</div>
+								</article>
 							</div>
 						</div>
 					{/if}
@@ -109,6 +115,8 @@
 				</div>
 			</a>
 		</div>
-		<small class="text-muted">{$nastaveni->nazev} {="now"|date:'Y'}</small>
+		<footer>
+			<small class="text-muted">{$nastaveni->nazev} {="now"|date:'Y'}</small>
+		</footer>
 	</div>
 {/block}

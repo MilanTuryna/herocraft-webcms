@@ -36,13 +36,15 @@
         <div class="col-lg-1"></div>
     </div>
 </div>
-<div class="shadow header-image">
-    <div class="text-center d-block" style="padding: 75px;">
-        <a href="/">
-            <img src="{$basePath}/img/logo.png" class="logo">
-        </a>
+<header>
+    <div class="shadow header-image">
+        <div class="text-center d-block" style="padding: 75px;">
+            <a href="/">
+                <img src="{$basePath}/img/logo.png" class="logo">
+            </a>
+        </div>
     </div>
-</div>
+</header>
 <div class="row border-top h-auto">
     <div class="col-lg-1 p-0 z-index-minus"></div>
     <div class="col-lg-10 bg-white border-left border-right container-wrp">
@@ -71,29 +73,32 @@
                             {include breadcumb}
                         </div>
                     {/ifset}
-                    {include content}
+                    <main>
+                        {include content}
+                    </main>
                 </div>
             </div>
             <div class="col-xl-3 bg-light border-left shadow-sm border-top" style="padding-top: 16px;">
-                <div style="padding:24px; background: #dcedc8" class="border">
-                    <h3 class="font-weight-normal">
-                        <i class="fa fa-globe"></i> STATUS
-                    </h3>
-                    {if !$nastaveni->udrzba && isset($status->online) && $status->online}
-                        Na serveru {$sklonovani($status->players->online, ["je", "jsou", "je"])}
-                        momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
-                        Připoj se i ty na <strong>{$nastaveni->ip}</strong>
-                    {else}
-                        {if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
-                        {if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
-                        {if !isset($status->online)}Status se nepodařilo načíst!{/if}
-                    {/if}
-                </div>
-                {$widget|noescape}
-                <p class="text-muted small text-center">
-                    Developed by <a href="https://turyna.eu" target="_blank" class="extern-href">Miloslav Turyna</a> in PHP (Nette)
-                </p>
-
+                <aside>
+                    <div style="padding:24px; background: #dcedc8" class="border">
+                        <h3 class="font-weight-normal">
+                            <i class="fa fa-globe"></i> STATUS
+                        </h3>
+                        {if !$nastaveni->udrzba && isset($status->online) && $status->online}
+                            Na serveru {$sklonovani($status->players->online, ["je", "jsou", "je"])}
+                            momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+                            Připoj se i ty na <strong>{$nastaveni->ip}</strong>
+                        {else}
+                            {if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+                            {if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+                            {if !isset($status->online)}Status se nepodařilo načíst!{/if}
+                        {/if}
+                    </div>
+                    {$widget|noescape}
+                    <p class="text-muted small text-center">
+                        Developed by <a href="https://turyna.eu" target="_blank" class="extern-href">Miloslav Turyna</a> in PHP (Nette)
+                    </p>
+                </aside>
             </div>
         </div>
     </div>
