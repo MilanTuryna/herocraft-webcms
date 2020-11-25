@@ -1,74 +1,69 @@
 {block title}
-    Archiv článků
+    {$nastaveni->nazev} - Archiv článků
 {/block}
 {block description}
-    Archiv
+    Archiv článku na {$nastaveni->nazev}
+{/block}
+{block breadcumb}
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb br-0 mb-0">
+            <li class="breadcrumb-item active"><a n:href="Page:home" class="text-dark">{$nastaveni->nazev}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Archiv článků</li>
+        </ol>
+    </div>
 {/block}
 {block keywords}
-    ddd
+    archiv, {$nastaveni->nazev|trim|lower}, clanky, seznam, aktuality
 {/block}
 {block content}
-    <style>
-        .dark-blue-btn {
-            background:#01579b;
-            color:#fff;
-            transition:0.5s;
-        }
-    </style>
-    <div data-aos="fade-left" data-aos-duration="1500">
-        <h3 class="shadow bg-light border text-center" style="padding: 8px; border-radius: 8px">Archiv</h3>
-        {if $logged}
-            <a n:href=":Admin:Article:create" target="_blank" class="btn btn-block dark-blue-btn shadow-none border-radius-0 default-margin-bot">Přidat nový článek</a>
-        {/if}
-        <div class="row" id="clankyRow" style="margin-top:16px">
-            {foreach $articles as $article}
-                    <div class="col-md-4">
-                        <article>
-                        <div class="card h-100 shadow" style="border-radius: 10px">
-                            {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
-                            <div class="card-header text-center text-white"
-                                 style="padding: 4px; background-color: {$categoryColor|noescape};">
-                                {$article->category_name ? $article->category_name : "Nezařazeno"}
-                            </div>
-                            {ifset $articleRepository->getMiniature($article->id)[0]}
-                                <img src="{$basePath}/{$articleRepository->getMiniature($article->id)[0]}" class="card-img-top img-fluid" alt="Miniatura"/>
-                            {/ifset}
-                            <div class="card-body pb-0">
-                                <h4 class="card-title">{$article->name}</h4>
-                                <small>
-                                    {$article->content|substr:0:395|noescape|}{if strlen($article->content) > 395}...{/if}
-                                </small>
-                                <a n:href="article, $article->url">
-                                    <button type="button" class="btn btn-secondary btn-sm read-more w-100" style="margin-top:8px;">Zobrazit příspěvek</button>
-                                </a>
-                            </div>
-                            <div class="card-footer">
-                                <p class="card-text"><small class="text-muted float-left">{$article->author}</small>
-                                    <small class="text-muted float-right">{$article->created_at|date:'j.n.Y H:i'}</small></p>
-                            </div>
+<div class="padding-walls-32" style="padding-bottom: 32px; margin-top:12px;">
+    <h2 class="font-weight-normal aktuality">
+        <i class="fa fa-book font-weight-normal"></i> ARCHIV ČLÁNKŮ
+    </h2>
+    <div class="row">
+        {foreach $articles as $article}
+            {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
+        <div class="col-md-6">
+            <div class="card border-0 unzoomed br-0 news-card">
+                <article>
+                    <div class="card-body">
+                        <h5 class="card-title"><a n:href="article, $article->url">{$article->name}</a></h5>
+                        <div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
+                            {trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
                         </div>
-                        </article>
+                        <p class="card-text">
+                            <small class="text-muted">
+                                <b>{$article->author}</b> {$article->created_at|date:'j.n.Y H:i'}
+                            </small>
+                            <span class="badge badge-pill float-right text-white"
+                                  style="background-color:{$categoryColor|noescape}">
+											{$article->category_name ? $article->category_name : "Nezařazeno"}
+										</span>
+                        </p>
                     </div>
-            {/foreach}
+                </article>
+            </div>
         </div>
-        <div class="paginace" style="margin-bottom: 16px">
-            <center>
-                {if $page > 1}
-                    <a n:href="archiv, 1">První</a>
-                    &nbsp;|&nbsp;
-                    <a n:href="archiv, $page-1">Předchozí</a>
-                    &nbsp;|&nbsp;
-                {/if}
+        {/foreach}
+    </div>
+    <div class="d-block text-center">
+        <div style="margin-top: 8px">
+            {if $page > 1}
+                <a n:href="archiv, 1">První</a>
+                &nbsp;|&nbsp;
+                <a n:href="archiv, $page-1">Předchozí</a>
+                &nbsp;|&nbsp;
+            {/if}
 
-                Stránka {$page} z {$lastPage}
+            Stránka {$page} z {$lastPage}
 
-                {if $page < $lastPage}
-                    &nbsp;|&nbsp;
-                    <a n:href="archiv, $page+1">Další</a>
-                    &nbsp;|&nbsp;
-                    <a n:href="archiv, $lastPage">Poslední</a>
-                {/if}
-            </center>
+            {if $page < $lastPage}
+                &nbsp;|&nbsp;
+                <a n:href="archiv, $page+1">Další</a>
+                &nbsp;|&nbsp;
+                <a n:href="archiv, $lastPage">Poslední</a>
+            {/if}
         </div>
     </div>
+</div>
 {/block}

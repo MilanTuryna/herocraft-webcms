@@ -10,9 +10,9 @@
 {block breadcumb}
     <div aria-label="breadcrumb">
         <ol class="breadcrumb br-0 mb-0">
-            <li class="breadcrumb-item active"><a href="/" class="text-dark">{$nastaveni->nazev}</a></li>
-            <li class="breadcrumb-item active"><a href="/" class="text-dark" n:href="Page:archiv">Články</a></li>
-            <li class="breadcrumb-item" aria-current="page">
+            <li class="breadcrumb-item"><a n:href="home" class="text-dark">{$nastaveni->nazev}</a></li>
+            <li class="breadcrumb-item"><a class="text-dark" n:href="Page:archiv">Články</a></li>
+            <li class="breadcrumb-item active" aria-current="page">
                 {$article->name|trim}
             </li>
         </ol>
