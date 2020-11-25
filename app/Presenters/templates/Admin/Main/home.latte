@@ -113,7 +113,7 @@
                             <li><a n:href="User:create" class="black-href">Přidat uživatele</a></li>
                             <li>Změnit informace o uživatelovi (v seznamu)</li>
                             <li>Odebrat uživatele (v seznamu)</li>
-                            <li><a n:href="User:edit $admin['id']" class="black-href">Změnit informace o svém účtu</a></li>
+                            <li><a n:href="User:edit $admin->getId()" class="black-href">Změnit informace o svém účtu</a></li>
                         </ul>
                     </li>
                     <li n:if="$havePermission['minecraft_chatlog'] || $havePermission['minecraft_games'] || $havePermission['minecraft_banlist']
