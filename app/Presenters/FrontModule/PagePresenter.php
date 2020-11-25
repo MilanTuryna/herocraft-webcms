@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters\FrontModule;
 
+use App\Model\DI\GameSections;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\Utils;
@@ -30,11 +31,11 @@ final class PagePresenter extends BasePresenter
 
     private PageManager $pageManager;
     private Caching\Cache $cache;
-    private Nette\Http\Response $http;
     private ArticleRepository $articleRepository;
     private CategoryRepository $categoryRepository;
     private Authenticator $authenticator;
     private SettingsRepository $settingsRepository;
+    private GameSections $gameSections;
 
     /**
      * PagePresenter constructor.
@@ -43,28 +44,28 @@ final class PagePresenter extends BasePresenter
      * @param SettingsRepository $settingsRepository
      * @param PageManager $pageManager
      * @param Caching\IStorage $storage
-     * @param Nette\Http\Response $http
      * @param Authenticator $authenticator
      * @param GoogleAnalytics $googleAnalytics
+     * @param GameSections $gameSections
      */
     public function __construct(ArticleRepository $articleRepository,
                                 CategoryRepository $categoryRepository,
                                 SettingsRepository $settingsRepository,
                                 PageManager $pageManager,
                                 Caching\IStorage $storage,
-                                Nette\Http\Response $http,
                                 Authenticator $authenticator,
-                                GoogleAnalytics $googleAnalytics)
+                                GoogleAnalytics $googleAnalytics,
+                                GameSections $gameSections)
     {
         parent::__construct($googleAnalytics);
 
-        $this->http = $http;
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->cache = new Caching\Cache($storage);
         $this->pageManager = $pageManager;
         $this->settingsRepository = $settingsRepository;
         $this->authenticator = $authenticator;
+        $this->gameSections = $gameSections;
     }
 
     public function startup(): void {
@@ -94,6 +95,7 @@ final class PagePresenter extends BasePresenter
         foreach ($articles as $article) array_push($articlesArr, $article);
         $this->template->articlesCount = $this->articleRepository->getPublishedArticlesCount();
         $this->template->articles = $articlesArr;
+        $this->template->gameSections = $this->gameSections;
     }
 
     /**
