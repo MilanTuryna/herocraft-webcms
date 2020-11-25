@@ -300,10 +300,24 @@ This websystem supporting CzechCraft API (https://czech-craft.eu/api//). Server 
 The status of minecraft server provides https://api.mcsrvstat.us/2/ API service. IP address of Minecraft Server can be changed in the settings (in administration).
 
 ## TODO features
+`??` = maybe
+
 - better image uploading
 - more features in player's panel
 - better documentation
 - game permissions (luckperms) overview in administration
-- probably generating favicon.ico from logo
+- generating favicon.ico from logo
 - better content edition (adding footer and other sections to edit in administration)
 - better design in statistics and panel
+- add footer to edition in administration
+- if i'm will boring - exporting player's data
+- articles filter by category
+- widget highlight code in administration
+- more features to helpdesk like bansystem and player management etc.
+- add only url pages & secret pages
+- comments system for articles
+- better SEO optimalization (alt tags, aria-labels, semantic elements)
+- sitemap
+- code review (use best practices, code design etc...)
+- `??`articles rss
+- ticket subjects in administration
