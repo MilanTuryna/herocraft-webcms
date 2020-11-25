@@ -5,7 +5,7 @@ namespace App\Presenters;
 
 
 use App\Model\Admin\Roles\Permissions as Permissions;
-use App\Model\Admin\Storage\Administrator;
+use App\Model\Admin\Object\Administrator;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
 

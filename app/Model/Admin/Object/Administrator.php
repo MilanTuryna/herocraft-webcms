@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Admin\Storage;
+namespace App\Model\Admin\Object;
 
 /**
  * Class Administrator

@@ -5,7 +5,7 @@ namespace App\Forms\Admin\Article;
 
 use App;
 use App\Model\ArticleRepository;
-use App\Model\Admin\Storage\Administrator;
+use App\Model\Admin\Object\Administrator;
 
 use Nette;
 use Nette\Application\UI\Form;
