@@ -87,7 +87,7 @@
 				</a>
 			{/if}
 		</div>
-		<div n:if="$gameSections">
+		<div n:if="$gameSections->getCount() > 0">
 			<h2 class="font-weight-normal" style="margin-top:32px;"><i class="fa fa-gamepad"></i> HERNÍ PRVKY</h2>
 			<div class="shadow-sm herni-prvky" style="margin-bottom: 16px">
 				{foreach $gameSections->getSections() as $gameSection}
