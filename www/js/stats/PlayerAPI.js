@@ -1,12 +1,13 @@
+const APIPath = window.location.origin;
 class PlayerAPI {
     constructor(nickname) {
-        this.apiURL = 'https://test.turyna.eu/statistiky/api/' + nickname;
+        this.apiURL = APIPath + nickname;
         this.nickname = nickname;
     }
 
     static getStatus(then, err, loaded) {
         axios
-            .get('https://test.turyna.eu/statistiky/api/testtesttesttesttest')
+            .get(`${APIPath}/statistiky/api/testtesttesttesttest`)
             .then(then)
             .catch(err)
             .finally(loaded)
