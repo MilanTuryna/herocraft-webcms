@@ -87,33 +87,17 @@
 				</a>
 			{/if}
 		</div>
-		<h2 class="font-weight-normal" style="margin-top:32px;"><i class="fa fa-gamepad"></i> HERNÍ PRVKY</h2>
-		<div class="shadow-sm herni-prvky" style="margin-bottom: 16px">
-			<a href="" target="_blank" class="text-dark">
-				<div class="border" style="padding: 16px; background:#e0f2f1; border-color: #aaa!important;">
-					<span class="f-w-500">HRÁČSKÝ PANEL</span> — tickety, správa herního profilu — přihlášení jako ve hře</span>
-				</div>
-			</a>
-			<a href="" target="_blank" class="text-dark">
-				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #e0f2f1; border-color: #aaa!important;">
-					<span class="f-w-500">HERNÍ STATISTIKY</span> — statistiky vybraného hráče, eventy
-				</div>
-			</a>
-			<a href="" target="_blank" class="text-dark">
-				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #e0f2f1; border-color: #aaa!important;">
-					<span class="f-w-500">BANLIST</span> — seznam neposedných hráčů
-				</div>
-			</a>
-			<a href="" target="_blank" class="text-dark">
-				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #ffebee; border-color: #aaa!important;">
-					<span class="f-w-500">HRANICE DYNMAP</span> — zobrazit herní mapu na serveru Hranice
-				</div>
-			</a>
-			<a href="" target="_blank" class="text-dark">
-				<div class=" border-left border-bottom border-right" style="padding: 16px; background: #ffebee; border-color: #aaa!important;">
-					<span class="f-w-500">SENIOR DYNMAP</span> — zobrazit herní mapu na serveru SeniorCraft
-				</div>
-			</a>
+		<div n:if="$gameSections">
+			<h2 class="font-weight-normal" style="margin-top:32px;"><i class="fa fa-gamepad"></i> HERNÍ PRVKY</h2>
+			<div class="shadow-sm herni-prvky" style="margin-bottom: 16px">
+				{foreach $gameSections->getSections() as $gameSection}
+					<a href="{$gameSection->getLink()}" target="_blank" class="text-dark">
+						<div class="border" style="padding: 16px; background:{$gameSection->getColor()|noescape}; border-color: #aaa!important;">
+							<span class="f-w-500">{$gameSection->getTitle()}</span> — {$gameSection->getDescription()}
+						</div>
+					</a>
+				{/foreach}
+			</div>
 		</div>
 		<footer>
 			<small class="text-muted">{$nastaveni->nazev} {="now"|date:'Y'}</small>
