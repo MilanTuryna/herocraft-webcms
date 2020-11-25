@@ -38,7 +38,7 @@
 										</div>
 										<p class="card-text">
 											<small class="text-muted">
-												{$article->created_at|date:'j.n.Y H:i'}
+												<b>{$article->author}</b> {$article->created_at|date:'j.n.Y H:i'}
 											</small>
 											<span class="badge badge-pill float-right text-white"
 												  style="background-color:{$categoryColor|noescape}">
@@ -61,7 +61,7 @@
 											{trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
 										</div>
 										<p class="card-text">
-											<small class="text-muted">{$article->created_at|date:'j.n.Y H:i'}</small>
+											<small class="text-muted"><b>{$article->author}</b> {$article->created_at|date:'j.n.Y H:i'}</small>
 											<span class="badge badge-pill float-right text-white"
 												  style="background-color:{$categoryColor|noescape}">
 											{$article->category_name ? $article->category_name : "Nezařazeno"}
@@ -77,14 +77,14 @@
 		</div>
 		<div class="text-center d-block" style="margin-top:8px;">
 			{if $articlesCount - count($articles) > 0}
-				<button class="btn btn-secondary btn-sm br-0 w-33"
+				<a n:href="archiv" class="btn btn-secondary btn-sm br-0 w-33"
 						style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);" n:if="$articlesCount - count($articles) > 0">
 					ZOBRAZIT STARŠÍ <span class="text-white-50">(kolem {$articlesCount - count($articles)} {$sklonovani(2, ["článku", "článků", "článků"])})</span>
-				</button>
+				</a>
 			{else}
-				<button class="btn btn-secondary btn-sm br-0 w-33" style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);">
+				<a n:href="archiv" class="btn btn-secondary btn-sm br-0 w-33" style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);">
 					ZOBRAZIT ARCHIV
-				</button>
+				</a>
 			{/if}
 		</div>
 		<h2 class="font-weight-normal" style="margin-top:32px;"><i class="fa fa-gamepad"></i> HERNÍ PRVKY</h2>
