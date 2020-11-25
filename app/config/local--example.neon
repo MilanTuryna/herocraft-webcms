@@ -1,5 +1,5 @@
 parameters:
-    extern_game_section: [{
+    game_sections: [{
         name: ""
         description: ""
         link: ""
