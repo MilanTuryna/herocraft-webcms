@@ -321,3 +321,4 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - code review (use best practices, code design etc...)
 - `??`articles rss
 - ticket subjects in administration
+- player time graph in administration
