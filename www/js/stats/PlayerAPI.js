@@ -1,7 +1,7 @@
 const APIPath = window.location.origin;
 class PlayerAPI {
     constructor(nickname) {
-        this.apiURL = APIPath + nickname;
+        this.apiURL = APIPath + "/" + nickname;
         this.nickname = nickname;
     }
 
