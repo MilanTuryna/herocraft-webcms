@@ -1,4 +1,9 @@
 parameters:
+    extern_game_section: [{
+        name: ""
+        description: ""
+        link: ""
+    }]
     api:
         expire_time:
     googleanalytics:
