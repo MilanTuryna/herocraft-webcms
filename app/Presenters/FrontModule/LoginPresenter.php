@@ -52,7 +52,7 @@ class LoginPresenter extends BasePresenter
         $nastaveni = $this->context->table('nastaveni')->get(1);
         $status = new Status((string)$nastaveni->ip, $this->cache);
         $this->template->nastaveni = $nastaveni;
-        $this->template->widget = $this->settingsRepository->getContext()->table('widget')->wherePrimary(1)->fetch();
+        $this->template->widget = $this->settingsRepository->getWidgetCode(1);
         $this->template->logo = $this->settingsRepository->getLogo();
         $this->template->stranky = $this->context->table('pages');
         $this->template->status = !$nastaveni->udrzba ? $status->getCachedJson() : false; // pokud neni udrzba nebo api nefunguje, status se vypise jinak false
