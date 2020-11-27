@@ -312,7 +312,6 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - add footer to edition in administration
 - if i'm will boring - exporting player's data
 - articles filter by category
-- widget highlight code in administration
 - more features to helpdesk like bansystem and player management etc.
 - add only url pages & secret pages
 - comments system for articles
