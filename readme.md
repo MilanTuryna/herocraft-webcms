@@ -309,7 +309,6 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - generating favicon.ico from logo
 - better content edition (adding footer and other sections to edit in administration)
 - better design in statistics and panel
-- add footer to edition in administration
 - if i'm will boring - exporting player's data
 - articles filter by category
 - more features to helpdesk like bansystem and player management etc.
