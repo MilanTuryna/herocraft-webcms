@@ -49,7 +49,7 @@ class LoginPresenter extends BasePresenter
      * @throws Nette\Application\AbortException
      */
     public function renderMain() {
-        $nastaveni = $this->context->table('nastaveni')->get(1);
+        $nastaveni = $this->settingsRepository->getAllRows();
         $status = new Status((string)$nastaveni->ip, $this->cache);
         $this->template->nastaveni = $nastaveni;
         $this->template->widget = $this->settingsRepository->getWidgetCode(1);
