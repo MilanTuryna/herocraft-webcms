@@ -35,9 +35,10 @@ class SettingsRepository
 
     /**
      * @param $arr
+     * @return int
      */
-    public function setRows($arr) {
-        $this->db->table('nastaveni')->where('id', 1)->update($arr);
+    public function setRows($arr): ?int {
+        return $this->db->table('nastaveni')->where('id', 1)->update($arr);
     }
 
     /**
@@ -66,7 +67,7 @@ class SettingsRepository
     /**
      * @return ActiveRow|null
      */
-    public function getAllRows() {
+    public function getAllRows(): ?ActiveRow {
         return $this->db->table('nastaveni')->get(1);
     }
 
@@ -74,7 +75,7 @@ class SettingsRepository
      * @param $ip
      * @return Status
      */
-    public function getStatus($ip) {
+    public function getStatus($ip): Status {
         return new Status($ip,$this->cache);
     }
 
@@ -83,7 +84,7 @@ class SettingsRepository
      * @param int $primary
      * @return int
      */
-    public function setWidgetCode($code, $primary = 1) {
+    public function setWidgetCode($code, $primary = 1): ?int {
         return $this->db->table('widget')->wherePrimary($primary)->update([
             'code' => $code
         ]);
@@ -93,7 +94,7 @@ class SettingsRepository
      * @param int $primary
      * @return mixed|ActiveRow
      */
-    public function getWidgetCode($primary = 1) {
+    public function getWidgetCode($primary = 1): ?string {
         return $this->db->table('widget')->get($primary)->code;
     }
 
@@ -101,7 +102,7 @@ class SettingsRepository
      * @param $name
      * @return ActiveRow|null
      */
-    public function getRow($name) {
+    public function getRow($name): ?ActiveRow {
         return $this->db->table('nastaveni')->select($name)->get(1);
     }
 
