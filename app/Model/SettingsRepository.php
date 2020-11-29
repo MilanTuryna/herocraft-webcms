@@ -40,10 +40,16 @@ class SettingsRepository
         $this->db->table('nastaveni')->where('id', 1)->update($arr);
     }
 
+    /**
+     * @return array
+     */
     public function getLogo(): array {
         return glob(self::PATH . "logo.*");
     }
 
+    /**
+     * @param FileUpload $file
+     */
     public function setLogo(FileUpload $file) {
         $suffix = pathinfo($file->getName(), PATHINFO_EXTENSION);
         $path = self::PATH . "logo.{$suffix}";
@@ -64,6 +70,10 @@ class SettingsRepository
         return $this->db->table('nastaveni')->get(1);
     }
 
+    /**
+     * @param $ip
+     * @return Status
+     */
     public function getStatus($ip) {
         return new Status($ip,$this->cache);
     }
