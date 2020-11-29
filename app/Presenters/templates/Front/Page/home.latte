@@ -101,7 +101,7 @@
 			</div>
 		</div>
 		<footer>
-			<small class="text-muted">{$nastaveni->nazev} {="now"|date:'Y'}</small>
+			{$nastaveni->footer|noescape}
 		</footer>
 	</div>
 {/block}
