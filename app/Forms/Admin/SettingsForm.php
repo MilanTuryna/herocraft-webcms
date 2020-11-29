@@ -49,6 +49,9 @@ class SettingsForm
         $form->addTextArea('widget')
             ->setDefaultValue($this->settings->getWidgetCode())
             ->setRequired();
+        $form->addTextArea('footer')
+            ->setDefaultValue($settings->footer)
+            ->setRequired();
         $form->addSelect('udrzba', 'Údržba', [
             '0' => 'Neaktivní',
             '1' => 'Aktivní'
@@ -70,7 +73,8 @@ class SettingsForm
             "nazev" => $values->name,
             "ip" => $values->ip,
             "udrzba" => $values->udrzba,
-            "description" => $values->description
+            "description" => $values->description,
+            "footer" => $values->footer
         ]);
         $this->settings->setWidgetCode($values->widget);
         if($values->logo->isOk() && $values->logo->isImage()) {
