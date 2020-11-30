@@ -53,4 +53,8 @@ class Administrator
     {
         return $this->permissions;
     }
+
+    public function __toString(): string {
+        return $this->name;
+    }
 }
