@@ -12,17 +12,29 @@ use Nette\Application\UI\Presenter;
 
 use stdClass;
 
+/**
+ * Class CreateForm
+ * @package App\Forms\Admin\User
+ */
 class CreateForm
 {
     private UserManager $userManager;
     private Presenter $presenter;
 
+    /**
+     * CreateForm constructor.
+     * @param UserManager $userManager
+     * @param Presenter $presenter
+     */
     public function __construct(UserManager $userManager, Presenter $presenter)
     {
         $this->userManager = $userManager;
         $this->presenter = $presenter;
     }
 
+    /**
+     * @return Form
+     */
     public function create() {
         $form = new Form;
         $form->addText('name', 'Uživatel')
