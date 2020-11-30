@@ -318,4 +318,22 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - code review (use best practices, code design etc...)
 - `??`articles rss
 - ticket subjects in administration
-- player time graph in administration
+- discord webhook notify
+- 
+
+## Provedené změny (CZECH)
+- 23.11 - 30.11
+    - možnost změny footeru (patičky) v administraci
+    - html editor v administraci (zvýraznění, odsazení)
+    - přidán favicon.ico (16px logo) které se zobrazuje u karty
+    - přidány herní sekce do konfigurace
+    - bezpečností aktualizace Nette (3.0 -> 3.0.7)
+    - upraven počet článku na jednu stránku v archivu
+    - malé opravy v designu po redesignu (paddingy, marginy)
+    - přidány seo elementy pro lepší orientaci pro vyhledávče
+    - možnost změny meta tagu description na hlavní stránce
+    - možnost změny času expirace cache herních dat (statistik)
+    - nastavení google analytics v konfiguraci
+    - homepage redesign
+- 30.11 - 7.11
+    - 30.11 - příprava tříd k propojení webhooku discord webhooku
