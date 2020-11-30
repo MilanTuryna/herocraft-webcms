@@ -83,7 +83,9 @@ class TicketPresenter extends PanelBasePresenter
 
     public function renderAdd() {
         try {
-            $this->template->placeholderMessagesArray = Json::encode($this->ticketRepository->getSubjects());
+            $this->template->placeholderMessagesArray = Json::encode($this->ticketRepository
+                ->getTicketSettings()
+                ->getSubjects());
         } catch (JsonException $e) {
             $this->template->placeholderMessagesArray = "{}";
         }
