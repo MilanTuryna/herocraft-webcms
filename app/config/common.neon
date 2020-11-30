@@ -37,32 +37,34 @@ forms:
 		Nette\Forms\Controls\CsrfProtection::PROTECTION: 'Vaše relace vypršela. Vraťte se na domovskou stránku a zkuste to znovu.'
 
 services:
-	- App\Model\UserRepository
-	- App\Model\PageManager
-	- App\Model\ArticleRepository
-	- App\Model\CategoryRepository
-	- App\Model\PageRepository
-	- App\Model\SettingsRepository
-	- App\Model\Stats\CachedAPIRepository
-	- App\Model\Panel\MojangRepository
-	- App\Model\Panel\Core\TicketRepository(@database.default.context, %tickets.subjects%)
-	- App\Model\Panel\AuthMeRepository(@database.authme.context)
-	- App\Model\Security\Auth\Authenticator
-	- App\Model\Security\Auth\PluginAuthenticator
-	- App\Model\Security\Auth\SupportAuthenticator
-	- App\Model\API\CzechCraft(%czechcraft.server_slug%)
-	- App\Model\API\Plugin\PlayerTime(@database.playertime.context)
-	- App\Model\API\Plugin\ChatLog(@database.chatlog.context)
-	- App\Model\API\Plugin\Games\Events(@database.events.context)
-	- App\Model\API\Plugin\Games\SpleefX(@database.spleefx.context)
-	- App\Model\API\Plugin\Bans(@database.bans.context)
-	- App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
-	- App\Model\API\Plugin\Senior\Economy(@database.seniorEconomy.context)
-	- App\Model\API\Plugin\Classic\Economy(@database.classicEconomy.context)
-	- App\Model\API\Plugin\Games\HideAndSeek(@database.hideandseek.context)
-	- App\Model\API\Plugin\OnlinePlayers(@database.onlineplayers.context)
-	- App\Model\DI\GoogleAnalytics(%googleanalytics.code%, %googleanalytics.enabled%)
-	- App\Model\UserManager
-	- App\Model\DI\GameSections(%gameSections%)
-	- App\Model\DI\API(%api.expire_time%)
+	userRepository: App\Model\UserRepository
+	pageManager: App\Model\PageManager
+	articleRepository: App\Model\ArticleRepository
+	categoryRepository: App\Model\CategoryRepository
+	pageRepository: App\Model\PageRepository
+	ticketRepository: App\Model\Panel\Core\TicketRepository
+	settingsRepository: App\Model\SettingsRepository
+	cachedAPIRepository: App\Model\Stats\CachedAPIRepository
+	mojangRepository: App\Model\Panel\MojangRepository
+	authMeRepository: App\Model\Panel\AuthMeRepository(@database.authme.context)
+	authenticator: App\Model\Security\Auth\Authenticator
+	pluginAuthenticator: App\Model\Security\Auth\PluginAuthenticator
+	supportAuthenticator: App\Model\Security\Auth\SupportAuthenticator
+	czechCraft: App\Model\API\CzechCraft(%czechcraft.server_slug%)
+	playerTime: App\Model\API\Plugin\PlayerTime(@database.playertime.context)
+	chatLog: App\Model\API\Plugin\ChatLog(@database.chatlog.context)
+	events: App\Model\API\Plugin\Games\Events(@database.events.context)
+	spleefx: App\Model\API\Plugin\Games\SpleefX(@database.spleefx.context)
+	bans: App\Model\API\Plugin\Bans(@database.bans.context)
+	luckperms: App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
+	seniorEconomy: App\Model\API\Plugin\Senior\Economy(@database.seniorEconomy.context)
+	classicEconomy: App\Model\API\Plugin\Classic\Economy(@database.classicEconomy.context)
+	hideAndSeek: App\Model\API\Plugin\Games\HideAndSeek(@database.hideandseek.context)
+	onlinePlayers: App\Model\API\Plugin\OnlinePlayers(@database.onlineplayers.context)
+	googleAnalytics: App\Model\DI\GoogleAnalytics(%googleanalytics.code%, %googleanalytics.enabled%)
+	userManager: App\Model\UserManager
+	gameSections: App\Model\DI\GameSections(%gameSections%)
+	api: App\Model\DI\API(%api.expire_time%)
+	discord: App\Model\DI\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%, %tickets.callback.discord.url%, %tickets.callback.discord.color%)
+	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord)
 	router: App\Router\RouterFactory::createRouter
