@@ -13,10 +13,8 @@ parameters:
         callback:
             discord:
                 enabled:
-                settings:
-                    title: ""
-                    color: ""
-                    footer: ""
+                url:
+                color:
         subjects:
     czechcraft:
         server_slug: ""
