@@ -2,6 +2,7 @@
 
 namespace App\Model\Panel\Core;
 
+use App\Model\DI\Tickets\Settings;
 use App\Model\Utils;
 use Nette\Database\Context;
 use Nette\Database\Table\ActiveRow;
@@ -23,18 +24,18 @@ class TicketRepository
     ];
 
     private Context $context;
-    private array $subjects;
+    private Settings $settings;
 
     /**
      * TicketRepository constructor.
      * @param Context $context
      * database.default
-     * @param array $subjects
+     * @param Settings $settings
      */
-    public function __construct(Context $context, array $subjects)
+    public function __construct(Context $context, Settings $settings)
     {
         $this->context = $context;
-        $this->subjects = $subjects;
+        $this->settings = $settings;
     }
 
     /**
@@ -50,7 +51,7 @@ class TicketRepository
      * @return array
      */
     public function getSelectBox() {
-        return array_map(fn (array $subject) => array_combine(array_keys($subject), array_keys($subject)), $this->subjects);
+        return array_map(fn (array $subject) => array_combine(array_keys($subject), array_keys($subject)), $this->settings->getSubjects());
     }
 
     /**
@@ -175,7 +176,11 @@ class TicketRepository
         return $this->context; // database.default -> config
     }
 
-    public function getSubjects(): array {
-        return $this->subjects;
+    /**
+     * @return Settings
+     */
+    public function getTicketSettings(): Settings {
+        return $this->settings;
     }
+
 }
