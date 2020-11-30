@@ -3,6 +3,7 @@
 namespace App\Forms\Panel\Tickets;
 
 use App\Model\Panel\Core\TicketRepository;
+use App\Model\Panel\Object\Ticket;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
@@ -70,7 +71,10 @@ class AddTicketForm
             'type' => TicketRepository::TYPES['player'],
             'content' => $values->content,
         ]);
-
+        $ticket = new Ticket($values->author, $values->name, $values->subject, $values->content, $row->id);
+        $this->ticketRepository->getTicketSettings()
+            ->getDiscord()
+            ->notify($ticket);
         $this->presenter->flashMessage('Ticket byl úspěšně vytvořen!', 'dark-green');
         $this->presenter->redirect('Ticket:view', $row->id);
     }
