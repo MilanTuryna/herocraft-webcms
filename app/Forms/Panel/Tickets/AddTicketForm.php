@@ -71,7 +71,7 @@ class AddTicketForm
             'type' => TicketRepository::TYPES['player'],
             'content' => $values->content,
         ]);
-        $ticket = new Ticket($values->author, $values->name, $values->subject, $values->content, $row->id);
+        $ticket = new Ticket($this->user->realname, $values->name, $values->subject, $values->content, $row->id);
         $this->ticketRepository->getTicketSettings()
             ->getDiscord()
             ->notify($ticket);
