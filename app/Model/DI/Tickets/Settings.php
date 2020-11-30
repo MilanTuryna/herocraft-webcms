@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Model\DI\Tickets\Callbacks;
+namespace App\Model\DI\Tickets;
 
 use Nette\SmartObject;
+use App\Model\DI\Tickets\Callbacks\Discord;
 
 class Settings
 {
