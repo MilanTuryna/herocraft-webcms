@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Panel\Storage;
+namespace App\Model\Panel\Object;
 
 /**
  * Class MojangUser
