@@ -10,6 +10,13 @@ parameters:
         enabled:
         code:
     tickets:
+        callback:
+            discord:
+                enabled:
+                settings:
+                    title: ""
+                    color: ""
+                    footer: ""
         subjects:
     czechcraft:
         server_slug: ""
