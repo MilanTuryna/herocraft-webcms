@@ -6,7 +6,7 @@ use App\Model\API\Minecraft;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Panel\AuthMeRepository;
 use App\Model\Panel\MojangRepository;
-use App\Model\Panel\Storage\MojangUser;
+use App\Model\Panel\Object\MojangUser;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
 use App\Model\Stats\CachedAPIRepository;
