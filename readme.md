@@ -351,5 +351,6 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - homepage redesign
 - 30.11 - 7.11
     - příprava tříd k propojení webhooku discord webhooku
+    - nastavení discord webhooku v konfiguraci
     - změněna výška textarea při přidávání ticketu v panelu
     
