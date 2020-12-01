@@ -6,8 +6,10 @@ use App\Model\Panel\Core\TicketRepository;
 use App\Model\Panel\Object\Ticket;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\InvalidLinkException;
 use Nette\Application\UI\Presenter;
 use Nette\Database\Table\ActiveRow;
+use Nette\Utils\JsonException;
 
 /**
  * Class AddTicketForm
@@ -72,9 +74,14 @@ class AddTicketForm
             'content' => $values->content,
         ]);
         $ticket = new Ticket($this->user->realname, $values->name, $values->subject, $values->content, $row->id);
-        $this->ticketRepository->getTicketSettings()
-            ->getDiscord()
-            ->notify($ticket);
+        try {
+            $this->ticketRepository->getTicketSettings()
+                ->getDiscord()
+                ->notify($ticket,
+                    $this->presenter->link(":Stats:Main:app?player=".$this->user->realname),
+                    $this->presenter->link(":Help:Main:ticket", $row->id));
+        } catch (JsonException | InvalidLinkException $exception) {}
+
         $this->presenter->flashMessage('Ticket byl úspěšně vytvořen!', 'dark-green');
         $this->presenter->redirect('Ticket:view', $row->id);
     }
