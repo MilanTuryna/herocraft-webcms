@@ -68,7 +68,7 @@ class Discord
                             "Název: **".substr($ticket->getName(), 0, 30)."**\n" .
                             "ID ticketu: **#" . $ticket->getId() . "**\n" .
                             "Zvolený předmět: **".$ticket->getSubject()."**\n" .
-                            "Zobrazit ticket: **[ZDE](".$this->linkGenerator->link($helpUrl, [$ticket->getId()]).")**"
+                            "Zobrazit ticket: **[ZDE](".$helpUrl.")**"
                     ],
                 ],
                 "footer" => [
