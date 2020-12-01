@@ -78,8 +78,8 @@ class AddTicketForm
             $this->ticketRepository->getTicketSettings()
                 ->getDiscord()
                 ->notify($ticket,
-                    $this->presenter->link(":Stats:Main:app?player=".$this->user->realname),
-                    $this->presenter->link(":Help:Main:ticket", $row->id));
+                    $this->presenter->link("//:Stats:Main:app?player=".$this->user->realname),
+                    $this->presenter->link("//:HelpDesk:Main:ticket", $row->id));
         } catch (JsonException | InvalidLinkException $exception) {}
 
         $this->presenter->flashMessage('Ticket byl úspěšně vytvořen!', 'dark-green');
