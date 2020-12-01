@@ -322,6 +322,20 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - 
 
 ## Provedené změny (CZECH)
+- 16.11 - 23.11
+    - opraveno ořezávání obsahu článků na hlavní straně
+    - změněno kódování editoru na RAW
+    - dokončený výpis helperů
+    - přidány permisse k sekci "Minecraft > Helpers"
+    - opraven odehraný čas helpera (nyní se vyhledává bezohledu postavení písmen (lower,upper))
+    - odstraněn nefunkční graf z "Minecraft > Helpers" (bude dodělán příště)
+    - přidán odkaz na statistiku hráče při otevření jeho ticketu v helpdesku
+    - přidán odkaz na github do patičky v administraci
+    - přidána speciální mc permisse "web.implement" (tohoto hráče to ukáže jako helpera na webu)
+    - opraven CLI script na ukládaní odehraného času helperů
+    - možnost nastavení předmětů ticketu v konfiguraci
+    - přidána možnost nastavit ke každému předmětu jinou placeholder zprávu
+    - možnost nastavit server-slug na czechcraft v konfiguraci
 - 23.11 - 30.11
     - možnost změny footeru (patičky) v administraci
     - html editor v administraci (zvýraznění, odsazení)
