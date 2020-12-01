@@ -57,20 +57,18 @@ class Authenticator implements IAuthenticator
     }
 
     /**
-     * @return bool|ActiveRow|null
+     * @return ActiveRow|null
      */
-    public function getUser() {
+    public function getUser(): ?ActiveRow {
         if($this->session->getSection(self::SESSION_SECTION)->id) {
             return $this->userRepository->findById($this->session->getSection(self::SESSION_SECTION)->id);
         }
-        return false;
+        return null;
     }
 
     /**
      * @return bool
      * @deprecated
-     *
-     * Use (bool)getUser();
      */
     public function isLoggedIn(): bool {
         return $this->userRepository->findById($this->session->getSection(self::SESSION_SECTION)->id) ? true : false;

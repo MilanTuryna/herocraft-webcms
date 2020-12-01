@@ -68,12 +68,12 @@ class PluginAuthenticator implements IAuthenticator
     }
 
     /**
-     * @return bool|ActiveRow|null
+     * @return ActiveRow|null
      */
-    public function getUser() {
+    public function getUser(): ?ActiveRow {
         if($this->session->getSection(self::SESSION_SECTION)->id) {
             return $this->authMeRepository->findById($this->session->getSection(self::SESSION_SECTION)->id);
         }
-        return false;
+        return null;
     }
 }

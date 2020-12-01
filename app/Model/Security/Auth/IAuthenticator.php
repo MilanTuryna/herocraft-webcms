@@ -2,6 +2,8 @@
 
 namespace App\Model\Security\Auth;
 
+use Nette\Database\Table\ActiveRow;
+
 /**
  * Interface IAuthenticator
  * @package App\Model\Security
@@ -15,5 +17,5 @@ interface IAuthenticator {
      */
     public function login(array $credentials, string $expiration = self::EXPIRATION): void;
     public function logout(): void;
-    public function getUser();
+    public function getUser(): ?ActiveRow;
 }

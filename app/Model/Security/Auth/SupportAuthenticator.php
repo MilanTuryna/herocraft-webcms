@@ -81,11 +81,9 @@ class SupportAuthenticator implements IAuthenticator
     /**
      * @return bool|ActiveRow|null
      */
-    public function getUser() {
-        if($this->session->getSection(self::SESSION_SECTION)->id) {
-            return $this->authMeRepository->findById($this->session->getSection(self::SESSION_SECTION)->id);
-        }
-        return false;
+    public function getUser(): ?ActiveRow  {
+        if($this->session->getSection(self::SESSION_SECTION)->id) return $this->authMeRepository->findById($this->session->getSection(self::SESSION_SECTION)->id);
+        return null;
     }
 
     /**
