@@ -46,14 +46,14 @@ class Discord
 
     /**
      * @param Ticket $ticket
-     * @param array $routes
+     * @param string $statsRoute
+     * @param string $helpRoute
      * @return bool
      * @throws InvalidLinkException
      * @throws JsonException
      */
-    public function notify(Ticket $ticket, array $routes): bool {
+    public function notify(Ticket $ticket, string $statsRoute, string $helpRoute): bool {
         if(!$this->isEnabled()) return false;
-        [$statsRoute, $helpDeskRoute] = $routes;
         $response = Json::encode([
             "content" => null,
             "username" => $this->username,
@@ -72,7 +72,7 @@ class Discord
                             "Název: **".substr($ticket->getName(), 0, 30)."**\n" .
                             "ID ticketu: **#" . $ticket->getId() . "**\n" .
                             "Zvolený předmět: **".$ticket->getSubject()."**\n" .
-                            "Zobrazit ticket: **[ZDE](".$this->linkGenerator->link($helpDeskRoute, [$ticket->getId()]).")**"
+                            "Zobrazit ticket: **[ZDE](".$this->linkGenerator->link($helpRoute, [$ticket->getId()]).")**"
                     ],
                 ],
                 "footer" => [
