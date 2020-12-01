@@ -65,7 +65,7 @@ class Discord
                         "name" => "Informace o ticketu",
                         "value" =>
                             "Autor: **[".$ticket->getAuthor()."](". $statsUrl .")**\n" .
-                            "Název: **".substr($ticket->getName(), 0, 30)."**\n" .
+                            "Název: **".substr($ticket->getName(), 0, 45)."**\n" .
                             "ID ticketu: **#" . $ticket->getId() . "**\n" .
                             "Zvolený předmět: **".$ticket->getSubject()."**\n" .
                             "Zobrazit ticket: **[ZDE](".$helpUrl.")**"
@@ -85,6 +85,7 @@ class Discord
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
         $curlexec = curl_exec($ch);
         curl_close($ch);
+        die($helpUrl);
         return true;
     }
 
