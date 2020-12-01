@@ -15,6 +15,8 @@ parameters:
                 enabled:
                 url:
                 color:
+                username:
+                logo:
         subjects:
     czechcraft:
         server_slug: ""
