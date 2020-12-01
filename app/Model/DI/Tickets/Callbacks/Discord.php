@@ -3,8 +3,6 @@
 namespace App\Model\DI\Tickets\Callbacks;
 
 use App\Model\Panel\Object\Ticket;
-use Nette\Application\LinkGenerator;
-use Nette\Application\UI\InvalidLinkException;
 use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
