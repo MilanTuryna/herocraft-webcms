@@ -336,4 +336,6 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - nastavení google analytics v konfiguraci
     - homepage redesign
 - 30.11 - 7.11
-    - 30.11 - příprava tříd k propojení webhooku discord webhooku
+    - příprava tříd k propojení webhooku discord webhooku
+    - změněna výška textarea při přidávání ticketu v panelu
+    
