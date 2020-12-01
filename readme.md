@@ -318,8 +318,7 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - code review (use best practices, code design etc...)
 - `??`articles rss
 - ticket subjects in administration
-- discord webhook notify
-- 
+- configuration section in administration (and button for reload nette.configurator cache)
 
 ## Provedené změny (CZECH)
 - 16.11 - 23.11
