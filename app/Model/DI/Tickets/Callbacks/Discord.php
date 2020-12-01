@@ -23,7 +23,6 @@ class Discord
     private string $color;
     private string $username;
     private ?string $logo;
-    private LinkGenerator $linkGenerator;
 
     /**
      * Discord constructor.
@@ -32,27 +31,24 @@ class Discord
      * @param string $color
      * @param string|null $username
      * @param string|null $logo
-     * @param LinkGenerator $linkGenerator
      */
-    public function __construct(bool $enabled, ?string $url, ?string $color, ?string $username, ?string $logo, LinkGenerator $linkGenerator)
+    public function __construct(bool $enabled, ?string $url, ?string $color, ?string $username, ?string $logo)
     {
         $this->enabled = $enabled;
         $this->url = $url ?: '';
         $this->color = $color ?: self::DEFAULT_EMBED_COLOR;
         $this->username = $username ?: "Tickety";
         $this->logo = $logo;
-        $this->linkGenerator = $linkGenerator;
     }
 
     /**
      * @param Ticket $ticket
-     * @param string $statsRoute
-     * @param string $helpRoute
+     * @param string $statsUrl
+     * @param string $helpUrl
      * @return bool
-     * @throws InvalidLinkException
      * @throws JsonException
      */
-    public function notify(Ticket $ticket, string $statsRoute, string $helpRoute): bool {
+    public function notify(Ticket $ticket, string $statsUrl, string $helpUrl): bool {
         if(!$this->isEnabled()) return false;
         $response = Json::encode([
             "content" => null,
@@ -68,11 +64,11 @@ class Discord
                     [
                         "name" => "Informace o ticketu",
                         "value" =>
-                            "Autor: **[".$ticket->getAuthor()."](". $this->linkGenerator->link($statsRoute, [$ticket->getAuthor()]) .")**\n" .
+                            "Autor: **[".$ticket->getAuthor()."](". $statsUrl .")**\n" .
                             "Název: **".substr($ticket->getName(), 0, 30)."**\n" .
                             "ID ticketu: **#" . $ticket->getId() . "**\n" .
                             "Zvolený předmět: **".$ticket->getSubject()."**\n" .
-                            "Zobrazit ticket: **[ZDE](".$this->linkGenerator->link($helpRoute, [$ticket->getId()]).")**"
+                            "Zobrazit ticket: **[ZDE](".$this->linkGenerator->link($helpUrl, [$ticket->getId()]).")**"
                     ],
                 ],
                 "footer" => [
