@@ -85,7 +85,6 @@ class Discord
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
         $curlexec = curl_exec($ch);
         curl_close($ch);
-        die($helpUrl);
         return true;
     }
 
