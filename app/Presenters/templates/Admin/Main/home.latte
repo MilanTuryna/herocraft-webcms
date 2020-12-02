@@ -153,6 +153,9 @@
                     <li n:if="$havePermission['upload']">
                         <a n:href="Main:upload" class="black-href">Upload obrázků</a>
                     </li>
+                    <li n:if="$isFullAdmin">
+                        <a n:href="Configuration:overview" class="black-href">Systémová konfigurace</a>
+                    </li>
                     <li n:if="$havePermission['settings']">
                         <a n:href="Main:settings" class="black-href">Nastavení</a>
                     </li>

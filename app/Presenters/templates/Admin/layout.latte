@@ -83,6 +83,9 @@
                 <a n:href="Main:upload"
                         n:if="$havePermission['upload']"
                         n:class="$presenter->isLinkCurrent('Main:upload') ? aktivni, 'list-group-item', 'list-group-item-action'">Upload obrázků</a>
+                <a n:href="Configuration:overview"
+                        n:if="$havePermission['settings']"
+                        n:class="$presenter->isLinkCurrent('Configuration:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Systémová konfigurace</a>
                 <a n:href="Main:settings"
                         n:if="$havePermission['settings']"
                         n:class="$presenter->isLinkCurrent('Main:settings') ? aktivni, 'list-group-item', 'list-group-item-action'">Nastavení webu</a>
