@@ -1,0 +1,87 @@
+{layout '../layout.latte'}
+{block title}
+    Konfigurace systému
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Konfigurace systému</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin:0!important;" class="card-title">Aktuální platná konfigurace</h5>
+            <div class="card-text">
+                    <ul>
+                        <li>
+                            Herní sekce
+                            <ul>
+                                {foreach $gameSections as $gameSection}
+                                    <li><b><a target="_blank" class="green-href" href={$gameSection->getLink()}>{$gameSection->getTitle()}</a></b> - {$gameSection->getDescription()}</li>
+                                {/foreach}
+                            </ul>
+                        </li>
+                        <li>
+                            API
+                            <ul>
+                                <li>Expirační čas: <b>{$api->getExpireTime()}</b></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Google Analytics
+                            <ul>
+                                <li>Zapnut: <b>{$googleAnalytics->isEnabled() ? "ano" : "ne"}</b></li>
+                                <li>Kód: <b>{$googleAnalytics->getCode()}</b></li>
+                            </ul>
+                        </li>
+                        <li>
+                            Tickety
+                            <ul>
+                                <li>Webhooky
+                                    <ul>
+                                        <li>Discord
+                                            <ul>
+                                                {var $discord = $ticketSettings->getDiscord()}
+                                                <li>Zapnut: <b>{$discord->isEnabled() ? "ano" : "ne"}</b></li>
+                                                <li>Webhook URL: <b><a target="_blank" href={$discord->getUrl()}>{$discord->getUrl()|substr:0:60}...</a></b></li></li>
+                                                <li>Barva vložené zprávy (hex-dec): <b>{$discord->getColor()}</b> (#{dechex($discord->getColor())})</li>
+                                                <li>Odesíláno pod jménem: <b>{$discord->getUsername()}</b></li>
+                                                <li>Logo: <b><a target="_blank" href={$discord->getLogo()}>{$discord->getLogo()}</a></b></li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>Předměty
+                                    {var $subjects = $ticketSettings->getSubjects()}
+                                    <ul n:if="$subjects">
+                                        <li n:foreach="$subjects as $section => $value">
+                                            <b>{$section}</b>
+                                            <ul>
+                                                <li n:foreach="$value as $title => $placeholderMessage">{$title}: {$placeholderMessage|substr:0:60}...</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            CzechCraft
+                            <ul>
+                                <li>Server-slug: <b>{$czechCraftSlug}</b></li>
+                            </ul>
+                        </li>
+                    </ul>
+            </div>
+            <div class="card-text">
+                <div class="float-right">
+                    <a n:href="Configuration:update" class="btn btn-success" style="margin-top: 16px;">
+                        Aktualizovat provedené změny
+                    </a><br>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{/block}
