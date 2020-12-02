@@ -59,4 +59,12 @@ class CzechCraft
     public function getServer() {
         return $this->getJSON();
     }
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
 }
