@@ -353,3 +353,5 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - nastavení discord webhooku v konfiguraci
     - změněna výška textarea při přidávání ticketu v panelu
     - nyní se helper v helpdesku detekuje též podle práv na serveru "lobbyspawn"
+    - přidán přehled aktuální konfigurace v administraci
+    - přidána možnost aktualizovat provedené změny v konfiguraci (vymazat mezipamět konfigurace)
