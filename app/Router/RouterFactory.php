@@ -88,6 +88,10 @@ final class RouterFactory
 
             ->addRoute('/admin/upload', "Main:upload")
             ->addRoute('/admin/upload/odstranit/<file>', 'Main:removeUpload')
+
+            ->addRoute('/admin/konfigurace', 'Configuration:overview')
+            ->addRoute('/admin/konfigurace/aktualizovat', 'Configuration:update')
+
             ->addRoute('/admin/nastaveni-webu', 'Main:settings');
 
         $router->withModule('Panel')
