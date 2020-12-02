@@ -66,5 +66,7 @@ services:
 	gameSections: App\Model\DI\GameSections(%gameSections%)
 	api: App\Model\DI\API(%api.expire_time%)
 	discord: App\Model\DI\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%, %tickets.callback.discord.url%, %tickets.callback.discord.color%, %tickets.callback.discord.username%, %tickets.callback.discord.logo%, ...)
+	configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
 	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord)
+
 	router: App\Router\RouterFactory::createRouter
