@@ -3,8 +3,6 @@
 
 namespace App\Presenters\AdminModule;
 
-
-use App\Model\Admin\ConfigurationManager;
 use App\Model\Admin\Roles\Permissions;
 use App\Model\API\CzechCraft;
 use App\Model\DI\API;
