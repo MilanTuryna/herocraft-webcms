@@ -1,6 +1,14 @@
 {block title}
     {$page->name|trim}
 {/block}
+{block breadcumb}
+    <div aria-label="breadcrumb">
+        <ol class="breadcrumb br-0 mb-0">
+            <li class="breadcrumb-item active"><a href="/" class="text-dark">{$nastaveni->nazev}</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$page->name|trim}</li>
+        </ol>
+    </div>
+{/block}
 {block description}
     {$page->description}
 {/block}
