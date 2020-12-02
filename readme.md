@@ -348,10 +348,11 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - možnost změny času expirace cache herních dat (statistik)
     - nastavení google analytics v konfiguraci
     - homepage redesign
-- 30.11 - 7.11
+- 30.11 - 7.12
     - příprava tříd k propojení webhooku discord webhooku
     - nastavení discord webhooku v konfiguraci
     - změněna výška textarea při přidávání ticketu v panelu
     - nyní se helper v helpdesku detekuje též podle práv na serveru "lobbyspawn"
     - přidán přehled aktuální konfigurace v administraci
     - přidána možnost aktualizovat provedené změny v konfiguraci (vymazat mezipamět konfigurace)
+    - přidán breadcrumb u vytvořených stránek (tzv. drobečková navigace)
