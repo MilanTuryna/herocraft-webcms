@@ -356,3 +356,5 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - přidán přehled aktuální konfigurace v administraci
     - přidána možnost aktualizovat provedené změny v konfiguraci (vymazat mezipamět konfigurace)
     - přidán breadcrumb u vytvořených stránek (tzv. drobečková navigace)
+    - možnost zvolit routu přesměrování po úspěšném přihlašování v panelu, např:
+      - /panel/login?returnRoute=:Panel:Ticket:list - po přihlášení přesměruje na seznam ticketů  
