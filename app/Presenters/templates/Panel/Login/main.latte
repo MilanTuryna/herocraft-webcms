@@ -38,6 +38,9 @@
             <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 border-radius-0 alert-' . $flash->type">{$flash->message}</div>
             <input n:name="name" type="text" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 border-radius-0 yellow-placeholder margin-bot-8 border-0 outline-none border-0 menu-opacity-input" placeholder="Nick"/>
             <input n:name="password" type="password" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 text-warning border-radius-0 yellow-placeholder outline-none border-0 menu-opacity-input" placeholder="Heslo" />
+            {if $returnRoute}
+                <input n:name="returnRoute" type="hidden" value={$returnRoute}>
+            {/if}
         </ul>
         <input type="submit" value="Přihlásit se" class="btn border-radius-0 w-100 default-margin-top menu-opacity-button" n:name="submit">
     </form>
