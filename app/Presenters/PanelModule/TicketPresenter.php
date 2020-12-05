@@ -15,6 +15,7 @@ use App\Model\SettingsRepository;
 use App\Presenters\PanelBasePresenter;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\InvalidLinkException;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
 use Nette\Utils\Json;
@@ -30,6 +31,7 @@ class TicketPresenter extends PanelBasePresenter
     private PluginAuthenticator $pluginAuthenticator;
 
     private ActiveRow $user;
+    private string $returnRoute;
 
     /**
      * TicketPresenter constructor.
@@ -44,6 +46,7 @@ class TicketPresenter extends PanelBasePresenter
 
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->ticketRepository = $ticketRepository;
+        $this->returnRoute = ":Panel:Ticket:list";
     }
 
     /**
@@ -55,7 +58,7 @@ class TicketPresenter extends PanelBasePresenter
         $user = $this->pluginAuthenticator->getUser();
         if(!(bool)$user) {
             $this->flashMessage('Pro manipulaci s hráčským panelem, proveďte autorizaci.', 'error');
-            $this->redirect('Login:main');
+            $this->redirect('Login:main?returnRoute=' . $this->returnRoute);
         } else {
             $this->user = $user;
             $this->template->user = $user;
