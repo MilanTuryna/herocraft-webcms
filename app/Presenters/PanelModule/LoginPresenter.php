@@ -11,6 +11,7 @@ use App\Presenters\PanelBasePresenter;
 
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\InvalidLinkException;
 
 /**
  * Class LoginPresenter
@@ -44,7 +45,13 @@ class LoginPresenter extends PanelBasePresenter
      * @throws AbortException
      */
     public function renderMain() {
+        $returnRoute = $this->getHttpRequest()->getQuery("returnRoute");
+        $this->template->returnRoute = $returnRoute;
         if((bool)$this->pluginAuthenticator->getUser()) {
+            if($returnRoute) try {
+                $this->link($returnRoute);
+                $this->redirect($returnRoute);
+            } catch (InvalidLinkException $invalidLinkException) {}
             $this->redirect('Main:home');
         }
     }
@@ -62,6 +69,9 @@ class LoginPresenter extends PanelBasePresenter
         }
     }
 
+    /**
+     * @return Form
+     */
     public function createComponentSignInForm(): Form {
         return (new SignInForm($this->pluginAuthenticator, $this))->create();
     }
