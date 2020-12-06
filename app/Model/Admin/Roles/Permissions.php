@@ -23,6 +23,7 @@ class Permissions
     const ADMIN_MC_BANLIST = "admin.minecraft_banlist";
     const ADMIN_MC_IPBANLIST = "admin.minecraft_ipbanlist";
     const ADMIN_MC_ONLINEPLAYERS = "admin.minecraft_onlineplayers";
+    const ADMIN_MC_LUCKPERMS = "admin.minecraft_luckperms";
 
     const ADMIN_MC_GAMES = "admin.minecraft_games";
     const ADMIN_MC_SENIOR = "admin.minecraft_senior";
@@ -54,6 +55,7 @@ class Permissions
             self::ADMIN_MC_BANLIST => "Minecraft > Banlist",
             self::ADMIN_MC_IPBANLIST => "Minecraft > IP banlist",
             self::ADMIN_MC_ONLINEPLAYERS => "Minecraft > Online hráči",
+            self::ADMIN_MC_LUCKPERMS => "Minecraft > LuckPerms",
 
             self::ADMIN_MC_GAMES => "Minecraft > Games",
             self::ADMIN_MC_SENIOR => "Minecraft > Senior",
