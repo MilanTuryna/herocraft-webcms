@@ -7,6 +7,7 @@ namespace App\Model\API\Plugin;
 use Nette\Database\Context;
 use Nette\Database\IRow;
 use Nette\Database\Table\ActiveRow;
+use Nette\Database\Table\Selection;
 
 /**
  * Class LuckPerms
@@ -52,6 +53,21 @@ class LuckPerms
                 return true;
         }
         return false;
+    }
+
+    /**
+     * @param string $uuid
+     * @return Selection
+     */
+    public function getPlayerPermissions(string $uuid) {
+        return $this->context->table(self::USER_TABLE_PERM)->where("uuid = ?", $uuid);
+    }
+
+    /**
+     * @return Selection
+     */
+    public function getPlayers() {
+        return $this->context->table(self::REGISTER_TABLE)->order('username ASC');
     }
 
     /**
