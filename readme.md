@@ -316,6 +316,7 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - sitemap
 - code review (use best practices, code design etc...)
 - `??`articles rss
+- add email input & notify player to email after support send response to ticket
 
 ## Provedené změny (CZECH)
 - 16.11 - 23.11
