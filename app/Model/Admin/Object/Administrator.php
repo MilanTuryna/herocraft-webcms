@@ -14,6 +14,13 @@ class Administrator
     private int $id;
     private array $permissions;
 
+    /**
+     * Administrator constructor.
+     * @param string $name
+     * @param string $email
+     * @param int $id
+     * @param array $permissions
+     */
     public function __construct(string $name, string $email, int $id, array $permissions)
     {
         $this->name = $name;

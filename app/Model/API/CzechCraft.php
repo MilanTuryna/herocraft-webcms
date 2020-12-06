@@ -30,6 +30,10 @@ class CzechCraft
         $this->slug = $slug;
     }
 
+    /**
+     * @param string $request
+     * @return bool|mixed
+     */
     private function getJSON($request = '') {
         try {
             return Json::decode(@file_get_contents(CzechCraft::API . $this->slug . "/" . $request));
