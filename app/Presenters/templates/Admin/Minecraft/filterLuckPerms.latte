@@ -1,0 +1,59 @@
+{layout '../layout.latte'}
+{block title}
+    LuckPerms - hráč {$player->username}
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Minecraft:luckPerms">LuckPerms</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{$player->username}</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Nastavení filteru</h5>
+            <div class="card-text">
+                Hledaný hráč: <b>{$player->username}</b>
+                <hr>
+                <a n:href="Minecraft:luckPerms" class="btn btn-danger float-right" style="border-radius: 0">Resetovat filtr</a>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Přehled hráče</h5>
+            <ul>
+                <li>Nickname: <b>{$player->username}</b></li>
+                <li>UUID: <b>{$player->uuid}</b></li>
+                <li>Primární skupina: <b>{$player->primary_group}</b></li>
+                <li>Skupiny:
+                    <ul>
+                        {foreach $permissions as $permission}
+                            {if substr($permission->permission, 0, 6) === "group."}
+                                <li>{$permission->permission} / <small class="text-muted">server: <b>{$permission->server}</b></small></li>
+                            {/if}
+                        {/foreach}
+                    </ul>
+                </li>
+                <li>Práva:
+                    <ul class="striped-ul">
+                        {foreach $permissions as $permission}
+                            {if substr($permission->permission, 0,6) !== "group."}
+                                <li n:class="$iterator->isEven() ? 'bg-light border'">
+                                    {$permission->permission}: <ul n:class="$iterator->isEven() ? 'bg-white'">
+                                        <li>Server: {$permission->server}</li>
+                                        <li>Contexts : {$permission->contexts}</li>
+                                        <li>Expirace: {$permission->expiry}</li>
+                                    </ul>
+                                </li>
+                            {/if}
+                        {/foreach}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+{/block}

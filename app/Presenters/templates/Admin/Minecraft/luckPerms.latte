@@ -1,0 +1,85 @@
+{layout '../layout.latte'}
+{block title}
+    Minecraft > LuckPerms
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active" aria-current="page"> <a class="black-href" n:href="Minecraft:overview">Minecraft</a></li>
+            <li class="breadcrumb-item active" aria-current="page">LuckPerms</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Vyhledat hráče</h5>
+            <div class="card-text">
+                <form n:name="filterLuckPermsForm">
+                    <div class="form-group row">
+                        <label n:name="player" class="col-sm-2 col-form-label">Hledaný hráč</label>
+                        <div class="col-sm-10">
+                            <input spellcheck="false" type="text" class="form-control" placeholder="Zadej nickname hledaného hráče" n:name="player">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2 text-black-50 small"></div>
+                        <div class="col-sm-10">
+                            <button type="submit" n:name="submit" class="btn btn-success w-100">Hledat</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 class="card-title">Hráči (nefiltrované, seřazené podle abecedy)</h5>
+            <div class="card-text">
+                {if $players}
+                    <div class="table-responsive">
+                        <table class="table table-sm table-bordered table-striped" style="text-align: center">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Hráč</th>
+                                <th scope="col">UUID</th>
+                                <th scope="col">Primární skupina</th>
+                                <th scope="col">#</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {foreach $players as $player}
+                                <tr>
+                                    <td>{$player->username}</td>
+                                    <td>{$player->uuid}</td>
+                                    <td>{$player->primary_group}</td>
+                                    <td><a n:href="Minecraft:filterLuckPerms $player->username">EDIT</a></td>
+                                </tr>
+                            {/foreach}
+                            </tbody>
+                        </table>
+                    </div>
+                {else}
+                    Žádný hráč v systému permissí nebyl v databázi nalezen.
+                {/if}
+                <div class="pagination d-block text-center" style="margin-top:8px;">
+                    {if $page > 1}
+                        <a n:href="this, 1">Nejnovější</a>
+                        &nbsp;|&nbsp;
+                        <a n:href="this, $page-1">Novější</a>
+                        &nbsp;|&nbsp;
+                    {/if}
+
+                        Stránka {$page} z {$lastPage}
+
+                    {if $page < $lastPage}
+                        &nbsp;|&nbsp;
+                        <a n:href="this, $page+1">Starší</a>
+                        &nbsp;|&nbsp;
+                        <a n:href="this, $lastPage">Nejstarší</a>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}
