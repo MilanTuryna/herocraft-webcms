@@ -7,6 +7,7 @@ use App\Forms\Minecraft\EditBanForm;
 
 use App\Forms\Minecraft\EditIpBanForm;
 use App\Forms\Minecraft\FilterForm;
+use App\Forms\Minecraft\FilterLuckPermsForm;
 use App\Model\Admin\Roles\Permissions;
 use App\Model\API\Plugin\Bans;
 use App\Model\API\Plugin\ChatLog;
@@ -306,6 +307,52 @@ class MinecraftPresenter extends AdminBasePresenter
             $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_ONLINEPLAYERS) , 'danger');
             $this->redirect("Main:home");
         }
+    }
+
+    /**
+     * @param int $page
+     * @throws AbortException
+     */
+    public function renderLuckPerms(int $page = 1) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_LUCKPERMS)) {
+            $players = $this->luckPerms->getPlayers();
+
+            $lastPage = 0;
+            $paginatorData = $players->page($page, 30, $lastPage);
+            $this->template->players = $paginatorData;
+
+            $this->template->page = $page;
+            $this->template->lastPage = $lastPage;
+
+            if($lastPage === 0) $this->template->page = 0;
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_LUCKPERMS) , 'danger');
+            $this->redirect("Main:home");
+        }
+    }
+
+    /**
+     * @param $player
+     * @throws AbortException
+     */
+    public function renderFilterLuckPerms($player) {
+        if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_LUCKPERMS)) {
+            $player = strtolower($player);
+            $playerRow = $this->luckPerms->getUuidByNick($player);
+            $this->template->player = $playerRow;
+            $this->template->permissions = $this->luckPerms->getPlayerPermissions($playerRow->uuid);
+
+        } else {
+            $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_LUCKPERMS) , 'danger');
+            $this->redirect("Main:home");
+        }
+    }
+
+    /**
+     * @return Form
+     */
+    public function createComponentFilterLuckPermsForm(): Form {
+        return (new FilterLuckPermsForm($this))->create();
     }
 
     /**
