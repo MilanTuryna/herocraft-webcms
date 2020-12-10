@@ -1,4 +1,6 @@
 parameters:
+    cron:
+        password:
     game_sections: [{
         name: ""
         description: ""
