@@ -1,7 +1,7 @@
 parameters:
 
 extensions:
-	translation: Kdyby\Translation\DI\TranslationExtension
+    translation: Contributte\Translation\DI\TranslationExtension
 
 application:
 	errorPresenter: Error
@@ -11,10 +11,12 @@ application:
 		*: App\Presenters\*Module\*Presenter
 
 translation:
-	default: cs
-	debugger: true
-	fallback: [cs_CZ, cs]
-
+    locales:
+        whitelist: [cs]
+        default: cs
+        fallback: [cs]
+    dirs:
+        - %appDir%/lang
 session:
 	expiration: 14 days
 
@@ -74,4 +76,5 @@ services:
 	discord: App\Model\DI\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%, %tickets.callback.discord.url%, %tickets.callback.discord.color%, %tickets.callback.discord.username%, %tickets.callback.discord.logo%, ...)
 	configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
 	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord)
+	cron: App\Model\DI\Cron(%cron.password%)
 	router: App\Router\RouterFactory::createRouter
