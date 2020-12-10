@@ -18,10 +18,10 @@
 		"nette/robot-loader": "^3.0",
 		"nette/security": "^3.0",
 		"nette/utils": "^3.0",
-		"latte/latte": "^2.5",
+		"latte/latte": "^2.9",
 		"tracy/tracy": "^2.6",
-		"kdyby/translation": "3.0.1",
-      "ext-curl": "*"
+      "ext-curl": "*",
+		"contributte/translation": "0.9.x-dev"
     },
 	"require-dev": {
 		"nette/tester": "^2.0"
