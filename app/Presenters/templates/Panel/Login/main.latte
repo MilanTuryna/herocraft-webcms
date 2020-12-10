@@ -9,7 +9,7 @@
         <h1 class="display-4 font-30">Hráčský panel</h1>
         <hr>
         <div class="alert border-radius-0 default-margin-top bg-opacity-white">
-            Vítej v hráčském panelu, najdeš zde vše co potřebuješ, ale vypadá to, že ještě nejsi přihlášěn! Měl bys to jít napravit v pravém sloupečku :)
+            {_panel.notLogged.welcome}
         </div>
         {if !$nastaveni->udrzba && isset($status->online) && $status->online}
             <div class="alert border-0 text-white border-radius-0 bg-opacity-green" role="alert">
@@ -25,10 +25,10 @@
             </div>
         {/if}
         <div class="alert border-radius-0 bg-error" role="alert">
-            <h4 class="alert-heading">Problém!</h4>
-            <p>Aww, ano, málem jsme zapomněli na to, že ještě nejsi přihlášený tak neváhej a jdi to napravit, bohůžel pokud se nepřihlásíš tak ti tento obsah ukázat nemůžeme :(</p>
+            <h4 class="alert-heading">{_panel.notLogged.problem_title}</h4>
+            <p>{_panel.notLogged.problem_content}</p>
             <hr>
-            <p class="mb-0">Přihlašovací údaje stejné jako v kostičkách</p>
+            <p class="mb-0">{_panel.notLogged.problem_footer}</p>
         </div>
 {/block}
 {block second_col}

@@ -9,7 +9,7 @@
         <hr>
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
         <div class="alert border-radius-0 default-margin-top bg-opacity-white">
-            Vítej {$user->realname}, pokud jsi tu poprvé, tak bude chvíli trvat než se s panelem seznámíš, ale v pohodě, je to jednoduchý a pokud ne, jistě už víš jak to tu chodí :)
+           {_panel.logged.welcome, [player => $user->realname]}
         </div>
         {if !$nastaveni->udrzba && isset($status->online) && $status->online}
             <div class="alert border-0 text-white border-radius-0 bg-opacity-green" role="alert">
