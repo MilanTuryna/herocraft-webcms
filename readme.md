@@ -357,4 +357,8 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - možnost zvolit routu přesměrování po úspěšném přihlašování v panelu, např:
       - /panel/login?returnRoute=:Panel:Ticket:list - po přihlášení přesměruje na seznam ticketů
     - luckperms přehled v administraci s možností vyhledat hráče dle nicku
-   
+- 7.12 - 14.12
+    - oprava parametru ?returnRoute (vyskytla se chyba na produkci)
+    - implementace knihovny [Contributte\Translation](https://github.com/contributte/translation) pro multijazyčné použití
+    - přidána první konfigurace zpráv v `app\lang`, zatím zprávy v hráčském panelu
+    -  aktualizace použitých knihoven composer.json
