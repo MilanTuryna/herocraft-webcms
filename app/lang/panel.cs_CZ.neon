@@ -1,0 +1,8 @@
+notLogged:
+    welcome: "Vítej v hráčském panelu, najdeš zde vše co potřebuješ, ale vypadá to, že ještě nejsi přihlášěn! Měl bys to jít napravit v pravém sloupečku :)"
+    problem_title: "Problém!"
+    problem_content: "Aww, ano, málem jsme zapomněli na to, že ještě nejsi přihlášený tak neváhej a jdi to napravit, bohůžel pokud se nepřihlásíš tak ti tento obsah ukázat nemůžeme :("
+    problem_footer: "Přihlašovací údaje stejné jako v kostičkách"
+logged:
+    welcome: "Vítej %player%, pokud jsi tu poprvé, tak bude chvíli trvat než se s panelem seznámíš, ale v pohodě, je to jednoduchý a pokud ne, jistě už víš jak to tu chodí :)"
+    passwordChange: "Přijde ti, že tvé heslo už není bezpečné, nebo jsi ho ukázal kamarádovi? No tak to bys sis ho radši měl pro všechny případy, změnit. Doporučujeme měnit heslo aspoň jednou za rok, aby jsi byl v bezpečí."
