@@ -4,6 +4,7 @@ namespace App\Presenters;
 
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Utils;
+use Kdyby\Translation\Translator;
 use Nette;
 use Nette\Application\Helpers;
 
@@ -14,6 +15,11 @@ use Nette\Application\Helpers;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     private GoogleAnalytics $googleAnalytics;
+
+    /** @persistent */
+    public string $locale = 'cs';
+    /** @var Translator @inject */
+    public Translator $translator;
 
     /**
      * BasePresenter constructor.
