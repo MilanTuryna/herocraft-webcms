@@ -79,11 +79,12 @@
 			{if $articlesCount - count($articles) > 0}
 				<a n:href="archiv" class="btn btn-secondary btn-sm br-0 w-33"
 						style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);" n:if="$articlesCount - count($articles) > 0">
-						{_front.home.viewSpecificList, articles => $articlesCount - count($articles)} {$sklonovani(2, ["článku", "článků", "článků"])|noescape}
+						{var $d = $articlesCount - count($articles) . $sklonovani(2, [" článku", " článků", " článků"])}
+						{_front.home.viewSpecificList, [articles => $d]|noescape}
 				</a>
 			{else}
 				<a n:href="archiv" class="btn btn-secondary btn-sm br-0 w-33" style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);">
-					{_front.home.viewList}
+					{_front.home.viewList|noescape}
 				</a>
 			{/if}
 		</div>

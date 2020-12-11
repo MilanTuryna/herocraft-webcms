@@ -1,10 +1,10 @@
 {layout '../layout.latte'}
 {block title}
-    {_panel.tickets.view.title, [id => $ticket->id, ticketName => $ticket->name|truncate:15:'']}
+    {_panel.tickets.view.title, [id => $ticket->id, ticketName => ($ticket->name|truncate:15:'')]}
 {/block}
 {block first_col}
     <a n:href="Ticket:list" class="small text-muted font-weight-bold">{_panel.tickets.goBack.list}</a>
-    <h1 class="display-4 font-30">{_panel.tickets.view.title, [id => $ticket->id, ticketName => $ticket->name|truncate:25:'']}</b></h1>
+    <h1 class="display-4 font-30">{_panel.tickets.view.title, [id => $ticket->id, ticketName => ($ticket->name|truncate:25:'')]}</b></h1>
     <hr>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
     <p class="small text-muted">
@@ -43,7 +43,7 @@
             </table>
         </div>
     <p class="small text-muted">
-        {_tickets.view.rankHelp}
+        {_panel.tickets.view.rankHelp}
     </p>
     <div class="ticket bg-white shadow" style="zoom: 80%">
         <div class="ticket-head" style="padding:16px 16px 0 16px">

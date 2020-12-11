@@ -24,7 +24,7 @@ tickets:
         lockTicket: ''
     list:
         title: "Tvoje tickety"
-        ticketcount: Počet ticketů
+        ticketCount: Počet ticketů
         heading: "Seznam tvých ticketů"
         noTicket: "Žádný ticket jsi zatím nevytvořil, ale nemusíš se bát, nekoušeme a rádi vyřešíme tvůj problém týkajicí se našeho networku :)"
     goBack:

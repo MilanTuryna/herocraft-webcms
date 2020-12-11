@@ -1,6 +1,6 @@
 {layout '../layout.latte'}
 {block title}
-    {_helpodesk.main.title}
+    {_helpdesk.main.title}
 {/block}
 {block content}
     <h4>Ticket <span class="text-info float-right">#{$ticket->id}</span></h4>
@@ -9,7 +9,7 @@
             <thead>
             <tr>
                 <th scope="col" class="border-top-0">Název</th>
-                <th scope="col" class="border-top-0">{_panel.tickets.rows}</th>
+                <th scope="col" class="border-top-0">{_panel.tickets.rows.subject}</th>
                 <th scope="col" class="border-top-0">Autor</th>
                 <th scope="col" class="border-top-0">{_panel.tickets.rows.createdAt}</th>
                 <th scope="col" class="border-top-0">{_panel.tickets.rows.status}</th>
@@ -77,8 +77,8 @@
     <div class="bg-light border shadow-sm" style="padding: 16px; margin-top: 16px">
         <h5 ></h5>
         <ul>
-            <li><a n:href=":Stats:Main:app?player=$ticket->author" class="text-dark" target="_blank">{_panel.tickets.specific.openStats}</a></li>
-            <li><a n:href="Main:deleteTicket $ticket->id" class="text-danger">{_panel.tickets.specific.deleteTicket, [id => $ticket->id]}</a></li>
+            <li><a n:href=":Stats:Main:app?player=$ticket->author" class="text-dark" target="_blank">{_helpdesk.tickets.specific.openStats}</a></li>
+            <li><a n:href="Main:deleteTicket $ticket->id" class="text-danger">{_helpdesk.tickets.specific.deleteTicket, [id => $ticket->id]}</a></li>
         </ul>
     </div>
 {/block}

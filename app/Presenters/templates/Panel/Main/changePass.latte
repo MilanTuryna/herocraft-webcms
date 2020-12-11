@@ -8,7 +8,7 @@
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
     <form n:name="changePassForm">
             <div class="form-group">
-                <label n:name="old_password">{_panel.forms.changePass.old_label}</label>
+                <label n:name="old_password">{_panel.forms.changePass.old}</label>
                 <input type="password" class="form-control shadow-sm" n:name="old_password" placeholder={_panel.forms.changePass.old_placeholder}>
             </div>
             <div class="form-group">

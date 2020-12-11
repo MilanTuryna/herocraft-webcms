@@ -32,8 +32,8 @@
                 <div class="col-12 col-lg-9">
                     <div class="alert border-radius-0 bg-opacity-blue" role="alert">
                         <h4 class="alert-heading">{_panel.sections.yourInfo.heading}</h4>
-                        <p>{_panel.sections.yourInfo.text, [nick => $user->realname, regdate => $regdate|date:'d.m.Y H:i:s', id => $user->id]}
-                        Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'d.m.Y H:i:s'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
+
+                        <p>{_panel.sections.yourInfo.text, [nick => $user->realname, regdate => ($regdate|date:'d.m.Y H:i:s'), id => $user->id]}</p>
                         <hr>
 
                         <p class="mb-0">{_panel.sections.yourInfo.footer, [link => $presenter->link(':Stats:Main:app?player='.$user->realname)]|noescape}</p>

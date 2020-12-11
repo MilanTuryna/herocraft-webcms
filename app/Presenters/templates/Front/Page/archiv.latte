@@ -1,8 +1,8 @@
 {block title}
-    {_front.archive.title, web => $nastaveni->nazev}
+    {_front.archive.title, [web => $nastaveni->nazev]}
 {/block}
 {block description}
-    {_front.archive.metaDescription, web => $nastaveni->nazev}
+    {_front.archive.metaDescription, [web => $nastaveni->nazev]}
 {/block}
 {block breadcumb}
     <div aria-label="breadcrumb">
@@ -13,7 +13,7 @@
     </div>
 {/block}
 {block keywords}
-{_front.archive.metaKeywords, web => $nastaveni->nazev|trim|lower}
+{_front.archive.metaKeywords, [web => ($nastaveni->nazev|trim|lower)]}
 {/block}
 {block content}
 <div class="padding-walls-32" style="padding-bottom: 32px; margin-top:12px;">
