@@ -1,8 +1,68 @@
-notLogged:
-    welcome: "Vítej v hráčském panelu, najdeš zde vše co potřebuješ, ale vypadá to, že ještě nejsi přihlášěn! Měl bys to jít napravit v pravém sloupečku :)"
-    problem_title: "Problém!"
-    problem_content: "Aww, ano, málem jsme zapomněli na to, že ještě nejsi přihlášený tak neváhej a jdi to napravit, bohůžel pokud se nepřihlásíš tak ti tento obsah ukázat nemůžeme :("
-    problem_footer: "Přihlašovací údaje stejné jako v kostičkách"
-logged:
-    welcome: "Vítej %player%, pokud jsi tu poprvé, tak bude chvíli trvat než se s panelem seznámíš, ale v pohodě, je to jednoduchý a pokud ne, jistě už víš jak to tu chodí :)"
-    passwordChange: "Přijde ti, že tvé heslo už není bezpečné, nebo jsi ho ukázal kamarádovi? No tak to bys sis ho radši měl pro všechny případy, změnit. Doporučujeme měnit heslo aspoň jednou za rok, aby jsi byl v bezpečí."
+home:
+    title: "Hráčský panel"
+    notLogged:
+        welcome: "Vítej v hráčském panelu, najdeš zde vše co potřebuješ, ale vypadá to, že ještě nejsi přihlášěn! Měl bys to jít napravit v pravém sloupečku :)"
+        problem_title: "Problém!"
+        problem_content: "Aww, ano, málem jsme zapomněli na to, že ještě nejsi přihlášený tak neváhej a jdi to napravit, bohůžel pokud se nepřihlásíš tak ti tento obsah ukázat nemůžeme :("
+        problem_footer: "Přihlašovací údaje stejné jako v kostičkách"
+    logged:
+        welcome: "Vítej %player%, pokud jsi tu poprvé, tak bude chvíli trvat než se s panelem seznámíš, ale v pohodě, je to jednoduchý a pokud ne, jistě už víš jak to tu chodí :)"
+        passwordChange: "Přijde ti, že tvé heslo už není bezpečné, nebo jsi ho ukázal kamarádoi? No tak to bys sis ho radši měl pro všechny případy, změnit. Doporučujeme měnit heslo aspoň jednou za rok, aby jsi byl v bezpečí."
+tickets:
+    rows:
+        ticket: 'Ticket'
+        subject: 'Předmět'
+        createdAt: 'Založen dne'
+        lastResponse: 'Poslední odpověď'
+        status: 'Stav'
+    add:
+        title: "Nový ticket"
+    view:
+        title: "Ticket %id% - %ticketName%"
+        rankHelp: 'Nelekej se, pokud jsi označený jako "Hráč" i když máš rank, je to nezávislé na herních rankách.'
+        lockedTicket: 'Do tohohle ticketů už nemůžeš posílat odpovědi, jelikož byl <b class="text-danger">ticket uzavřen</b>.'
+        lockTicket: ''
+    list:
+        title: "Tvoje tickety"
+        ticketcount: Počet ticketů
+        heading: "Seznam tvých ticketů"
+        noTicket: "Žádný ticket jsi zatím nevytvořil, ale nemusíš se bát, nekoušeme a rádi vyřešíme tvůj problém týkajicí se našeho networku :)"
+    goBack:
+        list: "ZPĚT NA SEZNAM TICKETŮ"
+        panel: "ZPĚT DO PANELU"
+sidebar:
+    yourInfo: "Tvé info"
+    my_stats: "Mé podrobné statistiky"
+    nonLogged: "Nepřihlášen"
+    logout: "Odhlásit se"
+    returnHome: "Zpět na hlavní web"
+sections:
+    yourInfo:
+       heading: "A teď něco o tobě"
+       text: "Tvůj nick je %nick%, poprvé si to u nás navštívil %regdate% a jsi přibližně %id%. registrovaný hráč."
+       footer: 'Nejen tyto statistiky jsou veřejně dostupné na <a href="%link%" class="text-danger" target="_blank">ZDE</a>'
+       link: "ZDE"
+forms:
+    lockTicket:
+        submit: "Uzavřít ticket, problém byl vyřešen"
+    addTicket:
+        name: "Název ticketu"
+        nameHelp: "Zvol stručný a jasný název pro rychlejší odpověď"
+        contentHelp: "Piš prosím obsah s hlavou a patou a zkus se vyjadřovat stručně a dodržuj zásady slušného chování."
+        contentLabel: "Obsah ticketu"
+        subjectLabel: "Předmět"
+        nameLabel: "Název ticketu"
+        submit: "Přidat nový ticket"
+    login:
+        nick: "Nick"
+        password: "Heslo"
+        description: "řihlášení k hráčskému panelu k zobrazení statistik nejen svých ale i ostatních hráčů a vzdálenou manipulaci s minecraftem."
+        submit: "Přihlásit se"
+    changePass:
+        title: "Změna hesla"
+        description: "Přijde ti, že tvé heslo už není bezpečné, nebo jsi ho ukázal kamarádovi? No tak to bys sis ho radši měl pro všechny případy, změnit. Doporučujeme měnit heslo aspoň jednou za rok, aby jsi byl v bezpečí :)"
+        new_label: "Nové heslo"
+        new_placeholder: "Zadej své nové heslo"
+        old: "Staré heslo"
+        old_placeholder: "Zadej staré heslo"
+        submit: "Změnit heslo"
