@@ -1,0 +1,27 @@
+disabledJS: "We're sorry but this site doesn't work properly without JavaScript enabled. Please enable it to continue."
+app:
+    title: "Statistiky"
+    heading: "Hráčské statistiky"
+    infoPart: "Informační část"
+    playerDataHelp: "Zveřejňujeme pouze herní data, nikoliv osobní údaje"
+    searchPlayer: "Vyhledat hráče podle nicku"
+    viewPlayer: "Zobrazit hráče {{button.player }}" # !!! hráče označíme {{button.player }} ovšem jen v tomhle přřípadě
+events:
+    heading: "Eventy"
+    updateTime: "Výpis aktualizován každých <b>30</b> minut"
+    notFound: "Nebyl nalezen žádný event"
+    specific:
+        title: "Event - %eventName%"
+        titleWithPaginator: "Event - %eventName% (%page%. stránka)"
+        top: "TOP"
+        rows:
+            iterator: "#"
+            nick: "Nick"
+            time: "Čas"
+            passed: "Úspěšně"
+            giveup: "Neúspěšně"
+            best_played: "Nejlepší výsledek"
+            last_played: "Poslední výsledek"
+go:
+    web: "Přejít na hlavní web"
+    panel: "Přejít do infopanelu"
