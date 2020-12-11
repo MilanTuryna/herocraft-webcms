@@ -1,20 +1,20 @@
 {layout '../layout.latte'}
 {block title}
-    Helpdesk
+    {_helpdesk.main.title}
 {/block}
 {block content}
-    <h3>Hráčské tickety</h3>
+    <h3>{_helpdesk.main.heading}</h3>
     <span class="text-muted" style="margin-bottom:8px;">Pokud jsi přihlášen na mobilním telefonu, pro zobrazení celé tabulky posouvejte ze strany na stranu.</span>
     <div class="container-fluid bg-light border" style="border-radius: 5px">
         <div class="table-responsive">
             <table class="table" style="zoom:90%">
                 <thead>
                 <tr>
-                    <th scope="col" class="border-top-0">Název</th>
-                    <th scope="col" class="border-top-0">Předmět</th>
+                    <th scope="col" class="border-top-0">{_panel.tickets.rows.ticket}</th>
+                    <th scope="col" class="border-top-0">{_panel.tickets.rows.subject}</th>
                     <th scope="col" class="border-top-0">Autor</th>
-                    <th scope="col" class="border-top-0">Datum</th>
-                    <th scope="col" class="border-top-0">Stav</th>
+                    <th scope="col" class="border-top-0">{_panel.tickets.rows.createdAt}</th>
+                    <th scope="col" class="border-top-0">{_panel.tickets.rows.status}</th>
                     <th scope="col" class="border-top-0">ID</th>
                 </tr>
                 </thead>

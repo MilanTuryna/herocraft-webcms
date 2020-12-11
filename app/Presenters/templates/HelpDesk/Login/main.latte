@@ -1,24 +1,24 @@
 {layout '../layout.latte'}
 {block title}
-    Přihlášení - Helpdesk
+    {_helpdesk.login.title}
 {/block}
  {block content}
  <span class="text-muted">
-     <h5>Vypadá to, že ještě nejsi přihlášen!</h5>
+     <h5>{_helpdesk.login.heading}</h5>
  </span>
  <form n:name="signInForm">
      <div class="form-group">
-         <label for="nickname" n:name="name">Herní nickname</label>
+         <label for="nickname" n:name="name">{_helpdesk.forms.login.nick}</label>
          <input type="text" n:name="name" class="form-control" id="nickname">
      </div>
      <div class="form-group">
-         <label for="heslo" n:name="name">Heslo</label>
+         <label for="heslo" n:name="name">{_helpdesk.forms.login.password}</label>
          <input type="password" n:name="password" class="form-control" id="heslo">
      </div>
-     <small id="emailHelp" class="form-text text-muted">Zkontrolujeme, zda-li patříš mezi oprávněné osoby</small>
-     <input n:name="submit" type="submit" class="btn btn-outline-dark" style="margin-top:16px;" value="Přihlásit se">
+     <small id="emailHelp" class="form-text text-muted">{_helpdesk.forms.login.formHelp}</small>
+     <input n:name="submit" type="submit" class="btn btn-outline-dark" style="margin-top:16px;" value="{_helpdesk.forms.login.submit}">
  </form>
  {/block}
  {block user_status}
-     Nepřihlášen
+     {_helpdesk.login.notLogged}
  {/block}

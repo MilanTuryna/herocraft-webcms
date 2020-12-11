@@ -1,6 +1,6 @@
 {layout '../layout.latte'}
 {block title}
-    Helpdesk
+    {_helpodesk.main.title}
 {/block}
 {block content}
     <h4>Ticket <span class="text-info float-right">#{$ticket->id}</span></h4>
@@ -9,10 +9,10 @@
             <thead>
             <tr>
                 <th scope="col" class="border-top-0">Název</th>
-                <th scope="col" class="border-top-0">Předmět</th>
+                <th scope="col" class="border-top-0">{_panel.tickets.rows}</th>
                 <th scope="col" class="border-top-0">Autor</th>
-                <th scope="col" class="border-top-0">Založen</th>
-                <th scope="col" class="border-top-0">Stav</th>
+                <th scope="col" class="border-top-0">{_panel.tickets.rows.createdAt}</th>
+                <th scope="col" class="border-top-0">{_panel.tickets.rows.status}</th>
                 <th scope="col" class="border-top-0">ID</th>
             </tr>
             </thead>
@@ -47,16 +47,15 @@
                     {if !$ticket->locked}
                         {var $ticketId = $ticket->id}
                         <form n:name="addResponseForm-$captchaOrder-$ticketId">
-                            <textarea class="form-control green-focus margin-top-8 margin-bot-8" placeholder="Máš něco dalšího na srdci, popřípadě jsi na něco zapomněl? Neváhej a odešli novou odpověď!" n:name="content" rows="3"></textarea>
+                            <textarea class="form-control green-focus margin-top-8 margin-bot-8" placeholder="{_helpdesk.forms.addResponse.contentPlaceholder}" n:name="content" rows="3"></textarea>
                             <span class="text-muted small" style="margin-top: 8px;">
                             Oveření: {$captcha} (pro úspěšně vyplnění, by měla být odpověď <u class="text-info">STRUČNÁ</u> a <u class="text-info">JEDNOSLOVNÁ</u>)
                     </span>
-                            <input type="text" class="form-control margin-top-8 green-focus" placeholder="Odpovězte prosím na ověřovací otázku" n:name="captcha">
-                            <input type="submit" style="margin-top: 8px;" class="btn btn-success btn-sm float-right" value="Odeslat novou odpověď" n:name="submit">
+                            <input type="text" class="form-control margin-top-8 green-focus" placeholder="{_helpdesk.forms.addResponse.captchaPlaceholder}" n:name="captcha">
+                            <input type="submit" style="margin-top: 8px;" class="btn btn-success btn-sm float-right" value="{_helpdesk.forms.addResponse.submitResponse}" n:name="submit">
                         </form>
                     {else}
-                        <span>Do tohohle ticketů už nemůžeš posílat odpovědi, jelikož byl <b class="text-danger">ticket uzavřen</b>.
-                            Pokud na tom ale trváš, jako helper (nebo oveřená osoba) ho můžeš <span class="text-success font-weight-bold">otevřít</span>.</span>
+                        <span>{_helpdesk.tickets.specific.ticketClosed|noescape}</span>
                     {/if}
                 </div>
             </div>
@@ -64,11 +63,11 @@
                 <div class="col-sm-12 bg-white" style="padding: 0">
                     {if !$ticket->locked}
                         <form n:name="closeTicketForm-{$ticket->id}">
-                            <input type="submit" n:name="close" value="Uzavřít" style="border-radius: 0" class="btn btn-danger btn-sm w-100"/>
+                            <input type="submit" n:name="close" value="{_helpdesk.forms.closeTicket.submit}" style="border-radius: 0" class="btn btn-danger btn-sm w-100"/>
                         </form>
                     {else}
                         <form n:name="openTicketForm-{$ticket->id}">
-                            <input type="submit" n:name="open" value="Otevřít" style="border-radius: 0" class="btn btn-success btn-sm w-100"/>
+                            <input type="submit" n:name="open" value="{_helpdesk.forms.openTicket.submit}" style="border-radius: 0" class="btn btn-success btn-sm w-100"/>
                         </form>
                     {/if}
                 </div>
@@ -76,10 +75,10 @@
         </div>
     </div>
     <div class="bg-light border shadow-sm" style="padding: 16px; margin-top: 16px">
-        <h5 >Informace o autorovi</h5>
+        <h5 ></h5>
         <ul>
-            <li><a n:href=":Stats:Main:app?player=$ticket->author" class="text-dark" target="_blank">Otevřít hráče ve statistikách (v novém okně)</a></li>
-            <li><a n:href="Main:deleteTicket $ticket->id" class="text-danger">Odstranit tento ticket (#{$ticket->id})</a></li>
+            <li><a n:href=":Stats:Main:app?player=$ticket->author" class="text-dark" target="_blank">{_panel.tickets.specific.openStats}</a></li>
+            <li><a n:href="Main:deleteTicket $ticket->id" class="text-danger">{_panel.tickets.specific.deleteTicket, [id => $ticket->id]}</a></li>
         </ul>
     </div>
 {/block}
