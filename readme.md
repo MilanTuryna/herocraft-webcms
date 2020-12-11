@@ -360,5 +360,7 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - 7.12 - 14.12
     - oprava parametru ?returnRoute (vyskytla se chyba na produkci)
     - implementace knihovny [Contributte\Translation](https://github.com/contributte/translation) pro multijazyčné použití
-    - přidána první konfigurace zpráv v `app\lang`, zatím zprávy v hráčském panelu
-    -  aktualizace použitých knihoven composer.json
+    - přidána první konfigurace zpráv v `app\lang`, zatím zprávy v hráčském panelu (11.12)
+    - aktualizace použitých knihoven composer.json
+    - přidány konfigurační soubory v `app\lang` pro moduly: Panel, Front, Helpdesk, Stats, tedy kromě Administrace
+    - implementace tichto konfiguračních souborů v šablonách webového systému
