@@ -1,0 +1,38 @@
+main:
+    title: "Helpdesk"
+    heading: "Helpdesk (pouze pro oprávněné osoby)"
+login:
+    title: "Přihlášení - helpdesk"
+    heading: "Vypadá to, že ještě nejsi přihlášen!"
+    notLogged: "Nepřihlášen"
+tickets:
+    heading: "Hráčské tickety"
+    specific:
+        deleteTicket: "Odstranit tento ticket (#%id%)"
+        autorInfo: "Informace o autorovi"
+        ticketClosed: 'Do tohohle ticketů už nemůžeš posílat odpovědi, jelikož byl <b class="text-danger">ticket uzavřen</b>. Pokud na tom ale trváš, jako helper (nebo oveřená osoba) ho můžeš <span class="text-success font-weight-bold">otevřít</span>.'
+        openStats: "Otevřít hráče ve statistikách (v novém okně)"
+sidebar:
+    links: "Odkazy"
+    mainWeb: "Hlavní web"
+    infoPanel: "Hráčský panel"
+    stats: "Statistiky"
+    administration: "Administrace"
+forms:
+    addResponse:
+        contentPlaceholder: "Máš něco dalšího na srdci, popřípadě jsi na něco zapomněl? Neváhej a odešli novou odpověď!"
+        captchaPlaceholder: "Odpovězte prosím na ověřovací otázku"
+        submitResponse: "Odeslat novou odpověď"
+    openTicket:
+        submit: "Otevřít"
+    closeTicket:
+        submit: "Uzavřít"
+    login:
+        nick: "Herní nickname"
+        password: "Heslo"
+        formHelp: "Zkontrolujeme, zda-li patříš mezi oprávněné osoby"
+        submit: "Přihlásit se"
+    logout:
+        name: "Odhlásit se"
+go:
+    overview: "ZPĚT NA PŘEHLED"
