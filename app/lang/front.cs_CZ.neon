@@ -1,0 +1,27 @@
+home:
+    breadcrumbTitle: "Domovská stránka"
+    newsHeading: "AKTUALITY"
+    metaKeywords: "domov, homepage, home, %web%, aktuality, minecraft, server"
+    viewList: "ZOBRAZIT ARCHIV"
+    viewSpecificList: 'ZOBRAZIT STARŠÍ <span class="text-white-50">(kolem %articles%)</span>'
+    gamesHeading: "HERNÍ PRVKY"
+login:
+    title: "%web% | Přihlášení"
+    heading: "Přihlásit se"
+    description: "Pouze pro autorizované osoby"
+archive:
+     title: "%web% - Archiv článků"
+     metaDescription: "Archiv článku na %web%"
+     metaKeywords: "archiv, %web%, clanky, seznam, aktuality"
+     breadcrumbTitle: "Archiv článků"
+     heading: "ARCHIV ČLÁNKŮ"
+articleView:
+    edit: "Editovat (administrace)"
+go:
+    backList: "Články"
+    backNews: "ZPĚT NA AKTUALITY"
+forms:
+    login:
+        name: "Jméno/email"
+        password: "Heslo"
+        submit: "Přihlásit se"
