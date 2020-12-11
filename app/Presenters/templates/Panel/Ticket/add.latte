@@ -1,6 +1,6 @@
 {layout '../layout.latte'}
 {block title}
-    Tvoje tickety
+    {_panel.tickets.add.title}
 {/block}
 {block first_col}
     <script>
@@ -17,30 +17,29 @@
                 : el.placeholder = placeholderMessages[value] || defaultPlaceholder);
         }
     </script>
-
-    <a n:href="Ticket:list" class="small text-muted font-weight-bold">ZPĚT NA SEZNAM TICKETŮ</a>
-    <h1 class="display-4 font-30">Nový ticket</h1>
+    <a n:href="Ticket:list" class="small text-muted font-weight-bold">{_panel.tickets.goBack.list}</a>
+    <h1 class="display-4 font-30">{_panel.tickets.add.title}</h1>
     <hr>
     <div class="bg-opacity-white padding-32">
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
         <form n:name="addTicketForm">
             <div class="form-group">
-                <label>Název ticketu</label>
+                <label>{_panel.forms.addTicket.nameLabel}</label>
                 <input type="text" n:name="name" class="form-control green-focus" placeholder="Např: Hacker na Classicu - fly">
-                <small id="emailHelp" class="form-text text-muted">Zvol stručný a jasný název pro rychlejší odpověď</small>
+                <small id="emailHelp" class="form-text text-muted">{_panel.forms.addTicket.nameHelp}</small>
             </div>
             <div class="form-group">
-                <label n:name="subject">Předmět</label>
+                <label n:name="subject">{_panel.forms.addTicket.subjectLabel}</label>
                 <select class="form-control green-focus" onchange="onSubjectChange(this)" n:name="subject">
                 </select>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">Obsah ticketu</label>
+                <label for="exampleInputPassword1">{_panel.forms.addTicket.contentLabel}</label>
                 <textarea class="form-control js--subject-placeholder green-focus" rows="5" n:name="content" placeholder="Např: Ahoj, žádám o ..."></textarea>
-                <small id="emailHelp" class="form-text text-muted">Piš prosím obsah s hlavou a patou a zkus se vyjadřovat stručně a dodržuj zásady slušného chování.</small>
+                <small id="emailHelp" class="form-text text-muted">{_panel.forms.addTicket.contentHelp}</small>
             </div>
             <div class="form-group">
-                <input type="submit" n:name="submit" class="btn btn-success btn-sm border-radius-0 w-100" value="Vytvořit nový ticket"/>
+                <input type="submit" n:name="submit" class="btn btn-success btn-sm border-radius-0 w-100" value="{_panel.forms.addTicket.submit}"/>
             </div>
         </form>
     </div>

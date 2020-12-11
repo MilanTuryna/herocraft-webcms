@@ -1,15 +1,15 @@
 {layout '../layout.latte'}
 {block title}
-    Hráčský panel
+    {_panel.home.title}
 {/block}
 {block first_col}
     {var $regdate = round($user->regdate/1000, 0)}
     {var $lastlogin = null}
-        <h1 class="display-4 font-30">Hráčský panel</h1>
+        <h1 class="display-4 font-30">{_panel.home.title}</h1>
         <hr>
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
         <div class="alert border-radius-0 default-margin-top bg-opacity-white">
-           {_panel.logged.welcome, [player => $user->realname]}
+           {_panel.home.logged.welcome, [player => $user->realname]}
         </div>
         {if !$nastaveni->udrzba && isset($status->online) && $status->online}
             <div class="alert border-0 text-white border-radius-0 bg-opacity-green" role="alert">
@@ -31,10 +31,12 @@
                 </div>
                 <div class="col-12 col-lg-9">
                     <div class="alert border-radius-0 bg-opacity-blue" role="alert">
-                        <h4 class="alert-heading">A teď něco o tobě</h4>
-                        <p>Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'d.m.Y H:i:s'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
+                        <h4 class="alert-heading">{_panel.sections.yourInfo.heading}</h4>
+                        <p>{_panel.sections.yourInfo.text, [nick => $user->realname, regdate => $regdate|date:'d.m.Y H:i:s', id => $user->id]}
+                        Tvůj nick je {$user->realname}, poprvé si to u nás navštívil {$regdate|date:'d.m.Y H:i:s'} a jsi přibližně {$user->id}. registrovaný hráč.</p>
                         <hr>
-                        <p class="mb-0">Nejen tyto statistiky jsou veřejně dostupné <a n:href=":Stats:Main:app?player=$user->realname" class="text-danger" target="_blank">ZDE</a></p>
+
+                        <p class="mb-0">{_panel.sections.yourInfo.footer, [link => $presenter->link(':Stats:Main:app?player='.$user->realname)]|noescape}</p>
                     </div>
                 </div>
             </div>
@@ -42,25 +44,23 @@
         <div class="default-margin-bot d-lg-block d-none"> </div>
         <div id="originalni-minecraft" class="alert w-100 border-radius-0" style="background-color:rgba(255,165,0,0.3);">
             <h1 class="display-4" style="font-size:25px">
-                Změna hesla
+                {_panel.forms.changePass.title}
             </h1>
             <p>
-                Přijde ti, že tvé heslo už není bezpečné, nebo jsi ho ukázal kamarádovi? No tak to bys sis ho radši měl pro všechny případy, změnit. Doporučujeme měnit heslo
-                aspoň jednou za rok, aby jsi byl v bezpečí :)
-
-                <a href="" class="text-dark" style="text-decoration: underline">ZMĚNIT</a>
+            {_panel.forms.changePass.description}
+                <a n:href=":Panel:Main:changePass" class="text-dark" style="text-decoration: underline">{_panel.forms.changePass.submit}</a>
             </p>
         </div>
 {/block}
 {block second_col}
     <div style="background: rgba(0,0,0,0.3); padding: 16px">
-        <h5 class="font-weight-light pink-color">Tvé info</h5>
+        <h5 class="font-weight-light pink-color">{_panel.sidebar.yourInfo}</h5>
             <ul class="text-white-50">
                 <li>Nick: <span class="pink-color">{$user->realname}</span></li>
                 <li>Zabanovaný: <span class="pink-color">{$isBanned ? 'Ano' : 'Ne'}</span></li>
             </ul>
     </div>
     <a n:href=":Stats:Main:app?player=$user->realname" target="_blank" class="bg-opacity-green d-block text-center text-white-50 white-hover" style="padding: 4px">
-        Mé podrobné statistiky
+        {_panel.sidebar.my_stats}
     </a>
 {/block}

@@ -1,10 +1,10 @@
 {layout '../layout.latte'}
 {block title}
-    Ticket #{$ticket->id} - {$ticket->name|truncate:15:''}
+    {_panel.tickets.view.title, [id => $ticket->id, ticketName => $ticket->name|truncate:15:'']}
 {/block}
 {block first_col}
-    <a n:href="Ticket:list" class="small text-muted font-weight-bold">ZPĚT NA SEZNAM TICKETŮ</a>
-    <h1 class="display-4 font-30">Ticket #{$ticket->id} - <b>{$ticket->name|truncate:25}</b></h1>
+    <a n:href="Ticket:list" class="small text-muted font-weight-bold">{_panel.tickets.goBack.list}</a>
+    <h1 class="display-4 font-30">{_panel.tickets.view.title, [id => $ticket->id, ticketName => $ticket->name|truncate:25:'']}</b></h1>
     <hr>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
     <p class="small text-muted">
@@ -14,11 +14,11 @@
             <table class="table table-striped table-light shadow-sm table-center">
                 <thead>
                 <tr>
-                    <th scope="col">Ticket</th>
-                    <th scope="col">Předmět</th>
-                    <th scope="col">Založen dne</th>
-                    <th scope="col">Poslední odpověď</th>
-                    <th scope="col">Stav</th>
+                    <th scope="col">{_panel.tickets.rows.ticket}</th>
+                    <th scope="col">{_panel.tickets.rows.subject}</th>
+                    <th scope="col">{_panel.tickets.rows.createdAt}</th>
+                    <th scope="col">{_panel.tickets.rows.lastResponse}</th>
+                    <th scope="col">{_panel.tickets.rows.status}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -43,7 +43,7 @@
             </table>
         </div>
     <p class="small text-muted">
-        Nelekej se, pokud jsi označený jako "Hráč" i když máš rank, je to nezávislé na herních rankách.
+        {_tickets.view.rankHelp}
     </p>
     <div class="ticket bg-white shadow" style="zoom: 80%">
         <div class="ticket-head" style="padding:16px 16px 0 16px">
@@ -82,7 +82,7 @@
                         <input type="submit" class="btn btn-success btn-sm margin-top-8 border-radius-0 float-right" value="Odeslat novou odpověď" n:name="submit">
                     </form>
                     {else}
-                        <span>Do tohohle ticketů už nemůžeš posílat odpovědi, jelikož byl <b class="text-danger">ticket uzavřen</b>.</span>
+                        <span>{_panel.tickets.view.lockedTicket|noescape}</span>
                     {/if}
                 </div>
             </div>
@@ -90,7 +90,7 @@
             <div class="row">
                 <div class="col-sm-12">
                     <form  n:name="closeTicketForm-$ticketId" style="margin-bottom: 0">
-                        <input type="submit" n:name="close" class="btn btn-danger btn-sm border-radius-0 w-100" value="Uzavřít ticket, problém byl vyřešen"/>
+                        <input type="submit" n:name="close" class="btn btn-danger btn-sm border-radius-0 w-100" value="{_panel.forms.lockTicket.submit}"/>
                     </form>
                 </div>
             </div>

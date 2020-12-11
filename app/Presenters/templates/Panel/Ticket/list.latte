@@ -1,10 +1,10 @@
 {layout '../layout.latte'}
 {block title}
-    Tvoje tickety
+    {_panel.tickets.list.title}
 {/block}
 {block first_col}
-    <a n:href="Main:home" class="small text-muted font-weight-bold">ZPĚT DO PANELU</a>
-    <h1 class="display-4 font-30">Seznam tvých ticketů</h1>
+    <a n:href="Main:home" class="small text-muted font-weight-bold">{_panel.tickets.goBack.panel}</a>
+    <h1 class="display-4 font-30">{_panel.tickets.list.heading}</h1>
     <hr>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
     {if $tickets}
@@ -47,11 +47,11 @@
         </div>
     {else}
         <p class="small text-muted">
-            Žádný ticket jsi zatím nevytvořil, ale nemusíš se bát, nekoušeme a rádi vyřešíme tvůj problém týkajicí se našeho networku :)
+            {_panel.tickets.list.noTicket}
         </p>
     {/if}
     <a n:href="Ticket:add" class="btn btn-sm btn-success border-radius-0 w-100">
-        Přidat nový ticket
+        {_panel.forms.addTicket.submit}
     </a>
     {if $tickets}
         <div class="pagination default-margin-top d-block bg-light border shadow-sm text-center " style="padding: 8px">
@@ -76,9 +76,9 @@
 
 {block second_col}
     <div style="background: rgba(0,0,0,0.3); padding: 16px">
-        <h5 class="font-weight-light pink-color">Tvé tickety</h5>
+        <h5 class="font-weight-light pink-color">{_panel.tickets.list.title}</h5>
         <ul class="text-white-50">
-            <li>Počet ticketů: <span class="pink-color">{$ticketsCount}</span></li>
+            <li>{_panel.tickets.list.ticketCount}: <span class="pink-color">{$ticketsCount}</span></li>
         </ul>
     </div>
 {/block}

@@ -3,30 +3,30 @@
     Změna hesla
 {/block}
 {block first_col}
-    <h1 class="display-4 font-30">Změna hesla</h1>
+    <h1 class="display-4 font-30">{_panel.forms.changePass.title}</h1>
     <hr>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
     <form n:name="changePassForm">
             <div class="form-group">
-                <label n:name="old_password">Staré heslo</label>
-                <input type="password" class="form-control shadow-sm" n:name="old_password" placeholder="Zadej staré heslo">
+                <label n:name="old_password">{_panel.forms.changePass.old_label}</label>
+                <input type="password" class="form-control shadow-sm" n:name="old_password" placeholder={_panel.forms.changePass.old_placeholder}>
             </div>
             <div class="form-group">
-                <label n:name="new_password">Nové heslo</label>
-                <input n:name="new_password" type="password" class="form-control shadow-sm" placeholder="Zadej své nové heslo">
+                <label n:name="new_password">{_panel.forms.changePass.new_label}</label>
+                <input n:name="new_password" type="password" class="form-control shadow-sm" placeholder={_panel.forms.changePass.new_placeholder}>
             </div>
-        <button type="submit" class="btn btn-info w-100 shadow-sm">Změnit heslo</button>
+        <button type="submit" class="btn btn-info w-100 shadow-sm">{_panel.forms.changePass.submit}</button>
     </form>
 {/block}
 {block second_col}
     <div style="background: rgba(0,0,0,0.3); padding: 16px">
-        <h5 class="font-weight-light pink-color">Tvé info</h5>
+        <h5 class="font-weight-light pink-color">{_panel.sidebar.yourInfo}</h5>
         <ul class="text-white-50">
             <li>Nick: <span class="pink-color">{$user->realname}</span></li>
             <li>Zabanovaný: <span class="pink-color">{$isBanned ? 'Ano' : 'Ne'}</span></li>
         </ul>
     </div>
     <a n:href=":Stats:Main:app?player=$user->realname" target="_blank" class="bg-opacity-green d-block text-center text-white-50 white-hover" style="padding: 4px">
-        Mé podrobné statistiky
+        {_panel.sidebar.my_stats}
     </a>
 {/block}

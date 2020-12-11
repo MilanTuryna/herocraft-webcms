@@ -1,15 +1,15 @@
 {layout '../layout.latte'}
 {block title}
-    Hráčský panel
+    {_panel.home.title}
 {/block}
 {block description}
-    Přihlášení k hráčskému panelu k zobrazení statistik nejen svých ale i ostatních hráčů a vzdálenou manipulaci s minecraftem.
+    {_panel.forms.login.description}
 {/block}
 {block first_col}
         <h1 class="display-4 font-30">Hráčský panel</h1>
         <hr>
         <div class="alert border-radius-0 default-margin-top bg-opacity-white">
-            {_panel.notLogged.welcome}
+            {_panel.home.notLogged.welcome}
         </div>
         {if !$nastaveni->udrzba && isset($status->online) && $status->online}
             <div class="alert border-0 text-white border-radius-0 bg-opacity-green" role="alert">
@@ -25,23 +25,23 @@
             </div>
         {/if}
         <div class="alert border-radius-0 bg-error" role="alert">
-            <h4 class="alert-heading">{_panel.notLogged.problem_title}</h4>
-            <p>{_panel.notLogged.problem_content}</p>
+            <h4 class="alert-heading">{_panel.home.notLogged.problem_title}</h4>
+            <p>{_panel.home.notLogged.problem_content}</p>
             <hr>
-            <p class="mb-0">{_panel.notLogged.problem_footer}</p>
+            <p class="mb-0">{_panel.home.notLogged.problem_footer}</p>
         </div>
 {/block}
 {block second_col}
     <form n:name="signInForm" style="margin-bottom: 8px;">
         <ul class="list-group">
-            <li class="list-group-item  default-margin-bot text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">Nepřihlášen<span id="realtime"></span></li>
+            <li class="list-group-item  default-margin-bot text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">{_panel.sidebar.nonLogged}<span id="realtime"></span></li>
             <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 border-radius-0 alert-' . $flash->type">{$flash->message}</div>
-            <input n:name="name" type="text" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 border-radius-0 yellow-placeholder margin-bot-8 border-0 outline-none border-0 menu-opacity-input" placeholder="Nick"/>
-            <input n:name="password" type="password" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 text-warning border-radius-0 yellow-placeholder outline-none border-0 menu-opacity-input" placeholder="Heslo" />
+            <input n:name="name" type="text" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 border-radius-0 yellow-placeholder margin-bot-8 border-0 outline-none border-0 menu-opacity-input" placeholder="{_panel.forms.login.nick}"}/>
+            <input n:name="password" type="password" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 text-warning border-radius-0 yellow-placeholder outline-none border-0 menu-opacity-input" placeholder="{_panel.forms.login.password}" />
             {if $returnRoute}
                 <input n:name="returnRoute" type="hidden" value={$returnRoute}>
             {/if}
         </ul>
-        <input type="submit" value="Přihlásit se" class="btn border-radius-0 w-100 default-margin-top menu-opacity-button" n:name="submit">
+        <input type="submit" value="{_panel.forms.login.submit}" class="btn border-radius-0 w-100 default-margin-top menu-opacity-button" n:name="submit">
     </form>
 {/block}
