@@ -261,6 +261,17 @@ This API is used to retrieve cached player statistics data and export it in JSON
 }
 ``` 
 
+## Configuration Files
+- `app\lang\*` - configurations with messages used in templates (Contributte\Translation)
+  - default: 
+    - front.cs_CZ.neon
+    - helpdesk.cs_CZ.neon
+    - panel.cs_cz.neon
+    - stats.cs_CZ.neon
+- `app\config\*` - web system configurations file
+  - common.neon - core configuration (DI...)
+  - local.neon - local configuration (Panel subjects, cache...)
+
 ## Connection with Minecraft plugins and other
 
 Each plugin has its own connection to the database in configuration and custom class in `App\Model\API\Plugin`
