@@ -8,17 +8,17 @@
 	<div aria-label="breadcrumb">
 		<ol class="breadcrumb br-0 mb-0">
 			<li class="breadcrumb-item active"><a href="/" class="text-dark">{$nastaveni->nazev}</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Domovská stránka</li>
+			<li class="breadcrumb-item active" aria-current="page">{_front.home.breadcrumbTitle}</li>
 		</ol>
 	</div>
 {/block}
 {block keywords}
-	domov, homepage, home, {$nastaveni->nazev}, aktuality, minecraft, server
+	{_front.home.metaKeywords, [web => $nastaveni->nazev]}
 {/block}
 {block content}
 	<div class="padding-walls-32" style="padding-bottom: 32px; margin-top:12px;">
 		<h2 class="font-weight-normal aktuality">
-			<i class="fa fa-thumb-tack font-weight-normal"></i> AKTUALITY
+			<i class="fa fa-thumb-tack font-weight-normal"></i> {_front.home.newsHeading}
 			<span class="text-black-50">
 				<time>{="now"|date:'j.n.Y'}</time>
 			</span>
@@ -79,16 +79,16 @@
 			{if $articlesCount - count($articles) > 0}
 				<a n:href="archiv" class="btn btn-secondary btn-sm br-0 w-33"
 						style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);" n:if="$articlesCount - count($articles) > 0">
-					ZOBRAZIT STARŠÍ <span class="text-white-50">(kolem {$articlesCount - count($articles)} {$sklonovani(2, ["článku", "článků", "článků"])})</span>
+						{_front.home.viewSpecificList, articles => $articlesCount - count($articles)} {$sklonovani(2, ["článku", "článků", "článků"])|noescape}
 				</a>
 			{else}
 				<a n:href="archiv" class="btn btn-secondary btn-sm br-0 w-33" style="-webkit-clip-path: polygon(0 0, 100% 0, 83% 100%, 17% 100%); clip-path: polygon(0 0, 100% 0, 98% 100%, 2% 100%);">
-					ZOBRAZIT ARCHIV
+					{_front.home.viewList}
 				</a>
 			{/if}
 		</div>
 		<div n:if="$gameSections->getCount() > 0">
-			<h2 class="font-weight-normal" style="margin-top:32px;"><i class="fa fa-gamepad"></i> HERNÍ PRVKY</h2>
+			<h2 class="font-weight-normal" style="margin-top:32px;"><i class="fa fa-gamepad"></i> {_front.home.gamesHeading}</h2>
 			<div class="shadow-sm herni-prvky" style="margin-bottom: 16px">
 				{foreach $gameSections->getSections() as $gameSection}
 					<a href="{$gameSection->getLink()}" target="_blank" class="text-dark">

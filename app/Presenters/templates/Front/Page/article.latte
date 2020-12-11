@@ -11,7 +11,7 @@
     <div aria-label="breadcrumb">
         <ol class="breadcrumb br-0 mb-0">
             <li class="breadcrumb-item"><a n:href="home" class="text-dark">{$nastaveni->nazev}</a></li>
-            <li class="breadcrumb-item"><a class="text-dark" n:href="Page:archiv">Články</a></li>
+            <li class="breadcrumb-item"><a class="text-dark" n:href="Page:archiv">{_front.go.backList}</a></li>
             <li class="breadcrumb-item active" aria-current="page">
                 {$article->name|trim}
             </li>
@@ -29,7 +29,7 @@
     <article>
     <div class="card border-radius-0 border-0">
     <div class="card-body min-height-card">
-        <small class="text-muted font-weight-bold"><a n:href="Page:home" class="extern-href" style="color: #dc3545">ZPĚT NA AKTUALITY</a></small>
+        <small class="text-muted font-weight-bold"><a n:href="Page:home" class="extern-href" style="color: #dc3545">{_front.go.backNews}</a></small>
         <h3>{$article->name}</h3>
         {$article->content|noescape}
         {ifset $articleRepository->getMiniature($article->id)[0]}
@@ -57,7 +57,7 @@
     </div>
          {if $logged}
              <br>
-             <a n:href=":Admin:Article:edit $article->url" target="_blank" class="btn dark-blue-btn dark-blue-border float-right border-radius-0 " style="margin-bottom: 16px">Editovat (administrace)</a>
+             <a n:href=":Admin:Article:edit $article->url" target="_blank" class="btn dark-blue-btn dark-blue-border float-right border-radius-0 " style="margin-bottom: 16px">{_front.articleView.edit}</a>
          {/if}
      </article>
 {/block}
