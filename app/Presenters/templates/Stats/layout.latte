@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="cs">
 <head>
     <meta charset="UTF-8">
     <title>{include title}</title>
@@ -25,7 +25,7 @@
             display:none;
         }
     </style>
-    <strong>We're sorry but this site doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    <strong>{_stats.disabledJS}</strong>
 </noscript>
 <body>
 <div class="container" style="min-height: 100vh;">
@@ -39,10 +39,10 @@
                 <h3 class="font-weight-light" style="font-size: 35px">{$nastaveni->nazev}</h3>
                 <ul class="list-group transparent-items " style="color: rgba(255,255,255,0.75)">
                     <a n:href=":Front:Page:home">
-                        <li class="list-group-item">Přejít na hlavní web</li>
+                        <li class="list-group-item">{_stats.go.web}</li>
                     </a>
                     <a n:href=":Panel:Login:main">
-                        <li class="list-group-item">Přejít do infopanelu</li>
+                        <li class="list-group-item">{_stats.go_panel}</li>
                     </a>
                 </ul>
             </div>

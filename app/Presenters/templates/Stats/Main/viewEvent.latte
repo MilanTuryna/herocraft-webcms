@@ -1,6 +1,6 @@
 {layout "../layout.latte"}
 {block title}
-    Event - {$event->event_name}
+    Event - {_events.specific.title, [eventName => $event->event_name]}
 {/block}
 {block content}
     <style>
@@ -10,8 +10,8 @@
     </style>
     <nav aria-label="breadcrumb" data-aos="fade-down" data-aos-duration="2000" style="margin-top: 32px;">
         <ol class="breadcrumb shadow" style="border-radius: 0; background-color: rgba(125, 181, 138, 1);">
-            <li class="breadcrumb-item" aria-current="page"><a n:href="Main:app" class="text-white">Statistiky</a></li>
-            <li class="breadcrumb-item active" style="color: rgba(255,255,255,0.75)" aria-current="page">Event - {$event->event_name} ({$page}. stránka)</li>
+            <li class="breadcrumb-item"><a n:href="Main:app" class="text-white">{_stats.app.title}</a></li>
+            <li class="breadcrumb-item active" style="color: rgba(255,255,255,0.75)" aria-current="page">{_stats.events.specific.titleWithPaginator, [eventName => $event->event_name, page => $page]}</li>
         </ol>
     </nav>
     <h1 class="font-weight-light" style="font-size: 35px;" data-aos="fade-left" data-aos-duration="1500">
@@ -20,7 +20,7 @@
     <hr>
     <div data-aos="fade-up" data-aos-duration="1500">
             <h2 class="font-weight-bold" style="font-size: 25px;">
-                TOP
+                {_stats.events.specific.top}
             </h2>
         <div class="bg-white">
             <table class="table table-striped border" style="text-align: center">
@@ -45,13 +45,13 @@
         <table class="table table-sm table-striped border" style="text-align: center">
             <thead class="thead-light">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nick</th>
-                <th scope="col">Čas</th>
-                <th scope="col">Úspěšně</th>
-                <th scope="col">Neúspěšně</th>
-                <th scope="col">Nejlepší výsledek</th>
-                <th scope="col">Poslední výsledek</th>
+                <th scope="col">{_stats.events.specific.rows.iterator}</th>
+                <th scope="col">{_stats.events.specific.rows.nick}</th>
+                <th scope="col">{_stats.events.specific.rows.time}</th>
+                <th scope="col">{_stats.events.specific.rows.passed}</th>
+                <th scope="col">{_stats.events.specific.rows.giveup}</th>
+                <th scope="col">{_stats.events.specific.rows.best_played}</th>
+                <th scope="col">{_stats.events.specific.rows.last_played}/th>
             </tr>
             </thead>
             <tbody>

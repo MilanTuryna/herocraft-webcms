@@ -1,17 +1,17 @@
 {layout "../layout.latte"}
 {block title}
-    Statistiky
+    {_stats.app.title}
 {/block}
 {block content}
     <header style="padding-top:32px">
         <h1 class="font-weight-light" style="font-size: 40px" data-aos="fade-left" data-aos-duration="1000">
-            Hráčské statistiky
+            {_stats.app.heading}
         </h1>
     </header>
     <nav>
         <ul class="list-group transparent-items " data-aos-duration="1500" data-aos-delay="500" data-aos="fade-left" style="color: rgba(255,255,255,0.75)">
                     <span class="importantcolor text-dark">
-                        <li class="list-group-item font-weight-normal ">Informační část</li>
+                        <li class="list-group-item font-weight-normal ">{_stats.app.infoPart}</li>
                     </span>
         </ul>
     </nav>
@@ -34,22 +34,22 @@
         </div>
         <div id="search" data-aos="fade-left" data-aos-duration="1500" data-aos-delay="750">
             <div class="border" style="background-color:rgba(255, 255, 255,0.3) !important; padding: 16px">
-                <h4 class="font-weight-normal text-dark">Vyhledat hráče podle nicku</h4>
+                <h4 class="font-weight-normal text-dark">{_stats.app.searchPlayer}</h4>
                 <input type="text" v-model="button.player"  id="playerInput" maxlength="16" class="form-control green-focus" placeholder="např: DarkMilan">
                 <span class="small text-muted" style="margin-bottom:500px">
-                            Zveřejňujeme pouze herní data, nikoliv osobní údaje
+                            {_stats.app.playerDataHelp}
                         </span>
                 <button type="button" class="btn btn-success w-100" style="margin-top:16px" v-on:click="submitPlayer" :disabled="button.player ? false : true">
-                    Zobrazit hráče {{button.player }}
+                    {_stats.app.viewPlayer}
                 </button>
             </div>
         </div>
     </main>
     <hr>
     <h2 class="font-weight-light" style="font-size: 30px" data-aos="fade-left" data-aos-duration="1000">
-        Eventy
+        {_stats.events.heading}
     </h2>
-    <p class="text-muted small" data-aos="fade-left" data-aos-duration="1500">Výpis aktualizován každých <b>30</b> minut</p>
+    <p class="text-muted small" data-aos="fade-left" data-aos-duration="1500">{_stats.events.updateTime|noescape}</p>
     <div class="border" style="background-color: rgba(255, 255, 255,0.3) !important; padding-bottom: 12px; padding-top: 12px" data-aos="fade-down" data-aos-duration="1000">
         {cache expire => '30 minutes'}
             <ul n:if="$events" style="margin-bottom: 0" >
@@ -67,7 +67,7 @@
         {/cache}
 
         <p class="text-center" n:if="!$events" style="margin:0">
-            Nebyl nalezen žádný event
+            {_stats.events.notFound}
         </p>
     </div>
     <br>
