@@ -50,7 +50,7 @@ services:
 	articleRepository: App\Model\ArticleRepository
 	categoryRepository: App\Model\CategoryRepository
 	pageRepository: App\Model\PageRepository
-	ticketRepository: App\Model\Panel\Core\TicketRepository
+	ticketRepository: App\Model\Panel\Core\Tickets\TicketRepository
 	settingsRepository: App\Model\SettingsRepository
 	cachedAPIRepository: App\Model\Stats\CachedAPIRepository
 	mojangRepository: App\Model\Panel\MojangRepository
@@ -75,6 +75,6 @@ services:
 	api: App\Model\DI\API(%api.expire_time%)
 	discord: App\Model\DI\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%, %tickets.callback.discord.url%, %tickets.callback.discord.color%, %tickets.callback.discord.username%, %tickets.callback.discord.logo%, ...)
 	configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
-	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord)
+	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord, %tickets.emailSender%)
 	cron: App\Model\DI\Cron(%cron.password%)
 	router: App\Router\RouterFactory::createRouter
