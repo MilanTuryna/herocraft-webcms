@@ -8,7 +8,7 @@ use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\AddTicketForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
 use App\Model\DI\GoogleAnalytics;
-use App\Model\Panel\Core\TicketRepository;
+use App\Model\Panel\Core\Tickets\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;

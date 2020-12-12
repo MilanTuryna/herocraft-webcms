@@ -2,7 +2,7 @@
 
 namespace App\Forms\Panel\Tickets;
 
-use App\Model\Panel\Core\TicketRepository;
+use App\Model\Panel\Core\Tickets\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;

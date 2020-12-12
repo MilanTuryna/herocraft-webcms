@@ -2,7 +2,7 @@
 
 namespace App\Forms\Panel\Tickets;
 
-use App\Model\Panel\Core\TicketRepository;
+use App\Model\Panel\Core\Tickets\TicketRepository;
 use App\Model\Panel\Object\Ticket;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
