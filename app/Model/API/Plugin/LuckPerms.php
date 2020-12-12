@@ -119,4 +119,13 @@ class LuckPerms
 
         return $groups;
     }
+
+    /**
+     * @param $uuid
+     * @param $permission
+     * @return int
+     */
+    public function deleteSpecificPermission($uuid, $permission) {
+        return $this->context->table(LuckPerms::USER_TABLE_PERM)->where("uuid = ? AND permission = ?", $uuid, $permission)->delete();
+    }
 }
