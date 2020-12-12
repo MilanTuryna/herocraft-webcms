@@ -1,3 +1,4 @@
 app/config/local.neon
 app/config/cli.neon
 vendor
+.htaccess
