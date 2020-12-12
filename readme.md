@@ -314,19 +314,11 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 `??` = maybe
 
 - better image uploading
-- more features in player's panel
-- better documentation
 - generating favicon.ico from logo
 - better design in statistics and panel
-- if i'm will boring - exporting player's data
 - articles filter by category
-- more features to helpdesk like bansystem and player management etc.
 - add only url pages & secret pages
-- comments system for articles
-- better SEO optimalization (alt tags, aria-labels, semantic elements)
-- sitemap
 - code review (use best practices, code design etc...)
-- `??`articles rss
 - add email input & notify player to email after support send response to ticket
 
 ## Provedené změny (CZECH)
