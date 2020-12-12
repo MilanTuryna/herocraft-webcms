@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <h5 class="card-title"><a n:href="article, $article->url">{$article->name}</a></h5>
                         <div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
-                            {trim(App\Model\Utils::substrWithoutHTML($article->content,340))|noescape}
+                            {$article->content|substrWithoutHTML:340|noescape}
                         </div>
                         <p class="card-text">
                             <small class="text-muted">
