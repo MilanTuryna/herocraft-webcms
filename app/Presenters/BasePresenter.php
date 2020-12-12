@@ -16,11 +16,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     private GoogleAnalytics $googleAnalytics;
 
-    /** @var Nette\Localization\ITranslator @inject */
-    public $translator;
+    /** @var Nette\Localization\Translator @inject */
+    public Nette\Localization\Translator $translator;
 
     /** @var Contributte\Translation\LocalesResolvers\Session @inject */
-    public $translatorSessionResolver;
+    public Contributte\Translation\LocalesResolvers\Session $translatorSessionResolver;
 
     /**
      * BasePresenter constructor.
