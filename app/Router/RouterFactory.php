@@ -33,7 +33,8 @@ final class RouterFactory
             ->addRoute('/admin/minecraft/helpers/<helper>', 'Minecraft:helperView')
 
             ->addRoute('/admin/minecraft/luckperms/[<page>]', 'Minecraft:luckPerms')
-            ->addRoute('/admin/minecraft/luckperms/zobrazit/<player>', 'Minecraft:filterLuckPerms')
+            ->addRoute('/admin/minecraft/luckperms/hrac/<player>', 'Minecraft:filterLuckPerms')
+            ->addRoute('/admin/minecraft/luckperms/odstranit?uuid=<uuid>&perm=<permission>', 'Minecraft:deleteSpecificPermission')
 
             ->addRoute('/admin/minecraft/chat/filter/?timeStart=<timeStart>&timeEnd=<timeEnd>&players[]=<players=null>',  'Minecraft:filterChat')
             ->addRoute('/admin/minecraft/chat[/<page>]', 'Minecraft:chat')
