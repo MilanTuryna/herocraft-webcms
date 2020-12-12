@@ -12,6 +12,7 @@ parameters:
         enabled:
         code:
     tickets:
+        emailSender:
         callback:
             discord:
                 enabled:

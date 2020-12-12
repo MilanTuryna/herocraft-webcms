@@ -11,16 +11,19 @@ class Settings
 
     private Discord $discord;
     private array $subjects;
+    private string $emailSender;
 
     /**
      * Settings constructor.
      * @param array $subjects
      * @param Discord $discord
+     * @param string $emailSender
      */
-    public function __construct(array $subjects, Discord $discord)
+    public function __construct(array $subjects, Discord $discord, string $emailSender)
     {
         $this->subjects = $subjects;
         $this->discord = $discord;
+        $this->emailSender = $emailSender;
     }
 
     /**
@@ -37,5 +40,9 @@ class Settings
     public function getSubjects(): array
     {
         return $this->subjects;
+    }
+
+    public function getEmailSender(): string {
+        return $this->emailSender;
     }
 }
