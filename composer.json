@@ -20,8 +20,9 @@
 		"nette/utils": "^3.0",
 		"latte/latte": "^2.9",
 		"tracy/tracy": "^2.6",
-      "ext-curl": "*",
-		"contributte/translation": "0.9.x-dev"
+        "ext-curl": "*",
+		"contributte/translation": "0.9.x-dev",
+        "ext-dom": "*"
     },
 	"require-dev": {
 		"nette/tester": "^2.0"
