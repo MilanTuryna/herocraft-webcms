@@ -49,18 +49,11 @@
                     {var $lastTime = $playerTime->playtime}
                     {var $recordedHours = 0}
                     <ul n:foreach="$playerTimeWeek as $record">
-                        {var $sevendays = strtotime('-7 days', strtotime($record->timestamp))}
-                        {var $resultHours = round(($lastTime - $record->playtime)/60,1)}
                         <li>
-                            <b>{$sevendays|date:'j.n.Y'} - {$record->timestamp|date:'j.n.Y'} </b>... {$resultHours}h
+                            <b>{$record->timestamp|date:'j.n.Y'} </b>... {round($record->playtime/60,1)}h
                         </li>
                         {var $lastTime = $record->playtime}
                         {var $recordedHours = $recordedHours + $resultHours}
-                        {if $iterator->isLast()}
-                            <li class="text-muted">
-                                ??? - {$sevendays|date:'j.n.Y'} ... {$recordedHours}
-                            </li>
-                        {/if}
                     </ul>
                     <!--
                     <hr>
