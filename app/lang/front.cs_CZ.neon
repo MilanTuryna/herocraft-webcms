@@ -20,6 +20,9 @@ articleView:
 go:
     backList: "Články"
     backNews: "ZPĚT NA AKTUALITY"
+flashMessages:
+    articleNotFound: "Tento článek neexistuje!"
+    pageNotFound: "Tato stránka nebyla nalezena!"
 forms:
     login:
         name: "Jméno/email"

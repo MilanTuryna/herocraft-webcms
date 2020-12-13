@@ -107,7 +107,7 @@ final class PagePresenter extends BasePresenter
         if($pageObj) {
             $this->template->page = $pageObj;
         } else {
-            $this->error('Tato stránka nebyla nalezena!');
+            $this->error($this->translator->translate("front.flashMessage.pageNotFound"));
         }
     }
 
@@ -150,7 +150,9 @@ final class PagePresenter extends BasePresenter
             $this->template->article = $article;
             $this->template->category = $article->ref('categories', 'category_id', 'color', 'name');
         } else {
-            $this->error('Tento článek neexistuje!');
+            $this->error(
+                $this->translator->translate("front.flashMessages.articleNotFound")
+            );
         }
     }
 }
