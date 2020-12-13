@@ -107,7 +107,7 @@ final class PagePresenter extends BasePresenter
         if($pageObj) {
             $this->template->page = $pageObj;
         } else {
-            $this->error($this->translator->translate("front.flashMessage.pageNotFound"));
+            $this->error($this->translator->translate("front.flashMessages.pageNotFound"));
         }
     }
 
