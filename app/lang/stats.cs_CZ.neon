@@ -25,3 +25,5 @@ events:
 go:
     web: "Přejít na hlavní web"
     panel: "Přejít do infopanelu"
+flashMessages:
+    eventNotFound: "Event, na který směřuje tvůj odkaz, neexistuje."

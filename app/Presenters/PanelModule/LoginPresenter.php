@@ -62,7 +62,7 @@ class LoginPresenter extends PanelBasePresenter
     public function actionLogout() {
         try {
             $this->pluginAuthenticator->logout();
-            $this->flashMessage('Byl jsi odhlášen, pro další manipulaci s panelem se přihlaš!', 'dark-green');
+            $this->flashMessage($this->translator->translate("panel.flashMessages.successLogout"), 'dark-green');
             $this->redirect('Login:main');
         } catch (AuthException $e) {
             $this->flashMessage($e->getMessage(), 'error');

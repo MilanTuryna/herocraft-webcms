@@ -66,3 +66,8 @@ forms:
         old: "Staré heslo"
         old_placeholder: "Zadej staré heslo"
         submit: "Změnit heslo"
+flashMessages:
+    successLogout: "Byl jsi odhlášen, pro další manipulaci s panelem se přihlaš!"
+    pleaseAuthorize: "Pro manipulaci s hráčským panelem, proveďte autorizaci."
+    ticketNotExists: "Tento ticket neexistuje!"
+    forbiddenTicket: "Tento ticket nepatří tobě!"

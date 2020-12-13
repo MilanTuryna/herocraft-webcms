@@ -36,3 +36,8 @@ forms:
         name: "Odhlásit se"
 go:
     overview: "ZPĚT NA PŘEHLED"
+flashMessages:
+    pleaseAuthorize: "Před přístupem do helpdesku se musíš přihlásit a podstoupit ověření"
+    successLogout: "Byl jsi odhlášen, pro další manipulaci s administrací se přihlaš!"
+    ticketErrorDeleted: "Ticket nemohl být odstraněn, jelikož neexistuje."
+    ticketSuccessDeleted: "Ticket %ticketId% byl úspěšně odstraněn."

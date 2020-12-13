@@ -23,6 +23,7 @@ go:
 flashMessages:
     articleNotFound: "Tento článek neexistuje!"
     pageNotFound: "Tato stránka nebyla nalezena!"
+    successLogout: "Byl jsi odhlášen, pro další manipulaci s administrací se přihlaš!"
 forms:
     login:
         name: "Jméno/email"

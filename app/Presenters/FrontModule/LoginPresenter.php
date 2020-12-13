@@ -68,7 +68,7 @@ class LoginPresenter extends BasePresenter
     public function actionLogout() {
         try {
             $this->authenticator->logout();
-            $this->flashMessage('Byl jsi odhlášen, pro další manipulaci s administrací se přihlaš!', 'success');
+            $this->flashMessage($this->translator->translate("front.flashMessages.successLogout"), 'success');
             $this->redirect('Login:main');
         } catch (AuthException $e) {
             $this->redirect("Login:main");

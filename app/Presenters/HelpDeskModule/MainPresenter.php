@@ -56,7 +56,7 @@ class MainPresenter extends HelpBasePresenter
             $this->template->helper = $helper;
             $this->user = $user;
         } else {
-            $this->flashMessage('Před přístupem do helpdesku se musíš přihlásit a podstoupit ověření');
+            $this->flashMessage($this->translator->translate('help.flashMessages.pleaseAuthorize'));
             $this->redirect('Login:main');
         }
     }
@@ -99,9 +99,9 @@ class MainPresenter extends HelpBasePresenter
     public function actionDeleteTicket($ticketId) {
         $deleted = $this->ticketRepository->removeTicket($ticketId);
         if($deleted) {
-            $this->flashMessage("Ticket " . $ticketId . " byl úspěšně odstraněn.", "success");
+            $this->flashMessage($this->translator->translate('helpdesk.flashMessages.ticketSuccessDeleted', ['ticketId' => $ticketId]), "success");
         } else {
-            $this->flashMessage("Ticket nemohl být odstraněn, jelikož neexistuje.", "danger");
+            $this->flashMessage($this->translator->translate('helpdesk.flashMessages.ticketErrorDeleted'), "danger");
         }
 
         $this->redirect("Main:home");
@@ -113,7 +113,7 @@ class MainPresenter extends HelpBasePresenter
      */
     public function actionLogout() {
         $this->supportAuthenticator->logout();
-        $this->flashMessage('Byl jsi odhlášen, pro další manipulaci s administrací se přihlaš!', 'success');
+        $this->flashMessage($this->translator->translate('helpdesk.flashMessages.successLogout'), 'success');
         $this->redirect('Login:main');
     }
 

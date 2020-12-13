@@ -78,7 +78,7 @@ class MainPresenter extends BasePresenter
 
             if($lastPage === 0) $this->template->page = 0;
         } else {
-            $this->flashMessage("Event, na který směřuje tvůj odkaz, neexistuje.", "danger");
+            $this->flashMessage($this->translator->translate("stats.flashMessages.eventNotFound"), "danger");
             $this->redirect("Main:app");
         }
     }
