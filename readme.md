@@ -369,3 +369,5 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - implementace tichto konfiguračních souborů v šablonách webového systému
     - autorizace při volání akcí (cli skriptů např: `example.tld/cli/savingPlaytime/<pass>`) pod CronPresenter (autorizační kód v konfiguraci)
     - oprava skriptu pro uložení odehraného času helperů (metoda: `CronPresenter::actionSavingPlaytime`)
+    - přidáno tlačítko pro odstranění dané permisse v LuckPerms přehledu (administrace)
+    - opraven a změněn výpis týdenního odehraného času při rozkliknutí karty helpera (administrace)
