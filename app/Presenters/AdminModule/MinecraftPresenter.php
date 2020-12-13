@@ -351,17 +351,18 @@ class MinecraftPresenter extends AdminBasePresenter
     /**
      * @param $uuid
      * @param $permission
+     * @param $returnPlayer
      * @throws AbortException
      */
-    public function actionDeleteSpecificPermission($uuid, $permission) {
+    public function actionDeleteSpecificPermission($uuid, $permission, $returnPlayer) {
         if(Permissions::checkPermission($this->admin->getPermissions(), Permissions::ADMIN_MC_LUCKPERMS)) {
             if($this->luckPerms->deleteSpecificPermission($uuid, $permission)) {
-                $this->flashMessage("Permisse " . $permission . "byla úspěšně odstraněna u hráče (".$uuid.")", 'success');
+                $this->flashMessage("Permisse " . $permission . "byla úspěšně odstraněna", 'success');
             } else {
                 $this->flashMessage("Permisse nemohla být odstraněna, jelikož ji daný hráč nemá.", 'danger');
             }
 
-            $this->redirect("Minecraft:LuckPerms");
+            $this->redirect("Minecraft:filterLuckPerms", $returnPlayer);
         } else {
             $this->flashMessage(Permissions::getNoPermMessage(Permissions::ADMIN_MC_LUCKPERMS) , 'danger');
             $this->redirect("Main:home");
