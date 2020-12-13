@@ -8,6 +8,8 @@ use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\AddTicketForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
 use App\Model\DI\GoogleAnalytics;
+use App\Model\Panel\Core\Tickets\Exceptions\TicketForbiddenException;
+use App\Model\Panel\Core\Tickets\Exceptions\TicketNotFoundException;
 use App\Model\Panel\Core\Tickets\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use App\Model\Security\Auth\PluginAuthenticator;
@@ -110,13 +112,13 @@ class TicketPresenter extends PanelBasePresenter
                     $this->template->ticketResponses = $this->ticketRepository->getTicketResponses($ticket->id);
                     $this->template->responseTypes = TicketRepository::TYPES;
                 } else {
-                    throw new \Exception($this->translator->translate("panel.flashMessages.forbiddenTicket"));
+                    throw new TicketForbiddenException('panel.flashMessages.forbiddenTicket');
                 }
             } else {
-                throw new \Exception($this->translator->translate('panel.flashMessages.ticketNotExists'));
+                throw new TicketNotFoundException('panel.flashMessages.ticketNotExists');
             }
-        } catch (\Exception $exception) {
-            $this->flashMessage($exception->getMessage(), 'error');
+        } catch (TicketForbiddenException | TicketNotFoundException $exception) {
+            $this->flashMessage($this->translator->translate($exception->getMessage()), 'error');
             $this->redirect('Ticket:list');
         }
     }
