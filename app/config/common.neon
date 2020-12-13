@@ -77,4 +77,8 @@ services:
 	configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
 	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord, %tickets.emailSender%)
 	cron: App\Model\DI\Cron(%cron.password%)
+	cronPresenter:
+	    factory: App\Presenters\CronPresenter(@cron)
+	    setup:
+	        - setLuckPermsContext(@database.luckperms.context)
 	router: App\Router\RouterFactory::createRouter

@@ -16,20 +16,26 @@ use Nette\Database\Context;
  */
 class CronPresenter extends Presenter
 {
-    private Context $context;
+    private Context $luckPermsContext;
     private Cron $cron;
 
     /**
      * CronPresenter constructor.
-     * @param Context $context
      * @param Cron $cron
      */
-    public function __construct(Context $context, Cron $cron)
+    public function __construct(Cron $cron)
     {
         parent::__construct();
 
-        $this->context = $context;
         $this->cron = $cron;
+    }
+
+    /**
+     * @param Context $luckPermsContext
+     */
+    public function setLuckPermsContext(Context $luckPermsContext): void
+    {
+        $this->luckPermsContext = $luckPermsContext;
     }
 
     /**
@@ -39,7 +45,7 @@ class CronPresenter extends Presenter
     public function actionSavingPlaytime($authentication) {
         if($authentication === $this->cron->getAuthenticationPassword()) {
             $arr = [];
-            $helpers = $this->context->query("SELECT t2.username, t1.uuid, t1.permission, t1.server, t3.playtime FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid INNER JOIN playtime AS t3 ON t2.username = t3.username WHERE t1.permission = ? OR t1.permission = ? OR t1.permission = ? OR t1.permission=? OR t1.permission=? GROUP BY username",
+            $helpers = $this->luckPermsContext->query("SELECT t2.username, t1.uuid, t1.permission, t1.server, t3.playtime FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid INNER JOIN playtime AS t3 ON t2.username = t3.username WHERE t1.permission = ? OR t1.permission = ? OR t1.permission = ? OR t1.permission=? OR t1.permission=? GROUP BY username",
                 LuckPerms::GROUPS['helper'],
                 LuckPerms::GROUPS['helpdesk'],
                 LuckPerms::GROUPS['implement-web'],
@@ -49,7 +55,7 @@ class CronPresenter extends Presenter
                 "username" => $helper->username,
                 "playtime" => $helper->playtime
             ]);
-            $this->context->table("playtime_week")->insert($arr);
+            $this->luckPermsContext->table("playtime_week")->insert($arr);
         } {
             $this->flashMessage("Přístup zamítnut.", "danger");
         }
