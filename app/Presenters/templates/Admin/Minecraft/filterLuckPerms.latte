@@ -39,11 +39,11 @@
                     </ul>
                 </li>
                 <li>Práva:
-                    <ul class="striped-ul">
+                    <ul >
                         {foreach $permissions as $permission}
                             {if substr($permission->permission, 0,6) !== "group."}
-                                <li n:class="$iterator->isEven() ? 'bg-light border'">
-                                    {$permission->permission}: <ul n:class="$iterator->isEven() ? 'bg-white'">
+                                <li>
+                                    {$permission->permission}: <a class="text-danger" n:href="Minecraft:deleteSpecificPermission $permission->uuid, $permission->permission, $player->username">❌</a> <ul>
                                         <li>Server: {$permission->server}</li>
                                         <li>Contexts : {$permission->contexts}</li>
                                         <li>Expirace: {$permission->expiry}</li>
