@@ -56,4 +56,20 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->httpRequest = $this->getHttpRequest();
         $this->template->googleAnalytics = $this->googleAnalytics;
     }
+
+    /**
+     * @return Nette\Localization\Translator
+     */
+    public function getTranslator(): Nette\Localization\Translator
+    {
+        return $this->translator;
+    }
+
+    /**
+     * @return Contributte\Translation\LocalesResolvers\Session
+     */
+    public function getTranslatorSessionResolver(): Contributte\Translation\LocalesResolvers\Session
+    {
+        return $this->translatorSessionResolver;
+    }
 }
