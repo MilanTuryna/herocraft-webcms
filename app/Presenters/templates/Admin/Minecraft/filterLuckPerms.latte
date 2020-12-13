@@ -33,7 +33,7 @@
                     <ul>
                         {foreach $permissions as $permission}
                             {if substr($permission->permission, 0, 6) === "group."}
-                                <li>{$permission->permission} / <small class="text-muted">server: <b>{$permission->server}</b></small></li>
+                                <li>{$permission->permission} / <small class="text-muted">server: <b>{$permission->server}</b></small>  <a class="text-danger" n:href="Minecraft:deleteSpecificPermission $permission->uuid, $permission->permission, $player->username">❌</a></li>
                             {/if}
                         {/foreach}
                     </ul>
