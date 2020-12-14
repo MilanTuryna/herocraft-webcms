@@ -7,6 +7,7 @@ use App\Model\Admin\Roles\Permissions;
 use App\Model\API\CzechCraft;
 use App\Model\DI\API;
 use App\Model\DI\Configuration;
+use App\Model\DI\Cron;
 use App\Model\DI\GameSections;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\DI\Tickets\Settings as TicketSettings;
@@ -21,6 +22,7 @@ use Nette\IOException;
  */
 final class ConfigurationPresenter extends AdminBasePresenter
 {
+    private Cron $cron;
     private GameSections $gameSections;
     private TicketSettings $ticketSettings;
     private GoogleAnalytics $googleAnalytics;
@@ -30,6 +32,7 @@ final class ConfigurationPresenter extends AdminBasePresenter
 
     /**
      * ConfigurationPresenter constructor.
+     * @param Cron $cron
      * @param Authenticator $authenticator
      * @param GameSections $gameSections
      * @param TicketSettings $ticketSettings
@@ -38,7 +41,8 @@ final class ConfigurationPresenter extends AdminBasePresenter
      * @param CzechCraft $czechCraft
      * @param Configuration $configuration
      */
-    public function __construct(Authenticator $authenticator,
+    public function __construct(Cron $cron,
+                                Authenticator $authenticator,
                                 GameSections $gameSections,
                                 TicketSettings $ticketSettings,
                                 GoogleAnalytics $googleAnalytics,
@@ -54,6 +58,7 @@ final class ConfigurationPresenter extends AdminBasePresenter
         $this->api = $api;
         $this->czechCraft = $czechCraft;
         $this->configuration = $configuration;
+        $this->cron = $cron;
     }
 
     /**
@@ -75,5 +80,6 @@ final class ConfigurationPresenter extends AdminBasePresenter
         $this->template->googleAnalytics = $this->googleAnalytics;
         $this->template->api = $this->api;
         $this->template->czechCraftSlug = $this->czechCraft->getSlug();
+        $this->template->cron = $this->cron;
     }
 }
