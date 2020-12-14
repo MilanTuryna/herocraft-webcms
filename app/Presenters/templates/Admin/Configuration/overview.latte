@@ -3,6 +3,13 @@
     Konfigurace systému
 {/block}
 {block content}
+    {varType App\Model\DI\Cron $cron}
+    {varType array $gameSections}
+    {varType App\Model\DI\API $api}
+    {varType App\Model\DI\Tickets\Settings $ticketSettings}
+    {varType string $czechCraftSlug}
+    {varType App\Model\DI\GoogleAnalytics $googleAnalytics}
+
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
@@ -15,6 +22,12 @@
             <h5 style="margin:0!important;" class="card-title">Aktuální platná konfigurace</h5>
             <div class="card-text">
                     <ul>
+                        <li>
+                            CRON
+                            <ul>
+                                <li><b>Autorizační kód:</b> {$cron->getAuthenticationPassword()}</li>
+                            </ul>
+                        </li>
                         <li>
                             Herní sekce
                             <ul>
