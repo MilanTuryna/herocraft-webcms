@@ -106,5 +106,28 @@
     <div class="col-lg-1 bg-white z-index-minus">
     </div>
 </div>
+<script>
+    /**
+     * Snippet from my effects library
+     */
+    [...document.getElementsByClassName("js--typeWriter")].forEach(function (element) {
+        let splitText = element.innerText.split('');
+        let intervalTimeout = element.dataset["typewriterTimeout"] || 50;
+        let counter = 0;
+        let interval;
+
+        element.innerHTML = '';
+
+        interval = setInterval(() => {
+            if(counter === splitText.length) {
+                clearInterval(interval);
+                return;
+            }
+
+            element.innerHTML += splitText[counter];
+            counter++;
+        }, intervalTimeout);
+    });
+</script>
 </body>
 </html>
