@@ -130,7 +130,7 @@ final class RouterFactory
             ->addRoute('/archiv[/<page=1>]', 'Page:archiv') // list článků
             ->addRoute('/<page>', 'Page:page');
 
-        $router->addRoute('/cli/savingplaytime/<authentication>', 'Cron:savingPlaytime');
+        $router->addRoute('/cli/savingPlaytime/<authentication>', 'Cron:savingPlaytime');
 
 		return $router;
 	}
