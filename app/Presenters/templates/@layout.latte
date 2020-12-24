@@ -25,6 +25,9 @@
     <link href="{$basePath}/css/web.css" rel="stylesheet">
 </head>
 <body>
+{ifset #endScripts}
+    {include endScripts}
+{/ifset}
 <script src="{$basePath}/js/front/effects.js" type="text/javascript"></script>
 <script src="{$basePath}/js/front/all.js" type="text/javascript"></script>
 </body>
