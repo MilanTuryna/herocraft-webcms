@@ -44,7 +44,3 @@
         });
     },500);
 })(document);
-(function (document) {
-    let counterEffect = new CounterEffect(document.getElementsByClassName("js--counterEffect"));
-    counterEffect.start();
-})(document);
