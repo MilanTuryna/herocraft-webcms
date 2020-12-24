@@ -21,6 +21,13 @@ class AuthMeRepository
         $this->context = $context;
     }
 
+    /**
+     * @return int
+     */
+    public function getRegisterCount(): int {
+        return $this->context->table('authme')->count("*");
+    }
+
     public function findByUsername($username) {
         return $this->context->table('authme')->where('username = ?', strtolower($username))->limit(1)->fetch();
     }
