@@ -54,10 +54,14 @@ class APIPresenter extends Presenter {
             'method' => $this->getHttpRequest()->getMethod(),
             'ip' => $this->getHttpRequest()->getRemoteAddress(),
         ];
-
         $response = [
             'updateTime' => $this->api->getExpireTime(),
             'http' => $http,
+            'stats' => [
+                "registerCount" => "",
+                "timesPlayed" => "",
+                "serverStarted" => ""
+            ],
             'czechCraft' => [
                 'server' => $this->cachedAPIRepository->getCzechCraftServer(),
                 'topVoters' => $this->cachedAPIRepository->getTopVoters()
