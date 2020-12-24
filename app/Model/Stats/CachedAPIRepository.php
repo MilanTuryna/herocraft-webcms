@@ -8,6 +8,7 @@ use App\Model\API\Plugin\Games\Events;
 use App\Model\API\Plugin\Games\HideAndSeek;
 use App\Model\API\Plugin\Games\SpleefX;
 use App\Model\API\Plugin\LuckPerms;
+use App\Model\API\Plugin\PlayerTime;
 use App\Model\API\Plugin\Senior\Economy as SeniorEconomy;
 use App\Model\API\Plugin\Classic\Economy as ClassicEconomy;
 use App\Model\DI\API;
@@ -31,6 +32,7 @@ class CachedAPIRepository
     private SeniorEconomy $seniorEconomy;
     private ClassicEconomy $classicEconomy;
     private CzechCraft $czechCraft;
+    private PlayerTime $playerTime;
     private API $api;
 
     /**
@@ -45,6 +47,7 @@ class CachedAPIRepository
      * @param SeniorEconomy $seniorEconomy
      * @param ClassicEconomy $classicEconomy
      * @param CzechCraft $czechCraft
+     * @param PlayerTime $playerTime
      * @param API $api
      */
     public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
@@ -55,7 +58,9 @@ class CachedAPIRepository
                                 SpleefX $spleefX,
                                 SeniorEconomy $seniorEconomy,
                                 ClassicEconomy $classicEconomy,
-                                CzechCraft $czechCraft, API $api)
+                                CzechCraft $czechCraft,
+                                PlayerTime $playerTime,
+                                API $api)
     {
         $this->authMeRepository = $authMeRepository;
         $this->cache = new Cache($storage);
@@ -67,6 +72,7 @@ class CachedAPIRepository
         $this->seniorEconomy = $seniorEconomy;
         $this->classicEconomy = $classicEconomy;
         $this->czechCraft = $czechCraft;
+        $this->playerTime = $playerTime;
         $this->api = $api;
     }
 
@@ -156,7 +162,21 @@ class CachedAPIRepository
     }
 
     /**
-     * @return mixed
+     * @return mixed|int
+     */
+    public function getTimesPlayed() {
+        $cacheName = 'API_timesPlayed';
+        if(is_null($this->cache->load($cacheName))) {
+            $this->cache->save($cacheName, $this->playerTime->getAllPlayedTime(), [
+                Cache::EXPIRE => "24 hours"
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
+     * @return mixed|int
      */
     public function getRegisterCount() {
         $cacheName = 'API_registerCount';
