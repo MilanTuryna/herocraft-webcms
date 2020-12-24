@@ -10,12 +10,12 @@ use Nette\SmartObject;
  * Class Card
  * @package App\Model\Front\UI
  */
-class Card
+class Card implements IElement
 {
     use SmartObject;
 
     private string $title;
-    private string $text;
+    private Text $text;
 
     /**
      * Card constructor.
@@ -37,10 +37,26 @@ class Card
     }
 
     /**
-     * @return Text|string
+     * @return Text
      */
-    public function getText()
+    public function getText(): Text
     {
         return $this->text;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toJSON(): string
+    {
+        return json_encode(get_object_vars($this)) ?: "{}";
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function __toString(): string
+    {
+       return $this->toJSON();
     }
 }
