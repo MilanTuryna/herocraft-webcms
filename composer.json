@@ -23,7 +23,8 @@
         "ext-curl": "*",
 		"contributte/translation": "0.9.x-dev",
         "ext-dom": "*",
-        "ext-mbstring": "*"
+        "ext-mbstring": "*",
+		"ext-json": "*"
     },
 	"require-dev": {
 		"nette/tester": "^2.0"
