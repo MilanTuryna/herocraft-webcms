@@ -41,11 +41,6 @@ button:focus {box-shadow: none!important;}
     width: 100%;
 }
 
-.dark-blue-text {
-    color:#1a237e;
-}
-
-
 #backToTop {
     display: none;
     position: fixed;
@@ -104,11 +99,6 @@ button:focus {box-shadow: none!important;}
     font-family: 'Abril Fatface', cursive;
 }
 
-@media (min-width: 1450px) {
-    .container-big {
-        min-width: 1400px;
-    }
-}
 
 .blue-glow {
     text-shadow: 0 0 11px rgba(78, 132, 174, 1);
