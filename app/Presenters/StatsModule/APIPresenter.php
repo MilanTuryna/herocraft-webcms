@@ -58,7 +58,7 @@ class APIPresenter extends Presenter {
             'updateTime' => $this->api->getExpireTime(),
             'http' => $http,
             'stats' => [
-                "registerCount" => "",
+                "registerCount" => $this->cachedAPIRepository->getRegisterCount(),
                 "timesPlayed" => "",
                 "serverStarted" => ""
             ],
