@@ -156,6 +156,20 @@ class CachedAPIRepository
     }
 
     /**
+     * @return mixed
+     */
+    public function getRegisterCount() {
+        $cacheName = 'API_registerCount';
+        if(is_null($this->cache->load($cacheName))) {
+            $this->cache->save($cacheName, $this->authMeRepository->getRegisterCount(), [
+                Cache::EXPIRE => "24 hours"
+            ]);
+        }
+
+        return $this->cache->load($cacheName);
+    }
+
+    /**
      * @param $name
      * @return mixed
      */
