@@ -59,7 +59,7 @@ class APIPresenter extends Presenter {
             'http' => $http,
             'stats' => [
                 "registerCount" => $this->cachedAPIRepository->getRegisterCount(),
-                "timesPlayed" => "",
+                "timesPlayed" => $this->cachedAPIRepository->getTimesPlayed()/60,
                 "serverStarted" => ""
             ],
             'czechCraft' => [
