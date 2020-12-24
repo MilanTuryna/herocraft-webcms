@@ -36,6 +36,16 @@ class PlayerTime
     }
 
     /**
+     * @return int
+     */
+    public function getAllPlayedTime(): int {
+        $db = $this->context->table(self::TABLE_NAME)->fetchAll();
+        $time = 0;
+        foreach ($db as $d) $time = $time + $d->playtime;
+        return $time;
+    }
+
+    /**
      * @return Context
      */
     public function getContext(): Context
