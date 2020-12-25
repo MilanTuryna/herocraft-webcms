@@ -3,9 +3,9 @@
 
 namespace App\Model\Front;
 
-use App\Model\Front\UI\Button;
-use App\Model\Front\UI\Image;
-use App\Model\Front\UI\Text;
+use App\Model\Front\UI\Elements\Button;
+use App\Model\Front\UI\Elements\Text;
+use App\Model\Front\UI\Elements\Image;
 use Nette\SmartObject;
 
 /**
