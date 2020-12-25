@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Model\Front\UI;
+namespace App\Model\Front\UI\Elements;
 
+use App\Model\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
@@ -13,32 +14,23 @@ class Button implements IElement
 {
     use SmartObject;
 
-    private string $title;
+    private Text $title;
     private string $link;
-    private string $textColor = "#000000";
     private string $bgColor = "#eeeeee";
     private string $width = "auto";
     private string $target = "_self";
 
     /**
      * Button constructor.
-     * @param string $title
+     * @param Text $title
      * @param string $link
      */
-    public function __construct(string $title, string $link)
+    public function __construct(Text $title, string $link)
     {
         $this->title = $title;
         $this->link = $link;
     }
-
-    /**
-     * @param string $textColor
-     */
-    public function setTextColor(string $textColor): void
-    {
-        $this->textColor = $textColor;
-    }
-
+    
     /**
      * @param string $bgColor
      */
