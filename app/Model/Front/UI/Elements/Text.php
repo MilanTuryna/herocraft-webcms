@@ -38,6 +38,13 @@ class Text
     /**
      * @return string
      */
+    public function getWordCount(): string {
+        return str_word_count($this->content);
+    }
+
+    /**
+     * @return string
+     */
     public function getColor(): string
     {
         return $this->color;
