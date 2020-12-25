@@ -5,7 +5,6 @@ namespace App\Model\Front\UI\Elements;
 
 
 use App\Model\Front\UI\IElement;
-use App\Model\Front\UI\Text;
 use Nette\SmartObject;
 
 /**
@@ -48,6 +47,7 @@ class Card implements IElement
 
     /**
      * @inheritDoc
+     * @return string
      */
     public function toJSON(): string
     {
@@ -56,9 +56,19 @@ class Card implements IElement
 
     /**
      * @inheritDoc
+     * @return string
      */
     public function __toString(): string
     {
        return $this->toJSON();
+    }
+
+    /**
+     * @inheritDoc
+     * @return Card
+     */
+    public static function example(): Card
+    {
+        return new self("Název karty", Text::example());
     }
 }

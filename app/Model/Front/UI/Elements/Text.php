@@ -3,13 +3,14 @@
 
 namespace App\Model\Front\UI\Elements;
 
+use App\Model\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
  * Class Text
  * @package App\Model\Front\UI
  */
-class Text
+class Text implements IElement
 {
     use SmartObject;
 
@@ -48,5 +49,32 @@ class Text
     public function getColor(): string
     {
         return $this->color;
+    }
+
+    /**
+     * @return string
+     * @inheritDoc
+     */
+    public function toJSON(): string
+    {
+        return json_encode(get_object_vars($this)) ?: "{}";
+    }
+
+    /**
+     * @inheritDoc
+     * @return string
+     */
+    public function __toString(): string
+    {
+        return $this->toJSON();
+    }
+
+    /**
+     * @inheritDoc
+     * @return IElement
+     */
+    public static function example(): Text
+    {
+        return new Text("Lorem ipsum dolor sit...");
     }
 }

@@ -74,6 +74,7 @@ class Image implements IElement
     }
 
     /**
+     * @inheritDoc
      * @return string
      */
     public function toJSON(): string
@@ -82,10 +83,20 @@ class Image implements IElement
     }
 
     /**
+     * @inheritDoc
      * @return string
      */
     public function __toString(): string
     {
         return $this->toJSON();
+    }
+
+    /**
+     * @inheritDoc
+     * @return Image
+     */
+    public static function example(): Image
+    {
+        return new self("Název obrázku", /* TODO */ "", "Rekapitulace obrázku");
     }
 }

@@ -30,7 +30,7 @@ class Button implements IElement
         $this->title = $title;
         $this->link = $link;
     }
-    
+
     /**
      * @param string $bgColor
      */
@@ -57,6 +57,7 @@ class Button implements IElement
 
     /**
      * @inheritDoc
+     * @return string
      */
     public function toJSON(): string
     {
@@ -65,9 +66,19 @@ class Button implements IElement
 
     /**
      * @inheritDoc
+     * @return string
      */
     public function __toString(): string
     {
         return $this->toJSON();
+    }
+
+    /**
+     * @return IElement
+     * @inheritDoc
+     */
+    public static function example(): IElement
+    {
+        return new Button(new Text("Example button"), "#");
     }
 }
