@@ -374,3 +374,6 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - 14.12 - 21.12
     - přidána reference (odkaz) v kartě helpera na přehled práv daného helpera (administrace)
     - typewriter efekt na IP adresu serveru na hlavní stránce
+- 21.12 - 28.12
+    - odstraněn momentální design
+    - práce na novém designu + nových modulech v administraci (rozvržení, přidávání sekcí a tak dále)
