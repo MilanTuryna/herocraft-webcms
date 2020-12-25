@@ -16,4 +16,6 @@ interface IElement
      * @return string
      */
     public function __toString(): string;
+    public static function example(): IElement;
 }
+
