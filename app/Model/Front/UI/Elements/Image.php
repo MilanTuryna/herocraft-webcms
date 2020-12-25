@@ -1,7 +1,10 @@
 <?php
 
 
-namespace App\Model\Front\UI;
+namespace App\Model\Front\UI\Elements;
+
+use App\Model\Front\UI\IElement;
+use Nette\SmartObject;
 
 /**
  * Class Image
@@ -9,6 +12,8 @@ namespace App\Model\Front\UI;
  */
 class Image implements IElement
 {
+    use SmartObject;
+
     private string $url;
     private string $width = "100%";
     private string $height = "auto";

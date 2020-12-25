@@ -1,7 +1,9 @@
 <?php
 
 
-namespace App\Model\Front\UI;
+namespace App\Model\Front\UI\Elements;
+
+use Nette\SmartObject;
 
 /**
  * Class Text
@@ -9,6 +11,8 @@ namespace App\Model\Front\UI;
  */
 class Text
 {
+    use SmartObject;
+
     private string $content;
     private string $color;
 

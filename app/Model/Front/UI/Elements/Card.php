@@ -1,9 +1,11 @@
 <?php
 
 
-namespace App\Model\Front\UI;
+namespace App\Model\Front\UI\Elements;
 
 
+use App\Model\Front\UI\IElement;
+use App\Model\Front\UI\Text;
 use Nette\SmartObject;
 
 /**
