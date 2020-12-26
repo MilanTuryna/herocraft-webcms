@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\Front;
+namespace App\Model\Front\UI\Parts;
 
 use App\Model\Front\UI\Elements\Button;
 use App\Model\Front\UI\Elements\Text;
