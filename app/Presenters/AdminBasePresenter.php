@@ -68,6 +68,7 @@ class AdminBasePresenter extends BasePresenter
                     "minecraft_helpers" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_HELPERS),
                     "minecraft_onlineplayers" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_MC_ONLINEPLAYERS),
                     "upload" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_UPLOAD),
+                    "content" => Permissions::checkPermission($adminPermissions, Permissions::ADMIN_CONTENT_MANAGER),
                 ];
             } else {
                 $this->flashMessage(Permissions::getNoPermMessage($this->permissionNode) , 'danger');

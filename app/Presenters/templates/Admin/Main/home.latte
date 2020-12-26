@@ -150,6 +150,9 @@
                             </li>
                         </ul>
                     </li>
+                    <li n:if="$havePermission['content']">
+                        <a n:href="Content:overview" class="black-href">Obsah a zobrazení</a>
+                    </li>
                     <li n:if="$havePermission['upload']">
                         <a n:href="Main:upload" class="black-href">Upload obrázků</a>
                     </li>
