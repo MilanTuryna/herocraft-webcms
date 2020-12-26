@@ -80,6 +80,9 @@
                 <a n:href="Page:list"
                         n:if="$havePermission['pages']"
                         n:class="$presenter->isLinkCurrent('Page:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Stránky</a>
+                <a n:href="Content:overview"
+                        n:if="$havePermission['content']"
+                        n:class="$presenter->isLinkCurrent('Content:*') ? aktivni, 'list-group-item', 'list-group-item-action'">Obsah a zobrazení</a>
                 <a n:href="Main:upload"
                         n:if="$havePermission['upload']"
                         n:class="$presenter->isLinkCurrent('Main:upload') ? aktivni, 'list-group-item', 'list-group-item-action'">Upload obrázků</a>
