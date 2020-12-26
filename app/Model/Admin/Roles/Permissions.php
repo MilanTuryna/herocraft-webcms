@@ -29,6 +29,8 @@ class Permissions
     const ADMIN_MC_SENIOR = "admin.minecraft_senior";
     const ADMIN_MC_CLASSIC = "admin.minecraft_classic";
 
+    const ADMIN_CONTENT_MANAGER = "admin.content_manager";
+
     const ADMIN_GLOBAL_SETTINGS = "admin.global_settings";
     const ADMIN_UPLOAD = "admin.upload";
 
