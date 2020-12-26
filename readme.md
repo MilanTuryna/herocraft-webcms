@@ -320,6 +320,7 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - add only url pages & secret pages
 - code review (use best practices, code design etc...)
 - add email input & notify player to email after support send response to ticket
+- content managing (sections, layout) in administration
 
 ## Provedené změny (CZECH)
 - 16.11 - 23.11
@@ -377,3 +378,5 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - 21.12 - 28.12
     - odstraněn momentální design
     - práce na novém designu + nových modulech v administraci (rozvržení, přidávání sekcí a tak dále)
+    - dočasně upraven kód na produkci - přidání velkého tlačítka TICKETY
+    
