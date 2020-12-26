@@ -79,15 +79,7 @@ final class RouterFactory
             ->addRoute('/admin/uzivatele/edit/<id>', 'User:edit')
             ->addRoute('/admin/uzivatele/odstranit/<id>', 'User:delete')
 
-            ->addRoute('/admin/hlasovani', 'Vote:list')
-            ->addRoute('/admin/hlasovani/vytvorit', 'Vote:create')
-            ->addRoute('/admin/hlasovani/edit/<id>', 'Vote:edit')
-            ->addRoute('/admin/hlasovani/odstranit/<id>', 'Vote:delete')
-
-            ->addRoute('/admin/social', 'Social:list')
-            ->addRoute('/admin/social/vytvorit', 'Social:create')
-            ->addRoute('/admin/social/edit/<id>', 'Social:edit')
-            ->addRoute('/admin/social/odstranit/<id>', 'Social:delete')
+            ->addRoute('/admin/content-manager', 'Content:overview')
 
             ->addRoute('/admin/upload', "Main:upload")
             ->addRoute('/admin/upload/odstranit/<file>', 'Main:removeUpload')
