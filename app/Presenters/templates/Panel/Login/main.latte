@@ -36,7 +36,7 @@
         <ul class="list-group">
             <li class="list-group-item  default-margin-bot text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">{_panel.sidebar.nonLogged}<span id="realtime"></span></li>
             <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 border-radius-0 alert-' . $flash->type">{$flash->message}</div>
-            <input n:name="name" type="text" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 border-radius-0 yellow-placeholder margin-bot-8 border-0 outline-none border-0 menu-opacity-input" placeholder="{_panel.forms.login.nick}"}/>
+            <input n:name="name" type="text" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 border-radius-0 yellow-placeholder margin-bot-8 border-0 outline-none border-0 menu-opacity-input" placeholder="{_panel.forms.login.nick}"/>
             <input n:name="password" type="password" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 text-warning border-radius-0 yellow-placeholder outline-none border-0 menu-opacity-input" placeholder="{_panel.forms.login.password}" />
             {if $returnRoute}
                 <input n:name="returnRoute" type="hidden" value={$returnRoute}>

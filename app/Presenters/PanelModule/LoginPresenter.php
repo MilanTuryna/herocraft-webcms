@@ -59,6 +59,13 @@ class LoginPresenter extends PanelBasePresenter
     /**
      * @throws AbortException
      */
+    public function renderTicketLogin() {
+        $this->renderMain();
+    }
+
+    /**
+     * @throws AbortException
+     */
     public function actionLogout() {
         try {
             $this->pluginAuthenticator->logout();

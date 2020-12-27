@@ -1,0 +1,46 @@
+{layout '../layout.latte'}
+{block title}
+    Tickety
+{/block}
+{block description}
+    Přihlášení do hráčského panelu, vedené přímo na tickety
+{/block}
+{block first_col}
+    <a n:href="Main:home" class="small text-muted font-weight-bold">{_panel.tickets.goBack.panel}</a>
+    <h1 class="display-4 font-30">Tickety</h1>
+    <hr>
+    <div class="alert border-0 alert-danger">Pro zobrazení svých ticketů, musíš být přihlášen, viz. sloupec v pravo</div>
+    <p class="small text-muted">
+         Pokud jsi na menším zářízení, k zobrazení celé tabulky posouvej horizontálně ze strany na stranu.
+    </p>
+        <div class="table-responsive" style="margin:0">
+            <table class="table table-striped table-light shadow-sm table-center " style="margin-bottom: 0; zoom:80%;">
+                <thead>
+                <tr>
+                    <th scope="col">Ticket</th>
+                    <th scope="col">Předmět</th>
+                    <th scope="col">Založen dne</th>
+                    <th scope="col">Stav</th>
+                    <th scope="col">ID</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    <a href="#" class="btn btn-sm btn-danger border-radius-0 w-100">
+        Nepřihlášen
+    </a>
+{/block}
+{block second_col}
+    <form n:name="signInForm" style="margin-bottom: 8px;">
+        <ul class="list-group">
+            <li class="list-group-item  default-margin-bot text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">{_panel.sidebar.nonLogged}<span id="realtime"></span></li>
+            <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 border-radius-0 alert-' . $flash->type">{$flash->message}</div>
+            <input n:name="name" type="text" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 border-radius-0 yellow-placeholder margin-bot-8 border-0 outline-none border-0 menu-opacity-input" placeholder="{_panel.forms.login.nick}"/>
+            <input n:name="password" type="password" autocomplete="off" spellcheck="false" class="list-group-item text-white-50 text-warning border-radius-0 yellow-placeholder outline-none border-0 menu-opacity-input" placeholder="{_panel.forms.login.password}" />
+            <input n:name="returnRoute" type="hidden" value=":Panel:Ticket:list">
+        </ul>
+        <input type="submit" value="{_panel.forms.login.submit}" class="btn border-radius-0 w-100 default-margin-top menu-opacity-button" n:name="submit">
+    </form>
+{/block}

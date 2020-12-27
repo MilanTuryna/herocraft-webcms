@@ -93,6 +93,7 @@ final class RouterFactory
             ->addRoute('/panel', 'Main:home')
             ->addRoute('/panel/zmena-hesla', 'Main:changePass')
             ->addRoute('/panel/login', 'Login:main')
+            ->addRoute('/panel/tickety/nahled',  'Login:ticketLogin')
             ->addRoute('/panel/odhlasit-se', 'Login:logout')
 
             ->addRoute('/panel/tickety/pridat', 'Ticket:add')
