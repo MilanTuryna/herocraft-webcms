@@ -7,11 +7,10 @@ use App;
 use DOMDocument;
 
 /**
- *
  * Class Utils
  * @package App\Model
  */
-class Utils
+abstract class Utils
 {
     /**
      * Function for parsing URL, ex: Jak se připojit => jak-se-pripojit - remove diacritic, accents atd.
