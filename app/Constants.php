@@ -7,7 +7,7 @@ namespace App;
  * Class Constants
  * @package App
  */
-class Constants
+abstract class Constants
 {
     /**
      * Constant for valid URL, use strtr(string, App\Constants::PARSE_URL)
