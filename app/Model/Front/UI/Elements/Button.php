@@ -77,7 +77,7 @@ class Button implements IElement
      * @return IElement
      * @inheritDoc
      */
-    public static function example(): IElement
+    public static function example(): Button
     {
         return new Button(new Text("Example button"), "#");
     }
