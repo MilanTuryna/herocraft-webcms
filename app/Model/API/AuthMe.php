@@ -10,21 +10,33 @@ namespace App\Model\API;
  */
 class AuthMe
 {
-    private $CHARS;
+    private array $CHARS;
 
     const SALT_LENGTH = 16;
 
+    /**
+     * AuthMe constructor.
+     */
     public function __construct() {
         $this->CHARS = self::initCharRange();
     }
 
-    public function isValidPassword($password, $hash) {
+    /**
+     * @param $password
+     * @param $hash
+     * @return bool
+     */
+    public function isValidPassword($password, $hash): bool {
         // $SHA$salt$hash, where hash := sha256(sha256(password) . salt)
         $parts = explode('$', $hash);
         return count($parts) === 4 && $parts[3] === hash('sha256', hash('sha256', $password) . $parts[2]);
     }
 
-    public function hash($password) {
+    /**
+     * @param $password
+     * @return string
+     */
+    public function hash($password): string {
         $salt = $this->generateSalt();
         return '$SHA$' . $salt . '$' . hash('sha256', hash('sha256', $password) . $salt);
     }
@@ -32,7 +44,7 @@ class AuthMe
     /**
      * @return string randomly generated salt
      */
-    private function generateSalt() {
+    private function generateSalt(): string {
         $maxCharIndex = count($this->CHARS) - 1;
         $salt = '';
         for ($i = 0; $i < self::SALT_LENGTH; ++$i) {
@@ -41,7 +53,10 @@ class AuthMe
         return $salt;
     }
 
-    private static function initCharRange() {
+    /**
+     * @return array
+     */
+    private static function initCharRange(): array {
         return array_merge(range('0', '9'), range('a', 'f'));
     }
 }
