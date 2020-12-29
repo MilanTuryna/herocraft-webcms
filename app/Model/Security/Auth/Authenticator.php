@@ -12,7 +12,7 @@ use App\Model\Security\Exceptions\AuthException;
  * Class Authenticator
  * @package App\Model\Security
  */
-class Authenticator implements IAuthenticator
+final class Authenticator implements IAuthenticator
 {
     const SESSION_SECTION = 'admin_login';
 

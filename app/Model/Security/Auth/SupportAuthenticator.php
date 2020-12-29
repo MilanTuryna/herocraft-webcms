@@ -16,7 +16,7 @@ use Nette\Http\Session;
  * Class SupportAuthenticator
  * @package App\Model\Security\Auth
  */
-class SupportAuthenticator implements IAuthenticator
+final class SupportAuthenticator implements IAuthenticator
 {
     const SESSION_SECTION = "helpDesk_login";
 

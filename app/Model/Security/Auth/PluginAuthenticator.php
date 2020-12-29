@@ -15,7 +15,7 @@ use App\Model\Security\Exceptions\AuthException;
  *
  * Authenticator for AuthMe on Minecraft server
  */
-class PluginAuthenticator implements IAuthenticator
+final class PluginAuthenticator implements IAuthenticator
 {
     const SESSION_SECTION = 'authme_login';
 
