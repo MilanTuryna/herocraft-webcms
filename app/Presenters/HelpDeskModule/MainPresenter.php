@@ -5,7 +5,6 @@ namespace App\Presenters\HelpDeskModule;
 use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
 use App\Forms\Panel\Tickets\OpenTicketForm;
-use App\Model\DI\GoogleAnalytics;
 use App\Model\Panel\Core\Tickets\TicketRepository;
 use App\Model\Security\Auth\SupportAuthenticator;
 use App\Model\Security\Exceptions\AuthException;
@@ -15,7 +14,7 @@ use Nette\Application\AbortException;
 use App\Model\Security\Form\Captcha;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
-use Tracy\Debugger;
+use Nette\Utils\Paginator;
 
 /**
  * Class MainPresenter
@@ -56,7 +55,7 @@ class MainPresenter extends HelpBasePresenter
             $this->template->helper = $helper;
             $this->user = $user;
         } else {
-            $this->flashMessage($this->translator->translate('help.flashMessages.pleaseAuthorize'));
+            $this->flashMessage($this->translator->translate('helpdesk.flashMessages.pleaseAuthorize'));
             $this->redirect('Login:main');
         }
     }
@@ -65,12 +64,18 @@ class MainPresenter extends HelpBasePresenter
      * @param int $page
      */
     public function renderHome(int $page = 1) {
-        $tickets = $this->ticketRepository->getAllTickets();
-        $lastPage = 0;
+        $ticketCounts = $this->ticketRepository->getAllTicketsCount();
 
-        $paginatorData = $tickets->page($page, 6, $lastPage);
+        $paginator = new Paginator();
+        $paginator->setItemCount($ticketCounts); // celkový počet článků
+        $paginator->setItemsPerPage(6); // počet položek na stránce
+        $paginator->setPage($page); // číslo aktuální stránky
 
-        $this->template->tickets = $paginatorData;
+        $tickets = $this->ticketRepository->getTickets($paginator->getLength(), $paginator->getOffset());
+
+        $lastPage = $paginator->getLastPage();
+
+        $this->template->tickets = $tickets;
         $this->template->page = $page;
         $this->template->lastPage = $lastPage;
 
