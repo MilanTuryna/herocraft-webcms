@@ -36,14 +36,15 @@ class Minecraft
         return is_string($user) and strlen($user) >= 2 and strlen($user) <= 16 and ctype_alnum(str_replace('_', '', $user));
     }
 
+
     /**
      * @param $uuid
-     * @return bool|string
+     * @return string|null
      */
-    public static function formatUUID($uuid) {
+    public static function formatUUID($uuid): ?string {
         return is_string($uuid) ? substr($uuid, 0, 8) . '-' .
             substr($uuid, 8, 4) . '-' . substr($uuid, 12, 4) . '-' .
-            substr($uuid, 16, 4) . '-' . substr($uuid, 20, 12) : false;
+            substr($uuid, 16, 4) . '-' . substr($uuid, 20, 12) : null;
     }
 
     /**
@@ -104,7 +105,7 @@ class Minecraft
      * @param $uuid
      * @return string
      */
-    public static function getSkinURL($uuid) {
+    public static function getSkinURL($uuid): string {
         return Minecraft::SKIN_API . $uuid;
     }
 }
