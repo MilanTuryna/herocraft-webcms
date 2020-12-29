@@ -69,11 +69,12 @@ class Events
 
     /**
      * @param $id
+     * @param int|null $limit
      * @return Selection
      */
-    public function getPlayersByEventId($id, $limit = null) {
+    public function getPlayersByEventId($id, ?int $limit = null) {
         return $this->context->table(self::PLAYERS_TABLE)->where("event_id = ? AND event_giveup != 0 OR event_id = ? AND event_passed != 0", $id, $id)->order(
-            "CAST(-best_time AS DECIMAL) DESC, event_passed DESC, event_giveup DESC")->limit($limit);
+            "CAST(-best_time AS DECIMAL(16,2)) DESC, event_passed DESC, event_giveup DESC")->limit($limit);
     }
 
     /**
