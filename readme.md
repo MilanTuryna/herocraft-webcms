@@ -379,5 +379,8 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - 21.12 - 28.12
     - odstraněn momentální design
     - práce na novém designu + nových modulech v administraci (rozvržení, přidávání sekcí a tak dále)
-    - dočasně upraven kód na produkci - přidání velkého tlačítka TICKETY
-    
+    - tlačítko TICKETY přidáno do widgetu - JEN NA PRODUKCI!
+- 28.12 - 4.1.2021
+    - opraveno rolování (scrollbar) na stránce s přehledem daného eventu ve statistikách
+    - opraveno zobrazování hráčských statistik (změněna adresa API, překlik)
+    - přidán náhled ticketů s přihlášením, viz. routa `Login:ticketLogin` `/panel/tickety/nahled`
