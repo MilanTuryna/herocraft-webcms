@@ -275,7 +275,7 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
                             <b>Classic</b>
                         </div>
                         <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
-                            ${data.player.servers.classic.economy.balance ? data.player.servers.classic.economy.balance : "Nenalezeno"}
+                            ${data.player.servers.classic.economy.balance ? data.player.servers.classic.economy.balance.balance : "Nenalezeno"}
                         </div>
                     </div>
                     <div class="row border-top" style="margin:0;">
@@ -283,7 +283,7 @@ ${Utils.string.capitalizeFirstLetter(groups[key].replace("default", "hráč"))}<
                             <b>Senior</b>
                         </div>
                         <div class="col-sm-8 padding-sm-top-none" style="padding: 16px">
-                             ${data.player.servers.senior.economy.balance ? data.player.servers.senior.economy.balance : "Nenalezeno"}
+                             ${data.player.servers.senior.economy.balance ? data.player.servers.senior.economy.balance.balance : "Nenalezeno"}
                         </div> 
                     </div>
         </div>
