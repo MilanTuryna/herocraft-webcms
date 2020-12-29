@@ -4,6 +4,7 @@
 namespace App\Model\Security\Form;
 
 use App\Constants;
+use Nette\SmartObject;
 
 /**
  * Class Captcha
@@ -11,9 +12,11 @@ use App\Constants;
  */
 class Captcha
 {
+    use SmartObject;
+
     const freqMethods = [
-      'No' => ['Neni', 'Ne', 'Nie', 'n', 'nn'],
-      'Yes' => ['Ano', 'Je', 'Jo', 'j', 'jj']
+      'No' => ['Neni', 'Ne', 'Nie', 'n', 'nn', 'none'],
+      'Yes' => ['Ano', 'Je', 'Jo', 'j', 'jj', 'hej', 'samozrejme', 'jiste']
     ];
 
     const methods = [
@@ -42,8 +45,8 @@ class Captcha
         'Je Beatles zpěvecká skupina?' => self::freqMethods['Yes'],
     ];
 
-    private $method;
-    private $methodAnswers;
+    private string $method;
+    private array $methodAnswers;
 
     /**
      * Captcha constructor.
@@ -56,10 +59,10 @@ class Captcha
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public static function getRandomMethod() {
-        return array_rand(self::methods);
+    public static function getRandomMethod(): string {
+        return (string)array_rand(self::methods);
     }
 
     /**
@@ -73,7 +76,7 @@ class Captcha
     /**
      * @return mixed
      */
-    public function getMethod() {
+    public function getMethod(): string {
         return $this->method;
     }
 
@@ -81,7 +84,7 @@ class Captcha
      * @param $input
      * @return bool
      */
-    public function verify($input) {
+    public function verify($input): bool {
         return in_array(strtr(mb_strtolower($input), Constants::VALID_URL), $this->methodAnswers);
     }
 }
