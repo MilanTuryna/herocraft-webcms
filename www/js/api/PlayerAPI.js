@@ -3,7 +3,7 @@ class PlayerAPI {
      * @param nickname
      */
     constructor(nickname) {
-        this.apiURL = window.location.origin + "/statistiky/api" + nickname;
+        this.apiURL = window.location.origin + "/statistiky/api/" + nickname;
         this.nickname = nickname;
     }
 
@@ -14,7 +14,7 @@ class PlayerAPI {
      */
     static getStatus(then, err, loaded) {
         axios
-            .get(`${APIPath}/statistiky/api/testtesttesttesttest`)
+            .get(window.location.origin + "/statistiky/api/testtesttesttesttest")
             .then(then)
             .catch(err)
             .finally(loaded)
