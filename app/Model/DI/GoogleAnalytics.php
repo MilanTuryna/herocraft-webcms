@@ -39,7 +39,10 @@ class GoogleAnalytics
         return $this->enabled;
     }
 
-    public static function disabled() {
+    /**
+     * @return GoogleAnalytics
+     */
+    public static function disabled(): GoogleAnalytics {
         return new self("", false);
     }
 }

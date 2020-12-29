@@ -11,6 +11,10 @@ class Cron
 {
     private string $authenticationPassword;
 
+    /**
+     * Cron constructor.
+     * @param $authenticationPassword
+     */
     public function __construct($authenticationPassword)
     {
         $this->authenticationPassword = $authenticationPassword;
