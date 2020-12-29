@@ -3,11 +3,6 @@
     Event - {_stats.events.specific.title, [eventName => $event->event_name]}
 {/block}
 {block content}
-    <style>
-        body {
-            overflow-y: hidden;
-        }
-    </style>
     <nav aria-label="breadcrumb" data-aos="fade-down" data-aos-duration="2000" style="margin-top: 32px;">
         <ol class="breadcrumb shadow" style="border-radius: 0; background-color: rgba(125, 181, 138, 1);">
             <li class="breadcrumb-item"><a n:href="Main:app" class="text-white">{_stats.app.title}</a></li>
@@ -19,13 +14,10 @@
     </h1>
     <hr>
     <div data-aos="fade-up" data-aos-duration="1500">
-            <h2 class="font-weight-bold" style="font-size: 25px;">
-                {_stats.events.specific.top}
-            </h2>
+        <h2 class="font-weight-bold" style="font-size: 25px;">{_stats.events.specific.top}</h2>
         <div class="bg-white">
             <table class="table table-striped border" style="text-align: center">
-                <thead class="thead-light">
-                </thead>
+                <thead class="thead-light"></thead>
                 <tbody>
                 {foreach array_slice(iterator_to_array($eventPlayers), 0, 3) as $player}
                     <tr>
@@ -42,7 +34,9 @@
             </table>
         </div>
         <hr>
-        <table class="table table-sm table-striped border" style="text-align: center">
+        <small class="text-muted">Pokud jsi na mobilním zařízení, pro lepší zobrazení tabulky, posouvej ze strany na stranu.</small>
+        <div class="table-responsive">
+                <table class="table table-sm table-striped border" style="text-align: center">
             <thead class="thead-light">
             <tr>
                 <th scope="col">{_stats.events.specific.rows.iterator}</th>
@@ -51,7 +45,7 @@
                 <th scope="col">{_stats.events.specific.rows.passed}</th>
                 <th scope="col">{_stats.events.specific.rows.giveup}</th>
                 <th scope="col">{_stats.events.specific.rows.best_played}</th>
-                <th scope="col">{_stats.events.specific.rows.last_played}/th>
+                <th scope="col">{_stats.events.specific.rows.last_played}</th>
             </tr>
             </thead>
             <tbody>
@@ -68,7 +62,8 @@
             {/foreach}
             </tbody>
         </table>
-        <div class="pagination d-block text-center" style="margin-top:8px;">
+        </div>
+        <div class="pagination d-block text-center mb-4" style="margin-top:8px;">
             {if $page > 1}
                 <a n:href="Main:viewEvent, $event->event_name, 1">Nejlepší</a>
                 &nbsp;|&nbsp;
