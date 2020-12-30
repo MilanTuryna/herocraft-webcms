@@ -44,9 +44,9 @@ class TicketRepository
      * @return array|\Nette\Database\IRow[]
      */
     public function getTickets(?int $limit = null, ?int $offset = null): array {
-        $sql = "SELECT t.name, t.author, t.email, t.subject, t.gameVerified, t.time, t.locked, t.id, tr.author as lastResponseAuthor, 
-tr.time as lastResponseTime, tr.type as lastResponseType FROM tickets as t LEFT JOIN ticket_responses as tr 
-ON t.id = tr.ticketId ORDER BY t.time DESC, tr.time DESC";
+        $sql = "SELECT t.name, t.author, t.email, t.subject, t.gameVerified, t.time, t.locked, t.id, max(tr.author) as lastResponseAuthor, 
+max(tr.time) as lastResponseTime, max(tr.type) as lastResponseType FROM tickets as t LEFT JOIN ticket_responses as tr 
+ON t.id = tr.ticketId GROUP BY t.id ORDER BY t.time DESC, max(tr.time) DESC";
         if($limit) $sql.=" LIMIT ".$limit;
         if($offset) $sql.=" OFFSET ".$offset;
         return $this->context->query($sql)->fetchAll();
