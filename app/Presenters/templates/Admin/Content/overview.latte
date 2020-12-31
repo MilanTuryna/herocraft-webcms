@@ -2,19 +2,88 @@
 {block title}
     Obsah a zobrazení
 {/block}
+{block headAdd}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
+{/block}
 {block content}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Obsah a zobrazení</li>
+            <li class="breadcrumb-item active" aria-current="page">
+                Obsah a zobrazení -
+                <a n:href=":Front:Page:home" target="_blank" class="text-dark">(domovská stránka)</a>
+            </li>
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
-            <h5 style="margin:0!important;" class="card-title">Obsah a zobrazení</h5>
+            <h5 style="margin:0!important;" class="card-title">Úvodní sekce</h5>
             <div class="card-text">
+                <form n:name="changeHeaderSectionForm">
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="header2">Podnadpis</label>
+                        <div class="col-sm-10">
+                            <input n:name="header2" type="text" class="form-control" placeholder="např: IP adresa serveru">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="header">Hlavní nadpis<small class="text-danger">*</small></label>
+                        <div class="col-sm-10">
+                            <input n:name="header" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="text">Úvodní text</label>
+                        <div class="col-sm-10">
+                            <div class="border shadow-sm" >
+                                <textarea class="textarea-highlight border" n:name="text" spellcheck="false"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><br></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success w-100" n:name="submit">Aplikovat změny</button>
+                            <hr>
+                        </div>
+                    </div>
+                </form>
+                <div class="form-group row">
+                    <label class="col-sm-2">Tlačítka <span class="text-muted">(max. 4)</span></label>
+                    <div class="col-sm-10">
+                        <div class="border shadow-sm blue-form" id="js--addingButtons"  style="border-radius: 4px; padding: 16px">
+                            <input placeholder="Text" type="text" class="form-control mb-2">
+                            <input placeholder="Barva textu" type="color" class="form-control mb-2">
+                            <input placeholder="Barva pozadí" type="color" class="form-control mb-2">
+                            <input placeholder="Přesměrování (URL, kotva)" type="text" class="form-control mb-2">
+                            <input placeholder="Šířka tlačítka (bez možnosti nastavení)" disabled type="text" class="form-control mb-2">
+                            <select class="form-control mb-2">
+                                <option value="_self" selected>
+                                    Otevřít ve stejném okně (výchozí)
+                                </option>
+                                <option value="_blank">
+                                    Otevřít v novém okně
+                                </option>
+                            </select>
+                            <a n:href="deleteButton! " class="btn-info btn w-100">Přidat tlačítko</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+{/block}
+{block end_body}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js" integrity="sha512-zuvaVNiXwWY7U7HEdXsoTislTEElpKLELFoyQw0Bg7zfGhC4vG8eAhCxIQAvHmprW7dFhTq5zshUko4K3B4mSA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js" integrity="sha512-XPih7uxiYsO+igRn/NA2A56REKF3igCp5t0W1yYhddwHsk70rN1bbbMzYkxrvjQ6uk+W3m+qExHIJlFzE6m5eg==" crossorigin="anonymous"></script>
+    <script>
+        [...document.getElementsByClassName("textarea-highlight")].forEach(function (e) {
+            let editor = CodeMirror.fromTextArea(e, {
+                lineNumbers: true,
+                mode: 'xml',
+                htmlMode: true,
+            });
+        });
+    </script>
 {/block}
