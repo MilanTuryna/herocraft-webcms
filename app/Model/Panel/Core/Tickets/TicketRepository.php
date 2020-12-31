@@ -44,9 +44,10 @@ class TicketRepository
      * @return array|\Nette\Database\IRow[]
      */
     public function getTickets(?int $limit = null, ?int $offset = null): array {
-        $sql = "SELECT t.name, t.author, t.email, t.subject, t.gameVerified, t.time, t.locked, t.id, max(tr.author) as lastResponseAuthor, 
-max(tr.time) as lastResponseTime, max(tr.type) as lastResponseType FROM tickets as t LEFT JOIN ticket_responses as tr 
-ON t.id = tr.ticketId GROUP BY t.id ORDER BY t.time DESC, max(tr.time) DESC";
+        $sql = "SELECT t.*, tr.author AS lastResponseAuthor, tr.type AS lastResponseType, tr.time AS lastResponseTime, last_responses.time as d FROM tickets AS t 
+LEFT JOIN (SELECT ticketId, max(time) as time, author, type FROM ticket_responses GROUP BY ticketId) 
+as last_responses ON t.id = last_responses.ticketId 
+LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time = tr.time;";
         if($limit) $sql.=" LIMIT ".$limit;
         if($offset) $sql.=" OFFSET ".$offset;
         return $this->context->query($sql)->fetchAll();
@@ -95,11 +96,13 @@ ON t.id = tr.ticketId GROUP BY t.id ORDER BY t.time DESC, max(tr.time) DESC";
 
     /**
      * @param $ticketId
+     * @param string $lockedBy
      * @return int
      */
-    public function lockTicket($ticketId) {
+    public function lockTicket($ticketId, string $lockedBy = '') {
         return $this->context->table(self::TABLE)->wherePrimary($ticketId)->update([
-            'locked' => 1
+            'locked' => 1,
+            'lockedBy' => $lockedBy
         ]);
     }
 
@@ -109,7 +112,8 @@ ON t.id = tr.ticketId GROUP BY t.id ORDER BY t.time DESC, max(tr.time) DESC";
      */
     public function unlockTicket($ticketId) {
         return $this->context->table(self::TABLE)->wherePrimary($ticketId)->update([
-            'locked' => 0
+            'locked' => 0,
+            'lockedBy' => '',
         ]);
     }
 
