@@ -59,13 +59,12 @@
                     {var $three = $getFirstThree($event->event_id)}
                     <ul n:if=$three>
                         {foreach $three as $p}
-                            <li><b>{$iterator->getCounter()}.</b> {$p->username}</li>
+                            <li><b>{$iterator->getCounter()}.</b> {$p->username} - <b>{$p->best_time}</b>s</li>
                         {/foreach}
                     </ul>
                 </li>
             </ul>
         {/cache}
-
         <p class="text-center" n:if="!$events" style="margin:0">
             {_stats.events.notFound}
         </p>
