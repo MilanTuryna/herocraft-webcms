@@ -139,7 +139,7 @@ class TicketPresenter extends PanelBasePresenter
      */
     public function createComponentCloseTicketForm(): Multiplier {
         return new Multiplier(function ($ticketId) {
-            return (new CloseTicketForm($this, $this->ticketRepository, $ticketId))->create();
+            return (new CloseTicketForm($this, $this->ticketRepository, $ticketId, $this->user->realname))->create();
         });
     }
 
