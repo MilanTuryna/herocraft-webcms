@@ -18,17 +18,21 @@ class CloseTicketForm
     private Presenter $presenter;
     private $ticketId;
 
+    private string $lockedBy;
+
     /**
      * CloseTicketForm constructor.
      * @param Presenter $presenter
      * @param TicketRepository $ticketRepository
      * @param $ticketId
+     * @param string $lockedBy
      */
-    public function __construct(Presenter $presenter, TicketRepository $ticketRepository, $ticketId)
+    public function __construct(Presenter $presenter, TicketRepository $ticketRepository, $ticketId, string $lockedBy = '')
     {
         $this->presenter = $presenter;
         $this->ticketRepository = $ticketRepository;
         $this->ticketId = $ticketId;
+        $this->lockedBy = $lockedBy;
     }
 
     /**
@@ -49,7 +53,7 @@ class CloseTicketForm
      * @param \stdClass $values
      */
     public function success(Form $form, \stdClass $values) {
-        $this->ticketRepository->lockTicket($this->ticketId);
+        $this->ticketRepository->lockTicket($this->ticketId, $this->lockedBy);
         $this->presenter->flashMessage('Ticket byl úspěšně označen jako vyřešený.', 'dark-green');
     }
 }
