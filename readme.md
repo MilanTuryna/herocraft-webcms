@@ -386,3 +386,8 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - opraveno rolování (scrollbar) na stránce s přehledem daného eventu ve statistikách
     - opraveno zobrazování hráčských statistik (změněna adresa API, překlik)
     - přidán náhled ticketů s přihlášením, viz. routa `Login:ticketLogin` `/panel/tickety/nahled`
+    - přidána podpora nových odpovědí do Captchy
+    - opraven výpis eventů - seřazení dle času - podpora 16ti ciferného čísla s 2 desetinnými čísly
+    - přidán sloupec poslední odpovědi v ticketech
+    - přidána informace o tom, kdo ticket uzavřel v helpdesku
+    - přidán výpis nejlepšího času eventu rovnou na úvodní stránce herních statistik
