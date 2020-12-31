@@ -14,6 +14,8 @@
                     <th scope="col" class="border-top-0">{_panel.tickets.rows.subject}</th>
                     <th scope="col" class="border-top-0">Autor</th>
                     <th scope="col" class="border-top-0">{_panel.tickets.rows.createdAt}</th>
+                    <th scope="col" class="border-top-0">Poslední odpověď</th>
+                    <th scope="col" class="border-top-0">Uzavřel</th>
                     <th scope="col" class="border-top-0">{_panel.tickets.rows.status}</th>
                     <th scope="col" class="border-top-0">ID</th>
                 </tr>
@@ -24,7 +26,13 @@
                         <td><a n:href="Main:ticket $ticket->id" class="text-primary">{$ticket->name}</a></td>
                         <td>{$ticket->subject}</td>
                         <td>{$ticket->author}</td>
-                        <td>{$ticket->time}</td>
+                        <td>{$ticket->time|date:'j.n.Y H:i'}</td>
+                        <td><span n:class="$ticket->lastResponseType === 'Support' || $ticket->lastResponseType === 'Admin' ? 'text-danger' : 'text-secondary'">{$ticket->lastResponseAuthor} {$ticket->lastResponseTime|date:'j.n.Y H:i'}</span></td>
+                        <td>
+                            <span>
+                                {$ticket->locked ? $ticket->lockedBy : '--'}
+                            </span>
+                        </td>
                         <td><span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></td>
                         <td class="text-info">#{$ticket->id}</td>
                     </tr>
