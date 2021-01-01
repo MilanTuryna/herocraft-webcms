@@ -1,6 +1,8 @@
 parameters:
+    seo:
+        ogImageURL: ""
     cron:
-        password:
+        password: ""
     game_sections: [{
         name: ""
         description: ""
