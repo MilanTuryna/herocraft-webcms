@@ -28,7 +28,7 @@ class CounterEffect extends ElementsEffect {
                     return;
                 }
                 counter++;
-                element.innerHTML = counter + "%";
+                element.innerHTML = counter + counterChar;
             }, intervalTimeout);
         });
     }
