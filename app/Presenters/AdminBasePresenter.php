@@ -15,7 +15,7 @@ use Nette\Application\AbortException;
  * Class AdminBasePresenter
  * @package App\Presenters
  */
-class AdminBasePresenter extends BasePresenter
+abstract class AdminBasePresenter extends BasePresenter
 {
     private Authenticator $authenticator;
     private string $permissionNode;

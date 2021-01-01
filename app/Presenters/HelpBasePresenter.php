@@ -11,7 +11,7 @@ use App\Model\SettingsRepository;
  * Class HelpBasePresenter
  * @package App\Presenters
  */
-class HelpBasePresenter extends BasePresenter
+abstract class HelpBasePresenter extends BasePresenter
 {
     private SettingsRepository $settingsRepository;
 

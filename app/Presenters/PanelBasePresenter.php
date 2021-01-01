@@ -10,7 +10,7 @@ use App\Model\SettingsRepository;
  * Class PanelBasePresenter
  * @package App\Presenters
  */
-class PanelBasePresenter extends BasePresenter
+abstract class PanelBasePresenter extends BasePresenter
 {
     private SettingsRepository $settingsRepository;
 
