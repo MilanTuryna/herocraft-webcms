@@ -1,3 +1,5 @@
+{varType App\Model\DI\Seo $seo}
+{varType App\Model\DI\GoogleAnalytics $googleAnalytics}
 <!DOCTYPE HTML>
 <html lang="cs">
 <head>
@@ -18,6 +20,7 @@
     <meta name="author" content="Miloslav Turyna https://turyna.eu">
     <meta name="keywords" content="{include keywords|trim}">
     <meta name="description" content="{include description|trim}">
+    <meta name="robots" content="index, follow">
     <title>{include title|trim}</title>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
@@ -29,10 +32,12 @@
     <meta property="og:description" content="{include description|trim}">
     <meta property="og:locale" content="cs_cz">
     <meta property="og:locale:alternate" content="sk_SK"/>
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="680">
-    <meta property="og:image" content="" <!-- todo -->/>
-    <meta property="og:image" content="Poutavý obrázkový banner reprenzentujicí: {include title|trim}">
+    {if $seo->getOgImage()}
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="680">
+        <meta property="og:image" content={$seo->getOgImage()}> <!-- todo -->/>
+        <meta property="og:image:alt" content="Poutavý obrázkový banner reprenzentujicí: {include title|trim}">
+    {/if}
 </head>
 <body>
 {ifset #endScripts}
