@@ -2,9 +2,7 @@
 
 namespace App\Presenters;
 
-use App\Model\DI\GoogleAnalytics;
-use App\Model\DI\Seo;
-use App\Model\Utils;
+use App\Model\DI;
 use Contributte;
 use Nette;
 use Nette\Application\Helpers;
@@ -15,8 +13,10 @@ use Nette\Application\Helpers;
  */
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
-    private GoogleAnalytics $googleAnalytics;
-    private Seo $seo;
+    private DI\GoogleAnalytics $googleAnalytics;
+
+    /** @var DI\Seo @inject */
+    public DI\Seo $seo;
 
     /** @var Nette\Localization\Translator @inject */
     public Nette\Localization\Translator $translator;
@@ -26,15 +26,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     /**
      * BasePresenter constructor.
-     * @param GoogleAnalytics $googleAnalytics
-     * @param Seo $seo
+     * @param DI\GoogleAnalytics $googleAnalytics
      */
-    public function __construct(GoogleAnalytics $googleAnalytics, Seo $seo)
+    public function __construct(DI\GoogleAnalytics $googleAnalytics)
     {
         parent::__construct();
 
         $this->googleAnalytics = $googleAnalytics;
-        $this->seo = $seo;
     }
 
     /**
