@@ -23,6 +23,16 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{$basePath}/css/web.css" rel="stylesheet">
+    <meta property="og:url" content="{link this}"/>
+    <meta property="og:type" content="{ifset #ogType}{include ogType}{else}website{/ifset}"/>
+    <meta property="og:title" content="{include title|trim}" />
+    <meta property="og:description" content="{include description|trim}">
+    <meta property="og:locale" content="cs_cz">
+    <meta property="og:locale:alternate" content="sk_SK"/>
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="680">
+    <meta property="og:image" content="" <!-- todo -->/>
+    <meta property="og:image" content="Poutavý obrázkový banner reprenzentujicí: {include title|trim}">
 </head>
 <body>
 {ifset #endScripts}
