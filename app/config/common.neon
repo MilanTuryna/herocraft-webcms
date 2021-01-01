@@ -78,6 +78,7 @@ services:
 	configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
 	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord, %tickets.emailSender%)
 	cron: App\Model\DI\Cron(%cron.password%)
+	seo: App\Model\DI\Seo(%seo.ogImageURL%)
 	cronPresenter:
 	    factory: App\Presenters\CronPresenter(@cron)
 	    setup:
