@@ -9,6 +9,10 @@ use Nette\Application\Responses;
 use Nette\Http;
 use Tracy\ILogger;
 
+/**
+ * Class ErrorPresenter
+ * @package App\Presenters
+ */
 final class ErrorPresenter implements Nette\Application\IPresenter
 {
 	use Nette\SmartObject;
@@ -16,13 +20,19 @@ final class ErrorPresenter implements Nette\Application\IPresenter
 	/** @var ILogger */
     private ILogger $logger;
 
-
+    /**
+     * ErrorPresenter constructor.
+     * @param ILogger $logger
+     */
 	public function __construct(ILogger $logger)
 	{
 		$this->logger = $logger;
 	}
 
-
+    /**
+     * @param Nette\Application\Request $request
+     * @return Nette\Application\IResponse
+     */
 	public function run(Nette\Application\Request $request): Nette\Application\IResponse
 	{
 		$exception = $request->getParameter('exception');
@@ -33,8 +43,6 @@ final class ErrorPresenter implements Nette\Application\IPresenter
 		}
 
 		$this->logger->log($exception, ILogger::EXCEPTION);
-		return new Responses\CallbackResponse(function (Http\IRequest $httpRequest, Http\IResponse $httpResponse): void {
-			//if (preg_match('#^text/html(?:;|$)#', (string) $httpResponse->getHeader('Content-Type'))) {}
-		});
+		return new Responses\CallbackResponse(function (Http\IRequest $httpRequest, Http\IResponse $httpResponse): void {});
 	}
 }
