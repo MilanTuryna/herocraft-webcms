@@ -10,7 +10,7 @@ use Nette\SmartObject;
  * Class Captcha
  * @package App\Model\Security
  */
-class Captcha
+final class Captcha
 {
     use SmartObject;
 
@@ -43,6 +43,7 @@ class Captcha
         'Patří slimák mezi rychlé zvířata?' => self::freqMethods['No'],
         'Patří mravenec mezi velké zvířata?' => self::freqMethods['No'],
         'Je Beatles zpěvecká skupina?' => self::freqMethods['Yes'],
+        'Je Koronavirus virus?' => self::freqMethods['Yes'],
     ];
 
     private string $method;
