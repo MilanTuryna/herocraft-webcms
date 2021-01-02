@@ -391,3 +391,5 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - přidán sloupec poslední odpovědi v ticketech
     - přidána informace o tom, kdo ticket uzavřel v helpdesku
     - přidán výpis nejlepšího času eventu rovnou na úvodní stránce herních statistik
+    - přidána nová otázka/odpověď do Captchy využité v panelu
+    - změněn design helpdesku na nový, inspirovaný administrací pro lepší orientaci
