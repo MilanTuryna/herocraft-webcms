@@ -7,6 +7,7 @@ namespace App\Presenters\FrontModule;
 use App\Model\DI\GameSections;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
+use App\Model\Stats\CachedAPIRepository;
 use App\Model\Utils;
 use App\Model\SettingsRepository;
 use App\Model\ArticleRepository;
@@ -36,6 +37,7 @@ final class PagePresenter extends BasePresenter
     private Authenticator $authenticator;
     private SettingsRepository $settingsRepository;
     private GameSections $gameSections;
+    private CachedAPIRepository $cachedAPIRepository;
 
     /**
      * PagePresenter constructor.
@@ -47,6 +49,7 @@ final class PagePresenter extends BasePresenter
      * @param Authenticator $authenticator
      * @param GoogleAnalytics $googleAnalytics
      * @param GameSections $gameSections
+     * @param CachedAPIRepository $cachedAPIRepository
      */
     public function __construct(ArticleRepository $articleRepository,
                                 CategoryRepository $categoryRepository,
@@ -55,7 +58,8 @@ final class PagePresenter extends BasePresenter
                                 Caching\IStorage $storage,
                                 Authenticator $authenticator,
                                 GoogleAnalytics $googleAnalytics,
-                                GameSections $gameSections)
+                                GameSections $gameSections,
+                                CachedAPIRepository $cachedAPIRepository)
     {
         parent::__construct($googleAnalytics);
 
@@ -66,6 +70,7 @@ final class PagePresenter extends BasePresenter
         $this->settingsRepository = $settingsRepository;
         $this->authenticator = $authenticator;
         $this->gameSections = $gameSections;
+        $this->cachedAPIRepository = $cachedAPIRepository;
     }
 
     public function startup(): void {
@@ -91,11 +96,12 @@ final class PagePresenter extends BasePresenter
         $articles = $this->articleRepository->findArticlesWithCategory(6)->fetchAll();
         $articlesArr = [];
 
-        $this->template->substrWithoutHTML = fn($code, $limit) => Utils::substrWithoutHTML($code, $limit);
         foreach ($articles as $article) array_push($articlesArr, $article);
         $this->template->articlesCount = $this->articleRepository->getPublishedArticlesCount();
         $this->template->articles = $articlesArr;
         $this->template->gameSections = $this->gameSections;
+        $this->template->registerCount = $this->cachedAPIRepository->getRegisterCount();
+        $this->template->timesPlayed = $this->cachedAPIRepository->getTimesPlayed();
     }
 
     /**
