@@ -66,6 +66,8 @@ class MainPresenter extends HelpBasePresenter
     public function renderHome(int $page = 1) {
         $ticketCounts = $this->ticketRepository->getAllTicketsCount();
 
+        $this->template->ticketCount = $ticketCounts;
+
         $paginator = new Paginator();
         $paginator->setItemCount($ticketCounts); // celkový počet článků
         $paginator->setItemsPerPage(6); // počet položek na stránce
