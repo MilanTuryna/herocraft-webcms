@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>{include title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script n:if="$googleAnalytics->isEnabled()">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', {$googleAnalytics->getCode()});
+    </script>
+    <link rel="stylesheet" href="{$basePath}/css/admin.css">
+    <link rel="stylesheet" href="{$basePath}/css/main.css">
+    <link rel="stylesheet" href="{$basePath}/css/panel.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+{ifset $logo[0]}
+    <br>
+<img class="rounded mx-auto d-block" width="200" src="{$basePath}/{$logo[0]}">
+{/ifset}
+<header>
+    <div class="container-fluid" style="margin-top:16px">
+        <div class="card shadow-sm" style="background-color:#e3f2fd;">
+            <div class="card-body">
+                {_helpdesk.main.heading}
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container-fluid" style="margin-top:16px">
+    <div class="row">
+        <div class="col-lg-10">
+            <style>
+                .card-color-success, .card-color-dark-green {
+                    background-color:#d4edda!important;
+                    color: #155724!important;
+                }
+            </style>
+            <div n:foreach="$flashes as $flash" n:class="'card shadow-sm card-color-' . $flash->type" style="padding:16px; margin-bottom: 16px; background-color: #f8d7da">
+                <span class="text-muted">
+                    {$flash->message|noescape}
+                </span>
+            </div>
+            <div class="card shadow-sm" style="padding:16px; margin-bottom: 16px">
+                {include content}
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="card shadow-sm" style="padding:16px; background-color: #ede7f6">
+                <span class="text-muted">{include user_status}</span>
+            </div>
+            <div class="card shadow-sm bg-light" style="padding:16px;margin-top:16px;">
+                <a class="btn btn-info badge badge-pill" n:href="Main:home" style="padding: 16px">{_helpdesk.go.overview}</a>
+            </div>
+            <style>
+                .warning-hrefs * a {
+                    color:#856404;
+                }
+            </style>
+            <div class="card shadow-sm warning-hrefs" style="padding:16px;margin-top:16px;color:#856404;background-color:#fff3cd">
+                <h5>{_helpdesk.sidebar.links}</h5>
+                <ul>
+                    <li><a n:href=":Front:Page:home">{_helpdesk.sidebar.mainWeb}</a></li>
+                    <li><a n:href=":Panel:Login:main">{_helpdesk.sidebar.infoPanel}</a></li>
+                    <li><a n:href=":Stats:Main:app">{_helpdesk.sidebar.stats}</a></li>
+                    <li><a n:href=":Admin:Main:home">{_helpdesk.sidebar.administration}</a></li>
+                </ul>
+            </div>
+            <a n:href="Main:logout" class="btn btn-danger btn-sm w-100" style="margin-top:16px">
+                {_helpdesk.forms.logout.name}
+            </a>
+        </div>
+    </div>
+</div>
+<script src="{$basePath}/js/timer.js"></script>
+<script>if (window.history.replaceState) window.history.replaceState( null, null, window.location.pathname);</script>
+<script>
+    writeActualTime(function (time) {
+        document.getElementById('realtime').innerHTML = time;
+    });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>
