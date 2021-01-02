@@ -2,34 +2,17 @@
 {block title}
     {_helpdesk.main.title}
 {/block}
+{block breadcrumb}
+ <li class="breadcrumb-item"><a n:href="Main:home" class="text-dark">{_helpdesk.main.heading}</a></li>
+  <li class="breadcrumb-item active" aria-current="page">Ticket <span>#{$ticket->id}</span></li>
+{/block}
 {block content}
-    <h4>Ticket <span class="text-info float-right">#{$ticket->id}</span></h4>
-    <div class="table-responsive">
-        <table class="table bg-light shadow-sm border">
-            <thead>
-            <tr>
-                <th scope="col" class="border-top-0">Název</th>
-                <th scope="col" class="border-top-0">{_panel.tickets.rows.subject}</th>
-                <th scope="col" class="border-top-0">Autor</th>
-                <th scope="col" class="border-top-0">{_panel.tickets.rows.createdAt}</th>
-                <th scope="col" class="border-top-0">{_panel.tickets.rows.status}</th>
-                <th scope="col" class="border-top-0">ID</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>{$ticket->name}</a></td>
-                <td>{$ticket->subject}</td>
-                <td>{$ticket->author}</td>
-                <td>{$ticket->time}</td>
-                <td><span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></td>
-                <td class="text-info">#{$ticket->id}</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="ticket bg-white shadow-sm border">
-        <div class="ticket-body bg-light ">
+<div class="row">
+    <div class="col-md-8">
+    <div class="card classic-shadow default-margin-bot">
+    <div class="card-body">
+    <div class="ticket bg-white shadow-sm border" style="border-radius: 8px">
+        <div class="ticket-body bg-light " style="border-radius: inherit">
             {foreach $ticketResponses as $response}
                 <div class="row border-bottom" style="margin:0;">
                     <div class="col-sm-4 border-right padding-sm-bot-none" style="padding: 16px">
@@ -59,29 +42,38 @@
                     {/if}
                 </div>
             </div>
-            <div class="row border-top" style="margin:0;">
-                <div class="col-sm-12 bg-white" style="padding: 0">
-                    {if !$ticket->locked}
+        </div>
+    </div>
+</div>
+</div>
+    </div>
+    <div class="col-md-4">
+    <div class="card shadow-lg default-margin-bot" style="background: #dceafc">
+   <div class="card-body">
+      <div class="card-text">
+         <h4>Ticket <span>#{$ticket->id}</span></h4>
+         <ul>
+            <li><b>Název:</b> {$ticket->name}</li>
+            <li><b>{_panel.tickets.rows.subject}:</b> {$ticket->subject}</li>
+            <li><b>Autor:</b> {$ticket->author}</li>
+            <li><b>{_panel.tickets.rows.createdAt}:</b> {$ticket->time|date:'j.n.Y'}</li>
+            <li><b>{_panel.tickets.rows.status}:</b> <span class="badge badge-pill badge-{$ticket->locked ? 'danger' : 'success'}">{$ticket->locked ? 'Uzavřeno' : 'Otevřeno'}</span></li>
+            <li><b>ID:</b> #{$ticket->id}</li>
+         </ul>
+         <hr>
+                             {if !$ticket->locked}
                         <form n:name="closeTicketForm-{$ticket->id}">
-                            <input type="submit" n:name="close" value="{_helpdesk.forms.closeTicket.submit}" style="border-radius: 0" class="btn btn-danger btn-sm w-100"/>
+                            <input type="submit" n:name="close" value="{_helpdesk.forms.closeTicket.submit}" class="btn btn-danger btn-sm w-100"/>
                         </form>
                     {else}
                         <form n:name="openTicketForm-{$ticket->id}">
-                            <input type="submit" n:name="open" value="{_helpdesk.forms.openTicket.submit}" style="border-radius: 0" class="btn btn-success btn-sm w-100"/>
+                            <input type="submit" n:name="open" value="{_helpdesk.forms.openTicket.submit}" class="btn btn-success btn-sm w-100" />
                         </form>
                     {/if}
-                </div>
-            </div>
-        </div>
+      </div>
+   </div>
+</div>
     </div>
-    <div class="bg-light border shadow-sm" style="padding: 16px; margin-top: 16px">
-        <h5 ></h5>
-        <ul>
-            <li><a n:href=":Stats:Main:app?player=$ticket->author" class="text-dark" target="_blank">{_helpdesk.tickets.specific.openStats}</a></li>
-            <li><a n:href="Main:deleteTicket $ticket->id" class="text-danger">{_helpdesk.tickets.specific.deleteTicket, [id => $ticket->id]}</a></li>
-        </ul>
-    </div>
-{/block}
-{block user_status}
-    Přihlášen jako {$helper->authUser->realname}, <span id="realtime"></span>
+</div>
+
 {/block}

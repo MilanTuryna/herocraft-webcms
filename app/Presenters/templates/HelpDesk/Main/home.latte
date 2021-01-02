@@ -2,25 +2,39 @@
 {block title}
     {_helpdesk.main.title}
 {/block}
+{block breadcrumb}
+<li class="breadcrumb-item active">{_helpdesk.main.heading}</li>
+{/block}
 {block content}
-    <h3>{_helpdesk.main.heading}</h3>
-    <span class="text-muted" style="margin-bottom:8px;">Pokud jsi přihlášen na mobilním telefonu, pro zobrazení celé tabulky posouvejte ze strany na stranu.</span>
-    <div class="container-fluid bg-light border" style="border-radius: 5px">
-        <div class="table-responsive">
+            <div class="card classic-shadow default-margin-bot" style="background: #ffebee">
+                <div class="card-body">
+                    <h5 style="margin:0!important;" class="card-title">Aktuální data</h5>
+                    <div class="card-text">
+                        <ul>
+                            <li><b>Synchronizace k:</b> {=now|date:'j.n.Y H:i'}</li>
+                            <li><b>Počet ticketů (celkem): </b> {$ticketCount}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+<div class="card classic-shadow default-margin-bot">
+   <div class="card-body">
+      <div class="card-text">
+         <div class="table-responsive">
             <table class="table" style="zoom:90%">
-                <thead>
-                <tr>
-                    <th scope="col" class="border-top-0">{_panel.tickets.rows.ticket}</th>
-                    <th scope="col" class="border-top-0">{_panel.tickets.rows.subject}</th>
-                    <th scope="col" class="border-top-0">Autor</th>
-                    <th scope="col" class="border-top-0">{_panel.tickets.rows.createdAt}</th>
-                    <th scope="col" class="border-top-0">Poslední odpověď</th>
-                    <th scope="col" class="border-top-0">Uzavřel</th>
-                    <th scope="col" class="border-top-0">{_panel.tickets.rows.status}</th>
-                    <th scope="col" class="border-top-0">ID</th>
-                </tr>
-                </thead>
-                <tbody>
+               <thead>
+                  <tr>
+                     <th scope="col" class="border-top-0">{_panel.tickets.rows.ticket}</th>
+                     <th scope="col" class="border-top-0">{_panel.tickets.rows.subject}</th>
+                     <th scope="col" class="border-top-0">Autor</th>
+                     <th scope="col" class="border-top-0">{_panel.tickets.rows.createdAt}</th>
+                     <th scope="col" class="border-top-0">Poslední odpověď</th>
+                     <th scope="col" class="border-top-0">Uzavřel</th>
+                     <th scope="col" class="border-top-0">{_panel.tickets.rows.status}</th>
+                     <th scope="col" class="border-top-0">ID</th>
+                  </tr>
+               </thead>
+               <tbody>
                 {foreach $tickets as $ticket}
                     <tr>
                         <td><a n:href="Main:ticket $ticket->id" class="text-primary">{$ticket->name}</a></td>
@@ -37,30 +51,19 @@
                         <td class="text-info">#{$ticket->id}</td>
                     </tr>
                 {/foreach}
-                </tbody>
+               </tbody>
             </table>
-        </div>
-    </div>
-    <div class="pagination d-block text-center" style="margin-top: 8px">
-        {if $lastPage !== 0}
-            {if $page > 1}
-                <a n:href="Main:home, 1">První</a>
-                &nbsp;|&nbsp;
-                <a n:href="Main:home, $page-1">Předchozí</a>
-                &nbsp;|&nbsp;
-            {/if}
-
-            Stránka {$page} z {$lastPage}
-
-            {if $page < $lastPage}
-                &nbsp;|&nbsp;
-                <a n:href="Main:home, $page+1">Další</a>
-                &nbsp;|&nbsp;
-                <a n:href="Main:home, $lastPage">Poslední</a>
-            {/if}
-        {/if}
-    </div>
-{/block}
-{block user_status}
-    Přihlášen jako {$helper->authUser->realname}, <span id="realtime"></span>
+         </div>
+      </div>
+   </div>
+   <div class="card-footer text-black-50">
+      <div class="text-center">
+         {if $lastPage !== 0}
+         {if $page > 1} <a n:href="Main:home, 1">První</a> &nbsp;|&nbsp; <a n:href="Main:home, $page-1">Předchozí</a> &nbsp;|&nbsp; {/if}
+         Stránka {$page} z {$lastPage}
+         {if $page < $lastPage}&nbsp;|&nbsp;<a n:href="Main:home, $page+1">Další</a>&nbsp;|&nbsp;<a n:href="Main:home, $lastPage">Poslední</a>{/if}
+         {/if}
+      </div>
+   </div>
+</div>
 {/block}

@@ -1,24 +1,77 @@
-{layout '../layout.latte'}
-{block title}
-    {_helpdesk.login.title}
-{/block}
- {block content}
- <span class="text-muted">
-     <h5>{_helpdesk.login.heading}</h5>
- </span>
- <form n:name="signInForm">
-     <div class="form-group">
-         <label for="nickname" n:name="name">{_helpdesk.forms.login.nick}</label>
-         <input type="text" n:name="name" class="form-control" id="nickname">
-     </div>
-     <div class="form-group">
-         <label for="heslo" n:name="name">{_helpdesk.forms.login.password}</label>
-         <input type="password" n:name="password" class="form-control" id="heslo">
-     </div>
-     <small id="emailHelp" class="form-text text-muted">{_helpdesk.forms.login.formHelp}</small>
-     <input n:name="submit" type="submit" class="btn btn-outline-dark" style="margin-top:16px;" value="{_helpdesk.forms.login.submit}">
- </form>
- {/block}
- {block user_status}
-     {_helpdesk.login.notLogged}
- {/block}
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>{_helpdesk.login.title}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Miloslav Turyna https://turyna.eu">
+    <meta name="description" content="Přihlašovací formulář pro oprávněné osoby k helpdesku">
+    <meta name=“robots“ content=“noindex, nofollow“>
+    <meta name="keywords" content="sign, signin, helpdesk, helper, support, {$nastaveni->nazev}">
+    <meta property="og:url" content="{link this}"/>
+    <meta property="og:description" content="Přihlašovací formulář pro oprávněné osoby k helpdesku">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/panel.css">
+    <link rel="stylesheet" href="{$basePath}/css/helpdesk.css">
+    <script n:if="$googleAnalytics->isEnabled()">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', {$googleAnalytics->getCode()});
+    </script>
+</head>
+<body>
+<div class="navbar" style="background-color:#ef9a9a; color:#444;">
+         <span class="navbar-text float-right">
+         <a style="color:#000;" n:href=":Front:Page:home">Zpět na web</a>
+         </span>
+</div>
+<header class="jumbotron jumbotron-fluid text-white " style="background-color:#ba6b6c; margin-bottom:0;">
+    <div class="container">
+        <h1 class="display-4" style="font-size: 50px;">Helpdesk</h1>
+    </div>
+</header>
+<div class="navbar navbar-expand-lg navbar-light bg-light border-bottom"></div>
+<div class="container-fluid wrapper" style="margin-top:16px;">
+    <div class="row">
+        <div class="col-md-12 default-margin-bot">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Přihlášení</span></li>
+                </ol>
+            </nav>
+            <div class="card classic-shadow default-margin-bot">
+                <div class="card-body">
+                    <div class="card-text">
+                        <form n:name="signInForm">
+                            <div class="form-group">
+                                <label for="nickname" n:name="name">{_helpdesk.forms.login.nick}</label>
+                                <input type="text" n:name="name" class="form-control" id="nickname">
+                            </div>
+                            <div class="form-group">
+                                <label for="heslo" n:name="name">{_helpdesk.forms.login.password}</label>
+                                <input type="password" n:name="password" class="form-control" id="heslo">
+                            </div>
+                            <input n:name="submit" type="submit" class="btn btn-dark btn-sm" value="{_helpdesk.forms.login.submit}">
+                            <hr>
+                            <small id="emailHelp" class="form-text text-muted">
+                                Při přihlašování probíhá kontrola a validace zda-li máš oprávnění vstoupit.<!--{_helpdesk.forms.login.formHelp}-->
+                            </small>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{$basePath}/js/jquery.min.js"></script>
+<script src="{$basePath}/js/bootstrap.min.js"></script>
+<script>
+    $(document).on('click', '.dropdown .dropdown-menu', function (e) {
+        e.stopPropagation();
+    });
+</script>
+</body>
+</html>
