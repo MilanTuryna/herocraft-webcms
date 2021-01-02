@@ -2,7 +2,6 @@
 
 namespace App\Forms\Admin\Content\Homepage;
 
-use App\Front\Section\SectionManager;
 use App\Model\SettingsRepository;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
@@ -20,7 +19,6 @@ class ChangeHeaderSectionForm
 
     private Presenter $presenter;
     private SettingsRepository $settingsRepository;
-    private SectionManager $sectionManager;
 
     private string $afterRedirect = "this";
 
@@ -28,15 +26,12 @@ class ChangeHeaderSectionForm
      * ChangeHeaderSectionForm constructor.
      * @param Presenter $presenter
      * @param SettingsRepository $settingsRepository
-     * @param SectionManager $sectionManager
      */
     public function __construct(Presenter $presenter,
-                                SettingsRepository $settingsRepository,
-                                SectionManager $sectionManager)
+                                SettingsRepository $settingsRepository)
     {
         $this->presenter = $presenter;
         $this->settingsRepository = $settingsRepository;
-        $this->sectionManager = $sectionManager;
     }
 
     /**
@@ -70,9 +65,7 @@ class ChangeHeaderSectionForm
      */
     public function success(Form $form, stdClass $values): void {
         if(str_contains($values->header2, "%IP%")) $values->header2 = str_replace("%IP%", $this->settingsRepository->getRow('ip'), $values->header2);
-        if($this->sectionManager->setHeader($values->header,
-            !empty($values->header2) ? $values->header2 : null,
-            !empty($values->text) ? $values->text : null))
+        if(false)
         {
             $this->presenter->flashMessage("Úvodní část webu byla úspěšně změněna!", "success");
         } else {
