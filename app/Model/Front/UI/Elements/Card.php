@@ -3,15 +3,13 @@
 
 namespace App\Model\Front\UI\Elements;
 
-
-use App\Model\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
  * Class Card
  * @package App\Model\Front\UI
  */
-class Card implements IElement
+class Card
 {
     use SmartObject;
 
@@ -43,32 +41,5 @@ class Card implements IElement
     public function getText(): Text
     {
         return $this->text;
-    }
-
-    /**
-     * @inheritDoc
-     * @return string
-     */
-    public function toJSON(): string
-    {
-        return json_encode(get_object_vars($this)) ?: "{}";
-    }
-
-    /**
-     * @inheritDoc
-     * @return string
-     */
-    public function __toString(): string
-    {
-       return $this->toJSON();
-    }
-
-    /**
-     * @inheritDoc
-     * @return Card
-     */
-    public static function example(): Card
-    {
-        return new self("Název karty", Text::example());
     }
 }

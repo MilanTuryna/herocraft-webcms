@@ -2,7 +2,6 @@
 
 namespace App\Model\Front\UI\Elements;
 
-use App\Model\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
@@ -10,75 +9,38 @@ use Nette\SmartObject;
  * @package App\Model\Front\UI
  * Representing a button for dynamic UI
  */
-class Button implements IElement
+class Button
 {
     use SmartObject;
 
-    private Text $title;
-    private string $link;
-    private string $bgColor = "#eeeeee";
-    private string $width = "auto";
-    private string $target = "_self";
+    const DEF_WIDTH = "auto";
+    const DEF_TARGET = "_self";
+    const DEF_BG_COLOR = "#eeeeee";
+
+    public Text $title;
+    public string $link;
+    public string $bgColor;
+    public string $width;
+    public string $target;
 
     /**
      * Button constructor.
      * @param Text $title
      * @param string $link
+     * @param string $target
+     * @param string $width
+     * @param string $bgColor
      */
-    public function __construct(Text $title, string $link)
+    public function __construct(Text $title,
+                                string $link,
+                                string $target = self::DEF_TARGET,
+                                string $width = self::DEF_WIDTH,
+                                string $bgColor = self::DEF_BG_COLOR)
     {
         $this->title = $title;
         $this->link = $link;
-    }
-
-    /**
-     * @param string $bgColor
-     */
-    public function setBgColor(string $bgColor): void
-    {
-        $this->bgColor = $bgColor;
-    }
-
-    /**
-     * @param string $target
-     */
-    public function setTarget(string $target): void
-    {
         $this->target = $target;
-    }
-
-    /**
-     * @param string $width
-     */
-    public function setWidth(string $width): void
-    {
         $this->width = $width;
-    }
-
-    /**
-     * @inheritDoc
-     * @return string
-     */
-    public function toJSON(): string
-    {
-        return json_encode(get_object_vars($this)) ?: "{}";
-    }
-
-    /**
-     * @inheritDoc
-     * @return string
-     */
-    public function __toString(): string
-    {
-        return $this->toJSON();
-    }
-
-    /**
-     * @return IElement
-     * @inheritDoc
-     */
-    public static function example(): Button
-    {
-        return new Button(new Text("Example button"), "#");
+        $this->bgColor;
     }
 }
