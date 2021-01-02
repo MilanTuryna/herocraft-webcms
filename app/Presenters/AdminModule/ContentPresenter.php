@@ -5,7 +5,7 @@ namespace App\Presenters\AdminModule;
 
 
 use App\Forms\Admin\Content\Homepage\ChangeHeaderSectionForm;
-use App\Front\Section\SectionManager;
+use App\Forms\Content\Sections\CreateSectionForm;
 use App\Model\Admin\Roles\Permissions;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
@@ -22,18 +22,15 @@ class ContentPresenter extends AdminBasePresenter
     use SmartObject;
 
     private SettingsRepository $settingsRepository;
-    private SectionManager $sectionManager;
 
     /**
      * ContentPresenter constructor.
      * @param Authenticator $authenticator
      * @param SettingsRepository $settingsRepository
-     * @param SectionManager $sectionManager
      * @param string $permissionNode
      */
     public function __construct(Authenticator $authenticator,
                                 SettingsRepository $settingsRepository,
-                                SectionManager $sectionManager,
                                 string $permissionNode = Permissions::ADMIN_CONTENT_MANAGER)
     {
         parent::__construct($authenticator, $permissionNode);
@@ -45,6 +42,10 @@ class ContentPresenter extends AdminBasePresenter
      * @return Form
      */
     public function createComponentChangeHeaderSectionForm(): Form {
-        return (new ChangeHeaderSectionForm($this, $this->settingsRepository, $this->sectionManager))->create();
+        return (new ChangeHeaderSectionForm($this, $this->settingsRepository))->create();
+    }
+
+    public function createComponentCreateSectionForm(): Form {
+        return (new CreateSectionForm($this))->create();
     }
 }
