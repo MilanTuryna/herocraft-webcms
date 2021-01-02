@@ -5,6 +5,7 @@ namespace App\Presenters;
 use App\Model\DI;
 use Contributte;
 use Nette;
+use App\Model\Utils;
 use Nette\Application\Helpers;
 
 /**
