@@ -1,9 +1,4 @@
-{block title}
-    {_front.login.title, [web => $nastaveni->nazev]}
-{/block}
-{block description}{/block}
-{block keywords}{/block}
-{block content}
+
     <div style="padding: 16px">
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type, 'border-radius-0'">{$flash->message}</div>
         <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000" class="card shadow default-margin-bot">
@@ -34,9 +29,3 @@
             </div>
         </div>
     </div>
-{/block}
-{block end_body}
-    <script>
-        if (window.history.replaceState) window.history.replaceState( null, null, window.location.pathname);
-    </script>
-{/block}
