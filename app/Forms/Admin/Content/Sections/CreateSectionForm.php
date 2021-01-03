@@ -4,24 +4,36 @@ namespace App\Forms\Content\Sections;
 
 use App\Constants;
 use App\Forms\Sections\Data\SectionFormData;
+use App\Front\SectionRepository;
 use App\Model\Front\UI\Elements\Button;
 use App\Model\Front\UI\Elements\Image;
 use App\Model\Front\UI\Elements\Text;
 use App\Model\Front\UI\Parts\Section;
+use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
 class CreateSectionForm
 {
     private Presenter $presenter;
+    private SectionRepository $sectionRepository;
+
+    public string $author;
+    public string $afterRedirect;
 
     /**
      * CreateSectionForm constructor.
      * @param Presenter $presenter
+     * @param SectionRepository $sectionRepository
+     * @param string $author
+     * @param string $afterRedirect
      */
-    public function __construct(Presenter $presenter)
+    public function __construct(Presenter $presenter, SectionRepository $sectionRepository, string $author = '', string $afterRedirect = 'this')
     {
         $this->presenter = $presenter;
+        $this->sectionRepository = $sectionRepository;
+        $this->author = $author;
+        $this->afterRedirect = $afterRedirect;
     }
 
     public function create(): Form {
@@ -75,6 +87,7 @@ class CreateSectionForm
     /**
      * @param Form $form
      * @param SectionFormData $data
+     * @throws AbortException
      */
     public function success(Form $form, SectionFormData $data): void {
         // null ! empty atd..
@@ -98,5 +111,13 @@ class CreateSectionForm
             $buttonText = new Text($data->button_text, $data->button_textColor);
             $section->button = new Button($buttonText, $data->button_link, $data->button_target, $data->button_width ?: Button::DEF_WIDTH, $data->button_backgroundColor);
         }
+        if($this->sectionRepository->createSection($section, $this->author)) {
+            $this->presenter->flashMessage('Sekce s názvem "'.$data->section_name.'" byla úspěšně vytvořena!', '');
+            if(!$implementedImage) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
+            if(!$implementedButton) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
+        } else {
+            $form->addError('Sekce nebyla vytvořena, nastala chyba při práci s databází!');
+        }
+        $this->presenter->redirect($this->afterRedirect);
     }
 }
