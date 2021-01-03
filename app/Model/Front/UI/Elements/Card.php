@@ -3,13 +3,14 @@
 
 namespace App\Model\Front\UI\Elements;
 
+use App\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
  * Class Card
  * @package App\Model\Front\UI
  */
-class Card
+class Card implements IElement
 {
     use SmartObject;
 
@@ -41,5 +42,14 @@ class Card
     public function getText(): Text
     {
         return $this->text;
+    }
+
+    /**
+     * @return array
+     * @inheritDoc
+     */
+    public function toArray(): array
+    {
+        return ['title' => $this->title, 'text' => $this->text];
     }
 }

@@ -3,13 +3,14 @@
 
 namespace App\Model\Front\UI\Elements;
 
+use App\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
  * Class Image
  * @package App\Model\Front\UI
  */
-class Image
+class Image implements IElement
 {
     use SmartObject;
 
@@ -43,4 +44,17 @@ class Image
         $this->alt = $alt;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function toArray(): array
+    {
+        return [
+            'url' => $this->url,
+            'align' => $this->align,
+            'width' => $this->width,
+            'height' => $this->height,
+            'alt' => $this->alt
+        ];
+    }
 }

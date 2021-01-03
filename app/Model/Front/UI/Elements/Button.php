@@ -2,6 +2,7 @@
 
 namespace App\Model\Front\UI\Elements;
 
+use App\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
@@ -9,7 +10,7 @@ use Nette\SmartObject;
  * @package App\Model\Front\UI
  * Representing a button for dynamic UI
  */
-class Button
+class Button implements IElement
 {
     use SmartObject;
 
@@ -41,6 +42,26 @@ class Button
         $this->link = $link;
         $this->target = $target;
         $this->width = $width;
-        $this->bgColor;
+        $this->bgColor = $bgColor;
+    }
+
+    /**
+     * @inheritDoc
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            "title" => [
+                'color' => $this->title->color,
+                'content' => $this->title->content,
+            ],
+            'link' => [
+                'url' => $this->link,
+                'target' => $this->target
+            ],
+            'width' => $this->width,
+            'bgColor' => $this->bgColor
+        ];
     }
 }

@@ -3,18 +3,19 @@
 
 namespace App\Model\Front\UI\Elements;
 
+use App\Front\UI\IElement;
 use Nette\SmartObject;
 
 /**
  * Class Text
  * @package App\Model\Front\UI
  */
-class Text
+class Text implements IElement
 {
     use SmartObject;
 
-    private string $content;
-    private string $color;
+    public string $content;
+    public string $color;
 
     /**
      * Text constructor.
@@ -28,23 +29,9 @@ class Text
     }
 
     /**
-     * @return string
+     * @return array
      */
-    public function getContent(): string
-    {
-        return $this->content;
-    }
-
-    /**
-     * @return string
-     */
-    public function getColor(): string
-    {
-        return $this->color;
-    }
-
-    public static function example(): Text
-    {
-        return new Text("Lorem ipsum dolor sit...");
+    public function toArray(): array {
+        return ["content" => $this->content, "color" => $this->color];
     }
 }
