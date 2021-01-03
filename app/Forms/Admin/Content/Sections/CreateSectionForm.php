@@ -49,7 +49,7 @@ class CreateSectionForm
             ->setDefaultValue(SectionFormData::DEFAULT_SECTION_VIEW)->setRequired(true);
 
         $form->addGroup('Obsah');
-        $form->addTextarea('text_content', 'Hlavní text')->setRequired(true);
+        $form->addTextarea('text_content', 'Hlavní text')->setRequired(true)->setDefaultValue(SectionFormData::DEFAULT_TEXT_CONTEXT);
         $form->addText('text_color', 'Barva textu')->setRequired(true);
 
         $form->addGroup('Obrázek');
@@ -90,18 +90,8 @@ class CreateSectionForm
      * @throws AbortException
      */
     public function success(Form $form, SectionFormData $data): void {
-        // null ! empty atd..
-        // checking if button or image is implemented, because it's non required - without width
-        $implementedButton = $data->button_text
-            && $data->button_link
-            && $data->button_textColor
-            && $data->button_backgroundColor
-            && $data->button_target;
-        // checking without alt because it's non required for a image
-        $implementedImage = $data->image_url
-            && $data->image_height
-            && $data->image_align
-            && $data->image_width;
+        $implementedButton = $data->button_text  && $data->button_link && $data->button_textColor && $data->button_backgroundColor && $data->button_target;
+        $implementedImage = $data->image_url && $data->image_height && $data->image_align && $data->image_width;
 
         $text = new Text($data->text_content, $data->text_color);
         $section = new Section($data->section_name, $text, $data->section_backgroundColor, $data->section_view, null, $data->image_align);
@@ -112,9 +102,9 @@ class CreateSectionForm
             $section->button = new Button($buttonText, $data->button_link, $data->button_target, $data->button_width ?: Button::DEF_WIDTH, $data->button_backgroundColor);
         }
         if($this->sectionRepository->createSection($section, $this->author)) {
-            $this->presenter->flashMessage('Sekce s názvem "'.$data->section_name.'" byla úspěšně vytvořena!', '');
+            $this->presenter->flashMessage('Sekce s názvem "'.$data->section_name.'" byla úspěšně vytvořena!', 'success');
             if(!$implementedImage) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
-            if(!$implementedButton) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
+            if(!$implementedButton) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených tlačítek, pravděpodobně nebyly nastaveny.', 'info');
         } else {
             $form->addError('Sekce nebyla vytvořena, nastala chyba při práci s databází!');
         }
