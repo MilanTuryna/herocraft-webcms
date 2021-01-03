@@ -47,7 +47,7 @@ class TicketRepository
         $sql = "SELECT t.*, tr.author AS lastResponseAuthor, tr.type AS lastResponseType, tr.time AS lastResponseTime, last_responses.time as d FROM tickets AS t 
 LEFT JOIN (SELECT ticketId, max(time) as time, author, type FROM ticket_responses GROUP BY ticketId) 
 as last_responses ON t.id = last_responses.ticketId 
-LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time = tr.time ORDER BY t.locked DESC, t.time DESC, tr.time DESC";
+LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time = tr.time ORDER BY t.locked ASC, t.time DESC, tr.time DESC";
         if($limit) $sql.=" LIMIT ".$limit;
         if($offset) $sql.=" OFFSET ".$offset;
         return $this->context->query($sql)->fetchAll();
