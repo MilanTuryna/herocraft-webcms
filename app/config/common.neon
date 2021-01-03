@@ -78,6 +78,7 @@ services:
 	ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord, %tickets.emailSender%)
 	cron: App\Model\DI\Cron(%cron.password%)
 	seo: App\Model\DI\Seo(%seo.ogImageURL%)
+	sectionRepository: App\Front\SectionRepository
 	cronPresenter:
 	    factory: App\Presenters\CronPresenter(@cron)
 	    setup:
