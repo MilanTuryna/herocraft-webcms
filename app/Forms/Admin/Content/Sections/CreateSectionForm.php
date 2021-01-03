@@ -2,6 +2,7 @@
 
 namespace App\Forms\Content\Sections;
 
+use App\Constants;
 use App\Forms\Sections\Data\SectionFormData;
 use App\Model\Front\UI\Elements\Button;
 use App\Model\Front\UI\Elements\Image;
@@ -31,7 +32,7 @@ class CreateSectionForm
         $form->addText('section_backgroundColor', 'Barva pozadí')
             ->setDefaultValue(Section::DEFAULT_BACKGROUND_COLOR)
             ->setRequired(true);
-        $form->addText('section_anchor', 'Kotva')->setRequired(true);
+        $form->addText('section_anchor', 'Kotva')->setRequired(false);
         $form->addSelect('section_view', 'Zobrazení', SectionFormData::SECTION_VIEWS)
             ->setDefaultValue(SectionFormData::DEFAULT_SECTION_VIEW)->setRequired(true);
 
@@ -55,12 +56,13 @@ class CreateSectionForm
         $form->addText('button_textColor', 'Barva textu')->setRequired(false);
         $form->addText('button_link', 'Odkaz tlačítka (URL)')->addRule(Form::URL)->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
-            ->setDefaultValue(Button::DEF_WIDTH)
+            ->setDefaultValue(SectionFormData::DEFAULT_BUTTON_WIDTH)
             ->setRequired(false);
         $form->addText('button_backgroundColor', 'Barva pozadí')->setDefaultValue(Button::DEF_BG_COLOR)->setRequired(false);
         $form->addSelect('button_target', 'Akce', SectionFormData::BUTTON_TARGETS)
             ->setPrompt('Zvolit akci tlačítka');
 
+        $form->addGroup('Odeslání');
         $form->addSubmit('submit')->setRequired(true);
 
         $form->onSuccess[] = [$this, 'success'];
@@ -89,7 +91,8 @@ class CreateSectionForm
             && $data->image_width;
 
         $text = new Text($data->text_content, $data->text_color);
-        $section = new Section($data->section_name, $text, $data->section_backgroundColor);
+        $section = new Section($data->section_name, $text, $data->section_backgroundColor, $data->section_view, null, $data->image_align);
+        $section->anchor = $data->section_anchor ?: strtr($data->section_name, Constants::VALID_URL);
         if($implementedImage) $section->image = new Image($data->image_url, $data->image_align, $data->image_width, $data->image_height, $data->image_alt);
         if($implementedButton) {
             $buttonText = new Text($data->button_text, $data->button_textColor);
