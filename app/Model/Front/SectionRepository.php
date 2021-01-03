@@ -59,10 +59,10 @@ class SectionRepository
      */
     public static function generateJsonContent(Section $section): string {
         return json_encode([
-                "text" => $section->text->toArray(),
-                "image" => @$section->image->toArray() ?: null, // ?: and '@' character because $section->image may not exists in some cases.
-                "button" => @$section->button->toArray() ?: null,
-            ]) || '{}';
+                "text" => $section->text ? $section->text->toArray(): null,
+                "image" => $section->image ? $section->image->toArray() : null,
+                "button" => $section->button ? $section->button->toArray() : null,
+            ]) ?: '{}';
     }
 
     /**
