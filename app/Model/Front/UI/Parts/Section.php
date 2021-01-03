@@ -27,8 +27,8 @@ class Section
     public ?string $anchor;
 
     public Text $text;
-    public ?Button $button;
-    public ?Image $image;
+    public ?Button $button = null;
+    public ?Image $image = null;
 
     /**
      * Section constructor.
