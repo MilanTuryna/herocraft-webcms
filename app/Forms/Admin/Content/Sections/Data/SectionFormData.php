@@ -2,6 +2,8 @@
 
 namespace App\Forms\Sections\Data;
 
+use App\Model\Front\UI\Elements\Button;
+
 /**
  * Class SectionFormData
  * @package App\Forms\Sections\Data
@@ -9,9 +11,9 @@ namespace App\Forms\Sections\Data;
 class SectionFormData
 {
     const DEFAULT_SECTION_VIEW = 1;
-
     const DEFAULT_IMAGE_WIDTH = "100%";
     const DEFAULT_IMAGE_HEIGHT = "auto";
+    const DEFAULT_BUTTON_WIDTH = Button::DEF_WIDTH;
 
     const SECTION_VIEWS = [
         1 => 'Zobrazit ihned po dokončení tvorby či editace',
