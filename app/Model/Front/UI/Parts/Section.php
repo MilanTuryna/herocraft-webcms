@@ -4,6 +4,7 @@
 namespace App\Model\Front\UI\Parts;
 
 use App\Model\Front\UI\Elements\Button;
+use App\Model\Front\UI\Elements\Card;
 use App\Model\Front\UI\Elements\Text;
 use App\Model\Front\UI\Elements\Image;
 use Nette\SmartObject;
@@ -29,6 +30,7 @@ class Section
     public Text $text;
     public ?Button $button = null;
     public ?Image $image = null;
+    public ?Card $card = null;
 
     /**
      * Section constructor.
