@@ -190,7 +190,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
     /**
      * @return Context
      */
-    public function getDatabaseContext() {
+    public function getDatabaseContext(): Context {
         return $this->context; // database.default -> config
     }
 
