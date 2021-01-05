@@ -17,6 +17,7 @@ class SectionFormData
     const DEFAULT_TEXT_CONTEXT = "## Ahoj, kamarade, vidim, ze jsi se rozhodl vytvorit novou webovou sekci, v tom ti nebranim, \njen te upozornuji, ze v tomto boxu, jsou zamerne zapnute HTML tagy, "
     . "tak si davej pozor co sem davas, \nprece jenom, nerad bys rozbil zbytek stranky, proto pokud nemas s HTML zkusenosti, tak tyto \ntagy nepouzivej a pis pouze cisty text!" .
     "\n\nTento text je automaticky vygenerovany, tudiz nez zacnes psat svuj obsah, vymaz ho!";
+    const DEFAULT_CARD_ALIGN = "right";
 
     const SECTION_VIEWS = [
         1 => 'Zobrazit ihned po dokončení tvorby či editace',
@@ -46,7 +47,7 @@ class SectionFormData
         '_self' => 'Otevřít ve stejném okně (kartě)',
         '_blank' => 'Otevřít v novém okně'
     ];
-    const IMAGE_ALIGNS = [
+    const ALIGNS = [
         'left' => 'Vlevo',
         'right' => 'Vpravo'
     ];
@@ -71,4 +72,8 @@ class SectionFormData
     public ?string $button_target;
     public ?string $button_width;
     public ?string $button_backgroundColor;
+
+    public ?string $card_title;
+    public ?string $card_content;
+    public ?string $card_align;
 }
