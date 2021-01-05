@@ -6,6 +6,7 @@ use App\Constants;
 use App\Forms\Sections\Data\SectionFormData;
 use App\Front\SectionRepository;
 use App\Model\Front\UI\Elements\Button;
+use App\Model\Front\UI\Elements\Card;
 use App\Model\Front\UI\Elements\Image;
 use App\Model\Front\UI\Elements\Text;
 use App\Model\Front\UI\Parts\Section;
@@ -13,6 +14,10 @@ use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 
+/**
+ * Class CreateSectionForm
+ * @package App\Forms\Content\Sections
+ */
 class CreateSectionForm
 {
     private Presenter $presenter;
@@ -61,7 +66,7 @@ class CreateSectionForm
             ->setDefaultValue(SectionFormData::DEFAULT_IMAGE_HEIGHT)
             ->setRequired(false);
         $form->addText('image_alt', 'Rekapitulace obrázku')->setRequired(false);
-        $form->addSelect('image_align', '', SectionFormData::IMAGE_ALIGNS)->setRequired(false);
+        $form->addSelect('image_align', 'Umístění obrázku', SectionFormData::ALIGNS)->setRequired(false);
 
         $form->addGroup('Tlačítko');
         $form->addText('button_text', 'Obsah tlačítka')->setRequired(false);
@@ -73,6 +78,11 @@ class CreateSectionForm
         $form->addText('button_backgroundColor', 'Barva pozadí')->setDefaultValue(Button::DEF_BG_COLOR)->setRequired(false);
         $form->addSelect('button_target', 'Akce', SectionFormData::BUTTON_TARGETS)
             ->setPrompt('Zvolit akci tlačítka');
+
+        $form->addGroup('Doplňková karta');
+        $form->addText('card_title', 'Název karty')->setRequired(false);
+        $form->addTextArea('card_content', 'Obsah karty')->setRequired(false);
+        $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)->setDefaultValue(SectionFormData::DEFAULT_CARD_ALIGN)->setRequired(false);
 
         $form->addGroup('Odeslání');
         $form->addSubmit('submit')->setRequired(true);
@@ -92,6 +102,7 @@ class CreateSectionForm
     public function success(Form $form, SectionFormData $data): void {
         $implementedButton = $data->button_text  && $data->button_link && $data->button_textColor && $data->button_backgroundColor && $data->button_target;
         $implementedImage = $data->image_url && $data->image_height && $data->image_align && $data->image_width;
+        $implementedCard = $data->card_title && $data->card_content && $data->card_align;
 
         $text = new Text($data->text_content, $data->text_color);
         $section = new Section($data->section_name, $text, $data->section_backgroundColor, $data->section_view, null, $data->image_align);
@@ -101,6 +112,7 @@ class CreateSectionForm
             $buttonText = new Text($data->button_text, $data->button_textColor);
             $section->button = new Button($buttonText, $data->button_link, $data->button_target, $data->button_width ?: Button::DEF_WIDTH, $data->button_backgroundColor);
         }
+        if($implementedCard) $section->card = new Card($data->card_title, new Text($data->card_content, "#000000"), $data->card_align);
         if($this->sectionRepository->createSection($section, $this->author)) {
             $this->presenter->flashMessage('Sekce s názvem "'.$data->section_name.'" byla úspěšně vytvořena!', 'success');
             if(!$implementedImage) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
