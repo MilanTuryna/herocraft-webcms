@@ -2,13 +2,16 @@
 
 namespace App\Model\Admin\Object;
 
+use Nette\SmartObject;
+
 /**
  * Class Administrator
- *
- * Class represent user in administration
+ * Object representing user logged in administration and object.
  */
 class Administrator
 {
+    use SmartObject;
+
     private string $name;
     private string $email;
     private int $id;
