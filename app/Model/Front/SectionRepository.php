@@ -62,6 +62,7 @@ class SectionRepository
                 "text" => $section->text ? $section->text->toArray(): null,
                 "image" => $section->image ? $section->image->toArray() : null,
                 "button" => $section->button ? $section->button->toArray() : null,
+                "card" => $section->card ? $section->card->toArray() : null,
             ]) ?: '{}';
     }
 
