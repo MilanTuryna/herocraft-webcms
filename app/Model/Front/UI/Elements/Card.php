@@ -14,34 +14,21 @@ class Card implements IElement
 {
     use SmartObject;
 
-    private string $title;
-    private Text $text;
+    public string $title;
+    public Text $text;
+    public string $align;
 
     /**
      * Card constructor.
      * @param string $title
      * @param Text $text
+     * @param string $align
      */
-    public function __construct(string $title, Text $text)
+    public function __construct(string $title, Text $text, string $align)
     {
         $this->title = $title;
         $this->text = $text;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTitle(): string
-    {
-        return $this->title;
-    }
-
-    /**
-     * @return Text
-     */
-    public function getText(): Text
-    {
-        return $this->text;
+        $this->align = $align;
     }
 
     /**
@@ -50,6 +37,6 @@ class Card implements IElement
      */
     public function toArray(): array
     {
-        return ['title' => $this->title, 'text' => $this->text];
+        return ['title' => $this->title, 'text' => $this->text, "align" => $this->align];
     }
 }
