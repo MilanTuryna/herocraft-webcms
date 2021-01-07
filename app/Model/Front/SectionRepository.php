@@ -2,6 +2,10 @@
 
 namespace App\Front;
 
+use App\Model\Front\UI\Elements\Button;
+use App\Model\Front\UI\Elements\Card;
+use App\Model\Front\UI\Elements\Image;
+use App\Model\Front\UI\Elements\Text;
 use App\Model\Front\UI\Parts\Section;
 use Nette\Database\Context;
 use Nette\Database\IRow;
@@ -64,6 +68,26 @@ class SectionRepository
                 "button" => $section->button ? $section->button->toArray() : null,
                 "card" => $section->card ? $section->card->toArray() : null,
             ]) ?: '{}';
+    }
+
+    /**
+     * Returning Section object from ActiveRow $activeRow
+     * @param ActiveRow $activeRow
+     * @return Section|null
+     */
+    public static function parseSection(ActiveRow $activeRow): ?Section {
+        $arrayRow = $activeRow->toArray();
+        $content = json_decode($arrayRow['content'], true);
+        $section = new Section($activeRow->name, new Text($content['text']['content'], $content['text']['color']), $activeRow->bgColor, $activeRow->view, $activeRow->anchor);
+        $sectionImage = $content['image'] ?? null;
+        $sectionButton = $content['button'] ?? null;
+        $sectionCard = $content['card'] ?? null;
+        if($sectionImage) $section->image = new Image($sectionImage['url'], $sectionImage['align'], $sectionImage['width'], $sectionImage['height'], $sectionImage['alt']);
+        if($sectionButton) $section->button = new Button(
+            new Text($sectionButton['title']['content'], $sectionButton['title']['color']), $sectionButton['link']['url'],
+            $sectionButton['link']['target'], $sectionButton['width'], $sectionButton['bgColor']);
+        if($sectionCard) $section->card = new Card($sectionCard, new Text($sectionCard['text']['content'], $sectionCard['text']['color']), $sectionCard['align']);
+        return $section;
     }
 
     /**
