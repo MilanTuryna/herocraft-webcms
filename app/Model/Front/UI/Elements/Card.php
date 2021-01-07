@@ -37,6 +37,6 @@ class Card implements IElement
      */
     public function toArray(): array
     {
-        return ['title' => $this->title, 'text' => $this->text, "align" => $this->align];
+        return ['title' => $this->title, 'text' => $this->text->toArray(), "align" => $this->align];
     }
 }
