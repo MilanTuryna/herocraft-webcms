@@ -114,7 +114,7 @@ class EditSectionForm
         if($this->sectionRepository->updateSection($this->sectionId, $newSection)) {
             $this->presenter->flashMessage("Sekce s názvem " . $oldSection->title . " byla úspěšně změnena.", "success");
         } else {
-            $form->addError("Změny byly zaznamenány, avšak proběhla neznámá chyba při práci s databází.", "danger");
+            $form->addError("Změny byly zaznamenány, ale nebyly změněny, neboť proběhla neznámá chyba při práci s databází.");
         }
         $this->presenter->redirect($this->afterRedirect);
     }
