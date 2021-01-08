@@ -2,7 +2,12 @@
 
 namespace App\Forms\Sections\Data;
 
+use App\Constants;
 use App\Model\Front\UI\Elements\Button;
+use App\Model\Front\UI\Elements\Card;
+use App\Model\Front\UI\Elements\Image;
+use App\Model\Front\UI\Elements\Text;
+use App\Model\Front\UI\Parts\Section;
 
 /**
  * Class SectionFormData
@@ -77,4 +82,59 @@ class SectionFormData
     public ?string $card_title;
     public ?string $card_content;
     public ?string $card_align;
+
+    /**
+     * @return bool
+     */
+    public function isImplementedButton(): bool {
+        return $this->button_text  && $this->button_link && $this->button_textColor && $this->button_backgroundColor && $this->button_target;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isImplementedCard(): bool {
+        return $this->card_title && $this->card_content && $this->card_align;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isImplementedImage(): bool {
+        return $this->button_text  && $this->button_link && $this->button_textColor && $this->button_backgroundColor && $this->button_target;
+    }
+
+    /**
+     * @param bool $condition
+     * @return bool
+     */
+    public function isSameAligns(bool $condition = true): bool {
+        if($condition && $this->card_align && $this->image_align) return $this->card_align === $this->image_align;
+        return false;
+    }
+
+    /**
+     * @return Section
+     */
+    public function getSection(): Section {
+        $implementedButton = $this->isImplementedButton();
+        $implementedImage = $this->isImplementedImage();
+        $implementedCard = $this->isImplementedCard();
+
+        $text = new Text($this->text_content, $this->text_color);
+        $section = new Section($this->section_name, $text, $this->section_backgroundColor, $this->section_view, null, $this->image_align);
+        $section->anchor = $this->section_anchor ?: strtr($this->section_name, Constants::VALID_URL);
+        if($implementedImage) $section->image = new Image($this->image_url, $this->image_align, $this->image_width, $this->image_height, $this->image_alt);
+        if($implementedButton) {
+            $buttonText = new Text($this->button_text, $this->button_textColor);
+            $section->button = new Button($buttonText, $this->button_link, $this->button_target, $this->button_width ?: Button::DEF_WIDTH, $this->button_backgroundColor, $this->css);
+        }
+        if($implementedCard) $section->card = new Card($this->card_title, new Text($this->card_content, "#000000"), $this->card_align);
+        if($this->isSameAligns($implementedCard && $implementedImage)) {
+            $section->card->align = "right";
+            $section->image->align = "left";
+        }
+
+        return $section;
+    }
 }
