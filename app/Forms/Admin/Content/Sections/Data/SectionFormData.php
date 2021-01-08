@@ -72,6 +72,7 @@ class SectionFormData
     public ?string $button_target;
     public ?string $button_width;
     public ?string $button_backgroundColor;
+    public ?string $css = null;
 
     public ?string $card_title;
     public ?string $card_content;
