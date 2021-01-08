@@ -23,6 +23,7 @@ class Button implements IElement
     public string $bgColor;
     public string $width;
     public string $target;
+    public ?string $css;
 
     /**
      * Button constructor.
@@ -31,18 +32,21 @@ class Button implements IElement
      * @param string $target
      * @param string $width
      * @param string $bgColor
+     * @param string|null $css
      */
     public function __construct(Text $title,
                                 string $link,
                                 string $target = self::DEF_TARGET,
                                 string $width = self::DEF_WIDTH,
-                                string $bgColor = self::DEF_BG_COLOR)
+                                string $bgColor = self::DEF_BG_COLOR,
+                                string $css = null)
     {
         $this->title = $title;
         $this->link = $link;
         $this->target = $target;
         $this->width = $width;
         $this->bgColor = $bgColor;
+        $this->css = $css;
     }
 
     /**
@@ -61,7 +65,8 @@ class Button implements IElement
                 'target' => $this->target
             ],
             'width' => $this->width,
-            'bgColor' => $this->bgColor
+            'bgColor' => $this->bgColor,
+            'css' => $this->css,
         ];
     }
 }
