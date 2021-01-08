@@ -71,6 +71,7 @@ class CreateSectionForm
         $form->addGroup('Tlačítko');
         $form->addText('button_text', 'Obsah tlačítka')->setRequired(false);
         $form->addText('button_textColor', 'Barva textu')->setRequired(false);
+        $form->addTextarea('button_css', 'Kaskádové styly (CSS)')->setRequired(false);
         $form->addText('button_link', 'Odkaz tlačítka (URL)')->addRule(Form::URL)->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
             ->setDefaultValue(SectionFormData::DEFAULT_BUTTON_WIDTH)
@@ -110,7 +111,7 @@ class CreateSectionForm
         if($implementedImage) $section->image = new Image($data->image_url, $data->image_align, $data->image_width, $data->image_height, $data->image_alt);
         if($implementedButton) {
             $buttonText = new Text($data->button_text, $data->button_textColor);
-            $section->button = new Button($buttonText, $data->button_link, $data->button_target, $data->button_width ?: Button::DEF_WIDTH, $data->button_backgroundColor);
+            $section->button = new Button($buttonText, $data->button_link, $data->button_target, $data->button_width ?: Button::DEF_WIDTH, $data->button_backgroundColor, $data->css);
         }
         if($implementedCard) $section->card = new Card($data->card_title, new Text($data->card_content, "#000000"), $data->card_align);
         $sameAligns = false;

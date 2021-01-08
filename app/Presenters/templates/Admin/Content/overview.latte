@@ -118,6 +118,14 @@
                             <input n:name="button_backgroundColor" type="color" class="form-control">
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="button_css">Kaskádové styly (CSS)</label>
+                        <div class="col-sm-10">
+                            <div class="border shadow-sm">
+                                <textarea class="textarea-highlight" data-mode="css" n:name="button_css"></textarea>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="form-group row">
                         <label class="col-sm-2" n:name="card_title">Název karty</label>
@@ -224,14 +232,15 @@
     <script src="{$basePath}/js/admin/timer.js"></script>
     <script>getTimeForm();</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js" integrity="sha512-zuvaVNiXwWY7U7HEdXsoTislTEElpKLELFoyQw0Bg7zfGhC4vG8eAhCxIQAvHmprW7dFhTq5zshUko4K3B4mSA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/css/css.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js" integrity="sha512-XPih7uxiYsO+igRn/NA2A56REKF3igCp5t0W1yYhddwHsk70rN1bbbMzYkxrvjQ6uk+W3m+qExHIJlFzE6m5eg==" crossorigin="anonymous"></script>
     <script>
         [...document.getElementsByClassName("textarea-highlight")].forEach(function (e) {
             let editor = CodeMirror.fromTextArea(e, {
                 lineNumbers: true,
-                mode: 'xml',
+                mode: e.dataset.mode ? e.dataset.mode : 'xml',
                 htmlMode: true,
             });
-        });
+        })
     </script>
 {/block}
