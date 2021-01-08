@@ -97,7 +97,7 @@ final class ContentPresenter extends AdminBasePresenter
      * @return Multiplier
      */
     public function createComponentEditSectionForm(): Multiplier {
-        return new Multiplier(fn(int $sectionId): Form => (new EditSectionForm($this, $this->sectionRepository, $sectionId, "this"))->create());
+        return new Multiplier(fn (string $sectionId): Form => (new EditSectionForm($this, $this->sectionRepository, (int)$sectionId, "this"))->create());
     }
 
     /**
