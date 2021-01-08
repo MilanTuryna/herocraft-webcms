@@ -59,43 +59,36 @@ class EditSectionForm
             ->setDefaultValue($this->parsedSection->section_view)->setRequired(true);
 
         $form->addGroup('Obsah');
-        $form->addTextarea('text_content', 'Hlavní text')->setRequired(true)->setDefaultValue($$this->parsedSection->text->content);
+        $form->addTextarea('text_content', 'Hlavní text')->setRequired(true)->setDefaultValue($this->parsedSection->text->content);
         $form->addText('text_color', 'Barva textu')->setRequired(true)->setDefaultValue($this->parsedSection->text->color);
 
         $form->addGroup('Obrázek');
-        $form->addText('image_url', 'URL adresa obrázku')->setRequired(false)->addRule(Form::URL)
-            ->setDefaultValue($this->parsedSection->image ? $this->parsedSection->image->url : '');
+        $form->addText('image_url', 'URL adresa obrázku')->setRequired(false)->addRule(Form::URL)->setDefaultValue($this->parsedSection->image->url ?? null);
         $form->addSelect('image_width', 'Šířka obrázku', SectionFormData::IMAGE_WIDTHS)
-            ->setDefaultValue($this->parsedSection->image ? $this->parsedSection->image->width : SectionFormData::DEFAULT_IMAGE_WIDTH)->setRequired(false);
+            ->setDefaultValue($this->parsedSection->image->width ?? SectionFormData::DEFAULT_IMAGE_WIDTH)->setRequired(false);
         $form->addSelect('image_height', 'Výška obrázku', SectionFormData::IMAGE_HEIGHTS)
-            ->setDefaultValue($this->parsedSection->image ? $this->parsedSection->image->height : SectionFormData::DEFAULT_IMAGE_HEIGHT)->setRequired(false);
-        $form->addText('image_alt', 'Rekapitulace obrázku')
-            ->setDefaultValue($this->parsedSection->image ? $this->parsedSection->image->alt : '')->setRequired(false);
-        $form->addSelect('image_align', 'Umístění obrázku', SectionFormData::ALIGNS)
-            ->setDefaultValue($this->parsedSection->image ? $this->parsedSection->image->align : '')->setRequired(false);
+            ->setDefaultValue( $this->parsedSection->image->height ?? SectionFormData::DEFAULT_IMAGE_HEIGHT)->setRequired(false);
+        $form->addText('image_alt', 'Rekapitulace obrázku')->setDefaultValue($this->parsedSection->image->alt ?? null)->setRequired(false);
+        $form->addSelect('image_align', 'Umístění obrázku', SectionFormData::ALIGNS)->setDefaultValue($this->parsedSection->image->align ?? null)->setRequired(false);
 
         $form->addGroup('Tlačítko');
-        $form->addText('button_text', 'Obsah tlačítka')->setDefaultValue($this->parsedSection->button ? $this->parsedSection->button->title->content : '')->setRequired(false);
-        $form->addText('button_textColor', 'Barva textu')->setDefaultValue($this->parsedSection->button ? $this->parsedSection->button->title->color : '')->setRequired(false);
-        $form->addTextarea('button_css', 'Kaskádové styly (CSS)')->setDefaultValue($this->parsedSection->button && $this->parsedSection->button->css ?
-            $this->parsedSection->button->css : '')
-            ->setRequired(false);
-        $form->addText('button_link', 'Odkaz tlačítka (URL)')
-            ->setDefaultValue($this->parsedSection->button ? $this->parsedSection->button->link : '')->addRule(Form::URL)->setRequired(false);
+        $form->addText('button_text', 'Obsah tlačítka')->setDefaultValue($this->parsedSection->button->title->content ?? null)->setRequired(false);
+        $form->addText('button_textColor', 'Barva textu')->setDefaultValue($this->parsedSection->button->title->color ?? /* TODO */ null)->setRequired(false);
+        $form->addTextarea('button_css', 'Kaskádové styly (CSS)')->setDefaultValue($this->parsedSection->button->css ?? null)->setRequired(false);
+        $form->addText('button_link', 'Odkaz tlačítka (URL)')->setDefaultValue($this->parsedSection->button->link ?? null)->addRule(Form::URL)->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
-            ->setDefaultValue($this->parsedSection->button ? $this->parsedSection->button->width : SectionFormData::DEFAULT_BUTTON_WIDTH)
+            ->setDefaultValue($this->parsedSection->button->width ?? SectionFormData::DEFAULT_BUTTON_WIDTH)
             ->setRequired(false);
-        $form->addText('button_backgroundColor', 'Barva pozadí')
-            ->setDefaultValue($this->parsedSection->button ? $this->parsedSection->button->bgColor : Button::DEF_BG_COLOR)->setRequired(false);
-        $form->addSelect('button_target', 'Akce', SectionFormData::BUTTON_TARGETS)
-            ->setDefaultValue($this->parsedSection->button ? $this->parsedSection->button->target : '')
+        $form->addText('button_backgroundColor', 'Barva pozadí')->setDefaultValue($this->parsedSection->button->bgColor ?? Button::DEF_BG_COLOR)->setRequired(false);
+        $form->addSelect('button_target', 'Akce', SectionFormData::BUTTON_TARGETS)->setDefaultValue($this->parsedSection->button->target ?? Button::DEF_TARGET)
             ->setPrompt('Zvolit akci tlačítka');
 
         $form->addGroup('Doplňková karta');
-        $form->addText('card_title', 'Název karty')->setDefaultValue($this->parsedSection->card ? $this->parsedSection->card->title : '')->setRequired(false);
-        $form->addTextArea('card_content', 'Obsah karty')->setDefaultValue($this->parsedSection->card ? $this->parsedSection->card->text->content : '')->setRequired(false);
-        $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)
-            ->setDefaultValue($this->parsedSection->card ? $this->parsedSection->card->align : SectionFormData::DEFAULT_CARD_ALIGN)->setRequired(false);
+        $form->addText('card_title', 'Název karty')->setDefaultValue($this->parsedSection->card->title ?? null)->setRequired(false);
+        $form->addTextArea('card_content', 'Obsah karty')->setDefaultValue($this->parsedSection->card->text->content ?? null)->setRequired(false);
+        $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)->setDefaultValue($this->parsedSection->card->align ?? SectionFormData::DEFAULT_CARD_ALIGN)
+            ->setRequired(false);
+        $form->addSubmit('submit', 'Aktualizovat změny')->setRequired();
 
         $form->onSuccess[] = [$this, 'success'];
         $form->onError[] = function() use ($form) {
