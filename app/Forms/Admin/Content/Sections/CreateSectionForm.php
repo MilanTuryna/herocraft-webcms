@@ -2,13 +2,9 @@
 
 namespace App\Forms\Content\Sections;
 
-use App\Constants;
 use App\Forms\Sections\Data\SectionFormData;
 use App\Front\SectionRepository;
 use App\Model\Front\UI\Elements\Button;
-use App\Model\Front\UI\Elements\Card;
-use App\Model\Front\UI\Elements\Image;
-use App\Model\Front\UI\Elements\Text;
 use App\Model\Front\UI\Parts\Section;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
