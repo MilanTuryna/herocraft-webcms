@@ -57,9 +57,9 @@ final class ContentPresenter extends AdminBasePresenter
      * @param string|null $sectionName
      * @throws AbortException
      */
-    public function actionDeleteSection(int $id, ?string $sectionName) {
+    public function actionDeleteSection(int $id, string $sectionName) {
         if($this->sectionRepository->deleteSection($id)) {
-            $this->flashMessage("Sekce ".$sectionName?$sectionName.' ':' '."byla úspěšně odstraněna!", "success");
+            $this->flashMessage("Sekce ".$sectionName." byla úspěšně odstraněna!", "success");
         } else {
             $this->flashMessage("Tato sekce nemohla být odstraněna, jelikož neexistuje!", "danger");
         }
