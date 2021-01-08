@@ -101,32 +101,15 @@ class CreateSectionForm
      * @throws AbortException
      */
     public function success(Form $form, SectionFormData $data): void {
-        $implementedButton = $data->button_text  && $data->button_link && $data->button_textColor && $data->button_backgroundColor && $data->button_target;
-        $implementedImage = $data->image_url && $data->image_height && $data->image_align && $data->image_width;
-        $implementedCard = $data->card_title && $data->card_content && $data->card_align;
-
-        $text = new Text($data->text_content, $data->text_color);
-        $section = new Section($data->section_name, $text, $data->section_backgroundColor, $data->section_view, null, $data->image_align);
-        $section->anchor = $data->section_anchor ?: strtr($data->section_name, Constants::VALID_URL);
-        if($implementedImage) $section->image = new Image($data->image_url, $data->image_align, $data->image_width, $data->image_height, $data->image_alt);
-        if($implementedButton) {
-            $buttonText = new Text($data->button_text, $data->button_textColor);
-            $section->button = new Button($buttonText, $data->button_link, $data->button_target, $data->button_width ?: Button::DEF_WIDTH, $data->button_backgroundColor, $data->css);
-        }
-        if($implementedCard) $section->card = new Card($data->card_title, new Text($data->card_content, "#000000"), $data->card_align);
-        $sameAligns = false;
-        if($implementedCard && $implementedImage) {
-            if($data->card_align === $data->image_align) {
-                $data->image_align = "left";
-                $data->card_align = "right";
-                $sameAligns = true;
-            }
-        }
+        $section = $data->getSection();
         if($this->sectionRepository->createSection($section, $this->author)) {
             $this->presenter->flashMessage('Sekce s názvem "'.$data->section_name.'" byla úspěšně vytvořena!', 'success');
-            if(!$implementedImage) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
-            if(!$implementedButton) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených tlačítek, pravděpodobně nebyly nastaveny.', 'info');
-            if($sameAligns) $this->presenter->flashMessage("Bylo změněno umístění obrázku a karty, jelikož nemohou být na stejné straně.", "info");
+            $isCard = $data->isImplementedCard();
+            $isImage = $data->isImplementedImage();
+            if(!$isCard) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
+            if(!$data->isImplementedButton()) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených tlačítek, pravděpodobně nebyly nastaveny.', 'info');
+            if(!$isImage) $this->presenter->flashMessage("Sekce byla vytvořena bez připojených karet, pravděpodobně nebyly nastaveny.", 'info');
+            if($data->isSameAligns(($isCard && $isImage))) $this->presenter->flashMessage("Bylo změněno umístění obrázku a karty, jelikož nemohou být na stejné straně.", "info");
         } else {
             $form->addError('Sekce nebyla vytvořena, nastala chyba při práci s databází!');
         }
