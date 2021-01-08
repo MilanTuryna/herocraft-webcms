@@ -32,6 +32,11 @@ class Section
     public ?Image $image = null;
     public ?Card $card = null;
 
+    /** Non-required properties from database */
+    public ?string $dbAuthor = null;
+    public ?string $dbTime = null;
+    public ?int $dbId = null;
+
     /**
      * Section constructor.
      * @param string $title
