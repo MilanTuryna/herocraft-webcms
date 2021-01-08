@@ -79,6 +79,9 @@ class SectionRepository
         $arrayRow = $activeRow->toArray();
         $content = json_decode($arrayRow['content'], true);
         $section = new Section($activeRow->name, new Text($content['text']['content'], $content['text']['color']), $activeRow->bgColor, $activeRow->view, $activeRow->anchor);
+        $section->dbAuthor = $activeRow->author;
+        $section->dbTime = $activeRow->time;
+        $section->dbId = $activeRow->id;
         $sectionImage = $content['image'] ?? null;
         $sectionButton = $content['button'] ?? null;
         $sectionCard = $content['card'] ?? null;
