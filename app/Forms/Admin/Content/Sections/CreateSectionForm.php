@@ -113,10 +113,19 @@ class CreateSectionForm
             $section->button = new Button($buttonText, $data->button_link, $data->button_target, $data->button_width ?: Button::DEF_WIDTH, $data->button_backgroundColor);
         }
         if($implementedCard) $section->card = new Card($data->card_title, new Text($data->card_content, "#000000"), $data->card_align);
+        $sameAligns = false;
+        if($implementedCard && $implementedImage) {
+            if($data->card_align === $data->image_align) {
+                $data->image_align = "left";
+                $data->card_align = "right";
+                $sameAligns = true;
+            }
+        }
         if($this->sectionRepository->createSection($section, $this->author)) {
             $this->presenter->flashMessage('Sekce s názvem "'.$data->section_name.'" byla úspěšně vytvořena!', 'success');
             if(!$implementedImage) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
             if(!$implementedButton) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených tlačítek, pravděpodobně nebyly nastaveny.', 'info');
+            if($sameAligns) $this->presenter->flashMessage("Bylo změněno umístění obrázku a karty, jelikož nemohou být na stejné straně.", "info");
         } else {
             $form->addError('Sekce nebyla vytvořena, nastala chyba při práci s databází!');
         }
