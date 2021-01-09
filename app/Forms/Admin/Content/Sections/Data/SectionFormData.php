@@ -101,7 +101,7 @@ class SectionFormData
      * @return bool
      */
     public function isImplementedImage(): bool {
-        return $this->button_text  && $this->button_link && $this->button_textColor && $this->button_backgroundColor && $this->button_target;
+        return $this->image_url  && $this->image_width && $this->image_height && $this->image_align;
     }
 
     /**
