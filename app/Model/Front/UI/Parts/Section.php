@@ -22,7 +22,6 @@ class Section
 
     public string $title;
     public string $bgColor = self::DEFAULT_BACKGROUND_COLOR;
-    public string $imageAlign;
     public int $section_view;
 
     public ?string $anchor;
@@ -42,7 +41,6 @@ class Section
      * @param string $title
      * @param Text $text
      * @param string $bgColor
-     * @param string $imageAlign
      * @param int $section_view
      * @param string|null $anchor
      */
@@ -50,13 +48,11 @@ class Section
                                 Text $text,
                                 string $bgColor,
                                 int $section_view,
-                                ?string $anchor,
-                                string $imageAlign = Section::DEFAULT_IMAGE_ALIGN)
+                                ?string $anchor)
     {
         $this->title = $title;
         $this->text = $text;
         $this->bgColor = $bgColor;
-        $this->imageAlign = $imageAlign;
         $this->section_view = $section_view;
         $this->anchor = $anchor;
     }
