@@ -34,7 +34,6 @@ class UploadForm
     public function create(): Form {
         $form = new Form;
         $form->addMultiUpload("upload")->setRequired()
-            ->addRule($form::MAX_FILE_SIZE, 'Maximální velikost je 10 MB.', 104857600) // arg -> 10240x10240
             ->addRule($form::IMAGE, "Zadaný soubor musí být obrázek!'");
         $form->addSubmit("submit")->setRequired();
 
