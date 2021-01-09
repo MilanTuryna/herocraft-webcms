@@ -82,7 +82,7 @@ final class RouterFactory
             ->addRoute('/admin/content-manager', 'Content:overview')
             ->addRoute('/admin/content-manager/vytvorit', 'Content:createSection')
             ->addRoute('/admin/content-manager/edit/<id>', 'Content:editSection')
-            ->addRoute('/admin/content-manager/deleteSection/<id>?sectionName=<sectionName=null>', 'Content:deleteSection')
+            ->addRoute('/admin/content-manager/deleteSection/<id>?sectionName=<sectionName>', 'Content:deleteSection')
 
             ->addRoute('/admin/upload', "Main:upload")
             ->addRoute('/admin/upload/odstranit/<file>', 'Main:removeUpload')
