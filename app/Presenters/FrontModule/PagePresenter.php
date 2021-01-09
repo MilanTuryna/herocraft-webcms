@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Presenters\FrontModule;
 
+use App\Front\SectionRepository;
 use App\Model\DI\GameSections;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
@@ -37,6 +38,7 @@ final class PagePresenter extends BasePresenter
     private SettingsRepository $settingsRepository;
     private GameSections $gameSections;
     private CachedAPIRepository $cachedAPIRepository;
+    private SectionRepository $sectionRepository;
 
     /**
      * PagePresenter constructor.
@@ -49,6 +51,7 @@ final class PagePresenter extends BasePresenter
      * @param GoogleAnalytics $googleAnalytics
      * @param GameSections $gameSections
      * @param CachedAPIRepository $cachedAPIRepository
+     * @param SectionRepository $sectionRepository
      */
     public function __construct(ArticleRepository $articleRepository,
                                 CategoryRepository $categoryRepository,
@@ -58,7 +61,7 @@ final class PagePresenter extends BasePresenter
                                 Authenticator $authenticator,
                                 GoogleAnalytics $googleAnalytics,
                                 GameSections $gameSections,
-                                CachedAPIRepository $cachedAPIRepository)
+                                CachedAPIRepository $cachedAPIRepository, SectionRepository $sectionRepository)
     {
         parent::__construct($googleAnalytics);
 
@@ -70,6 +73,7 @@ final class PagePresenter extends BasePresenter
         $this->authenticator = $authenticator;
         $this->gameSections = $gameSections;
         $this->cachedAPIRepository = $cachedAPIRepository;
+        $this->sectionRepository = $sectionRepository;
     }
 
     public function startup(): void {
@@ -101,6 +105,9 @@ final class PagePresenter extends BasePresenter
         $this->template->gameSections = $this->gameSections;
         $this->template->registerCount = $this->cachedAPIRepository->getRegisterCount();
         $this->template->timesPlayed = $this->cachedAPIRepository->getTimesPlayed();
+        $sectionList = [];
+        foreach ($this->sectionRepository->getAllSections() as $activeRow) array_push($sectionList, $this->sectionRepository::parseSection($activeRow));
+        $this->template->sectionList = $sectionList;
     }
 
     /**
