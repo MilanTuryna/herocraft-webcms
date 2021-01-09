@@ -47,9 +47,7 @@ final class ContentPresenter extends AdminBasePresenter
     }
 
     public function renderOverview() {
-        $sectionList = [];
-        foreach ($this->sectionRepository->getAllSections() as $activeRow) array_push($sectionList, $this->sectionRepository::parseSection($activeRow));
-        $this->template->sectionList = $sectionList;
+        $this->template->sectionList = $this->sectionRepository::rowsToSectionList($this->sectionRepository->getAllSections());
     }
 
     /**
