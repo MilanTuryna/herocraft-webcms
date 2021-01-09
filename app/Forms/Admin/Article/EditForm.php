@@ -59,7 +59,7 @@ class EditForm
         $form->addSelect('secret', 'Skrytá stránka', [
             0 => "Ne (klasické zobrazení v navigaci)",
             1 => "Ano (přístup pouze přes přímé URL)",
-        ])->setDefaultValue(0)->setRequired();
+        ])->setDefaultValue($article->secret)->setRequired();
         $form->addUpload('miniature', 'Miniatura');
         $form->addText('keywords', 'Klíčová slova')
             ->setMaxLength(100)
