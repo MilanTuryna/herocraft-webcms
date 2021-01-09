@@ -110,6 +110,19 @@ class SectionRepository
     }
 
     /**
+     * @param ActiveRow[] $rows
+     * @return Section[]
+     */
+    public static function rowsToSectionList(array $rows): array {
+        $sectionList = [];
+        foreach ($rows as $row) {
+            if(!($row instanceof ActiveRow)) throw new \TypeError("Please, use ActiveRow[] array in rowsToSectionList method");
+            array_push($sectionList, self::parseSection($row));
+        }
+        return $sectionList;
+    }
+
+    /**
      * @param int $id
      * @param Section $section
      * @return int
