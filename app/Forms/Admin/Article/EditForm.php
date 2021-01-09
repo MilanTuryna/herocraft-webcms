@@ -56,6 +56,10 @@ class EditForm
             ->setRequired()
             ->setMaxLength(128)
             ->setDefaultValue($article->url);
+        $form->addSelect('secret', 'Skrytá stránka', [
+            0 => "Ne (klasické zobrazení v navigaci)",
+            1 => "Ano (přístup pouze přes přímé URL)",
+        ])->setDefaultValue(0)->setRequired();
         $form->addUpload('miniature', 'Miniatura');
         $form->addText('keywords', 'Klíčová slova')
             ->setMaxLength(100)
@@ -112,6 +116,7 @@ class EditForm
                 'description' => $values->description,
                 'keywords' => $values->keywords,
                 'content' => $values->content,
+                'secret' => $values->secret,
                 'category_id' => $values->category !== "Nezařazeno" ? $values->category : ''
             ]);
             if($values->miniature->isOk() && $values->miniature->isImage()) {

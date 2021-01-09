@@ -54,6 +54,10 @@ class CreateForm
         $form->addText('url', 'URL článku')
             ->setRequired()
             ->setMaxLength(128);
+        $form->addSelect('secret', 'Skrytá stránka', [
+            0 => "Ne (klasické zobrazení v navigaci)",
+            1 => "Ano (přístup pouze přes přímé URL)",
+        ])->setDefaultValue(0)->setRequired();
         $form->addUpload('miniature', 'Miniatura');
         $form->addText('keywords', 'Klíčová slova')->setMaxLength(100);
         $form->addText('description', 'Popisek')->setMaxLength(170);
@@ -96,6 +100,7 @@ class CreateForm
                 'keywords' => $values->keywords,
                 'content' => $values->content,
                 'created_at' => date('Y-m-d H:i:s'),
+                'secret' => $values->secret,
                 'author' => $this->administrator->getName(),
                 'category_id' => $values->category !== "NEZAŘAZENO" ? $values->category : ''
             ]);
