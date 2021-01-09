@@ -86,7 +86,10 @@ class EditSectionForm
         $form->addGroup('Doplňková karta');
         $form->addText('card_title', 'Název karty')->setDefaultValue($this->parsedSection->card->title ?? null)->setRequired(false);
         $form->addTextArea('card_content', 'Obsah karty')->setDefaultValue($this->parsedSection->card->text->content ?? null)->setRequired(false);
-        $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)->setDefaultValue($this->parsedSection->card->align ?? SectionFormData::DEFAULT_CARD_ALIGN)
+        $cardAlign = (!$this->parsedSection->card && $this->parsedSection->image) ?
+            ($this->parsedSection->image->align === "right" ? 'left' : SectionFormData::DEFAULT_CARD_ALIGN) :
+            ($this->parsedSection->card->align ?? SectionFormData::DEFAULT_CARD_ALIGN);
+        $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)->setDefaultValue($cardAlign)
             ->setRequired(false);
         $form->addSubmit('submit', 'Aktualizovat změny')->setRequired();
 
