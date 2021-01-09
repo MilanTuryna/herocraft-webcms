@@ -393,3 +393,6 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
     - přidán výpis nejlepšího času eventu rovnou na úvodní stránce herních statistik
     - přidána nová otázka/odpověď do Captchy využité v panelu
     - změněn design helpdesku na nový, inspirovaný administrací pro lepší orientaci
+- 4.1 - 11.1.2021
+    - přidána možnost skrytého článku
+    - přidány nové data do API `/api` které se tykají serveru - zaokrouhlený počet odehraných hodin celkově, počet registrovaných hráču 
