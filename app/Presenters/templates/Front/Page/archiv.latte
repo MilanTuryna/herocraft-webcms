@@ -22,6 +22,7 @@
     </h2>
     <div class="row">
         {foreach $articles as $article}
+            {continueIf $article->secret}
             {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
         <div class="col-md-6">
             <div class="card border-0 unzoomed br-0 news-card">

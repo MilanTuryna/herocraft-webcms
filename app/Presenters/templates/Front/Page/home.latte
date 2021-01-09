@@ -26,6 +26,7 @@
 		<div class="card-deck">
 			<div class="row">
 				{foreach $articles as $article}
+				    {continueIf $article->secret}
 					{var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
 					{if $iterator->isFirst()}
 						<div class="col-sm-12 news-card" >
