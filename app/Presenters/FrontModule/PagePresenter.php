@@ -8,7 +8,6 @@ use App\Model\DI\GameSections;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\Stats\CachedAPIRepository;
-use App\Model\Utils;
 use App\Model\SettingsRepository;
 use App\Model\ArticleRepository;
 use App\Model\CategoryRepository;
