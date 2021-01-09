@@ -18,6 +18,7 @@ class SectionFormData
     const DEFAULT_SECTION_VIEW = 1;
     const DEFAULT_IMAGE_WIDTH = "100%";
     const DEFAULT_IMAGE_HEIGHT = "auto";
+    const DEFAULT_IMAGE_ALIGN = "left";
     const DEFAULT_BUTTON_WIDTH = Button::DEF_WIDTH;
     const DEFAULT_TEXT_CONTEXT = "## Ahoj, kamarade, vidim, ze jsi se rozhodl vytvorit novou webovou sekci, v tom ti nebranim, \njen te upozornuji, ze v tomto boxu, jsou zamerne zapnute HTML tagy, "
     . "tak si davej pozor co sem davas, \nprece jenom, nerad bys rozbil zbytek stranky, proto pokud nemas s HTML zkusenosti, tak tyto \ntagy nepouzivej a pis pouze cisty text!" .

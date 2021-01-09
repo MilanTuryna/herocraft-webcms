@@ -69,6 +69,9 @@ class EditSectionForm
         $form->addSelect('image_height', 'Výška obrázku', SectionFormData::IMAGE_HEIGHTS)
             ->setDefaultValue( $this->parsedSection->image->height ?? SectionFormData::DEFAULT_IMAGE_HEIGHT)->setRequired(false);
         $form->addText('image_alt', 'Rekapitulace obrázku')->setDefaultValue($this->parsedSection->image->alt ?? null)->setRequired(false);
+        $imageAlign = (!$this->parsedSection->image && $this->parsedSection->card) ?
+            ($this->parsedSection->card->align === SectionFormData::DEFAULT_IMAGE_ALIGN ? SectionFormData::DEFAULT_CARD_ALIGN : SectionFormData::DEFAULT_IMAGE_ALIGN) :
+            ($this->parsedSection->image->align ?? SectionFormData::DEFAULT_IMAGE_ALIGN);
         $form->addSelect('image_align', 'Umístění obrázku', SectionFormData::ALIGNS)->setDefaultValue($this->parsedSection->image->align ?? null)->setRequired(false);
 
         $form->addGroup('Tlačítko');
@@ -87,7 +90,7 @@ class EditSectionForm
         $form->addText('card_title', 'Název karty')->setDefaultValue($this->parsedSection->card->title ?? null)->setRequired(false);
         $form->addTextArea('card_content', 'Obsah karty')->setDefaultValue($this->parsedSection->card->text->content ?? null)->setRequired(false);
         $cardAlign = (!$this->parsedSection->card && $this->parsedSection->image) ?
-            ($this->parsedSection->image->align === "right" ? 'left' : SectionFormData::DEFAULT_CARD_ALIGN) :
+            ($this->parsedSection->image->align ===  SectionFormData::DEFAULT_CARD_ALIGN ? SectionFormData::DEFAULT_IMAGE_ALIGN : SectionFormData::DEFAULT_CARD_ALIGN) :
             ($this->parsedSection->card->align ?? SectionFormData::DEFAULT_CARD_ALIGN);
         $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)->setDefaultValue($cardAlign)
             ->setRequired(false);
