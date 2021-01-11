@@ -39,4 +39,9 @@ class Card implements IElement
     {
         return ['title' => $this->title, 'text' => $this->text->toArray(), "align" => $this->align];
     }
+
+    public function getElementName(): string
+    {
+        return "card";
+    }
 }

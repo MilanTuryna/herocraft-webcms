@@ -8,6 +8,11 @@ namespace App\Front\UI;
 interface IElement
 {
     /**
+     * @return string
+     */
+    public function getElementName(): string;
+
+    /**
      * Returning element data in associative array
      * @return array
      */

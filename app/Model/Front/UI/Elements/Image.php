@@ -57,4 +57,12 @@ class Image implements IElement
             'alt' => $this->alt
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function getElementName(): string
+    {
+        return "image";
+    }
 }

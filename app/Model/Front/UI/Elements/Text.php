@@ -34,4 +34,12 @@ class Text implements IElement
     public function toArray(): array {
         return ["content" => $this->content, "color" => $this->color];
     }
+
+    /**
+     * @return string
+     */
+    public function getElementName(): string
+    {
+        return "text";
+    }
 }

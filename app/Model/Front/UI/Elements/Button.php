@@ -69,4 +69,9 @@ class Button implements IElement
             'css' => $this->css,
         ];
     }
+
+    public function getElementName(): string
+    {
+        return "button";
+    }
 }
