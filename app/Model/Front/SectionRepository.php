@@ -87,7 +87,7 @@ class SectionRepository
         $sectionCard = $content['card'] ?? null;
         if($sectionImage) $section->image = new Image($sectionImage['url'], $sectionImage['align'], $sectionImage['width'], $sectionImage['height'], $sectionImage['alt']);
         if($sectionButton) $section->button = new Button(
-            new Text($sectionButton['title']['content'], $sectionButton['title']['color']), $sectionButton['link']['url'],
+            new Text($sectionButton['title']['content'], $sectionButton['title']['color']), $sectionButton['link']['url'], $sectionButton['style'],
             $sectionButton['link']['target'], $sectionButton['width'], $sectionButton['bgColor']);
         if($sectionCard) $section->card = new Card($sectionCard, new Text($sectionCard['text']['content'], $sectionCard['text']['color']), $sectionCard['align']);
         return $section;
