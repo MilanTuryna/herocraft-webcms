@@ -8,6 +8,7 @@ use App\Forms\Admin\Content\Homepage\ChangeHeaderSectionForm;
 use App\Forms\Content\Sections\CreateSectionForm;
 use App\Forms\Content\Sections\EditSectionForm;
 use App\Front\SectionRepository;
+use App\Front\Styles\ButtonStyles;
 use App\Model\Admin\Roles\Permissions;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
@@ -27,23 +28,27 @@ final class ContentPresenter extends AdminBasePresenter
 
     private SettingsRepository $settingsRepository;
     private SectionRepository $sectionRepository;
+    private ButtonStyles $buttonStyles;
 
     /**
      * ContentPresenter constructor.
      * @param Authenticator $authenticator
      * @param SettingsRepository $settingsRepository
      * @param SectionRepository $sectionRepository
+     * @param ButtonStyles $buttonStyles
      * @param string $permissionNode
      */
     public function __construct(Authenticator $authenticator,
                                 SettingsRepository $settingsRepository,
                                 SectionRepository $sectionRepository,
+                                ButtonStyles $buttonStyles,
                                 string $permissionNode = Permissions::ADMIN_CONTENT_MANAGER)
     {
         parent::__construct($authenticator, $permissionNode);
 
         $this->settingsRepository = $settingsRepository;
         $this->sectionRepository = $sectionRepository;
+        $this->buttonStyles = $buttonStyles;
     }
 
     public function renderOverview() {
@@ -95,7 +100,7 @@ final class ContentPresenter extends AdminBasePresenter
      * @return Multiplier
      */
     public function createComponentEditSectionForm(): Multiplier {
-        return new Multiplier(fn (string $sectionId): Form => (new EditSectionForm($this, $this->sectionRepository, (int)$sectionId, "this"))->create());
+        return new Multiplier(fn (string $sectionId): Form => (new EditSectionForm($this, $this->sectionRepository, $this->buttonStyles, (int)$sectionId, "this"))->create());
     }
 
     /**
