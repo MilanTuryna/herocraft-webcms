@@ -5,6 +5,7 @@ namespace App\Forms\Content\Sections;
 
 use App\Forms\Sections\Data\SectionFormData;
 use App\Front\SectionRepository;
+use App\Front\Styles\ButtonStyles;
 use App\Model\Front\UI\Elements\Button;
 use App\Model\Front\UI\Parts\Section;
 use Nette\Application\AbortException;
@@ -22,6 +23,8 @@ class EditSectionForm
 
     private Presenter $presenter;
     private SectionRepository $sectionRepository;
+    private ButtonStyles $buttonStyles;
+
     private int $sectionId;
     private Section $parsedSection;
 
@@ -31,13 +34,15 @@ class EditSectionForm
      * EditSectionForm constructor.
      * @param Presenter $presenter
      * @param SectionRepository $sectionRepository
+     * @param ButtonStyles $buttonStyles
      * @param int $sectionId
      * @param string $afterRedirect
      */
-    public function __construct(Presenter $presenter, SectionRepository $sectionRepository, int $sectionId, string $afterRedirect = "this")
+    public function __construct(Presenter $presenter, SectionRepository $sectionRepository, ButtonStyles $buttonStyles, int $sectionId, string $afterRedirect = "this")
     {
         $this->presenter = $presenter;
         $this->sectionRepository = $sectionRepository;
+        $this->buttonStyles = $buttonStyles;
         $this->sectionId = $sectionId;
         $this->afterRedirect = $afterRedirect;
         $this->parsedSection = $this->sectionRepository::parseSection($this->sectionRepository->getSectionById($sectionId));
@@ -72,12 +77,13 @@ class EditSectionForm
         $imageAlign = (!$this->parsedSection->image && $this->parsedSection->card) ?
             ($this->parsedSection->card->align === SectionFormData::DEFAULT_IMAGE_ALIGN ? SectionFormData::DEFAULT_CARD_ALIGN : SectionFormData::DEFAULT_IMAGE_ALIGN) :
             ($this->parsedSection->image->align ?? SectionFormData::DEFAULT_IMAGE_ALIGN);
-        $form->addSelect('image_align', 'Umístění obrázku', SectionFormData::ALIGNS)->setDefaultValue($this->parsedSection->image->align ?? null)->setRequired(false);
+        $form->addSelect('image_align', 'Umístění obrázku', SectionFormData::ALIGNS)->setDefaultValue($imageAlign)->setRequired(false);
 
         $form->addGroup('Tlačítko');
         $form->addText('button_text', 'Obsah tlačítka')->setDefaultValue($this->parsedSection->button->title->content ?? null)->setRequired(false);
         $form->addText('button_textColor', 'Barva textu')->setDefaultValue($this->parsedSection->button->title->color ?? /* TODO */ null)->setRequired(false);
-        $form->addTextarea('button_css', 'Kaskádové styly (CSS)')->setDefaultValue($this->parsedSection->button->css ?? null)->setRequired(false);
+        $form->addRadioList('button_style', 'Styly tlačítka', $this->buttonStyles::getSelectBox($this->buttonStyles->getStyles()))
+            ->setDefaultValue($this->parsedSection->button->style);
         $form->addText('button_link', 'Odkaz tlačítka (URL)')->setDefaultValue($this->parsedSection->button->link ?? null)->addRule(Form::URL)->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
             ->setDefaultValue($this->parsedSection->button->width ?? SectionFormData::DEFAULT_BUTTON_WIDTH)
