@@ -70,6 +70,14 @@ class ButtonStyles
     }
 
     /**
+     * @param int $id
+     * @return \Nette\Database\IRow|ActiveRow|null
+     */
+    public function getStyleById(int $id): ?ActiveRow {
+        return $this->context->table(self::DB_TABLE)->where('id = ?', $id)->fetch();
+    }
+
+    /**
      * @param iterable $data
      * @return bool|int|ActiveRow
      */
@@ -81,7 +89,7 @@ class ButtonStyles
      * @param iterable $data
      * @return int
      */
-    public function editStyle(iterable $data) {
+    public function editStyle(iterable $data): int {
         return $this->context->table(self::DB_TABLE)->update($data);
     }
 
