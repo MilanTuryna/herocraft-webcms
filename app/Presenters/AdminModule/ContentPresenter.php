@@ -89,13 +89,23 @@ final class ContentPresenter extends AdminBasePresenter
                 $this->redirect("Content:overview");
             }
         } else {
-            $this->flashMessage("Nemůžeš editovat sekci, která neexistuje!");
+            $this->flashMessage("Nemůžeš editovat sekci, která neexistuje!", "danger");
             $this->redirect("Content:overview");
         }
     }
 
+    /**
+     * @param int $id
+     * @throws AbortException
+     */
     public function renderEditButtonStyle(int $id) {
-
+        $buttonStyle = $this->buttonStyles->getStyleById($id);
+        if($buttonStyle) {
+            $this->template->buttonStyle = $buttonStyle;
+        } else {
+            $this->flashMessage("Nemůžeš editovat styl tlačítka, který neexistuje", "danger");
+            $this->redirect("Content:overview");
+        }
     }
 
     /**
