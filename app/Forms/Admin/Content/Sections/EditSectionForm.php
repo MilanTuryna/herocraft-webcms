@@ -12,6 +12,7 @@ use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\SmartObject;
+use Nette\Utils\Html;
 
 /**
  * Class EditSectionForm
@@ -83,7 +84,7 @@ class EditSectionForm
         $form->addText('button_text', 'Obsah tlačítka')->setDefaultValue($this->parsedSection->button->title->content ?? null)->setRequired(false);
         $form->addText('button_textColor', 'Barva textu')->setDefaultValue($this->parsedSection->button->title->color ?? /* TODO */ null)->setRequired(false);
         $form->addRadioList('button_style', 'Styly tlačítka', $this->buttonStyles::getSelectBox($this->buttonStyles->getStyles()))
-            ->setDefaultValue($this->parsedSection->button->style);
+            ->setDefaultValue($this->parsedSection->button->style ?? null);
         $form->addText('button_link', 'Odkaz tlačítka (URL)')->setDefaultValue($this->parsedSection->button->link ?? null)->addRule(Form::URL)->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
             ->setDefaultValue($this->parsedSection->button->width ?? SectionFormData::DEFAULT_BUTTON_WIDTH)
@@ -124,7 +125,10 @@ class EditSectionForm
             $this->presenter->redirect($this->afterRedirect);
         }
         if($this->sectionRepository->updateSection($this->sectionId, $newSection)) {
-            $this->presenter->flashMessage("Sekce s názvem " . $oldSection->title . " byla úspěšně změnena.", "success");
+            $this->presenter->flashMessage(Html::el()
+                ->addText('Sekce s názvem ')
+                ->addHtml(Html::el('strong')->setText($oldSection->title))
+                ->addText(' byla úspěšně změněna'), "success");
         } else {
             $form->addError("Změny byly zaznamenány, ale nebyly změněny, neboť proběhla neznámá chyba při práci s databází.");
         }

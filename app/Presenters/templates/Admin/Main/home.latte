@@ -152,6 +152,9 @@
                     </li>
                     <li n:if="$havePermission['content']">
                         <a n:href="Content:overview" class="black-href">Obsah a zobrazení</a>
+                        <ul>
+                            <li><a n:href="Content:buttonStylesList" class="black-href">Předvolby stylu tlačítka</a></li>
+                        </ul>
                     </li>
                     <li n:if="$havePermission['upload']">
                         <a n:href="Main:upload" class="black-href">Upload obrázků</a>

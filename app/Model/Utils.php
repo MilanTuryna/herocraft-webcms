@@ -23,7 +23,7 @@ abstract class Utils
     }
 
     /**
-     * Function for word declension - sklonovani(3, ["hráč", "hráči", "hráčů"]): hráči
+     * Function for word declension - sklonovani(3, ["hráč", "hráči", "hráčů"]) -> hráči
      *
      * @param $pocet
      * @param $slova

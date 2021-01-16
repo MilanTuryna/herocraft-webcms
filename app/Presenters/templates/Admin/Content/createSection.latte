@@ -118,18 +118,15 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2" n:name="button_css">Kaskádové styly (CSS)</label>
+                        <div class="col-sm-2">Styl tlačítka</div>
                         <div class="col-sm-10">
-                            <div class="border shadow-sm" id="css_button_textarea">
-                                <textarea class="textarea-highlight" data-mode="css" n:name="button_css"></textarea>
+                            <span class="text-muted small">Pokud zde nevidíš svůj styl, můžeš si ho vytvořit <a n:href="Content:buttonStylesList">ZDE</a>.</span>
+                            <div class="row">
+                                <div n:foreach="$form[button_style]->items as $key => $label" class="col-sm-2 mb-2">
+                                    <input type="radio" n:name="button_style:$key">
+                                    <button n:class="'btn', 'btn-sm', $key">Example Button</button>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="form-group row">
-                        <div class="col-sm-2"><br></div>
-                        <div class="col-sm-10">
-                            Pro inspiraci vzhledu tlačítka využij například: <a href=" https://www.bestcssbuttongenerator.com/#/2" target="_blank">https://www.bestcssbuttongenera...</a>, jen uváděj pouze styly, nikoliv element.
-                            Jako písmo/font doporučujeme zvolit Marcellus. Pokud budete chtít, můžeš zvolit z interního CSS souboru: <a href="{$basePath}/css/buttons.css" target="_blank">buttons.css</a>
                         </div>
                     </div>
                     <hr>

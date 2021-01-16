@@ -190,6 +190,43 @@
         </div>
     </div>
 </div>
+{varType App\Model\Front\UI\Parts\Section[] $sectionList}
+<section n:foreach="$sectionList as $section">
+    <div class="container-big container" style="padding-top: 32px; padding-bottom: 32px">
+        <div class="row">
+            {if $section->image}
+                <div n:class="'col-lg-3', $section->image->align === 'left' ? 'order-1' : 'order-3'">
+                    <img n:attr="alt: ($section->image->alt ?: null), src: $section->image->url" class="d-none d-lg-block" style="width: 70%">
+                </div>
+            {/if}
+            {* condition for good col width - if section without elements (card, image) set to col-lg-12, if one element set to col-lg-9, if two elements set to col-lg-6 *}
+            <div n:class="'order-2', ($section->card || $section->image) ?(($section->card && !$section->image) || (!$section->card && $section->image) ? 'col-lg-9' : 'col-lg-6') : 'col-lg-12'">
+                <h1 class="font-marcellus font-weight-normal text-dark">
+                    {$section->title}
+                </h1>
+                <p class="font-marcellus" style="color: {$section->text->color|noescape}">
+                    {$section->text->content}
+                    {if $section->button}
+                        <a n:attr="target: $section->button->target, href: $section->button->link, style: $section->button->css ?: false"
+                                class="btn font-marcellus font-weight-bold mb-3">
+                            {$section->button->title->content}
+                        </a>
+                    {/if}
+                </p>
+            </div>
+            {if $section->card}
+                <div n:class="'col-lg-3', $section->card->align === 'left' ? 'order-1' : 'order-3'">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{$section->card->title}</h5>
+                            <p class="card-text" style="color: {$section->card->text->color|noescape}">{$section->card->text->content}</p>
+                        </div>
+                    </div>
+                </div>
+            {/if}
+        </div>
+    </div>
+</section>
 <section class="section" style=" margin-top: 16px">
     <div class="container-big container" style="padding-top: 32px; padding-bottom: 32px">
         <div class="row">

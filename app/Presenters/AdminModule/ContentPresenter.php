@@ -5,6 +5,8 @@ namespace App\Presenters\AdminModule;
 
 
 use App\Forms\Admin\Content\Homepage\ChangeHeaderSectionForm;
+use App\Forms\Admin\Content\Styles\Button\CreateButtonStyleForm;
+use App\Forms\Admin\Content\Styles\Button\EditButtonStyleForm;
 use App\Forms\Content\Sections\CreateSectionForm;
 use App\Forms\Content\Sections\EditSectionForm;
 use App\Front\SectionRepository;
@@ -17,6 +19,7 @@ use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
 use Nette\SmartObject;
+use Nette\Utils\Html;
 
 /**
  * Class ContentPresenter
@@ -62,7 +65,9 @@ final class ContentPresenter extends AdminBasePresenter
      */
     public function actionDeleteSection(int $id, string $sectionName) {
         if($this->sectionRepository->deleteSection($id)) {
-            $this->flashMessage("Sekce ".$sectionName." byla úspěšně odstraněna!", "success");
+            $this->flashMessage(Html::el()->addText("Sekce ")
+                ->addHtml(Html::el('strong')->setText($sectionName))
+                ->addText(' byla úspěšně odstraněna!'), "success");
         } else {
             $this->flashMessage("Tato sekce nemohla být odstraněna, jelikož neexistuje!", "danger");
         }
@@ -89,6 +94,28 @@ final class ContentPresenter extends AdminBasePresenter
         }
     }
 
+    public function renderEditButtonStyle(int $id) {
+
+    }
+
+    public function renderButtonStylesList() {
+        $this->template->buttonStyles = $this->buttonStyles->getStyles();
+    }
+
+    /**
+     * @return Multiplier
+     */
+    public function createComponentEditButtonStyleForm(): Multiplier {
+        return new Multiplier(fn (string $styleId): Form => (new EditButtonStyleForm($this, $this->buttonStyles, $styleId))->create());
+    }
+
+    /**
+     * @return Form
+     */
+    public function createComponentCreateButtonStyleForm(): Form {
+        return (new CreateButtonStyleForm($this, $this->buttonStyles))->create();
+    }
+
     /**
      * @return Form
      */
@@ -107,6 +134,6 @@ final class ContentPresenter extends AdminBasePresenter
      * @return Form
      */
     public function createComponentCreateSectionForm(): Form {
-        return (new CreateSectionForm($this, $this->sectionRepository, $this->admin->getName()))->create();
+        return (new CreateSectionForm($this, $this->sectionRepository, $this->buttonStyles, $this->admin->getName(), "Content:overview"))->create();
     }
 }

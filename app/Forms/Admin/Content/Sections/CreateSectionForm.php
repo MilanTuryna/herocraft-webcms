@@ -4,11 +4,13 @@ namespace App\Forms\Content\Sections;
 
 use App\Forms\Sections\Data\SectionFormData;
 use App\Front\SectionRepository;
+use App\Front\Styles\ButtonStyles;
 use App\Model\Front\UI\Elements\Button;
 use App\Model\Front\UI\Parts\Section;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
+use Nette\Utils\Html;
 
 /**
  * Class CreateSectionForm
@@ -18,6 +20,7 @@ class CreateSectionForm
 {
     private Presenter $presenter;
     private SectionRepository $sectionRepository;
+    private ButtonStyles $buttonStyles;
 
     public string $author;
     public string $afterRedirect;
@@ -26,13 +29,15 @@ class CreateSectionForm
      * CreateSectionForm constructor.
      * @param Presenter $presenter
      * @param SectionRepository $sectionRepository
+     * @param ButtonStyles $buttonStyles
      * @param string $author
      * @param string $afterRedirect
      */
-    public function __construct(Presenter $presenter, SectionRepository $sectionRepository, string $author = '', string $afterRedirect = 'this')
+    public function __construct(Presenter $presenter, SectionRepository $sectionRepository, ButtonStyles $buttonStyles, string $author = '', string $afterRedirect = 'this')
     {
         $this->presenter = $presenter;
         $this->sectionRepository = $sectionRepository;
+        $this->buttonStyles = $buttonStyles;
         $this->author = $author;
         $this->afterRedirect = $afterRedirect;
     }
@@ -67,7 +72,7 @@ class CreateSectionForm
         $form->addGroup('Tlačítko');
         $form->addText('button_text', 'Obsah tlačítka')->setRequired(false);
         $form->addText('button_textColor', 'Barva textu')->setRequired(false);
-        $form->addTextarea('button_css', 'Kaskádové styly (CSS)')->setRequired(false);
+        $form->addRadioList('button_style', 'Styly tlačítka', $this->buttonStyles::getSelectBox($this->buttonStyles->getStyles()));
         $form->addText('button_link', 'Odkaz tlačítka (URL)')->addRule(Form::URL)->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
             ->setDefaultValue(SectionFormData::DEFAULT_BUTTON_WIDTH)
@@ -99,15 +104,20 @@ class CreateSectionForm
     public function success(Form $form, SectionFormData $data): void {
         $section = $data->getSection();
         if($this->sectionRepository->createSection($section, $this->author)) {
-            $this->presenter->flashMessage('Sekce s názvem "'.$data->section_name.'" byla úspěšně vytvořena!', 'success');
+            $this->presenter->flashMessage(Html::el()
+                ->addText('Sekce s názvem ')
+                ->addHtml(Html::el('strong')
+                    ->setText($data->section_name))
+                ->addText(' byla úspěšně vytvořena!'), 'success');
             $isCard = $data->isImplementedCard();
             $isImage = $data->isImplementedImage();
-            if(!$isCard) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.', 'info');
+            if(!$isCard) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených karet, pravděpodobně nebyly nastaveny.', 'info');
             if(!$data->isImplementedButton()) $this->presenter->flashMessage('Sekce byla vytvořena bez připojených tlačítek, pravděpodobně nebyly nastaveny.', 'info');
-            if(!$isImage) $this->presenter->flashMessage("Sekce byla vytvořena bez připojených karet, pravděpodobně nebyly nastaveny.", 'info');
+            if(!$isImage) $this->presenter->flashMessage("Sekce byla vytvořena bez připojených obrázků, pravděpodobně nebyly nastaveny.", 'info');
             if($data->isSameAligns(($isCard && $isImage))) $this->presenter->flashMessage("Bylo změněno umístění obrázku a karty, jelikož nemohou být na stejné straně.", "info");
         } else {
             $form->addError('Sekce nebyla vytvořena, nastala chyba při práci s databází!');
+            $this->presenter->redirect("this");
         }
         $this->presenter->redirect($this->afterRedirect);
     }
