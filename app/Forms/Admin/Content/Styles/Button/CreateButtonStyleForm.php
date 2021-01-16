@@ -39,7 +39,7 @@ class CreateButtonStyleForm
         $form = new Form;
         $form->addText('name', 'Název tlačítka')->setRequired(true);
         $form->addText('class', 'Třída tlačítka')->setRequired(true);
-        $form->addTextArea('css', 'Kaskádové styly vázané k tlačítku')->setRequired(true);
+        $form->addTextArea('css', 'Kaskádové styly vázané k tlačítku')->setRequired(false);
         $form->addSubmit('submit', 'Vytvořit nové tlačítko');
         $form->onSuccess[] = [$this, 'success'];
         $form->onError[] = function() use ($form) {
@@ -54,7 +54,7 @@ class CreateButtonStyleForm
      * @throws AbortException
      */
     public function success(Form $form, ButtonStyleFormData $data): void {
-        if($this->buttonStyles->createStyle($this->buttonStyles::getIterableRow($data->name, $data->class, $data->css))) {
+        if($this->buttonStyles->createStyle($this->buttonStyles::getIterableRow($data->name, $data->class, $data->css ?: ''))) {
             $this->presenter->flashMessage("Styl " . $data->name . " byl úspěšně vytvořen!", "success");
             $this->presenter->redirect($this->successRedirect);
         } else {
