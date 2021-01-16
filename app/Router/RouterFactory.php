@@ -7,7 +7,10 @@ namespace App\Router;
 use Nette;
 use Nette\Application\Routers\RouteList;
 
-
+/**
+ * Class RouterFactory
+ * @package App\Router
+ */
 final class RouterFactory
 {
 	use Nette\StaticClass;
@@ -84,6 +87,7 @@ final class RouterFactory
             ->addRoute('/admin/content-manager/sekce/edit/<id>', 'Content:editSection')
             ->addRoute('/admin/content-manager/sekce/odstranit/<id>?nazevSekce=<sectionName>', 'Content:deleteSection')
             ->addRoute('/admin/content-manager/predvolby-stylu/tlacitko/edit/<id>', 'Content:editButtonStyle')
+            ->addRoute('/admin/content-manager/predvolby-stylu/tlacitko/odstranit/<id>?styleName=<buttonStyleName>', 'Content:deleteButtonStyle')
             ->addRoute('/admin/content-manager/predvolby-stylu/tlacitko', 'Content:buttonStylesList')
 
             ->addRoute('/admin/upload', "Main:upload")
