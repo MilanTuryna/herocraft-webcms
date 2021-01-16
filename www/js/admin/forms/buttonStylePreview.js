@@ -1,10 +1,13 @@
 const buttonStylePreview = {
     init: function (editorInstance, previewElement, buttonListElement, flashMessageElement, classInput, nameInput) {
+
+        // deleted spaces + tečky
         function addMultiListener(elementList, eventList, callbackFunction) {
             elementList.forEach(element => events.forEach(event => element.addEventListener(event, callbackFunction)));
         }
 
         function callback() {
+            classInput.value = classInput.value.replace(/\./g,'').replace(/\s/g, '-');
             if(!buttonListElement.classList.contains(classInput.value)) {
                 flashMessageElement.style.display = 'none';
                 previewElement.innerHTML = '';
