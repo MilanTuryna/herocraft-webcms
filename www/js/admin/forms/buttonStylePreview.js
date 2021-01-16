@@ -1,7 +1,16 @@
+/**
+ * @type {{init: buttonStylePreview.init}}
+ */
 const buttonStylePreview = {
+    /**
+     * @param editorInstance
+     * @param previewElement
+     * @param buttonListElement
+     * @param flashMessageElement
+     * @param classInput
+     * @param nameInput
+     */
     init: function (editorInstance, previewElement, buttonListElement, flashMessageElement, classInput, nameInput) {
-
-        // deleted spaces + tečky
         function addMultiListener(elementList, eventList, callbackFunction) {
             elementList.forEach(element => events.forEach(event => element.addEventListener(event, callbackFunction)));
         }
