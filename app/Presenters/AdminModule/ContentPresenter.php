@@ -98,6 +98,24 @@ final class ContentPresenter extends AdminBasePresenter
 
     }
 
+    /**
+     * @param int $id
+     * @param string $buttonStyleName
+     * @throws AbortException
+     */
+    public function actionDeleteButtonStyle(int $id, string $buttonStyleName) {
+        if($this->buttonStyles->deleteStyle($id)) {
+            $this->flashMessage(Html::el()
+                ->addText('Styl tlačítka ')
+                ->addHtml(Html::el('strong')
+                    ->setText($buttonStyleName))
+                ->addText(' byl úspěšně odstraněn!'), "success");
+        } else {
+            $this->flashMessage("Tento styl (se zadaným ID) nemohl být odstraněn, jelikož neexistuje!", "danger");
+        }
+        $this->redirect('Content:buttonStylesList');
+    }
+
     public function renderButtonStylesList() {
         $this->template->buttonStyles = $this->buttonStyles->getStyles();
     }
