@@ -1,9 +1,11 @@
 {layout '../layout.latte'}
 {block title}
-    Předvolby stylu tlaíčtka
+    Předvolby stylu tlačítka
 {/block}
 {block headAdd}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
 {/block}
 {block content}
     <nav aria-label="breadcrumb">
@@ -51,12 +53,12 @@
                         <label class="col-sm-2" n:name="css">Kaskádové styly (CSS)</label>
                         <div class="col-sm-10">
                             <div class="border shadow-sm" id="css_button_textarea">
-                                <textarea class="textarea-highlight css-d" data-mode="css" n:name="css"></textarea>
+                                <textarea class="textarea-highlight" data-mode="css" n:name="css"></textarea>
                             </div>
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label class="col-sm-2" n:name="css">Náhled</label>
+                        <div class="col-sm-2">Náhled</div>
                         <div class="col-sm-10">
                             <div id="nahled">--</div>
                             <div class="alert alert-danger" id="error-nahled" style="display: none"></div>
@@ -81,7 +83,7 @@
     <script src="{$basePath}/js/admin/forms/buttonStylePreview.js"></script>
     <script>
         let buttonList = document.getElementById("js--buttonStylesList");
-        let textarea = document.getElementsByClassName("css-d").item(0);
+        let textarea = document.getElementsByClassName("textarea-highlight").item(0);
         let editor = CodeMirror.fromTextArea(textarea, {
             lineNumbers: true,
             mode: textarea.dataset.mode ? textarea.dataset.mode : 'xml',
