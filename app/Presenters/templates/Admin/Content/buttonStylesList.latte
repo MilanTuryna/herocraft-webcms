@@ -78,6 +78,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js" integrity="sha512-zuvaVNiXwWY7U7HEdXsoTislTEElpKLELFoyQw0Bg7zfGhC4vG8eAhCxIQAvHmprW7dFhTq5zshUko4K3B4mSA==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/css/css.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js" integrity="sha512-XPih7uxiYsO+igRn/NA2A56REKF3igCp5t0W1yYhddwHsk70rN1bbbMzYkxrvjQ6uk+W3m+qExHIJlFzE6m5eg==" crossorigin="anonymous"></script>
+    <script src="{$basePath}/js/admin/forms/buttonStylePreview.js"></script>
     <script>
         let buttonList = document.getElementById("js--buttonStylesList");
         let textarea = document.getElementsByClassName("css-d").item(0);
@@ -92,6 +93,5 @@
         let flashMessage = document.getElementById("error-nahled");
 
         buttonStylePreview.init(editor, nahled, buttonList, flashMessage, classinput, nameinput)
-    </script>
     </script>
 {/block}
