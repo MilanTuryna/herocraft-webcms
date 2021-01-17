@@ -14,7 +14,7 @@ const buttonStylePreview = {
      */
     init: function (editorInstance, previewElement, buttonListElement, flashMessageElement, classInput, nameInput) {
         function addMultiListener(elementList, eventList, callbackFunction) {
-            elementList.forEach(element => events.forEach(event => element.addEventListener(event, callbackFunction)));
+            elementList.forEach(element => events.forEach(event => element.addEventListener(event, callbackFunction, true)));
         }
 
         function callback(event) {
