@@ -44,6 +44,9 @@ class CreateSectionForm
 
     public function create(): Form {
         $form = new Form;
+        $sections = $this->sectionRepository->getAllSections();
+        $sectionSelectBox = [];
+        foreach ($sections as $section) $sectionSelectBox[$section->id] = $section->name;
 
         $form->addGroup('Základní nastavení');
         $form->addText('section_name', 'Název sekce/části')->setRequired(true);
@@ -85,6 +88,9 @@ class CreateSectionForm
         $form->addText('card_title', 'Název karty')->setRequired(false);
         $form->addTextArea('card_content', 'Obsah karty')->setRequired(false);
         $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)->setDefaultValue(SectionFormData::DEFAULT_CARD_ALIGN)->setRequired(false);
+
+        $form->addGroup('Připojená');
+        $form->addSelect('joinedSectionID', 'Připojená sekce', $sectionSelectBox)->setPrompt('Nepřipojeno')->setRequired(false);
 
         $form->addGroup('Odeslání');
         $form->addSubmit('submit')->setRequired(true);
