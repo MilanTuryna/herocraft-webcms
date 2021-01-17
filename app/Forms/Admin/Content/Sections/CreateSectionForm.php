@@ -56,6 +56,11 @@ class CreateSectionForm
         $form->addText('section_anchor', 'Kotva')->setRequired(false);
         $form->addSelect('section_view', 'Zobrazení', SectionFormData::SECTION_VIEWS)
             ->setDefaultValue(SectionFormData::DEFAULT_SECTION_VIEW)->setRequired(true);
+        $form->addInteger('prioritySort', 'Priorita řazení')
+            ->addRule($form::RANGE, "nejméně %d a nejvíce %d", [1, SectionFormData::MAXIMAL_PRIORITY_SORT])
+            ->setDefaultValue(SectionFormData::DEFAULT_PRIORITY_SORT)
+            ->setRequired(true)
+            ->setMaxLength(SectionFormData::MAXIMAL_PRIORITY_SORT);
 
         $form->addGroup('Obsah');
         $form->addTextarea('text_content', 'Hlavní text')->setRequired(true)->setDefaultValue(SectionFormData::DEFAULT_TEXT_CONTEXT);
