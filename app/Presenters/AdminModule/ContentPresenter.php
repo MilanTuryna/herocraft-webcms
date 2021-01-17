@@ -55,7 +55,7 @@ final class ContentPresenter extends AdminBasePresenter
     }
 
     public function renderOverview() {
-        $this->template->sectionList = $this->sectionRepository::rowsToSectionList($this->sectionRepository->getAllSections());
+        $this->template->sectionList = $this->sectionRepository->rowsToSectionList($this->sectionRepository->getAllSections());
     }
 
     /**
@@ -81,7 +81,7 @@ final class ContentPresenter extends AdminBasePresenter
     public function renderEditSection(int $id) {
         $section = $this->sectionRepository->getSectionById($id);
         if($section) {
-            $parsedSection = $this->sectionRepository::parseSection($section);
+            $parsedSection = $this->sectionRepository->parseSection($section);
             if($parsedSection) {
                 $this->template->section = $parsedSection;
             } else {
