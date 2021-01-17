@@ -30,11 +30,13 @@ class Section
     public ?Button $button = null;
     public ?Image $image = null;
     public ?Card $card = null;
+    public ?Section $joinedSection = null;
 
     /** Non-required properties from database */
     public ?string $dbAuthor = null;
     public ?string $dbTime = null;
     public ?int $dbId = null;
+    public ?int $dbJoinedSectionID = null;
 
     /**
      * Section constructor.
