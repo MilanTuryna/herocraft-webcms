@@ -18,7 +18,6 @@ class Section
     use SmartObject;
 
     const DEFAULT_BACKGROUND_COLOR = "#ffffff";
-    const DEFAULT_IMAGE_ALIGN = "left";
 
     public string $title;
     public string $bgColor = self::DEFAULT_BACKGROUND_COLOR;
@@ -37,6 +36,7 @@ class Section
     public ?string $dbTime = null;
     public ?int $dbId = null;
     public ?int $dbJoinedSectionID = null;
+    public ?int $dbPrioritySort = null;
 
     /**
      * Section constructor.
