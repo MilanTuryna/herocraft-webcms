@@ -101,7 +101,7 @@ final class ContentPresenter extends AdminBasePresenter
     public function renderEditButtonStyle(int $id) {
         $buttonStyle = $this->buttonStyles->getStyleById($id);
         if($buttonStyle) {
-            $this->template->buttonStyle = $buttonStyle;
+            $this->template->style = $buttonStyle;
         } else {
             $this->flashMessage("Nemůžeš editovat styl tlačítka, který neexistuje", "danger");
             $this->redirect("Content:overview");
