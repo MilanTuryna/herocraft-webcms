@@ -153,6 +153,13 @@
                     </div>
                     <hr>
                     <div class="form-group row">
+                        <label class="col-sm-2" n:name="joinedSection">Připojená sekce</label>
+                        <div class="col-sm-10">
+                            <select class="form-control custom-select" n:name="joinedSection"></select>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="form-group row">
                         <label class="col-sm-2">Author sekce</label>
                         <div class="col-sm-10">
                             <input type="text" class="form-control" disabled value={$section->dbAuthor}>
