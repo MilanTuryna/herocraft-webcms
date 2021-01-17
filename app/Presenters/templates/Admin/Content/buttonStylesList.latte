@@ -24,8 +24,12 @@
             <div class="card-text">
                 <ul n:if="$buttonStyles">
                     <div id="js--buttonStylesList" style="display: none" class="{foreach $buttonStyles as $style}{$style->class}{/foreach}"></div>
-                    <li n:foreach="$buttonStyles as $style">
-                        <a n:href="Content:editButtonStyle $style->id" n:attr="data-styleclass: $style->class" n:class="'js-buttonStyle','btn', 'btn-sm', $style->{'class'}">{$style->name} - klikni pro editaci</a>
+                    <li n:foreach="$buttonStyles as $style" class="p-1">
+                        <a n:href="Content:editButtonStyle $style->id">
+                            <button n:attr="data-styleclass: $style->class" n:class="'js-buttonStyle','btn', 'btn-sm', $style->{'class'}">
+                                {$style->name} - klikni pro editaci
+                            </button>
+                        </a>
                     </li>
                 </ul>
             </div>
