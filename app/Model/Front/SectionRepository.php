@@ -41,9 +41,11 @@ class SectionRepository
      * @param int $view
      * @param string|null $author
      * @param int|null $joinedSectionID
+     * @param int|null $prioritySort
      * @return iterable
      */
-    public static function getIterableRow(string $name, string $content, string $anchor, string $backgroundColor, int $view, ?string $author = null, ?int $joinedSectionID = null): iterable
+    public static function getIterableRow(string $name, string $content, string $anchor, string $backgroundColor, int $view,
+                                          ?string $author = null, ?int $joinedSectionID = null, ?int $prioritySort = null): iterable
     {
         $iterable = [
             "name" => $name,
@@ -54,6 +56,7 @@ class SectionRepository
         ];
         if ($author) $iterable['author'] = $author;
         if ($joinedSectionID) $iterable['joinedSection_id'] = $joinedSectionID;
+        if($prioritySort) $iterable['prioritySort'] = $prioritySort;
         return $iterable;
     }
 
@@ -83,6 +86,7 @@ class SectionRepository
         $content = json_decode($arrayRow['content'], true);
         $section = new Section($activeRow->name, new Text($content['text']['content'], $content['text']['color']), $activeRow->bgColor, $activeRow->view, $activeRow->anchor);
         if(!$recursion && $activeRow->joinedSection_id) $section->joinedSection = $this->parseSection($this->getSectionById($activeRow->joinedSection_id), true);
+        $section->dbPrioritySort = $activeRow->prioritySort;
         $section->dbAuthor = $activeRow->author;
         $section->dbTime = $activeRow->time;
         $section->dbId = $activeRow->id;
@@ -110,7 +114,8 @@ class SectionRepository
                 $section->bgColor,
                 $section->section_view,
                 $author,
-                $section->dbJoinedSectionID)
+                $section->dbJoinedSectionID,
+                $section->dbPrioritySort)
         );
     }
 
@@ -135,7 +140,7 @@ class SectionRepository
     public function updateSection(int $id, Section $section): int {
         return $this->context->table(SectionRepository::TABLE)->where('id = ?', $id)->update(
             self::getIterableRow($section->title, SectionRepository::generateJsonContent($section), $section->anchor, $section->bgColor, $section->section_view,
-                null, $section->dbJoinedSectionID)
+                null, $section->dbJoinedSectionID, $section->dbPrioritySort)
         );
     }
 
