@@ -84,6 +84,15 @@ class SectionFormData
     public ?string $card_content;
     public ?string $card_align;
 
+    public ?int $joinedSectionID;
+
+    /**
+     * @return bool
+     */
+    public function isJoinedSectionID(): bool {
+        return (bool)$this->joinedSectionID;
+    }
+
     /**
      * @return bool
      */
@@ -124,6 +133,7 @@ class SectionFormData
 
         $text = new Text($this->text_content, $this->text_color);
         $section = new Section($this->section_name, $text, $this->section_backgroundColor, $this->section_view, null);
+        if($this->joinedSectionID) $section->dbJoinedSectionID = $this->joinedSectionID;
         $section->anchor = $this->section_anchor ?: strtr($this->section_name, Constants::VALID_URL);
         if($implementedImage) $section->image = new Image($this->image_url, $this->image_align, $this->image_width, $this->image_height, $this->image_alt);
         if($implementedButton) {
