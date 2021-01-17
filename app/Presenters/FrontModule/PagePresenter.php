@@ -105,7 +105,7 @@ final class PagePresenter extends BasePresenter
         $this->template->gameSections = $this->gameSections;
         $this->template->registerCount = $this->cachedAPIRepository->getRegisterCount();
         $this->template->timesPlayed = $this->cachedAPIRepository->getTimesPlayed();
-        $this->template->sectionList = $this->sectionRepository::rowsToSectionList($this->sectionRepository->getAllSections());
+        $this->template->sectionList = $this->sectionRepository->rowsToSectionList($this->sectionRepository->getAllSections());
     }
 
     /**
