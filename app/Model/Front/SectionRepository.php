@@ -79,13 +79,17 @@ class SectionRepository
      * Returning Section object from ActiveRow $activeRow
      * @param ActiveRow $activeRow
      * @param bool $recursion
+     * @param bool $withJoinedSection
      * @return Section|null
      */
-    public function parseSection(ActiveRow $activeRow, bool $recursion = false): ?Section {
+    public function parseSection(ActiveRow $activeRow, bool $recursion = false, bool $withJoinedSection = true): ?Section {
         $arrayRow = $activeRow->toArray();
         $content = json_decode($arrayRow['content'], true);
         $section = new Section($activeRow->name, new Text($content['text']['content'], $content['text']['color']), $activeRow->bgColor, $activeRow->view, $activeRow->anchor);
-        if(!$recursion && $activeRow->joinedSection_id) $section->joinedSection = $this->parseSection($this->getSectionById($activeRow->joinedSection_id), true);
+        if(!$recursion && $activeRow->joinedSection_id) {
+            if($withJoinedSection) $section->joinedSection = $this->parseSection($this->getSectionById($activeRow->joinedSection_id), true);
+            $section->dbJoinedSectionID = $activeRow->joinedSection_id;
+        }
         $section->dbPrioritySort = $activeRow->prioritySort;
         $section->dbAuthor = $activeRow->author;
         $section->dbTime = $activeRow->time;
