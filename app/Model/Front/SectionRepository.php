@@ -40,9 +40,10 @@ class SectionRepository
      * @param string $backgroundColor
      * @param int $view
      * @param string|null $author
+     * @param int|null $joinedSectionID
      * @return iterable
      */
-    public static function getIterableRow(string $name, string $content, string $anchor, string $backgroundColor, int $view, ?string $author = null): iterable
+    public static function getIterableRow(string $name, string $content, string $anchor, string $backgroundColor, int $view, ?string $author = null, ?int $joinedSectionID = null): iterable
     {
         $iterable = [
             "name" => $name,
@@ -52,6 +53,7 @@ class SectionRepository
             "view" => $view
         ];
         if ($author) $iterable['author'] = $author;
+        if ($joinedSectionID) $iterable['joinedSection_id'] = $joinedSectionID;
         return $iterable;
     }
 
@@ -73,12 +75,14 @@ class SectionRepository
     /**
      * Returning Section object from ActiveRow $activeRow
      * @param ActiveRow $activeRow
+     * @param bool $recursion
      * @return Section|null
      */
-    public static function parseSection(ActiveRow $activeRow): ?Section {
+    public function parseSection(ActiveRow $activeRow, bool $recursion = false): ?Section {
         $arrayRow = $activeRow->toArray();
         $content = json_decode($arrayRow['content'], true);
         $section = new Section($activeRow->name, new Text($content['text']['content'], $content['text']['color']), $activeRow->bgColor, $activeRow->view, $activeRow->anchor);
+        if(!$recursion && $activeRow->joinedSection_id) $section->joinedSection = $this->parseSection($this->getSectionById($activeRow->joinedSection_id), true);
         $section->dbAuthor = $activeRow->author;
         $section->dbTime = $activeRow->time;
         $section->dbId = $activeRow->id;
@@ -105,7 +109,8 @@ class SectionRepository
                 $section->anchor,
                 $section->bgColor,
                 $section->section_view,
-                $author)
+                $author,
+                $section->dbJoinedSectionID)
         );
     }
 
@@ -113,11 +118,11 @@ class SectionRepository
      * @param ActiveRow[] $rows
      * @return Section[]
      */
-    public static function rowsToSectionList(array $rows): array {
+    public function rowsToSectionList(array $rows): array {
         $sectionList = [];
         foreach ($rows as $row) {
             if(!($row instanceof ActiveRow)) throw new \TypeError("Please, use ActiveRow[] array in rowsToSectionList method");
-            array_push($sectionList, self::parseSection($row));
+            array_push($sectionList, $this->parseSection($row));
         }
         return $sectionList;
     }
@@ -129,7 +134,8 @@ class SectionRepository
      */
     public function updateSection(int $id, Section $section): int {
         return $this->context->table(SectionRepository::TABLE)->where('id = ?', $id)->update(
-            self::getIterableRow($section->title, SectionRepository::generateJsonContent($section), $section->anchor, $section->bgColor, $section->section_view)
+            self::getIterableRow($section->title, SectionRepository::generateJsonContent($section), $section->anchor, $section->bgColor, $section->section_view,
+                null, $section->dbJoinedSectionID)
         );
     }
 
