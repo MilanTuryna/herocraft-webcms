@@ -46,7 +46,7 @@ class EditSectionForm
         $this->buttonStyles = $buttonStyles;
         $this->sectionId = $sectionId;
         $this->afterRedirect = $afterRedirect;
-        $this->parsedSection = $this->sectionRepository::parseSection($this->sectionRepository->getSectionById($sectionId));
+        $this->parsedSection = $this->sectionRepository->parseSection($this->sectionRepository->getSectionById($sectionId));
     }
 
     /**
@@ -54,6 +54,12 @@ class EditSectionForm
      */
     public function create(): Form {
         $form = new Form;
+        $sections = $this->sectionRepository->getAllSections();
+        $sectionSelectBox = [];
+        foreach ($sections as $section) {
+            if($this->parsedSection->dbId == $section->id) continue;
+            $sectionSelectBox[$section->id] = $section->name;
+        }
 
         $form->addGroup('Základní nastavení');
         $form->addText('section_name', 'Název sekce/části')->setDefaultValue($this->parsedSection->title)->setRequired(true);
@@ -101,6 +107,13 @@ class EditSectionForm
             ($this->parsedSection->card->align ?? SectionFormData::DEFAULT_CARD_ALIGN);
         $form->addSelect('card_align', 'Umístění karty', SectionFormData::ALIGNS)->setDefaultValue($cardAlign)
             ->setRequired(false);
+
+        $form->addGroup('Připojená sekce');
+        $form->addSelect('joinedSectionID', 'Připojená sekce', $sectionSelectBox)
+            ->setPrompt('Nepřipojeno')
+            ->setDefaultValue($this->parsedSection->dbJoinedSectionID ?? null)
+            ->setRequired(false);
+
         $form->addSubmit('submit', 'Aktualizovat změny')->setRequired();
 
         $form->onSuccess[] = [$this, 'success'];
