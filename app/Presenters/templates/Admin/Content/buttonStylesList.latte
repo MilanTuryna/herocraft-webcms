@@ -17,6 +17,7 @@
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="alert alert-warning border"><strong>POZOR!</strong> Tento editor je zatím ve fázi vývoje a díky nesprávnému CSS kódu, může rozhodit vzhledovou část stránky.</div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
             <h5 style="margin: 0" class="card-title">Dosavadní uložené styly</h5>
