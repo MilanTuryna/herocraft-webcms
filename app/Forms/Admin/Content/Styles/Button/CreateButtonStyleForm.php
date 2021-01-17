@@ -11,6 +11,10 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\SmartObject;
 
+/**
+ * Class CreateButtonStyleForm
+ * @package App\Forms\Admin\Content\Styles\Button
+ */
 class CreateButtonStyleForm
 {
     use SmartObject;
