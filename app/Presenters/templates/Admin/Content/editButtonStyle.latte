@@ -23,7 +23,7 @@
             <h5 style="margin: 0" class="card-title">Editace tlačítka {$style->name}</h5>
             <hr>
             <div class="card-text">
-                <form n:name="editButtonStyleForm">
+                <form n:name="editButtonStyleForm-$style->id">
                     <div class="form-group row">
                         <label class="col-sm-2" n:name="name">Pojmenování stylu</label>
                         <div class="col-sm-10">
@@ -56,7 +56,7 @@
                         <div class="col-sm-2"><br></div>
                         <div class="col-sm-10">
                             <button type="submit" class="btn btn-success w-100" n:name="submit">Aktualizovat změny</button>
-                            <span class="float-right mt-2"><a n:href="Content:deleteButtonStyle $style->id, styleName: $style->name" class="text-danger">Odstranit tuto sekci</a></span>
+                            <span class="float-right mt-2"><a n:href="Content:deleteButtonStyle $style->id, buttonStyleName: $style->name" class="text-danger">Odstranit tuto sekci</a></span>
                         </div>
                     </div>
                 </form>
