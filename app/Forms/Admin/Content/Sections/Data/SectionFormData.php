@@ -16,6 +16,8 @@ use App\Model\Front\UI\Parts\Section;
 class SectionFormData
 {
     const DEFAULT_SECTION_VIEW = 1;
+    const DEFAULT_PRIORITY_SORT = 1;
+    const MAXIMAL_PRIORITY_SORT = 1000;
     const DEFAULT_IMAGE_WIDTH = "100%";
     const DEFAULT_IMAGE_HEIGHT = "auto";
     const DEFAULT_IMAGE_ALIGN = "left";
@@ -86,6 +88,8 @@ class SectionFormData
 
     public ?int $joinedSectionID;
 
+    public int $prioritySort = self::DEFAULT_PRIORITY_SORT;
+
     /**
      * @return bool
      */
@@ -134,6 +138,7 @@ class SectionFormData
         $text = new Text($this->text_content, $this->text_color);
         $section = new Section($this->section_name, $text, $this->section_backgroundColor, $this->section_view, null);
         if($this->joinedSectionID) $section->dbJoinedSectionID = $this->joinedSectionID;
+        $section->dbPrioritySort = $this->prioritySort;
         $section->anchor = $this->section_anchor ?: strtr($this->section_name, Constants::VALID_URL);
         if($implementedImage) $section->image = new Image($this->image_url, $this->image_align, $this->image_width, $this->image_height, $this->image_alt);
         if($implementedButton) {
