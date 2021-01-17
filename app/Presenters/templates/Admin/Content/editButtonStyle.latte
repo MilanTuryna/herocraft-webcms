@@ -1,0 +1,87 @@
+{layout '../layout.latte'}
+{block title}
+    Tlačítko {$style->name}
+{/block}
+{block headAdd}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Content:overview">Obsah a zobrazení</a></li>
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Content:overview">Styly</a></li>
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Content:buttonStylesList">Tlačítka</a></li>
+            <li aria-current="page" class="breadcrumb-item active">{$style->name}</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin: 0" class="card-title">Editace tlačítka {$style->name}</h5>
+            <hr>
+            <div class="card-text">
+                <form n:name="editButtonStyleForm">
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="name">Pojmenování stylu</label>
+                        <div class="col-sm-10">
+                            <input n:name="name" type="text" class="form-control name-nahled" placeholder="Uveď název stylu pro svou lepší orientaci (např. Jemná oranžová)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="class">Třída (atribut 'class')</label>
+                        <div class="col-sm-10">
+                            <input n:name="class" type="text" class="form-control class-nahled" placeholder="Třída daného elementu bez mezer (např. heavy-button-yellow)">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="css">Kaskádové styly (CSS)</label>
+                        <div class="col-sm-10">
+                            <div class="border shadow-sm" id="css_button_textarea">
+                                <textarea class="textarea-highlight" data-mode="css" n:name="css"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2">Náhled</div>
+                        <div class="col-sm-10">
+                            <div id="nahled">--</div>
+                            <div class="alert alert-danger" id="error-nahled" style="display: none"></div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-sm-2"><br></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success w-100" n:name="submit">Aktualizovat změny</button>
+                            <span class="float-right mt-2"><a n:href="Content:deleteButtonStyle $style->id, styleName: $style->name" class="text-danger">Odstranit tuto sekci</a></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
+{block end_body}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js" integrity="sha512-zuvaVNiXwWY7U7HEdXsoTislTEElpKLELFoyQw0Bg7zfGhC4vG8eAhCxIQAvHmprW7dFhTq5zshUko4K3B4mSA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/css/css.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js" integrity="sha512-XPih7uxiYsO+igRn/NA2A56REKF3igCp5t0W1yYhddwHsk70rN1bbbMzYkxrvjQ6uk+W3m+qExHIJlFzE6m5eg==" crossorigin="anonymous"></script>
+    <script src="{$basePath}/js/admin/forms/buttonStylePreview.js"></script>
+    <script>
+        let buttonList = document.getElementById("js--buttonStylesList");
+        let textarea = document.getElementsByClassName("textarea-highlight").item(0);
+        let editor = CodeMirror.fromTextArea(textarea, {
+            lineNumbers: true,
+            mode: textarea.dataset.mode ? textarea.dataset.mode : 'xml',
+            htmlMode: true,
+        });
+        let nahled = document.getElementById("nahled");
+        let classinput = document.getElementsByClassName("class-nahled").item(0);
+        let nameinput = document.getElementsByClassName("name-nahled").item(0);
+        let flashMessage = document.getElementById("error-nahled");
+
+        buttonStylePreview.init(editor, nahled, buttonList, flashMessage, classinput, nameinput)
+    </script>
+{/block}
