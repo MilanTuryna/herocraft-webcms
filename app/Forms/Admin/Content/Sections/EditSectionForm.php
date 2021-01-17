@@ -46,7 +46,7 @@ class EditSectionForm
         $this->buttonStyles = $buttonStyles;
         $this->sectionId = $sectionId;
         $this->afterRedirect = $afterRedirect;
-        $this->parsedSection = $this->sectionRepository->parseSection($this->sectionRepository->getSectionById($sectionId));
+        $this->parsedSection = $this->sectionRepository->parseSection($this->sectionRepository->getSectionById($sectionId), false, false);
     }
 
     /**
