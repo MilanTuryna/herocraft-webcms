@@ -1,4 +1,6 @@
 /**
+ * @author Milan Turyna
+ * @description Script for generating preview of button style in Administration
  * @type {{init: buttonStylePreview.init}}
  */
 const buttonStylePreview = {
@@ -15,7 +17,8 @@ const buttonStylePreview = {
             elementList.forEach(element => events.forEach(event => element.addEventListener(event, callbackFunction)));
         }
 
-        function callback() {
+        function callback(event) {
+            event.preventDefault();
             classInput.value = classInput.value.replace(/\./g,'').replace(/\s/g, '-');
             if(!buttonListElement.classList.contains(classInput.value)) {
                 flashMessageElement.style.display = 'none';
