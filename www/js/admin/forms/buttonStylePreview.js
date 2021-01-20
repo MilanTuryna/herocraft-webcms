@@ -17,8 +17,7 @@ const buttonStylePreview = {
             elementList.forEach(element => events.forEach(event => element.addEventListener(event, callbackFunction, true)));
         }
 
-        function callback(event) {
-            event.preventDefault();
+        function callback() {
             classInput.value = classInput.value.replace(/\./g,'').replace(/\s/g, '-');
             if(!buttonListElement.classList.contains(classInput.value)) {
                 flashMessageElement.style.display = 'none';
