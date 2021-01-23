@@ -37,7 +37,7 @@ class CSSParser
         $parser = new Parser($this->rawCode, $this->strictParsing ? CSS\Settings::create()->beStrict() : null);
         try {
             $this->document = $parser->parse();
-        } catch (CSS\Parsing\SourceException $sourceException) {
+        } catch (CSS\Parsing\SourceException $sourceException) { // catching CSS\Parsing exceptions for IDE hinting
             throw new SyntaxError($sourceException->getMessage(), $sourceException->getLine());
         }
     }
