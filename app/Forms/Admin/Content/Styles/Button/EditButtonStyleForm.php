@@ -3,7 +3,9 @@
 namespace App\Forms\Admin\Content\Styles\Button;
 
 use App\Forms\Content\Styles\Button\Data\ButtonStyleFormData;
+use App\Front\Parsers\Exceptions\SyntaxError;
 use App\Front\Styles\ButtonStyles;
+use App\Model\Front\Parsers\CSSParser;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
@@ -57,13 +59,20 @@ class EditButtonStyleForm
      * @throws AbortException
      */
     public function success(Form $form, ButtonStyleFormData $data) {
-        $queryData = $this->buttonStyles::getIterableRow($data->name, $data->class, $data->css);
-        if($this->buttonStyles->editStyle($queryData)) {
-            $this->presenter->flashMessage("Aktualizace stylu s názvem ".$data->name." byly úspěšně provedeny!", "success");
-        } else {
-            $form->addError('Při aktualizaci změn došlo k neznámé chybě.');
+        try {
+            $queryData = $this->buttonStyles::getIterableRow($data->name, $data->class, $data->css);
+            $cssParser = new CSSParser($data->css, $data->class, true);
+            $disabledSelectors = $cssParser->removeDisabledSelectors();
+            $computedCode = $cssParser->getComputedCode(true);
+            if($this->buttonStyles->editStyle($queryData)) {
+                $this->presenter->flashMessage("Provedené změny byla úspěšně aktualizovány!", "success");
+                if(!$computedCode && $disabledSelectors) $this->presenter->flashMessage("V zadaném CSS kódu byly odstraněny nežádoucí styly a kód je momentálně prázdný.");
+            } else {
+                $form->addError('Při aktualizaci změn došlo k neznámé chybě.');
+            }
+            $this->presenter->redirect($this->afterRedirect);
+        } catch (SyntaxError $syntaxError) {
+            $form->addError('V syntaxi zadaného CSS kódu byla nalezena chyba, zkontrolujte si ho prosím.');
         }
-
-        $this->presenter->redirect($this->afterRedirect);
     }
 }

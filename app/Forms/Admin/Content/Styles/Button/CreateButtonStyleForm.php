@@ -5,11 +5,14 @@ namespace App\Forms\Admin\Content\Styles\Button;
 
 
 use App\Forms\Content\Styles\Button\Data\ButtonStyleFormData;
+use App\Front\Parsers\Exceptions\SyntaxError;
 use App\Front\Styles\ButtonStyles;
+use App\Model\Front\Parsers\CSSParser;
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 use Nette\SmartObject;
+use Nette\Utils\Html;
 
 /**
  * Class CreateButtonStyleForm
@@ -58,12 +61,28 @@ class CreateButtonStyleForm
      * @throws AbortException
      */
     public function success(Form $form, ButtonStyleFormData $data): void {
-        if($this->buttonStyles->createStyle($this->buttonStyles::getIterableRow($data->name, $data->class, $data->css ?: ''))) {
-            $this->presenter->flashMessage("Styl " . $data->name . " byl úspěšně vytvořen!", "success");
-            $this->presenter->redirect($this->successRedirect);
-        } else {
-            $form->addError('Při vytváření nového stylu došlo k neznámě chybě!');
-            $this->presenter->redirect('this');
+        try {
+            $cssParser = new CSSParser($data->css, $data->class, true);
+            $disabledSelectors = $cssParser->removeDisabledSelectors();
+            $computedCode = $cssParser->getComputedCode(true);
+            if($this->buttonStyles->createStyle($this->buttonStyles::getIterableRow($data->name, $data->class, $computedCode))) {
+                $this->presenter->flashMessage(Html::el()
+                    ->addText('Styl ')
+                    ->addHtml(Html::el('strong')
+                        ->setText($data->name))
+                    ->addText(' byl úspěšně vytvořen!'), "success");
+                if(!$computedCode) {
+                    $this->presenter->flashMessage($disabledSelectors ?
+                        "V zadaném CSS kódu byly odstraněny nežádoucí styly a kód je momentálně prázdný." :
+                        "Styl byl úspěšně vytvořen, avšak bez nastaveného CSS kódu.");
+                }
+                $this->presenter->redirect($this->successRedirect);
+            } else {
+                $form->addError('Při vytváření nového stylu došlo k neznámě chybě!');
+                $this->presenter->redirect('this');
+            }
+        } catch (SyntaxError $syntaxError) {
+            $form->addError('V syntaxi vašeho CSS kódu byla nalezena chyba, zkontrolujte si ho prosím.');
         }
     }
 }
