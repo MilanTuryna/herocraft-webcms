@@ -8,6 +8,7 @@ use Sabberworm\CSS;
 use Sabberworm\CSS\Parser;
 
 /**
+ * Code parser for better manipulation with user-written code in forms.
  * Class CSSParser
  * @package App\Model\Front\Parsers
  */
@@ -41,6 +42,10 @@ class CSSParser
         }
     }
 
+    /**
+     * Removing all selectors except $this->class
+     * @return array
+     */
     public function removeDisabledSelectors(): array {
         $deletedSelectors = [];
         foreach ($this->document->getAllDeclarationBlocks() as $block) {
