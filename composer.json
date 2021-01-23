@@ -24,7 +24,8 @@
 		"contributte/translation": "0.9.x-dev",
         "ext-dom": "*",
         "ext-mbstring": "*",
-		"ext-json": "*"
+		"ext-json": "*",
+		"sabberworm/php-css-parser": "8.3.0"
     },
 	"require-dev": {
 		"nette/tester": "^2.0"
