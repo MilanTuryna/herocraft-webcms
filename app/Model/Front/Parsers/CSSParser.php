@@ -65,21 +65,14 @@ class CSSParser
      * @param bool $minify
      * @return string
      */
-    public function getComputedCode(bool $minify = true): string {
+    public function getComputedCode(bool $minify = true): string
+    {
         try {
             $format = $minify ? CSS\OutputFormat::createCompact() : null;
             return $this->document->render($format);
         } catch (CSS\Parsing\OutputException $outputException) {
             return '';
         }
-    }
-
-    /**
-     * @param string $selector
-     * @return string
-     */
-    public static function parseClass(string $selector): string {
-        return str_starts_with($selector, self::CLASS_SELECTOR) ? substr($selector, 1) : $selector;
     }
 
     /**
