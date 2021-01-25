@@ -35,6 +35,7 @@ class CSSPresenter extends Presenter
     public function actionButtons() {
         $responseContent = "/* Dynamically created file from intern database */ \n";
         $responseContent .= "button:focus {box-shadow: none!important;}\n"; // resetting default bootstrap blue-shadow
+        $responseContent .= "a.btn:focus, a.btn:active {box-shadow: none!important;}\n";
         foreach ($this->buttonStyles->getStyles() as $style) {
             $responseContent .= "\n/* " . $style->class . " -> " . $style->name . " */\n";
             $responseContent .= "" . $style->css;
