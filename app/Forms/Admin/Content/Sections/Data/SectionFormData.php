@@ -2,12 +2,12 @@
 
 namespace App\Forms\Sections\Data;
 
-use App\Constants;
 use App\Model\Front\UI\Elements\Button;
 use App\Model\Front\UI\Elements\Card;
 use App\Model\Front\UI\Elements\Image;
 use App\Model\Front\UI\Elements\Text;
 use App\Model\Front\UI\Parts\Section;
+use App\Model\Utils;
 
 /**
  * Class SectionFormData
@@ -139,7 +139,7 @@ class SectionFormData
         $section = new Section($this->section_name, $text, $this->section_backgroundColor, $this->section_view, null);
         if($this->joinedSectionID) $section->dbJoinedSectionID = $this->joinedSectionID;
         $section->dbPrioritySort = $this->prioritySort;
-        $section->anchor = $this->section_anchor ?: strtr($this->section_name, Constants::VALID_URL);
+        $section->anchor = $this->section_anchor ?: Utils::parseURL($this->section_name);
         if($implementedImage) $section->image = new Image($this->image_url, $this->image_align, $this->image_width, $this->image_height, $this->image_alt);
         if($implementedButton) {
             $buttonText = new Text($this->button_text, $this->button_textColor);
