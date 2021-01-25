@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Model\DI;
+use App\Model\Front\Parsers\HTMLParser;
 use Contributte;
 use Nette;
 use App\Model\Utils;
@@ -55,6 +56,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         parent::startup();
 
         $this->template->addFilter('substrWithoutHTML', fn($value, $limit) => trim(Utils::substrWithoutHTML($value, $limit)));
+        $this->template->addFilter('allowAsteriskReplace', fn($input) => HTMLParser::replaceAsterisk($input));
         $this->template->sklonovani = fn($pocet, $slova) => Utils::sklonovani($pocet, $slova);
         $this->template->httpRequest = $this->getHttpRequest();
         $this->template->googleAnalytics = $this->googleAnalytics;

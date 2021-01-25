@@ -22,5 +22,12 @@
         </LatteTagSettings>
       </list>
     </customMacroSettings>
+    <customModifierSettings>
+      <list>
+        <LatteFilterSettings ModifierDescription="" ModifierHelp="" ModifierDoubleInsert="" ModifierName="allowAsteriskReplace">
+          <option name="vendor" value="OTHER" />
+        </LatteFilterSettings>
+      </list>
+    </customModifierSettings>
   </component>
 </project>
