@@ -101,7 +101,7 @@ class SectionRepository
         if($sectionButton) $section->button = new Button(
             new Text($sectionButton['title']['content'], $sectionButton['title']['color']), $sectionButton['link']['url'], $sectionButton['style'],
             $sectionButton['link']['target'], $sectionButton['width'], $sectionButton['bgColor']);
-        if($sectionCard) $section->card = new Card($sectionCard, new Text($sectionCard['text']['content'], $sectionCard['text']['color']), $sectionCard['align']);
+        if($sectionCard) $section->card = new Card($sectionCard['title'], new Text($sectionCard['text']['content'], $sectionCard['text']['color']), $sectionCard['align']);
         return $section;
     }
 
@@ -125,6 +125,7 @@ class SectionRepository
 
     /**
      * @param ActiveRow[] $rows
+     * @param bool $htmlName
      * @return Section[]
      */
     public function rowsToSectionList(array $rows): array {
