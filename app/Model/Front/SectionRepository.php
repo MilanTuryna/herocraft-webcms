@@ -125,13 +125,14 @@ class SectionRepository
 
     /**
      * @param ActiveRow[] $rows
+     * @param bool $withJoinedSection
      * @return Section[]
      */
-    public function rowsToSectionList(array $rows): array {
+    public function rowsToSectionList(array $rows, bool $withJoinedSection = true): array {
         $sectionList = [];
         foreach ($rows as $row) {
             if(!($row instanceof ActiveRow)) throw new \TypeError("Please, use ActiveRow[] array in rowsToSectionList method");
-            array_push($sectionList, $this->parseSection($row));
+            array_push($sectionList, $this->parseSection($row, false, $withJoinedSection));
         }
         return $sectionList;
     }
