@@ -55,7 +55,7 @@ final class ContentPresenter extends AdminBasePresenter
     }
 
     public function renderOverview() {
-        $this->template->sectionList = $this->sectionRepository->rowsToSectionList($this->sectionRepository->getAllSections());
+        $this->template->sectionList = $this->sectionRepository->rowsToSectionList($this->sectionRepository->getAllSections(), false);
     }
 
     /**
