@@ -125,7 +125,6 @@ class SectionRepository
 
     /**
      * @param ActiveRow[] $rows
-     * @param bool $htmlName
      * @return Section[]
      */
     public function rowsToSectionList(array $rows): array {
