@@ -86,11 +86,12 @@ class ButtonStyles
     }
 
     /**
+     * @param int $id
      * @param iterable $data
      * @return int
      */
-    public function editStyle(iterable $data): int {
-        return $this->context->table(self::DB_TABLE)->update($data);
+    public function editStyle(int $id, iterable $data): int {
+        return $this->context->table(self::DB_TABLE)->where('id = ?', $id)->update($data);
     }
 
     /**
