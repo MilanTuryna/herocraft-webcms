@@ -64,7 +64,7 @@ class EditButtonStyleForm
             $cssParser = new CSSParser($data->css, $data->class, true);
             $disabledSelectors = $cssParser->removeDisabledSelectors();
             $computedCode = $cssParser->getComputedCode(true);
-            if($this->buttonStyles->editStyle($queryData)) {
+            if($this->buttonStyles->editStyle($this->buttonId, $queryData)) {
                 $this->presenter->flashMessage("Provedené změny byla úspěšně aktualizovány!", "success");
                 if(!$computedCode && $disabledSelectors) $this->presenter->flashMessage("V zadaném CSS kódu byly odstraněny nežádoucí styly a kód je momentálně prázdný.");
             } else {
