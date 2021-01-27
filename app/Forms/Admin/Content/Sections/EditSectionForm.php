@@ -94,8 +94,9 @@ class EditSectionForm
         $form->addGroup('Tlačítko');
         $form->addText('button_text', 'Obsah tlačítka')->setDefaultValue($this->parsedSection->button->title->content ?? null)->setRequired(false);
         $form->addText('button_textColor', 'Barva textu')->setDefaultValue($this->parsedSection->button->title->color ?? /* TODO */ null)->setRequired(false);
-        $form->addRadioList('button_style', 'Styly tlačítka', $this->buttonStyles::getSelectBox($this->buttonStyles->getStyles()))
-            ->setDefaultValue($this->parsedSection->button->style ?? null);
+        $selectBox = $this->buttonStyles::getSelectBox($this->buttonStyles->getStyles());
+        $form->addRadioList('button_style', 'Styly tlačítka', $selectBox)
+            ->setDefaultValue(array_key_exists($this->parsedSection->button->style, $selectBox) ? $this->parsedSection->button->style ?? null : null);
         $form->addText('button_link', 'Odkaz tlačítka (URL)')->setDefaultValue($this->parsedSection->button->link ?? null)->addRule(Form::URL)->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
             ->setDefaultValue($this->parsedSection->button->width ?? SectionFormData::DEFAULT_BUTTON_WIDTH)
