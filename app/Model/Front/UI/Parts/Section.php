@@ -22,6 +22,7 @@ class Section
     public string $title;
     public string $bgColor = self::DEFAULT_BACKGROUND_COLOR;
     public int $section_view;
+    public bool $htmlEnabled = true; // TODO: Create column 'htmlEnabled' in database and passing it to Section instances in SectionRepository > parseSection()
 
     public ?string $anchor;
 
