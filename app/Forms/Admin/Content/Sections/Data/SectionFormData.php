@@ -143,7 +143,7 @@ class SectionFormData
         if($implementedImage) $section->image = new Image($this->image_url, $this->image_align, $this->image_width, $this->image_height, $this->image_alt);
         if($implementedButton) {
             $buttonText = new Text($this->button_text, $this->button_textColor);
-            $section->button = new Button($buttonText,  $this->button_link, $this->button_style, $this->button_target, $this->button_width ?: Button::DEF_WIDTH, $this->button_backgroundColor);
+            $section->button = new Button($buttonText,  $this->button_link, $this->button_style ?: '', $this->button_target, $this->button_width ?: Button::DEF_WIDTH, $this->button_backgroundColor);
         }
         if($implementedCard) $section->card = new Card($this->card_title, new Text($this->card_content, "#000000"), $this->card_align);
         if($this->isSameAligns($implementedCard && $implementedImage)) {
