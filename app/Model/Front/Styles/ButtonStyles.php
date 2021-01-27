@@ -31,12 +31,15 @@ class ButtonStyles
     }
 
     /**
-     * @param array $styles
+     * @param ActiveRow[] $styles
      * @return array
      */
     public static function getSelectBox(array $styles) {
         $arr = [];
-        foreach ($styles as $style) $arr[$style->class] = $style->name;
+        foreach ($styles as $style) {
+            if(!($style instanceof ActiveRow)) throw new \TypeError("Please, pass ActiveRow[] from " . self::DB_TABLE . " table as parameter 'styles'");
+            $arr[$style->class] = $style->name;
+        }
         return $arr;
     }
 
