@@ -169,7 +169,7 @@ class SectionRepository
      * @return IRow[]
      */
     public function getAllSections(): array {
-        return $this->context->table(SectionRepository::TABLE)->order('time ASC, prioritySort DESC')->fetchAll();
+        return $this->context->table(SectionRepository::TABLE)->order('prioritySort DESC')->fetchAll();
     }
 
     /**
