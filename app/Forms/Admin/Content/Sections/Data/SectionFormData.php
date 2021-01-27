@@ -98,6 +98,7 @@ class SectionFormData
     }
 
     /**
+     * Checking all $this->button_ parameters except button_style
      * @return bool
      */
     public function isImplementedButton(): bool {
