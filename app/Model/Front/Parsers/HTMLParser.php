@@ -24,7 +24,7 @@ class HTMLParser
      * @param string $input
      * @return string
      */
-    public static function replaceDoubleDash(string $input) {
+    public static function replaceDoubleDash(string $input): string {
         return preg_replace(self::doubleDashPattern, "", $input);
     }
 }
