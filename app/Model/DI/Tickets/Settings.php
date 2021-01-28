@@ -5,6 +5,10 @@ namespace App\Model\DI\Tickets;
 use Nette\SmartObject;
 use App\Model\DI\Tickets\Callbacks\Discord;
 
+/**
+ * Class Settings
+ * @package App\Model\DI\Tickets
+ */
 class Settings
 {
     use SmartObject;
@@ -42,6 +46,9 @@ class Settings
         return $this->subjects;
     }
 
+    /**
+     * @return string
+     */
     public function getEmailSender(): string {
         return $this->emailSender;
     }
