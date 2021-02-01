@@ -15,7 +15,7 @@ use Nette\Application\Responses\TextResponse;
  * Class WebLoaderPresenter
  * @package App\Presenters
  */
-abstract class WebLoaderPresenter extends BasePresenter
+abstract class WebLoaderBasePresenter extends BasePresenter
 {
     private Module $module;
 

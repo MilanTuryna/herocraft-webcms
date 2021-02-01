@@ -4,13 +4,13 @@
 namespace App\Presenters\WebLoaderModule;
 
 use App\Model\WebLoader\Modules\Specific\StatsModule;
-use App\Presenters\WebLoaderPresenter;
+use App\Presenters\WebLoaderBasePresenter;
 
 /**
  * Class StatsPresenter
  * @package App\Presenters\DynamicModule
  */
-class StatsPresenter extends WebLoaderPresenter
+class StatsPresenter extends WebLoaderBasePresenter
 {
     /**
      * StatsPresenter constructor.

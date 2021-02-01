@@ -4,13 +4,13 @@
 namespace App\Presenters\WebLoaderModule;
 
 use App\Model\WebLoader\Modules\Specific\FrontModule;
-use App\Presenters\WebLoaderPresenter;
+use App\Presenters\WebLoaderBasePresenter;
 
 /**
  * Class FrontPresenter
  * @package App\Presenters\DynamicModule
  */
-class FrontPresenter extends WebLoaderPresenter
+class FrontPresenter extends WebLoaderBasePresenter
 {
     /**
      * FrontPresenter constructor.

@@ -4,13 +4,13 @@
 namespace App\Presenters\WebLoaderModule;
 
 use App\Model\WebLoader\Modules\Specific\AdminModule;
-use App\Presenters\WebLoaderPresenter;
+use App\Presenters\WebLoaderBasePresenter;
 
 /**
  * Class AdminPresenter
  * @package App\Presenters\DynamicModule
  */
-class AdminPresenter extends WebLoaderPresenter
+class AdminPresenter extends WebLoaderBasePresenter
 {
     /**
      * AdminPresenter constructor.
