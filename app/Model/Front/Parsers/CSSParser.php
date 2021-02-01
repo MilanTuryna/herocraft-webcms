@@ -17,8 +17,9 @@ class CSSParser
     const CLASS_SELECTOR = '.';
 
     private string $rawCode;
-    private string $class;
+    private ?string $class;
     private bool $strictParsing;
+    private array $comments;
 
     private Document $document;
 
@@ -29,7 +30,7 @@ class CSSParser
      * @param bool $strictParsing
      * @throws SyntaxError
      */
-    public function __construct(string $rawCode, string $class, bool $strictParsing = true)
+    public function __construct(string $rawCode, ?string $class, bool $strictParsing = true)
     {
         $this->rawCode = $rawCode;
         $this->class = $class;
@@ -43,19 +44,30 @@ class CSSParser
     }
 
     /**
+     * @param $comment
+     * @return CSSParser
+     */
+    public function addComment($comment): self {
+        $this->comments[] = $comment;
+        return $this;
+    }
+
+    /**
      * Removing all selectors except $this->class
      * @return array
      */
     public function removeDisabledSelectors(): array {
         $deletedSelectors = [];
-        foreach ($this->document->getAllDeclarationBlocks() as $block) {
-            /**
-             * @var $block CSS\RuleSet\DeclarationBlock
-             * @var $oSelector CSS\Property\Selector
-             */
-            foreach ($block->getSelectors() as $oSelector) if(!str_contains($oSelector, self::CLASS_SELECTOR . $this->class)) {
-                array_push($deletedSelectors, $oSelector);
-                $block->removeSelector($oSelector);
+        if($this->class) {
+            foreach ($this->document->getAllDeclarationBlocks() as $block) {
+                /**
+                 * @var $block CSS\RuleSet\DeclarationBlock
+                 * @var $oSelector CSS\Property\Selector
+                 */
+                foreach ($block->getSelectors() as $oSelector) if (!str_contains($oSelector, self::CLASS_SELECTOR . $this->class)) {
+                    array_push($deletedSelectors, $oSelector);
+                    $block->removeSelector($oSelector);
+                }
             }
         }
         return $deletedSelectors;
@@ -69,7 +81,11 @@ class CSSParser
     {
         try {
             $format = $minify ? CSS\OutputFormat::createCompact() : null;
-            return $this->document->render($format);
+            $computedCode = $this->document->render($format);
+            $comments = "/*\n";
+            foreach ($this->comments as $comment) $comments .= "$comment\n";
+            $comments .= "\n*/\n\n";
+            return $comments . $computedCode;
         } catch (CSS\Parsing\OutputException $outputException) {
             return '';
         }
@@ -86,7 +102,7 @@ class CSSParser
     /**
      * @return string
      */
-    public function getClass(): string
+    public function getClass(): ?string
     {
         return $this->class;
     }
