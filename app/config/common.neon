@@ -1,4 +1,17 @@
 parameters:
+    webloader:
+        admin:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\admin', 'css\admin.css'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\admin', 'css\admin.css'])
+            module: App\Model\WebLoader\Modules\Specific\AdminModule(%webloader.admin.cssMask%, %webloader.admin.jsMask%, "AdminModule")
+        front:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\front', 'css\web.css'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\front'])
+            module: App\Model\WebLoader\Modules\Specific\FrontModule(%webloader.front.cssMask%, %webloader.front.jsMask%, "FrontModule")
+        stats:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css/stats', 'css/stats.css'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js/stats', 'js/api'])
+            module: App\Model\WebLoader\Modules\Specific\StatsModule(%webloader.stats.cssMask%, %webloader.stats.jsMask%, "StatsModule")
 
 extensions:
     translation: Contributte\Translation\DI\TranslationExtension
@@ -80,6 +93,9 @@ services:
 	cron: App\Model\DI\Cron(%cron.password%)
 	seo: App\Model\DI\Seo(%seo.ogImageURL%)
 	sectionRepository: App\Front\SectionRepository
+	frontModule: %webloader.front.module%
+	adminModule: %webloader.admin.module%
+	statsModule: %webloader.stats.module%
 	cronPresenter:
 	    factory: App\Presenters\CronPresenter(@cron)
 	    setup:
