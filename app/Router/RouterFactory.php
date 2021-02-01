@@ -123,6 +123,16 @@ final class RouterFactory
             ->addRoute('/statistiky/api', 'API:serverView')
             ->addRoute('/statistiky/api/<name>', 'API:view');
 
+        $router->withModule('WebLoader')
+            ->addRoute('/web-loader/front/css', 'Front:css')
+            ->addRoute('/web-loader/front/js', 'Front:js')
+
+            ->addRoute('/web-loader/admin/css', 'Admin:css')
+            ->addRoute('/web-loader/admin/js', 'Admin:js')
+
+            ->addRoute('/web-loader/stats/css', 'Stats:css')
+            ->addRoute('/web-loader/stats/js', 'Stats:js');
+
         $router->withModule('Front')
             ->addRoute('/', 'Page:home')
             ->addRoute('/login', 'Login:main')
