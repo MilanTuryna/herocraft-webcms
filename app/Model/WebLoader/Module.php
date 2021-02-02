@@ -18,6 +18,8 @@ abstract class Module
     private FileMask $jsMask;
     private string $moduleName;
 
+    public string $basePath = '';
+
     /**
      * Module constructor.
      * @param FileMask $cssMask
@@ -40,6 +42,7 @@ abstract class Module
         $rawContent = $this->cssMask->scrapFiles();
         try {
             $cssParser = new CSSParser($rawContent, null, false);
+            $cssParser->setBasePath($this->basePath);
             return $cssParser
                 ->addComment('fsize: ' . strlen($rawContent))
                 ->addComment('web-loader module: ' . $this->moduleName ?? 'undefined name');
