@@ -15,6 +15,7 @@ use Sabberworm\CSS\Parser;
 class CSSParser
 {
     const CLASS_SELECTOR = '.';
+    const BASEPATH_VAR = '{$basePath}';
 
     private string $rawCode;
     private ?string $class;
@@ -53,6 +54,19 @@ class CSSParser
     }
 
     /**
+     * @param string $basePath
+     */
+    public function setBasePath(string $basePath): void {
+        foreach ($this->document->getAllValues() as $value) {
+            if($value instanceof CSS\Value\URL) {
+                $valURL = $value->getURL();
+                $valURL->setString(str_replace(self::BASEPATH_VAR, $basePath, $valURL->getString()));
+                $value->setURL($valURL);
+            }
+        }
+    }
+
+    /**
      * Removing all selectors except $this->class
      * @return array
      */
@@ -64,6 +78,7 @@ class CSSParser
                  * @var $block CSS\RuleSet\DeclarationBlock
                  * @var $oSelector CSS\Property\Selector
                  */
+
                 foreach ($block->getSelectors() as $oSelector) if (!str_contains($oSelector, self::CLASS_SELECTOR . $this->class)) {
                     array_push($deletedSelectors, $oSelector);
                     $block->removeSelector($oSelector);
