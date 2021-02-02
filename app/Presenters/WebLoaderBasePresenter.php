@@ -35,6 +35,7 @@ abstract class WebLoaderBasePresenter extends BasePresenter
      */
     public function renderCSS() {
         try {
+            $this->module->basePath = $this->getHttpRequest()->getUrl()->getHostUrl();
             $cssParser = $this->module->getParsedCSS();
             $parsedCSS = $cssParser->getComputedCode(true);
             $response = new CSSResponse($parsedCSS);
@@ -43,6 +44,7 @@ abstract class WebLoaderBasePresenter extends BasePresenter
             $textResponse = new TextResponse($e->getMessage());
             $this->sendResponse($textResponse);
         }
+
     }
 
     /**
