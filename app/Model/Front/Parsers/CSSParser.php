@@ -36,6 +36,7 @@ class CSSParser
         $this->rawCode = $rawCode;
         $this->class = $class;
         $this->strictParsing = $strictParsing;
+        $this->comments = [];
         $parser = new Parser($this->rawCode, $this->strictParsing ? CSS\Settings::create()->beStrict() : null);
         try {
             $this->document = $parser->parse();
