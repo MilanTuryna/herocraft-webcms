@@ -5,7 +5,7 @@ parameters:
             jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\admin', 'css\admin.css'])
             module: App\Model\WebLoader\Modules\Specific\AdminModule(%webloader.admin.cssMask%, %webloader.admin.jsMask%, "AdminModule")
         front:
-            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\front', 'css\web.css'])
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\front\*', 'css\web.css'])
             jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\front'])
             module: App\Model\WebLoader\Modules\Specific\FrontModule(%webloader.front.cssMask%, %webloader.front.jsMask%, "FrontModule")
         stats:
@@ -93,9 +93,9 @@ services:
 	cron: App\Model\DI\Cron(%cron.password%)
 	seo: App\Model\DI\Seo(%seo.ogImageURL%)
 	sectionRepository: App\Front\SectionRepository
-	frontModule: %webloader.front.module%
-	adminModule: %webloader.admin.module%
-	statsModule: %webloader.stats.module%
+	webloader.frontModule: %webloader.front.module%
+	webloader.adminModule: %webloader.admin.module%
+	webloader.statsModule: %webloader.stats.module%
 	cronPresenter:
 	    factory: App\Presenters\CronPresenter(@cron)
 	    setup:
