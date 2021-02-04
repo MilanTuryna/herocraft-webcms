@@ -47,7 +47,7 @@ abstract class Module
                 ->addComment('fsize: ' . strlen($rawContent))
                 ->addComment('web-loader module: ' . $this->moduleName ?? 'undefined name');
         } catch (SyntaxError $e) {
-            throw new ParseError("An error (SyntaxError) occurred while parsing CSS code in [" . implode(',', $this->cssMask->getMasks()) . "] files.", $e);
+            throw new ParseError("An error (SyntaxError) occurred while parsing CSS code in [" . implode(',', $this->cssMask->getMasks()) . "] files. " . $e->getMessage(), $e);
         }
     }
 
