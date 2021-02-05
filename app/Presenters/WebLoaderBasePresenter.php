@@ -17,6 +17,8 @@ use Nette\Application\Responses\TextResponse;
  */
 abstract class WebLoaderBasePresenter extends BasePresenter
 {
+    protected static bool $minifyOutput = true;
+
     private Module $module;
 
     /**
@@ -37,7 +39,7 @@ abstract class WebLoaderBasePresenter extends BasePresenter
         try {
             $this->module->basePath = $this->getHttpRequest()->getUrl()->getHostUrl();
             $cssParser = $this->module->getParsedCSS();
-            $parsedCSS = $cssParser->getComputedCode(true);
+            $parsedCSS = $cssParser->getComputedCode(self::$minifyOutput);
             $response = new CSSResponse($parsedCSS);
             $this->sendResponse($response);
         } catch (ParseError $e) {
