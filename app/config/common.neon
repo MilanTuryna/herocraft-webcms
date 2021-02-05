@@ -19,7 +19,7 @@ parameters:
         panel:
             cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\panel\*'])
             jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [])
-            module: App\Model\WebLoader\Modules\Specific\StatsModule(%webloader.panel.cssMask%, %webloader.panel.jsMask%, "PanelModule")
+            module: App\Model\WebLoader\Modules\Specific\PanelModule(%webloader.panel.cssMask%, %webloader.panel.jsMask%, "PanelModule")
 
 extensions:
     translation: Contributte\Translation\DI\TranslationExtension
