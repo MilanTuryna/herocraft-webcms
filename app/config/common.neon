@@ -1,17 +1,25 @@
 parameters:
     webloader:
+        helpdesk:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\helpdesk\*'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [''])
+            module: App\Model\WebLoader\Modules\Specific\HelpDeskModule(%webloader.helpdesk.cssMask%, %webloader.helpdesk.jsMask%, "HelpDeskModule")
         admin:
-            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\admin', 'css\admin.css'])
-            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\admin', 'css\admin.css'])
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\admin'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\admin\*'])
             module: App\Model\WebLoader\Modules\Specific\AdminModule(%webloader.admin.cssMask%, %webloader.admin.jsMask%, "AdminModule")
         front:
-            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\front\*', 'css\web.css'])
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\front\*', 'css\front\*\*'])
             jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\front'])
             module: App\Model\WebLoader\Modules\Specific\FrontModule(%webloader.front.cssMask%, %webloader.front.jsMask%, "FrontModule")
         stats:
-            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css/stats', 'css/stats.css'])
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\stats\*'])
             jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js/stats', 'js/api'])
             module: App\Model\WebLoader\Modules\Specific\StatsModule(%webloader.stats.cssMask%, %webloader.stats.jsMask%, "StatsModule")
+        panel:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\panel\*'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [])
+            module: App\Model\WebLoader\Modules\Specific\StatsModule(%webloader.panel.cssMask%, %webloader.panel.jsMask%, "PanelModule")
 
 extensions:
     translation: Contributte\Translation\DI\TranslationExtension
@@ -96,6 +104,8 @@ services:
 	webloader.frontModule: %webloader.front.module%
 	webloader.adminModule: %webloader.admin.module%
 	webloader.statsModule: %webloader.stats.module%
+	webloader.panelModule: %webloader.panel.module%
+	webloader.helpDeskModule: %webloader.helpdesk.module%
 	cronPresenter:
 	    factory: App\Presenters\CronPresenter(@cron)
 	    setup:
