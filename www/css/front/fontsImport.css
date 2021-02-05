@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Squad';
+    src: url("{$basePath}/fonts/squad.otf") format("opentype");
+}
+
+.squad-font {font-family: 'Squad', serif;}
+.font-marcellus {font-family: 'Marcellus', serif;}
+.font-abril {font-family: 'Abril Fatface', cursive;}

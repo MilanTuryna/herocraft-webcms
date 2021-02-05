@@ -1,0 +1,14 @@
+.b-top-none {
+    border-top:none!important;
+}
+
+.green-focus {
+    transition: 1s;
+}
+
+.green-focus:focus {
+    box-shadow: none;
+    outline: none;
+    border-color:  #ced4da;
+    background-color:rgba(000, 000, 000,0.1);
+}

@@ -1,0 +1,7 @@
+body {
+    padding:0!important;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-image: url('https://assets.rockpapershotgun.com/images/2020/06/BSL-Shaders.jpg');
+}

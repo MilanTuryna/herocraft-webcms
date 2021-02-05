@@ -1,0 +1,29 @@
+.transparent-items li {
+    background-color: rgba(0,0,0,0.25);
+    transition: 0.5s;
+    border-radius: 0!important;
+}
+
+.transparent-items a {
+    color:inherit;
+}
+
+.transparent-items .activegreen li {
+    background-color: rgba(79, 117, 70,0.3) !important;
+}
+
+.transparent-items .activegreen li:hover {
+    background-color: rgba(79, 117, 70,0.5) !important;
+}
+
+.transparent-items .importantcolor li {
+    background-color: rgba(255, 255, 255,0.3) !important;
+}
+
+.transparent-items .importantcolor li:hover {
+    background-color: rgba(255, 255, 255,0.5) !important;
+}
+
+.transparent-items li:hover {
+    background-color: rgba(0,0,0,0.15) !important;
+}

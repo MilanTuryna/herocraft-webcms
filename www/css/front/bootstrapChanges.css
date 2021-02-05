@@ -1,0 +1,12 @@
+button:focus {box-shadow: none!important;}
+.float-left {float:left;}
+.float-right {float: right;}
+.href-underline {text-decoration: underline;}
+.href-underline:hover {text-decoration: none;}
+.list-group-href {transition: 0.3s;}
+.list-group-href a {color:#000;}
+.list-group-href a:hover, .active-href  {
+    background-color:#f0f1f2!important;
+    color:#000;
+    text-decoration: underline;
+}

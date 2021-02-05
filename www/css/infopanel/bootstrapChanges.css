@@ -1,0 +1,9 @@
+.badge {
+    user-select: none!important;
+}
+
+.badge::selection {
+    background: transparent;
+}
+
+.alert {border-radius: 0}

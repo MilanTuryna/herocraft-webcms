@@ -1,0 +1,12 @@
+ul {
+    margin-top:5px;
+    margin-bottom: 0!important;
+}
+
+input[readonly] {
+    cursor: default !important;
+}
+
+input[readonly]::selection {
+    background: transparent;
+}

@@ -1,0 +1,17 @@
+.badge::selection {
+    background: transparent;
+}
+
+.badge {
+    user-select: none;
+}
+
+.form-control:focus {
+    border-color: #ef9a9a;
+    box-shadow: 0 0 0 0.2rem rgba(242, 199, 199,0.5);
+}
+
+.blue-form * .form-control:focus, .blue-form .form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
