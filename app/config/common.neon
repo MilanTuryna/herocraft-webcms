@@ -2,7 +2,7 @@ parameters:
     webloader:
         helpdesk:
             cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\helpdesk\*'])
-            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [''])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [])
             module: App\Model\WebLoader\Modules\Specific\HelpDeskModule(%webloader.helpdesk.cssMask%, %webloader.helpdesk.jsMask%, "HelpDeskModule")
         admin:
             cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\admin'])
