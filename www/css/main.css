@@ -24,22 +24,10 @@
 }
 
 
-.dark-blue-btn:hover {
-    color:#fff;
-    opacity:0.75;
-}
-
-
 .classic-shadow {
     -webkit-box-shadow: 2px 6px 21px -10px rgba(0,0,0,0.57);
     -moz-box-shadow: 2px 6px 21px -10px rgba(0,0,0,0.57);
     box-shadow: 2px 6px 21px -10px rgba(0,0,0,0.57);
-}
-
-.center-img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .text-underline {
@@ -50,39 +38,6 @@
     text-decoration: none;
 }
 
-.rotate-hover {
-    transition:1.5s;
-    outline: 1px solid transparent !important;
-}
-
-.rotate-hover:hover {
-    transform: rotate(360deg);
-    outline: 1px solid transparent !important;
-}
-
-.sb2:before {
-    content: "";
-    width: 0px;
-    height: 0px;
-    position: absolute;
-    border-left: 10px solid transparent;
-    border-right: 10px solid #00bfb6;
-    border-top: 10px solid #00bfb6;
-    border-bottom: 10px solid transparent;
-    left: -19px;
-    top: 6px;
-}
-
-
-
-.not-drag {
-    user-select: none;
-}
-
-.not-drag::selection {
-    background:transparent;
-}
-
 .dark-text {
     color:#212529;
 }
@@ -90,8 +45,6 @@
 .badge-margin {
     margin-top:10px;
 }
-
-.green-href {}
 
 .hover-shadow {
     transition: box-shadow 0.5s ease-in-out;
@@ -145,49 +98,8 @@ Head Component
 .uzivatelska-sekce:hover {opacity: .9;}
 
 .header {
-    padding:0!important;
+    padding: 0 !important;
     background-image: url('../img/banner_bg.png');
-}
-
-/* blbůstky :D */
-.swing {
-    animation: swing ease-in-out 1s infinite alternate;
-    transform-origin: center -20px;
-    width: 150px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
-}
-.swing img {
-    border: 5px solid #f8f8f8;
-    display: block;
-    width:inherit;
-}
-
-
-.swing:after{
-    content: '';
-    position: absolute;
-    width: 20px; height: 20px;
-    border: 1px solid #999;
-    top: -10px; left: 50%;
-    z-index: 0;
-    border-bottom: none;
-    border-right: none;
-    transform: rotate(45deg);
-}
-/* nail */
-.swing:before{
-    content: '';
-    position: absolute;
-    width: 5px; height: 5px;
-    top: -14px;left: 54%;
-    z-index: 5;
-    border-radius: 50% 50%;
-    background: #eee;
-}
-
-@keyframes swing {
-    0% { transform: rotate(3deg); }
-    100% { transform: rotate(-3deg); }
 }
 
 /* alerty */
@@ -224,23 +136,4 @@ Head Component
 
 .table-center td, th {
     text-align: center;
-}
-
-/* socialni site */
-.soc-karta {
-    transition:0.5s;
-    cursor: pointer;
-}
-.soc-karta:hover {
-    opacity:0.8;
-}
-
-@media only screen and (max-width: 344px) {
-    .d-345-block {
-        display:block!important;
-    }
-
-    .d-345-none {
-        display:none!important;
-    }
 }
