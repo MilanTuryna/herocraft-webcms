@@ -1,11 +1,11 @@
 parameters:
     webloader:
         helpdesk:
-            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\helpdesk\*'])
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\helpdesk\*', 'css\panel\utilsStyles.css'])
             jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [])
             module: App\Model\WebLoader\Modules\Specific\HelpDeskModule(%webloader.helpdesk.cssMask%, %webloader.helpdesk.jsMask%, "HelpDeskModule")
         admin:
-            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\admin'])
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\admin\*'])
             jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\admin\*'])
             module: App\Model\WebLoader\Modules\Specific\AdminModule(%webloader.admin.cssMask%, %webloader.admin.jsMask%, "AdminModule")
         front:
