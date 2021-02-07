@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace App\Presenters\FrontModule;
 
+use App\Forms\Panel\SignInForm;
 use App\Front\SectionRepository;
 use App\Model\DI\GameSections;
 use App\Model\DI\GoogleAnalytics;
 use App\Model\Security\Auth\Authenticator;
+use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\Stats\CachedAPIRepository;
 use App\Model\SettingsRepository;
 use App\Model\ArticleRepository;
 use App\Model\CategoryRepository;
 use App\Model\PageManager;
 use App\Model\API\Status;
+use Nette\Caching\IStorage;
 
 use App\Presenters\BasePresenter;
 
 use Nette;
+use Nette\Application\UI\Form;
 use Nette\Caching;
 
 use Exception;
@@ -39,6 +43,7 @@ final class PagePresenter extends BasePresenter
     private GameSections $gameSections;
     private CachedAPIRepository $cachedAPIRepository;
     private SectionRepository $sectionRepository;
+    private PluginAuthenticator $pluginAuthenticator;
 
     /**
      * PagePresenter constructor.
@@ -46,25 +51,28 @@ final class PagePresenter extends BasePresenter
      * @param CategoryRepository $categoryRepository
      * @param SettingsRepository $settingsRepository
      * @param PageManager $pageManager
-     * @param Caching\IStorage $storage
+     * @param IStorage $storage
      * @param Authenticator $authenticator
      * @param GoogleAnalytics $googleAnalytics
      * @param GameSections $gameSections
      * @param CachedAPIRepository $cachedAPIRepository
      * @param SectionRepository $sectionRepository
+     * @param PluginAuthenticator $pluginAuthenticator
      */
     public function __construct(ArticleRepository $articleRepository,
                                 CategoryRepository $categoryRepository,
                                 SettingsRepository $settingsRepository,
                                 PageManager $pageManager,
-                                Caching\IStorage $storage,
+                                IStorage $storage,
                                 Authenticator $authenticator,
                                 GoogleAnalytics $googleAnalytics,
                                 GameSections $gameSections,
-                                CachedAPIRepository $cachedAPIRepository, SectionRepository $sectionRepository)
+                                CachedAPIRepository $cachedAPIRepository,
+                                SectionRepository $sectionRepository, PluginAuthenticator $pluginAuthenticator)
     {
         parent::__construct($googleAnalytics);
 
+        //TODO: Change Caching\IStorage interface, because it's deprecated.
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->cache = new Caching\Cache($storage);
@@ -74,6 +82,7 @@ final class PagePresenter extends BasePresenter
         $this->gameSections = $gameSections;
         $this->cachedAPIRepository = $cachedAPIRepository;
         $this->sectionRepository = $sectionRepository;
+        $this->pluginAuthenticator = $pluginAuthenticator;
     }
 
     public function startup(): void {
@@ -164,5 +173,12 @@ final class PagePresenter extends BasePresenter
                 $this->translator->translate("front.flashMessages.articleNotFound")
             );
         }
+    }
+
+    /**
+     * @return Form
+     */
+    public function createComponentSignInPanelForm(): Form {
+        return (new SignInForm($this->pluginAuthenticator, $this))->create();
     }
 }
