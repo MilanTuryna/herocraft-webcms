@@ -10,7 +10,6 @@ use Nette\Application\UI\Form;
 use Nette\Application\UI\InvalidLinkException;
 use Nette\Application\UI\Presenter;
 
-use Nette\Routing\Route;
 use stdClass;
 
 class SignInForm
@@ -18,18 +17,21 @@ class SignInForm
     private PluginAuthenticator $pluginAuthenticator;
     private Presenter $presenter;
     private ?string $returnRoute;
+    private bool $errorRedirect;
 
     /**
      * SignInForm constructor.
      * @param PluginAuthenticator $pluginAuthenticator
      * @param Presenter $presenter
      * @param string|null $returnRoute
+     * @param bool $errorRedirect
      */
-    public function __construct(PluginAuthenticator $pluginAuthenticator, Presenter $presenter, ?string $returnRoute = null)
+    public function __construct(PluginAuthenticator $pluginAuthenticator, Presenter $presenter, ?string $returnRoute = null, bool $errorRedirect = false)
     {
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->presenter = $presenter;
         $this->returnRoute = $returnRoute;
+        $this->errorRedirect = $errorRedirect;
     }
 
     /**
@@ -72,6 +74,7 @@ class SignInForm
             $this->presenter->redirect(':Panel:Main:home');
         } catch (AuthException $e) {
             $form->addError($e->getMessage());
+            if($this->errorRedirect) $this->presenter->redirect('this');
         }
     }
 }
