@@ -18,7 +18,7 @@ parameters:
             module: App\Model\WebLoader\Modules\Specific\StatsModule(%webloader.stats.cssMask%, %webloader.stats.jsMask%, "StatsModule")
         panel:
             cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\panel\*'])
-            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\panel\*'])
             module: App\Model\WebLoader\Modules\Specific\PanelModule(%webloader.panel.cssMask%, %webloader.panel.jsMask%, "PanelModule")
 
 extensions:
