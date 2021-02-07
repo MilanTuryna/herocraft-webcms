@@ -130,6 +130,12 @@ final class RouterFactory
             ->addRoute('/web-loader/admin/css', 'Admin:css')
             ->addRoute('/web-loader/admin/js', 'Admin:js')
 
+            ->addRoute('/web-loader/panel/css', 'Panel:css')
+            ->addRoute('/web-loader/panel/js', 'Panel:js')
+
+            ->addRoute('/web-loader/helpdesk/css', 'HelpDesk:css')
+            ->addRoute('/web-loader/helpdesk/js', 'HelpDesk:js')
+
             ->addRoute('/web-loader/stats/css', 'Stats:css')
             ->addRoute('/web-loader/stats/js', 'Stats:js');
 
