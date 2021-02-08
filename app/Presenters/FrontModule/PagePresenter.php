@@ -178,6 +178,6 @@ final class PagePresenter extends BasePresenter
      * @return Form
      */
     public function createComponentSignInPanelForm(): Form {
-        return (new SignInForm($this->pluginAuthenticator, $this, null, false))->create();
+        return (new SignInForm($this->pluginAuthenticator, $this, null, true))->create();
     }
 }
