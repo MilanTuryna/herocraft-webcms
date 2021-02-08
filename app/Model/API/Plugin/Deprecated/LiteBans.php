@@ -4,7 +4,7 @@
 namespace App\Model\API\Plugin\Deprecated;
 
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 
 /**
  * Class LiteBans
@@ -14,7 +14,7 @@ use Nette\Database\Context;
  */
 class LiteBans
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     const BANS_TABLE = 'litebans_bans';
     const HISTORY_TABLE = 'litebans_history';
@@ -22,11 +22,11 @@ class LiteBans
     /**
      * LiteBans constructor.
      * database.litebans
-     * @param Context $context
+     * @param Explorer $Explorer
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -34,10 +34,10 @@ class LiteBans
      * @return bool
      */
     public function isBanned($name) {
-        $historyRow = $this->context->table(self::HISTORY_TABLE)->where('name = ?', $name)->fetch();
+        $historyRow = $this->Explorer->table(self::HISTORY_TABLE)->where('name = ?', $name)->fetch();
         if($historyRow) {
             $uuid = $historyRow->uuid;
-            $bansRow = $this->context->table(self::BANS_TABLE)->where('uuid = ?', $uuid)->fetchAll();
+            $bansRow = $this->Explorer->table(self::BANS_TABLE)->where('uuid = ?', $uuid)->fetchAll();
             foreach ($bansRow as $ban) {
                 if($ban->active) {
                     return true;

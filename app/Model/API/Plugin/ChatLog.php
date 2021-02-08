@@ -4,8 +4,8 @@
 namespace App\Model\API\Plugin;
 
 
-use Nette\Database\Context;
-use Nette\Database\Table\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Table\Row;
 use Nette\Database\Table\Selection;
 
 /**
@@ -14,18 +14,18 @@ use Nette\Database\Table\Selection;
  */
 class ChatLog
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     const TABLE = 'mysql_logs';
 
     /**
      * ChatLog constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.chatlog
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -34,7 +34,7 @@ class ChatLog
      * @return Selection
      */
     public function findAllRows(string $columns = '*', string $timeOrder = 'DESC') {
-        return $this->context->table(self::TABLE)->select($columns)->order('Time ' . $timeOrder);
+        return $this->Explorer->table(self::TABLE)->select($columns)->order('Time ' . $timeOrder);
     }
 
     /**
@@ -50,7 +50,7 @@ class ChatLog
     {
         $timeStart = date_create($timeStart)->format('Y-m-d 00:00');
         $timeEnd = date_create($timeEnd)->format('Y-m-d 23:59');
-        return $this->context->table(self::TABLE)->select($columns)
+        return $this->Explorer->table(self::TABLE)->select($columns)
             ->where("Username",  $players)
             ->where("Time BETWEEN ? AND ?", $timeStart, $timeEnd)
             ->order('Time ' . $timeOrder);
@@ -58,16 +58,16 @@ class ChatLog
 
     /**
      * @param $nickname
-     * @return array|IRow[]
+     * @return array|Row[]
      */
     public function getPlayerMessages(string $nickname) {
-        return $this->context->table(self::TABLE)->where("Username", $nickname)->fetchAll();
+        return $this->Explorer->table(self::TABLE)->where("Username", $nickname)->fetchAll();
     }
 
     /**
-     * @return Context
+     * @return Explorer
      */
-    public function getPluginDatabase(): Context {
-        return $this->context;
+    public function getPluginDatabase(): Explorer {
+        return $this->Explorer;
     }
 }

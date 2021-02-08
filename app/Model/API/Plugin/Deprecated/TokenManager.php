@@ -3,8 +3,8 @@
 
 namespace App\Model\API\Plugin\Deprecated;
 
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -14,25 +14,25 @@ use Nette\Database\Table\ActiveRow;
  */
 class TokenManager
 {
-    Private Context $context;
+    Private Explorer $Explorer;
 
     /**
      * TokenManager constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      *
      * database.tokenmanager -> config
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
      * @param $user
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getRow($user) {
-        return $this->context->table('tokenmanager')->where('name = ?', $user)->fetch();
+        return $this->Explorer->table('tokenmanager')->where('name = ?', $user)->fetch();
     }
 
     /**
@@ -41,7 +41,7 @@ class TokenManager
      * @return int
      */
     public function setTokens($user, $amount) {
-        return $this->context->table('tokenmanager')->where('name = ?', $user)->update([
+        return $this->Explorer->table('tokenmanager')->where('name = ?', $user)->update([
             'tokens' => $amount
         ]);
     }
@@ -54,7 +54,7 @@ class TokenManager
     public function addTokens($user, $amount) {
         $row = $this->getRow($user);
         if((bool)$row) {
-            return $this->context->table('tokenmanager')->where('name = ?', $user)->update([
+            return $this->Explorer->table('tokenmanager')->where('name = ?', $user)->update([
                 'tokens' => ($amount + (int)$row->tokens)
             ]);
         }

@@ -14,7 +14,7 @@ use App\Model\API\Plugin\Classic\Economy as ClassicEconomy;
 use App\Model\DI\API;
 use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
-use Nette\Caching\IStorage;
+use Nette\Caching\Storage;
 use Nette\Utils\ArrayHash;
 
 /**
@@ -38,7 +38,7 @@ class CachedAPIRepository
     /**
      * CachedAPIRepository constructor.
      * @param AuthMeRepository $authMeRepository
-     * @param IStorage $storage
+     * @param Storage $storage
      * @param Bans $bans
      * @param HideAndSeek $hideAndSeek
      * @param Events $events
@@ -50,7 +50,7 @@ class CachedAPIRepository
      * @param PlayerTime $playerTime
      * @param API $api
      */
-    public function __construct(AuthMeRepository $authMeRepository, IStorage $storage,
+    public function __construct(AuthMeRepository $authMeRepository, Storage $storage,
                                 Bans $bans,
                                 HideAndSeek $hideAndSeek,
                                 Events $events,

@@ -7,8 +7,8 @@ use App\Model\Front\UI\Elements\Card;
 use App\Model\Front\UI\Elements\Image;
 use App\Model\Front\UI\Elements\Text;
 use App\Model\Front\UI\Parts\Section;
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 use Nette\SmartObject;
 
@@ -22,15 +22,15 @@ class SectionRepository
 
     use SmartObject;
 
-    private Context $context;
+    private Explorer $Explorer;
 
     /**
      * SectionRepository constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -111,7 +111,7 @@ class SectionRepository
      * @return bool|int|ActiveRow
      */
     public function createSection(Section $section, string $author = '') {
-        return $this->context->table(SectionRepository::TABLE)->insert(
+        return $this->Explorer->table(SectionRepository::TABLE)->insert(
             self::getIterableRow($section->title,
                 SectionRepository::generateJsonContent($section),
                 $section->anchor,
@@ -143,7 +143,7 @@ class SectionRepository
      * @return int
      */
     public function updateSection(int $id, Section $section): int {
-        return $this->context->table(SectionRepository::TABLE)->where('id = ?', $id)->update(
+        return $this->Explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->update(
             self::getIterableRow($section->title, SectionRepository::generateJsonContent($section), $section->anchor, $section->bgColor, $section->section_view,
                 null, $section->dbJoinedSectionID, $section->dbPrioritySort)
         );
@@ -154,29 +154,30 @@ class SectionRepository
      * @return int
      */
     public function deleteSection(int $id): int {
-        return $this->context->table(SectionRepository::TABLE)->where('id = ?', $id)->delete();
+        return $this->Explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->delete();
     }
 
     /**
      * @param int $id
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getSectionById(int $id) {
-        return $this->context->table(SectionRepository::TABLE)->where('id = ?', $id)->fetch();
+        return $this->Explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->fetch();
     }
 
     /**
-     * @return IRow[]
+     * @return Row[]
      */
     public function getAllSections(): array {
-        return $this->context->table(SectionRepository::TABLE)->order('prioritySort DESC')->fetchAll();
+        return $this->Explorer->table(SectionRepository::TABLE)->order('prioritySort DESC')->fetchAll();
     }
 
+
     /**
-     * @return Context
+     * @return Explorer
      */
-    public function getContext(): Context
+    public function getExplorer(): Explorer
     {
-        return $this->context;
+        return $this->Explorer;
     }
 }

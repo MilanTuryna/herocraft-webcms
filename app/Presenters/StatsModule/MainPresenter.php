@@ -11,7 +11,7 @@ use App\Presenters\BasePresenter;
 use App\Model\API\Status;
 use Nette\Application\AbortException;
 use Nette\Caching\Cache;
-use Nette\Caching\IStorage;
+use Nette\Caching\Storage;
 
 /**
  * Class MainPresenter
@@ -26,11 +26,11 @@ class MainPresenter extends BasePresenter
     /**
      * MainPresenter constructor.
      * @param SettingsRepository $settingsRepository
-     * @param IStorage $storage
+     * @param Storage $storage
      * @param Events $events
      * @param GoogleAnalytics $googleAnalytics
      */
-    public function __construct(SettingsRepository $settingsRepository, IStorage $storage, Events $events, GoogleAnalytics $googleAnalytics)
+    public function __construct(SettingsRepository $settingsRepository, Storage $storage, Events $events, GoogleAnalytics $googleAnalytics)
     {
         parent::__construct($googleAnalytics);
 

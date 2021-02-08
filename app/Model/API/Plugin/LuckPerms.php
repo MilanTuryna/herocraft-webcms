@@ -4,8 +4,8 @@
 namespace App\Model\API\Plugin;
 
 
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 
@@ -25,16 +25,16 @@ class LuckPerms
         'helpdesk' => 'web.helpdesk'
     ];
 
-    private Context $context;
+    private Explorer $Explorer;
 
     /**
      * LuckPerms constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.luckperms
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -44,7 +44,7 @@ class LuckPerms
      * @return bool
      */
     public function isUserHelper(string $uuid, $server = 'hranice') {
-        $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ? AND server=? OR server=? OR server = ?', $uuid, $server, 'global', 'lobbyspawn')->fetchAll();
+        $rows = $this->Explorer->table(self::USER_TABLE_PERM)->where('uuid = ? AND server=? OR server=? OR server = ?', $uuid, $server, 'global', 'lobbyspawn')->fetchAll();
         foreach ($rows as $row) {
             if($row->permission == self::GROUPS['helper']
                 || $row->permission == self::GROUPS['owner']
@@ -60,47 +60,47 @@ class LuckPerms
      * @return Selection
      */
     public function getPlayerPermissions(string $uuid) {
-        return $this->context->table(self::USER_TABLE_PERM)->where("uuid = ?", $uuid);
+        return $this->Explorer->table(self::USER_TABLE_PERM)->where("uuid = ?", $uuid);
     }
 
     /**
      * @return Selection
      */
     public function getPlayers() {
-        return $this->context->table(self::REGISTER_TABLE)->order('username ASC');
+        return $this->Explorer->table(self::REGISTER_TABLE)->order('username ASC');
     }
 
     /**
      * @param $nick
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getUuidByNick($nick) {
-        return $this->context->table(self::REGISTER_TABLE)->where("username = ?", strtolower($nick))->fetch();
+        return $this->Explorer->table(self::REGISTER_TABLE)->where("username = ?", strtolower($nick))->fetch();
     }
 
 
     /**
      * @param $uuid
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getNickByUuid($uuid) {
-        return $this->context->table(self::REGISTER_TABLE)->where("uuid = ?", $uuid)->fetch();
+        return $this->Explorer->table(self::REGISTER_TABLE)->where("uuid = ?", $uuid)->fetch();
     }
 
     /**
      * @param $username
-     * @return array|IRow[]
+     * @return array|Row[]
      */
     public function getPlayerRows($username) {
-        return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE username=?", $username)
+        return $this->Explorer->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE username=?", $username)
                 ->fetchAll();
     }
 
     /**
-     * @return array|IRow[]
+     * @return array|Row[]
      */
     public function getHelpers() {
-        return $this->context->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE permission = ? OR permission = ? OR permission = ? OR permission = ? OR permission = ? ORDER BY t2.username DESC",
+        return $this->Explorer->query("SELECT t2.username, t1.permission, t1.server FROM luckperms_user_permissions AS t1 LEFT JOIN luckperms_players AS t2 ON t1.uuid = t2.uuid WHERE permission = ? OR permission = ? OR permission = ? OR permission = ? OR permission = ? ORDER BY t2.username DESC",
             self::GROUPS['helper'], self::GROUPS['owner'], self::GROUPS['admin'], self::GROUPS['helpdesk'], self::GROUPS['implement-web'])->fetchAll();
 
     }
@@ -110,7 +110,7 @@ class LuckPerms
      * @return array
      */
     public function getUserGroups($uuid) {
-        $rows = $this->context->table(self::USER_TABLE_PERM)->where('uuid = ?', $uuid)->fetchAll();
+        $rows = $this->Explorer->table(self::USER_TABLE_PERM)->where('uuid = ?', $uuid)->fetchAll();
         $groups = [];
         foreach ($rows as $row) {
             if(mb_substr($row->permission, 0, 6) == 'group.')
@@ -126,6 +126,6 @@ class LuckPerms
      * @return int
      */
     public function deleteSpecificPermission($uuid, $permission) {
-        return $this->context->table(LuckPerms::USER_TABLE_PERM)->where("uuid = ? AND permission = ?", $uuid, $permission)->delete();
+        return $this->Explorer->table(LuckPerms::USER_TABLE_PERM)->where("uuid = ? AND permission = ?", $uuid, $permission)->delete();
     }
 }

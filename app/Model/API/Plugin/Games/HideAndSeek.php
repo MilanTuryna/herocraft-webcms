@@ -3,7 +3,7 @@
 
 namespace App\Model\API\Plugin\Games;
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 use Nette\Database\Table\Selection;
 
@@ -15,11 +15,11 @@ class HideAndSeek
 {
     const TABLE = "hideandseek";
 
-    private Context $context;
+    private Explorer $Explorer;
 
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -27,7 +27,7 @@ class HideAndSeek
      * @return ActiveRow|null
      */
     public function getRowById($id) {
-        return $this->context->table(self::TABLE)->get($id);
+        return $this->Explorer->table(self::TABLE)->get($id);
     }
 
     /**
@@ -35,7 +35,7 @@ class HideAndSeek
      * @return Selection
      */
     public function getRowByName($name) {
-        return $this->context->table(self::TABLE)->where("player_name = ?", $name);
+        return $this->Explorer->table(self::TABLE)->where("player_name = ?", $name);
     }
 
     /**
@@ -45,7 +45,7 @@ class HideAndSeek
      */
     public function updateRowById(iterable $data, $id)
     {
-        return $this->context->table(self::TABLE)->wherePrimary($id)->update($data);
+        return $this->Explorer->table(self::TABLE)->wherePrimary($id)->update($data);
     }
 
     /**
@@ -53,6 +53,6 @@ class HideAndSeek
      * @return Selection
      */
     public function getAllRows(string $order = "exp DESC") {
-        return $this->context->table(self::TABLE)->order($order);
+        return $this->Explorer->table(self::TABLE)->order($order);
     }
 }

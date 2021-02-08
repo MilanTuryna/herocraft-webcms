@@ -63,7 +63,7 @@ class CreateSectionForm
             ->setMaxLength(SectionFormData::MAXIMAL_PRIORITY_SORT);
 
         $form->addGroup('Obsah');
-        $form->addTextarea('text_content', 'Hlavní text')->setRequired(true)->setDefaultValue(SectionFormData::DEFAULT_TEXT_CONTEXT);
+        $form->addTextarea('text_content', 'Hlavní text')->setRequired(true)->setDefaultValue(SectionFormData::DEFAULT_TEXT_Explorer);
         $form->addText('text_color', 'Barva textu')->setRequired(true);
 
         $form->addGroup('Obrázek');

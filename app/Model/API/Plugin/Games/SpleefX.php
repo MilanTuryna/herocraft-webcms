@@ -4,7 +4,7 @@
 namespace App\Model\API\Plugin\Games;
 
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\Selection;
 
 /**
@@ -15,17 +15,17 @@ class SpleefX
 {
     const TABLE = "spleefxdata";
 
-    private Context $context;
+    private Explorer $Explorer;
 
     /**
      * SpleefX constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      *
      * database.spleefx
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -33,7 +33,7 @@ class SpleefX
      * @return Selection
      */
     public function getRowByUuid($uuid) {
-        return $this->context->table(self::TABLE)->where("PlayerUUID = ?", $uuid);
+        return $this->Explorer->table(self::TABLE)->where("PlayerUUID = ?", $uuid);
     }
 
     /**
@@ -41,6 +41,6 @@ class SpleefX
      * @return Selection
      */
     public function getAllRows($order = "Coins DESC") {
-        return $this->context->table(self::TABLE)->order($order);
+        return $this->Explorer->table(self::TABLE)->order($order);
     }
 }

@@ -4,7 +4,7 @@
 namespace App\Model\API\Plugin;
 
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\Selection;
 
 /**
@@ -13,31 +13,31 @@ use Nette\Database\Table\Selection;
  */
 class OnlinePlayers
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     const TABLE = "onlineplayers";
 
     /**
      * OnlinePlayers constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.onlineplayers
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
      * @return Selection
      */
     public function getAllRows() {
-        return $this->context->table(self::TABLE);
+        return $this->Explorer->table(self::TABLE);
     }
 
     /**
      * @return Selection
      */
     public function getOnlinePlayers() {
-        return $this->context->table(self::TABLE)->where("online = ?", 1);
+        return $this->Explorer->table(self::TABLE)->where("online = ?", 1);
     }
 }

@@ -3,7 +3,7 @@
 
 namespace App\Model\API\Plugin;
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\Selection;
 
 /**
@@ -12,7 +12,7 @@ use Nette\Database\Table\Selection;
  */
 class Bans
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     const BANS_TABLE = "bans";
     const IPBANS_TABLE = "ipbans";
@@ -24,12 +24,12 @@ class Bans
 
     /**
      * Bans constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.bans
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -37,7 +37,7 @@ class Bans
      * @return int
      */
     public function deleteBanByNick($nick) {
-        return $this->context->table(self::BANS_TABLE)->where("name = ?", strtolower($nick))->delete();
+        return $this->Explorer->table(self::BANS_TABLE)->where("name = ?", strtolower($nick))->delete();
     }
 
     /**
@@ -52,7 +52,7 @@ class Bans
         $timeStart = date_create($timeStart)->getTimestamp()*1000;
         $timeEnd = date_create($timeEnd)->getTimestamp()*1000;
         $players = array_map('strtolower', $players);
-        return $this->context->table(self::BANS_TABLE)->select($columns)
+        return $this->Explorer->table(self::BANS_TABLE)->select($columns)
             ->where("name",  $players)
             ->where("time BETWEEN ? AND ?", $timeStart, $timeEnd)
             ->order('time ' . $timeOrder);
@@ -61,7 +61,7 @@ class Bans
     public function filterAllIpBans(array $ips, string $timeStart, string $timeEnd, string $columns = "*", string $timeOrder = 'DESC') {
         $timeStart = date_create($timeStart)->getTimestamp()*1000;
         $timeEnd = date_create($timeEnd)->getTimestamp()*1000;
-        return $this->context->table(self::IPBANS_TABLE)->select($columns)
+        return $this->Explorer->table(self::IPBANS_TABLE)->select($columns)
             ->where("ip",  $ips)
             ->where("time BETWEEN ? AND ?", $timeStart, $timeEnd)
             ->order('time ' . $timeOrder);
@@ -72,7 +72,7 @@ class Bans
      * @return int
      */
     public function deleteBanByIP($ip) {
-        return $this->context->table(self::IPBANS_TABLE)->where("ip = ?")->delete();
+        return $this->Explorer->table(self::IPBANS_TABLE)->where("ip = ?")->delete();
     }
 
     /**
@@ -80,7 +80,7 @@ class Bans
      * @return Selection
      */
     public function getIPBanByIP($ip) {
-        return $this->context->table(self::IPBANS_TABLE)->where("ip = ?", $ip);
+        return $this->Explorer->table(self::IPBANS_TABLE)->where("ip = ?", $ip);
     }
 
     /**
@@ -88,14 +88,14 @@ class Bans
     * @return Selection
     */
     public function getBanByNick($nick) {
-        return $this->context->table(self::BANS_TABLE)->where("name = ?", strtolower($nick));
+        return $this->Explorer->table(self::BANS_TABLE)->where("name = ?", strtolower($nick));
     }
 
     /**
      * @return Selection
      */
     public function getAllIPBans() {
-        return $this->context->table(self::IPBANS_TABLE);
+        return $this->Explorer->table(self::IPBANS_TABLE);
     }
 
     /**
@@ -103,7 +103,7 @@ class Bans
      * @return Selection
      */
     public function getAllBans(string $order = 'DESC') {
-        return $this->context->table(self::BANS_TABLE)->order("time " . $order);
+        return $this->Explorer->table(self::BANS_TABLE)->order("time " . $order);
     }
 
     /**
@@ -112,7 +112,7 @@ class Bans
      * @return int
      */
     public function updateBanByNick(iterable $datas, $nick) {
-        return $this->context->table(self::BANS_TABLE)->where("name = ?", strtolower($nick))->update($datas);
+        return $this->Explorer->table(self::BANS_TABLE)->where("name = ?", strtolower($nick))->update($datas);
     }
 
     /**
@@ -121,13 +121,13 @@ class Bans
      * @return int
      */
     public function updateIpBanByIp(iterable $datas, $ip) {
-        return $this->context->table(self::IPBANS_TABLE)->where("ip = ?", $ip)->update($datas);
+        return $this->Explorer->table(self::IPBANS_TABLE)->where("ip = ?", $ip)->update($datas);
     }
 
     /**
-     * @return Context
+     * @return Explorer
      */
-    public function getDatabaseContext(): Context {
-        return $this->context;
+    public function getDatabaseExplorer(): Explorer {
+        return $this->Explorer;
     }
 }

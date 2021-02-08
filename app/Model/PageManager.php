@@ -4,7 +4,7 @@
 namespace App\Model;
 
 use Nette;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -15,23 +15,23 @@ class PageManager
 {
     use Nette\SmartObject;
 
-    private Context $db;
+    private Explorer $db;
     const
         TABLE_NAME = 'pages',
         COLUMN_URL = 'url';
 
     /**
      * PageManager constructor.
-     * @param Context $db
+     * @param Explorer $db
      */
-    public function __construct(Context $db)
+    public function __construct(Explorer $db)
     {
         $this->db = $db;
     }
 
     /**
      * @param $url
-     * @return Nette\Database\IRow|ActiveRow|null
+     * @return Nette\Database\Row|ActiveRow|null
      */
     public function getPage($url) {
         return $this->db->table(self::TABLE_NAME)->where(self::COLUMN_URL, $url)->fetch();

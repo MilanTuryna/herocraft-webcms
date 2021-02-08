@@ -4,7 +4,7 @@
 namespace App\Model;
 
 use Nette;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 
 /**
  * Class CategoryRepository
@@ -14,15 +14,15 @@ class CategoryRepository
 {
     use Nette\SmartObject;
 
-    private Context $context;
+    private Explorer $Explorer;
 
     /**
      * CategoryRepository constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -30,14 +30,14 @@ class CategoryRepository
      * @return Nette\Database\Table\ActiveRow|null
      */
     public function findCategoryById($id) {
-        return $this->context->table('categories')->get($id);
+        return $this->Explorer->table('categories')->get($id);
     }
 
     /**
-     * @return array|Nette\Database\Table\IRow[]
+     * @return array|Nette\Database\Table\Row[]
      */
     public function findCategories() {
-        return $this->context->table('categories')->fetchAll();
+        return $this->Explorer->table('categories')->fetchAll();
     }
 
     /**
@@ -45,7 +45,7 @@ class CategoryRepository
      * @param $color
      */
     public function addCategory($name, $color): void {
-        $this->context->table('categories')->insert([
+        $this->Explorer->table('categories')->insert([
             "name" => $name,
             "color" => $color
         ]);
@@ -56,7 +56,7 @@ class CategoryRepository
      * @return bool
      */
     public function delete($id): bool {
-        return (bool)$this->context->table('categories')->wherePrimary($id)->delete();
+        return (bool)$this->Explorer->table('categories')->wherePrimary($id)->delete();
     }
 
     /**
@@ -64,7 +64,7 @@ class CategoryRepository
      * @return bool
      */
     public function isDuplicated($name): bool {
-        return (bool)$this->context->table('categories')->where('name = ?', $name)->count('*');
+        return (bool)$this->Explorer->table('categories')->where('name = ?', $name)->count('*');
     }
 
     /**
@@ -72,15 +72,15 @@ class CategoryRepository
      * @param array $values
      */
     public function updateCategory($id, array $values): void {
-        $this->context->table('categories')->wherePrimary($id)->update($values);
+        $this->Explorer->table('categories')->wherePrimary($id)->update($values);
     }
 
     /**
      * @param string $name
-     * @return Nette\Database\IRow|Nette\Database\Table\ActiveRow|null
+     * @return Nette\Database\Row|Nette\Database\Table\ActiveRow|null
      */
     public function findCategoryByName(string $name) {
-        return $this->context->table('categories')
+        return $this->Explorer->table('categories')
             ->where('name = ?', $name)
             ->fetch();
     }

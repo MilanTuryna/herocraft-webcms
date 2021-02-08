@@ -16,7 +16,7 @@ use App\Model\ArticleRepository;
 use App\Model\CategoryRepository;
 use App\Model\PageManager;
 use App\Model\API\Status;
-use Nette\Caching\IStorage;
+use Nette\Caching\Storage;
 
 use App\Presenters\BasePresenter;
 
@@ -51,7 +51,7 @@ final class PagePresenter extends BasePresenter
      * @param CategoryRepository $categoryRepository
      * @param SettingsRepository $settingsRepository
      * @param PageManager $pageManager
-     * @param IStorage $storage
+     * @param Storage $storage
      * @param Authenticator $authenticator
      * @param GoogleAnalytics $googleAnalytics
      * @param GameSections $gameSections
@@ -63,7 +63,7 @@ final class PagePresenter extends BasePresenter
                                 CategoryRepository $categoryRepository,
                                 SettingsRepository $settingsRepository,
                                 PageManager $pageManager,
-                                IStorage $storage,
+                                Storage $storage,
                                 Authenticator $authenticator,
                                 GoogleAnalytics $googleAnalytics,
                                 GameSections $gameSections,
@@ -71,8 +71,7 @@ final class PagePresenter extends BasePresenter
                                 SectionRepository $sectionRepository, PluginAuthenticator $pluginAuthenticator)
     {
         parent::__construct($googleAnalytics);
-
-        //TODO: Change Caching\IStorage interface, because it's deprecated.
+        
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->cache = new Caching\Cache($storage);

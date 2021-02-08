@@ -2,9 +2,9 @@
 
 namespace App\Front\Styles;
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\Row;
 use Nette\Http\Response;
 use Nette\SmartObject;
 
@@ -18,16 +18,16 @@ class ButtonStyles
 
     const DB_TABLE = "button_styles";
 
-    private Context $context;
+    private Explorer $Explorer;
     private Response $response;
 
     /**
      * ButtonStyles constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -66,18 +66,18 @@ class ButtonStyles
     }
 
     /**
-     * @return array|IRow[]
+     * @return array|Row[]
      */
     public function getStyles(): array {
-        return $this->context->table(self::DB_TABLE)->fetchAll();
+        return $this->Explorer->table(self::DB_TABLE)->fetchAll();
     }
 
     /**
      * @param int $id
-     * @return \Nette\Database\IRow|ActiveRow|null
+     * @return \Nette\Database\Row|ActiveRow|null
      */
     public function getStyleById(int $id): ?ActiveRow {
-        return $this->context->table(self::DB_TABLE)->where('id = ?', $id)->fetch();
+        return $this->Explorer->table(self::DB_TABLE)->where('id = ?', $id)->fetch();
     }
 
     /**
@@ -85,7 +85,7 @@ class ButtonStyles
      * @return bool|int|ActiveRow
      */
     public function createStyle(iterable $data) {
-        return $this->context->table(self::DB_TABLE)->insert($data);
+        return $this->Explorer->table(self::DB_TABLE)->insert($data);
     }
 
     /**
@@ -94,7 +94,7 @@ class ButtonStyles
      * @return int
      */
     public function editStyle(int $id, iterable $data): int {
-        return $this->context->table(self::DB_TABLE)->where('id = ?', $id)->update($data);
+        return $this->Explorer->table(self::DB_TABLE)->where('id = ?', $id)->update($data);
     }
 
     /**
@@ -102,14 +102,14 @@ class ButtonStyles
      * @return int
      */
     public function deleteStyle(int $id): int {
-        return $this->context->table(self::DB_TABLE)->where("id = ?", $id)->delete();
+        return $this->Explorer->table(self::DB_TABLE)->where("id = ?", $id)->delete();
     }
 
     /**
-     * @return Context
+     * @return Explorer
      */
-    public function getContext(): Context
+    public function getExplorer(): Explorer
     {
-        return $this->context;
+        return $this->Explorer;
     }
 }

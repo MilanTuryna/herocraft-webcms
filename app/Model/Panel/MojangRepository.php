@@ -7,7 +7,7 @@ namespace App\Model\Panel;
 use App\Model\API\Minecraft;
 use App\Model\API\Plugin\LuckPerms;
 use Nette\Caching\Cache;
-use Nette\Caching\IStorage;
+use Nette\Caching\Storage;
 use Nette\Utils\ArrayHash;
 
 /**
@@ -21,10 +21,10 @@ class MojangRepository
 
     /**
      * MojangRepository constructor.
-     * @param IStorage $storage
+     * @param Storage $storage
      * @param LuckPerms $luckPerms
      */
-    public function __construct(IStorage $storage, LuckPerms $luckPerms)
+    public function __construct(Storage $storage, LuckPerms $luckPerms)
     {
         $this->cache = new Cache($storage);
         $this->luckPerms = $luckPerms;

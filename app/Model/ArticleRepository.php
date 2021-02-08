@@ -6,7 +6,7 @@ namespace App\Model;
 use Exception;
 use Nette;
 use Nette\Utils\FileSystem;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 
 /**
  * Class ArticleRepository
@@ -17,19 +17,19 @@ class ArticleRepository
     use Nette\SmartObject;
 
     /**
-     * @var Context
+     * @var Explorer
      */
-    private Context $context;
+    private Explorer $Explorer;
 
     const PATH = 'img/miniatures/';
 
 
     /**
      * ArticleRepository constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      */
-    public function __construct(Context $context) {
-        $this->context = $context;
+    public function __construct(Explorer $Explorer) {
+        $this->Explorer = $Explorer;
      }
 
     /**
@@ -40,7 +40,7 @@ class ArticleRepository
      */
     public function findPublishedArticles($limit = null, $sort = "DESC")
     {
-        return $this->context->table('articles')
+        return $this->Explorer->table('articles')
             ->where('created_at < ', new \DateTime)
             ->order('created_at ' . $sort)
             ->limit($limit);
@@ -54,7 +54,7 @@ class ArticleRepository
     public function findArticlesWithCategory(int $limit = 0, int $offset = null) {
         $prepareLimit = ($limit !== null ? "LIMIT " . $limit : "");
         $prepareOffset = ($offset !== null ? "OFFSET " . $offset : "");
-        return $this->context->query("SELECT articles.*, categories.name as category_name, categories.color as category_color FROM articles LEFT JOIN categories ON articles.category_id = categories.id ORDER BY created_at DESC ".$prepareLimit." ".$prepareOffset);
+        return $this->Explorer->query("SELECT articles.*, categories.name as category_name, categories.color as category_color FROM articles LEFT JOIN categories ON articles.category_id = categories.id ORDER BY created_at DESC ".$prepareLimit." ".$prepareOffset);
     }
 
     /**
@@ -63,15 +63,15 @@ class ArticleRepository
      */
     public function getPublishedArticlesCount(): int
     {
-        return $this->context->fetchField('SELECT COUNT(*) FROM articles WHERE created_at < ?', new \DateTime);
+        return $this->Explorer->fetchField('SELECT COUNT(*) FROM articles WHERE created_at < ?', new \DateTime);
     }
 
     /**
      * @param $url
-     * @return Nette\Database\IRow|Nette\Database\Table\ActiveRow|null
+     * @return Nette\Database\Row|Nette\Database\Table\ActiveRow|null
      */
     public function findArticleByUrl($url) {
-        return $this->context->table('articles')
+        return $this->Explorer->table('articles')
             ->where('url = ?', $url)
             ->fetch();
     }
@@ -83,7 +83,7 @@ class ArticleRepository
      * @return Nette\Database\Table\ActiveRow|null
      */
     public function findArticleById($id): Nette\Database\Table\ActiveRow {
-        return $this->context->table('articles')->get($id);
+        return $this->Explorer->table('articles')->get($id);
     }
 
     /**
@@ -91,7 +91,7 @@ class ArticleRepository
      * @param array $values
      */
     public function updateArticle($id, array $values): void {
-            $this->context->table('articles')->wherePrimary($id)->update($values);
+            $this->Explorer->table('articles')->wherePrimary($id)->update($values);
     }
 
     /**
@@ -99,7 +99,7 @@ class ArticleRepository
      * @return bool
      */
     public function isDuplicated($url): bool {
-        return (bool)$this->context->table('articles')->where('url = ?', $url)->count('*');
+        return (bool)$this->Explorer->table('articles')->where('url = ?', $url)->count('*');
     }
 
     /**
@@ -107,7 +107,7 @@ class ArticleRepository
      * @return bool|int|Nette\Database\Table\ActiveRow
      */
     public function createArticle(array $values): Nette\Database\Table\ActiveRow {
-        return $this->context->table('articles')->insert($values);
+        return $this->Explorer->table('articles')->insert($values);
     }
 
     /**
@@ -143,8 +143,8 @@ class ArticleRepository
      * @return bool
      */
     public function deleteArticle($url): bool {
-        $row = $this->context->table('articles')->where('url = ?', $url)->fetch();
-        $deleted = (bool)$this->context->table('articles')->where('url = ?', $url)->delete();
+        $row = $this->Explorer->table('articles')->where('url = ?', $url)->fetch();
+        $deleted = (bool)$this->Explorer->table('articles')->where('url = ?', $url)->delete();
         $this->deleteMiniature($row->id);
 
         return $deleted;
@@ -154,6 +154,6 @@ class ArticleRepository
      * @return CategoryRepository
      */
     public function getCategoryRepository(): CategoryRepository {
-        return new CategoryRepository($this->context);
+        return new CategoryRepository($this->Explorer);
     }
 }

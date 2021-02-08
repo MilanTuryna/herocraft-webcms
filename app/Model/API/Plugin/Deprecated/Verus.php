@@ -4,7 +4,7 @@
 namespace App\Model\API\Plugin\Deprecated;
 
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 
 /**
  * Class Verus
@@ -13,16 +13,16 @@ use Nette\Database\Context;
  */
 class Verus
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     /**
      * Verus constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.verus
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
@@ -30,7 +30,7 @@ class Verus
      * @return bool
      */
     public function isBanned($name) {
-        if($this->context->table('bans')->where('name = ?', $name)->fetch()) {
+        if($this->Explorer->table('bans')->where('name = ?', $name)->fetch()) {
             return true;
         }
 

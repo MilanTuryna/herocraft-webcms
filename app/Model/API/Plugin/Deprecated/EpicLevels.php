@@ -2,8 +2,8 @@
 
 namespace App\Model\API\Plugin\Deprecated;
 
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -14,27 +14,27 @@ use Nette\Database\Table\ActiveRow;
 class EpicLevels
 {
 
-    private Context $context;
+    private Explorer $Explorer;
 
     const TABLE = 'epiclevels_players';
 
     /**
      * EpicLevels constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      *
      * database.epiclevels
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
      * @param $uuid
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getRow($uuid) {
-        return $this->context->table(self::TABLE)->where('uuid = ?', $uuid)->fetch();
+        return $this->Explorer->table(self::TABLE)->where('uuid = ?', $uuid)->fetch();
     }
 
     public static function experience(int $level)

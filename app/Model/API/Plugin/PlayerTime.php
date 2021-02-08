@@ -4,7 +4,7 @@
 namespace App\Model\API\Plugin;
 
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 
 /**
  * Class PlayerTime
@@ -12,44 +12,44 @@ use Nette\Database\Context;
  */
 class PlayerTime
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     const TABLE_NAME = "playtime";
     const PLAYER_WEEK = "playtime_week";
 
     /**
      * PlayerTime constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.playertime
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     public function getRowByName($name) {
-        return $this->context->table(self::TABLE_NAME)->where("LOWER(username) = ?", strtolower($name));
+        return $this->Explorer->table(self::TABLE_NAME)->where("LOWER(username) = ?", strtolower($name));
     }
 
     public function getWeekPlayer($username) {
-        return $this->context->table(self::PLAYER_WEEK)->where("LOWER(username) = ?", strtolower($username))->order("timestamp DESC");
+        return $this->Explorer->table(self::PLAYER_WEEK)->where("LOWER(username) = ?", strtolower($username))->order("timestamp DESC");
     }
 
     /**
      * @return int
      */
     public function getAllPlayedTime(): int {
-        $db = $this->context->table(self::TABLE_NAME)->fetchAll();
+        $db = $this->Explorer->table(self::TABLE_NAME)->fetchAll();
         $time = 0;
         foreach ($db as $d) $time = $time + $d->playtime;
         return $time/60;
     }
 
     /**
-     * @return Context
+     * @return Explorer
      */
-    public function getContext(): Context
+    public function getExplorer(): Explorer
     {
-        return $this->context;
+        return $this->Explorer;
     }
 }

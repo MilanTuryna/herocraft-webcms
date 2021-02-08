@@ -3,7 +3,7 @@
 namespace App\Model\API\Plugin\Senior;
 
 use App\Model\API\Plugin\abstractIconomy;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 
 /**
  * Class Economy
@@ -15,12 +15,12 @@ class Economy extends abstractIconomy
 {
     /**
      * Economy constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      *
      * database.seniorEconomy
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        parent::__construct($context);
+        parent::__construct($Explorer);
     }
 }

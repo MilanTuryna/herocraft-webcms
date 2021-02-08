@@ -2,8 +2,8 @@
 
 namespace App\Model\API\Plugin\Survival\Deprecated;
 
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -13,26 +13,26 @@ use Nette\Database\Table\ActiveRow;
  */
 class RoyaleEconomy
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     const TABLE = 'PlayerPurse';
 
     /**
      * EpicLevels constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      *
      * database.epiclevels
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
      * @param $username
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getRow($username) {
-        return $this->context->table(self::TABLE)->where('username = ?', $username)->fetch();
+        return $this->Explorer->table(self::TABLE)->where('username = ?', $username)->fetch();
     }
 }

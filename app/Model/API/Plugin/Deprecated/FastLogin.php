@@ -3,8 +3,8 @@
 
 namespace App\Model\API\Plugin\Deprecated;
 
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 use Nette\Http\Request;
 
@@ -15,19 +15,19 @@ use Nette\Http\Request;
  */
 class FastLogin
 {
-    private Context $context;
+    private Explorer $Explorer;
     private Request $request;
 
     /**
      * FastLogin constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * @param Request $request
      *
      * database.fastlogin -> config
      */
-    public function __construct(Context $context, Request $request)
+    public function __construct(Explorer $Explorer, Request $request)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
         $this->request = $request;
     }
 
@@ -36,7 +36,7 @@ class FastLogin
      * @param bool $bool
      */
     public function setAutoLogin($username, bool $bool): void {
-        $this->context->query('INSERT INTO premium', [
+        $this->Explorer->query('INSERT INTO premium', [
             'Name' => $username,
             'Premium' => $bool ? 1 : 0,
             'LastIp' => $this->request->getRemoteAddress()
@@ -47,9 +47,9 @@ class FastLogin
 
     /**
      * @param $username
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getRow($username) {
-        return $this->context->table('premium')->where('Name', $username)->fetch();
+        return $this->Explorer->table('premium')->where('Name', $username)->fetch();
     }
 }

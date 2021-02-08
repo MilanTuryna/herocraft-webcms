@@ -4,9 +4,9 @@
 namespace App\Model\API\Plugin\Deprecated;
 
 use Nette\Caching\Cache;
-use Nette\Caching\IStorage;
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Caching\Storage;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -15,19 +15,19 @@ use Nette\Database\Table\ActiveRow;
  */
 class SkinRestorer
 {
-    private Context $context;
+    private Explorer $Explorer;
     private Cache $cache;
 
     /**
      * SkinRestorer constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      *
      * database.skinrestorer
-     * @param IStorage $storage
+     * @param Storage $storage
      */
-    public function __construct(Context $context, IStorage $storage)
+    public function __construct(Explorer $Explorer, Storage $storage)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
         $this->cache = new Cache($storage);
     }
 
@@ -36,7 +36,7 @@ class SkinRestorer
      */
     public function getMostUsedSkin() {
         if(is_null($this->cache->load('skinsrestorer_mostUsedSkin'))) {
-            $this->cache->save('skinsrestorer_mostUsedSkin', $this->context->table('Players')
+            $this->cache->save('skinsrestorer_mostUsedSkin', $this->Explorer->table('Players')
                 ->select('Skin')
                 ->group('Skin')
                 ->order('COUNT(*) DESC')
@@ -50,9 +50,9 @@ class SkinRestorer
 
     /**
      * @param $username
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getSkinByUsername($username) {
-        return $this->context->table('Players')->where('Nick = ?', $username)->fetch();
+        return $this->Explorer->table('Players')->where('Nick = ?', $username)->fetch();
     }
 }

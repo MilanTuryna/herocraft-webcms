@@ -2,8 +2,8 @@
 
 namespace App\Model\Panel;
 
-use Nette\Database\Context;
-use Nette\Database\IRow;
+use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -12,30 +12,30 @@ use Nette\Database\Table\ActiveRow;
  */
 class AuthMeRepository
 {
-    private Context $context;
+    private Explorer $Explorer;
 
     /**
      * AuthMeRepository constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
      * @return int
      */
     public function getRegisterCount(): int {
-        return $this->context->table('authme')->count("*");
+        return $this->Explorer->table('authme')->count("*");
     }
 
     /**
      * @param $username
-     * @return IRow|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function findByUsername($username) {
-        return $this->context->table('authme')->where('username = ?', strtolower($username))->limit(1)->fetch();
+        return $this->Explorer->table('authme')->where('username = ?', strtolower($username))->limit(1)->fetch();
     }
 
     /**
@@ -43,7 +43,7 @@ class AuthMeRepository
      * @return ActiveRow|null
      */
     public function findById($id): ?ActiveRow {
-        return $this->context->table('authme')->get($id);
+        return $this->Explorer->table('authme')->get($id);
     }
 
     /**
@@ -52,7 +52,7 @@ class AuthMeRepository
      * @return int
      */
     public function changePassword($hashedPassword, $id): int {
-        return $this->context->table('authme')->where('id = ?', $id)->update([
+        return $this->Explorer->table('authme')->where('id = ?', $id)->update([
             'password' => $hashedPassword
         ]);
     }
@@ -62,6 +62,6 @@ class AuthMeRepository
      * @return int
      */
     public function delete($id): int {
-        return $this->context->table('authme')->where('id = ?', $id)->delete();
+        return $this->Explorer->table('authme')->where('id = ?', $id)->delete();
     }
 }

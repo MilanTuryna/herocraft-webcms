@@ -4,9 +4,9 @@ namespace App\Model\Panel\Core\Tickets;
 
 use App\Model\DI\Tickets\Settings;
 use App\Model\Utils;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
-use Nette\Database\Table\IRow;
+use Nette\Database\Table\Row;
 use Nette\Database\Table\Selection;
 
 /**
@@ -23,25 +23,25 @@ class TicketRepository
         'player' => 'Hráč'
     ];
 
-    private Context $context;
+    private Explorer $Explorer;
     private Settings $settings;
 
     /**
      * TicketRepository constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.default
      * @param Settings $settings
      */
-    public function __construct(Context $context, Settings $settings)
+    public function __construct(Explorer $Explorer, Settings $settings)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
         $this->settings = $settings;
     }
 
     /**
      * @param int|null $limit
      * @param int|null $offset
-     * @return array|\Nette\Database\IRow[]
+     * @return array|\Nette\Database\Row[]
      */
     public function getTickets(?int $limit = null, ?int $offset = null): array {
         $sql = "SELECT t.*, tr.author AS lastResponseAuthor, tr.type AS lastResponseType, tr.time AS lastResponseTime, last_responses.time as d FROM tickets AS t 
@@ -50,7 +50,7 @@ as last_responses ON t.id = last_responses.ticketId
 LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time = tr.time ORDER BY t.locked ASC, t.time DESC, tr.time DESC";
         if($limit) $sql.=" LIMIT ".$limit;
         if($offset) $sql.=" OFFSET ".$offset;
-        return $this->context->query($sql)->fetchAll();
+        return $this->Explorer->query($sql)->fetchAll();
     }
 
     /**
@@ -67,7 +67,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return int
      */
     public function getTicketsCount($author) {
-        return $this->context->table(self::TABLE)->count('*');
+        return $this->Explorer->table(self::TABLE)->count('*');
     }
 
     /**
@@ -75,23 +75,23 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return Selection
      */
     public function getTicketsByAuthor($author) {
-        return $this->context->table(self::TABLE)->where('author = ?', $author);
+        return $this->Explorer->table(self::TABLE)->where('author = ?', $author);
     }
 
     /**
      * @param $id
-     * @return \Nette\Database\IRow|ActiveRow|null
+     * @return \Nette\Database\Row|ActiveRow|null
      */
     public function getTicketById($id) {
-        return $this->context->table(self::TABLE)->wherePrimary($id)->fetch();
+        return $this->Explorer->table(self::TABLE)->wherePrimary($id)->fetch();
     }
 
     /**
      * @param $id
-     * @return \Nette\Database\IRow|ActiveRow|null
+     * @return \Nette\Database\Row|ActiveRow|null
      */
     public function getResponseById($id)  {
-        return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($id)->fetch();
+        return $this->Explorer->table(self::RESPONSE_TABLE)->wherePrimary($id)->fetch();
     }
 
     /**
@@ -100,7 +100,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return int
      */
     public function lockTicket($ticketId, string $lockedBy = '') {
-        return $this->context->table(self::TABLE)->wherePrimary($ticketId)->update([
+        return $this->Explorer->table(self::TABLE)->wherePrimary($ticketId)->update([
             'locked' => 1,
             'lockedBy' => $lockedBy
         ]);
@@ -111,7 +111,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return int
      */
     public function unlockTicket($ticketId) {
-        return $this->context->table(self::TABLE)->wherePrimary($ticketId)->update([
+        return $this->Explorer->table(self::TABLE)->wherePrimary($ticketId)->update([
             'locked' => 0,
             'lockedBy' => '',
         ]);
@@ -119,10 +119,10 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
 
     /**
      * @param $ticketId
-     * @return array|IRow[]
+     * @return array|Row[]
      */
     public function getTicketResponses($ticketId) {
-        return $this->context->table(self::RESPONSE_TABLE)->where('ticketId = ?', $ticketId)->order('time ASC')->fetchAll();
+        return $this->Explorer->table(self::RESPONSE_TABLE)->where('ticketId = ?', $ticketId)->order('time ASC')->fetchAll();
     }
 
     /**
@@ -131,7 +131,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return bool|int|ActiveRow
      */
     public function addResponse(int $ticketId, array $response) {
-        return $this->context->table(self::RESPONSE_TABLE)->insert([
+        return $this->Explorer->table(self::RESPONSE_TABLE)->insert([
             'author' => $response['author'],
             'type' => $response['type'],
             'content' => $response['content'],
@@ -144,7 +144,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return bool|int|ActiveRow
      */
     public function addTicket(array $ticket) {
-        return $this->context->table(self::TABLE)->insert([
+        return $this->Explorer->table(self::TABLE)->insert([
             'name' => $ticket['name'],
             'author' => $ticket['author'],
             'subject' => $ticket['subject'],
@@ -158,7 +158,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      */
     public function removeTicket($ticketId)
     {
-        return $this->context->table(self::TABLE)->wherePrimary($ticketId)->delete();
+        return $this->Explorer->table(self::TABLE)->wherePrimary($ticketId)->delete();
     }
 
     /**
@@ -166,7 +166,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return int
      */
     public function removeResponse($responseId) {
-        return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->delete();
+        return $this->Explorer->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->delete();
     }
 
     /**
@@ -175,7 +175,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return int
      */
     public function editResponse($responseId, $message) {
-        return $this->context->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->update([
+        return $this->Explorer->table(self::RESPONSE_TABLE)->wherePrimary($responseId)->update([
            'content' => $message
         ]);
     }
@@ -184,14 +184,14 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return int
      */
     public function getAllTicketsCount(): int {
-        return $this->context->table(self::TABLE)->count("*");
+        return $this->Explorer->table(self::TABLE)->count("*");
     }
 
     /**
-     * @return Context
+     * @return Explorer
      */
-    public function getDatabaseContext(): Context {
-        return $this->context; // database.default -> config
+    public function getDatabaseExplorer(): Explorer {
+        return $this->Explorer; // database.default -> config
     }
 
     /**

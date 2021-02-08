@@ -3,7 +3,7 @@
 
 namespace App\Presenters\AdminModule;
 
-use App\Forms\Admin\SettingsForm; // __construct(Presenter, Context);
+use App\Forms\Admin\SettingsForm; // __construct(Presenter, Explorer);
 use App\Forms\Admin\UploadForm;
 use App\Model\Admin\Roles\Permissions;
 use App\Model\Admin\UploadManager;
@@ -12,7 +12,7 @@ use App\Model\SettingsRepository;
 use App\Presenters\AdminBasePresenter;
 
 use Nette;
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Application\UI\Form;
 use Nette\Application\AbortException;
 
@@ -24,16 +24,16 @@ class MainPresenter extends AdminBasePresenter
 {
     use Nette\SmartObject;
 
-    Private Context $db;
+    Private Explorer $db;
     Private SettingsRepository $settingsRepository;
 
     /**
      * AdminPresenter constructor.
      * @param Authenticator $authenticator
-     * @param Context $db
+     * @param Explorer $db
      * @param SettingsRepository $settingsRepository
      */
-    public function __construct(Authenticator $authenticator, Context $db, SettingsRepository $settingsRepository)
+    public function __construct(Authenticator $authenticator, Explorer $db, SettingsRepository $settingsRepository)
     {
         parent::__construct($authenticator);
 

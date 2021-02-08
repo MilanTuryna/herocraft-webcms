@@ -3,13 +3,13 @@
 
 namespace App\Model;
 
-use App\Model\API\Status;
-use Nette\Caching\IStorage;
-use Nette\Database\Context;
+use Nette\Caching\Storage;
 use Nette\Caching\Cache;
+use Nette\Database\Explorer;
 use Nette\Database\Table\ActiveRow;
 use Nette\Http\FileUpload;
 use Nette\Utils\FileSystem;
+use App\Model\API\Status;
 
 /**
  * Class Settings
@@ -19,15 +19,15 @@ class SettingsRepository
 {
     const PATH = 'img/';
 
-    Private Context $db;
+    Private Explorer $db;
     Private Cache $cache;
 
     /**
      * Settings constructor.
-     * @param Context $db
-     * @param IStorage $storage
+     * @param Explorer $db
+     * @param Storage $storage
      */
-    public function __construct(Context $db, IStorage $storage)
+    public function __construct(Explorer $db, Storage $storage)
     {
         $this->db = $db;
         $this->cache = new Cache($storage);
@@ -107,9 +107,9 @@ class SettingsRepository
     }
 
     /**
-     * @return Context
+     * @return Explorer
      */
-    public function getContext(): Context {
+    public function getExplorer(): Explorer {
         return $this->db;
     }
 }

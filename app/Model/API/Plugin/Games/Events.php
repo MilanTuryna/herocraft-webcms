@@ -4,7 +4,7 @@
 namespace App\Model\API\Plugin\Games;
 
 
-use Nette\Database\Context;
+use Nette\Database\Explorer;
 use Nette\Database\ResultSet;
 use Nette\Database\Table\Selection;
 
@@ -17,30 +17,30 @@ class Events
     const EVENTS_TABLE = "events",
         PLAYERS_TABLE = "event_players";
 
-    private Context $context;
+    private Explorer $Explorer;
 
     /**
      * Events constructor.
-     * @param Context $context
+     * @param Explorer $Explorer
      * database.events
      */
-    public function __construct(Context $context)
+    public function __construct(Explorer $Explorer)
     {
-        $this->context = $context;
+        $this->Explorer = $Explorer;
     }
 
     /**
      * @return Selection
      */
     public function findAllEvents() {
-        return $this->context->table(self::EVENTS_TABLE);
+        return $this->Explorer->table(self::EVENTS_TABLE);
     }
 
     /**
      * @return Selection
      */
     public function getActivePlayers() {
-        return $this->context->table(self::PLAYERS_TABLE)->where("event_passed > ? OR event_giveup > ?", 1,1);
+        return $this->Explorer->table(self::PLAYERS_TABLE)->where("event_passed > ? OR event_giveup > ?", 1,1);
     }
 
     /**
@@ -48,7 +48,7 @@ class Events
      * @return Selection
      */
     public function getPlayerById($id) {
-        return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id);
+        return $this->Explorer->table(self::PLAYERS_TABLE)->where("id = ?", $id);
     }
 
     /**
@@ -56,7 +56,7 @@ class Events
      * @return Selection
      */
     public function getEventById($id) {
-        return $this->context->table(self::EVENTS_TABLE)->where("event_id = ?", $id);
+        return $this->Explorer->table(self::EVENTS_TABLE)->where("event_id = ?", $id);
     }
 
     /**
@@ -64,7 +64,7 @@ class Events
      * @return Selection
      */
     public function getEventByName($name) {
-        return $this->context->table(self::EVENTS_TABLE)->where("event_name = ?", $name);
+        return $this->Explorer->table(self::EVENTS_TABLE)->where("event_name = ?", $name);
     }
 
     /**
@@ -73,7 +73,7 @@ class Events
      * @return Selection
      */
     public function getPlayersByEventId($id, ?int $limit = null) {
-        return $this->context->table(self::PLAYERS_TABLE)->where("event_id = ? AND event_giveup != 0 OR event_id = ? AND event_passed != 0", $id, $id)->order(
+        return $this->Explorer->table(self::PLAYERS_TABLE)->where("event_id = ? AND event_giveup != 0 OR event_id = ? AND event_passed != 0", $id, $id)->order(
             "CAST(-best_time AS DECIMAL(16,2)) DESC, event_passed DESC, event_giveup DESC")->limit($limit);
     }
 
@@ -83,7 +83,7 @@ class Events
      * @return int
      */
     public function updateRecord(\stdClass $record, $id) {
-        return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id)->update([
+        return $this->Explorer->table(self::PLAYERS_TABLE)->where("id = ?", $id)->update([
             "username" => $record->username,
             "best_time" => $record->best_time,
             "event_passed" => $record->event_passed,
@@ -100,7 +100,7 @@ class Events
      * @return ResultSet
      */
     public function getPlayerRecordsByName($nick, $eventsTable = self::EVENTS_TABLE, $playersTable = self::PLAYERS_TABLE) {
-            return $this->context
+            return $this->Explorer
                 ->query("SELECT * FROM {$playersTable} LEFT JOIN {$eventsTable} ON {$playersTable}.event_id = {$eventsTable}.event_id WHERE username=? GROUP BY username, event_players.event_id", $nick)->fetchAll();
     }
 
@@ -109,6 +109,6 @@ class Events
      * @return int
      */
     public function deleteRecordById($id) {
-        return $this->context->table(self::PLAYERS_TABLE)->where("id = ?", $id)->delete();
+        return $this->Explorer->table(self::PLAYERS_TABLE)->where("id = ?", $id)->delete();
     }
 }
