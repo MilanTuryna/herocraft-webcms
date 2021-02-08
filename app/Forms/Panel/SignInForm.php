@@ -54,6 +54,7 @@ class SignInForm
         $form->onSuccess[] = [$this, 'success'];
         $form->onError[] = function() use ($form) {
             foreach($form->getErrors() as $error) $this->presenter->flashMessage($error, 'error');
+            if($this->errorRedirect) $this->presenter->redirect('this');
         };
         return $form;
     }
@@ -74,7 +75,6 @@ class SignInForm
             $this->presenter->redirect(':Panel:Main:home');
         } catch (AuthException $e) {
             $form->addError($e->getMessage());
-            if($this->errorRedirect) $this->presenter->redirect('this');
         }
     }
 }
