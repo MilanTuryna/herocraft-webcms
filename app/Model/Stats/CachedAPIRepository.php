@@ -16,6 +16,7 @@ use App\Model\Panel\AuthMeRepository;
 use Nette\Caching\Cache;
 use Nette\Caching\Storage;
 use Nette\Utils\ArrayHash;
+use Throwable;
 
 /**
  * Class CachedAPIRepository
@@ -79,6 +80,7 @@ class CachedAPIRepository
     /**
      * @param $name
      * @return mixed
+     * @throws Throwable
      */
     public function getUser($name) {
         $cacheName = 'API_user_' . $name;
@@ -95,6 +97,7 @@ class CachedAPIRepository
     /**
      * @param $uuid
      * @return mixed
+     * @throws Throwable
      */
     public function getPermGroups($uuid) {
         $cacheName = 'API_permGroups_' . $uuid;
@@ -109,6 +112,7 @@ class CachedAPIRepository
 
     /**
      * @return mixed
+     * @throws Throwable
      */
     public function getCzechCraftServer() {
         $cacheName = 'API_czechCraftServer';
@@ -123,6 +127,7 @@ class CachedAPIRepository
 
     /**
      * @return mixed
+     * @throws Throwable
      */
     public function getTopVoters() {
         $cacheName = 'API_czechCraftTopVoters';
@@ -149,6 +154,7 @@ class CachedAPIRepository
     /**
      * @param $name
      * @return mixed
+     * @throws Throwable
      */
     public function isBanned($name) {
         $cacheName = 'API_ban_' . $name;
@@ -163,6 +169,7 @@ class CachedAPIRepository
 
     /**
      * @return mixed|int
+     * @throws Throwable
      */
     public function getTimesPlayed() {
         $cacheName = 'API_timesPlayed';
@@ -177,6 +184,7 @@ class CachedAPIRepository
 
     /**
      * @return mixed|int
+     * @throws Throwable
      */
     public function getRegisterCount() {
         $cacheName = 'API_registerCount';
@@ -192,6 +200,7 @@ class CachedAPIRepository
     /**
      * @param $name
      * @return mixed
+     * @throws Throwable
      */
     public function getHideAndSeekRow($name) {
         $cacheName = 'API_hideAndSeek_' . $name;
@@ -208,6 +217,7 @@ class CachedAPIRepository
     /**
      * @param $name
      * @return mixed
+     * @throws Throwable
      */
     public function getPlayerEventsRecords($name) {
         $cacheName = 'API_events_' . $name;
@@ -233,6 +243,7 @@ class CachedAPIRepository
     /**
      * @param $uuid
      * @return mixed
+     * @throws Throwable
      */
     public function getSpleefStatsByUUID($uuid)
     {
@@ -250,6 +261,7 @@ class CachedAPIRepository
     /**
      * @param $name
      * @return mixed
+     * @throws Throwable
      */
     public function getClassicEconomy($name) {
         $cacheName = 'API_classicEconomy_' . $name;
@@ -266,6 +278,7 @@ class CachedAPIRepository
     /**
      * @param $name
      * @return mixed
+     * @throws Throwable
      */
     public function getSeniorEconomy($name) {
         $cacheName = 'API_seniorEconomy_' . $name;
