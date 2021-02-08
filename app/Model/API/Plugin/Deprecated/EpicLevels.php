@@ -14,19 +14,19 @@ use Nette\Database\Table\ActiveRow;
 class EpicLevels
 {
 
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     const TABLE = 'epiclevels_players';
 
     /**
      * EpicLevels constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      *
      * database.epiclevels
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -34,7 +34,7 @@ class EpicLevels
      * @return Row|ActiveRow|null
      */
     public function getRow($uuid) {
-        return $this->Explorer->table(self::TABLE)->where('uuid = ?', $uuid)->fetch();
+        return $this->explorer->table(self::TABLE)->where('uuid = ?', $uuid)->fetch();
     }
 
     public static function experience(int $level)

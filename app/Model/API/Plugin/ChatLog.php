@@ -14,18 +14,18 @@ use Nette\Database\Table\Selection;
  */
 class ChatLog
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     const TABLE = 'mysql_logs';
 
     /**
      * ChatLog constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * database.chatlog
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -34,7 +34,7 @@ class ChatLog
      * @return Selection
      */
     public function findAllRows(string $columns = '*', string $timeOrder = 'DESC') {
-        return $this->Explorer->table(self::TABLE)->select($columns)->order('Time ' . $timeOrder);
+        return $this->explorer->table(self::TABLE)->select($columns)->order('Time ' . $timeOrder);
     }
 
     /**
@@ -50,7 +50,7 @@ class ChatLog
     {
         $timeStart = date_create($timeStart)->format('Y-m-d 00:00');
         $timeEnd = date_create($timeEnd)->format('Y-m-d 23:59');
-        return $this->Explorer->table(self::TABLE)->select($columns)
+        return $this->explorer->table(self::TABLE)->select($columns)
             ->where("Username",  $players)
             ->where("Time BETWEEN ? AND ?", $timeStart, $timeEnd)
             ->order('Time ' . $timeOrder);
@@ -61,13 +61,13 @@ class ChatLog
      * @return array|Row[]
      */
     public function getPlayerMessages(string $nickname) {
-        return $this->Explorer->table(self::TABLE)->where("Username", $nickname)->fetchAll();
+        return $this->explorer->table(self::TABLE)->where("Username", $nickname)->fetchAll();
     }
 
     /**
      * @return Explorer
      */
     public function getPluginDatabase(): Explorer {
-        return $this->Explorer;
+        return $this->explorer;
     }
 }

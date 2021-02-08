@@ -12,22 +12,22 @@ use Nette\Database\Table\ActiveRow;
  */
 class AuthMeRepository
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     /**
      * AuthMeRepository constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
      * @return int
      */
     public function getRegisterCount(): int {
-        return $this->Explorer->table('authme')->count("*");
+        return $this->explorer->table('authme')->count("*");
     }
 
     /**
@@ -35,7 +35,7 @@ class AuthMeRepository
      * @return Row|ActiveRow|null
      */
     public function findByUsername($username) {
-        return $this->Explorer->table('authme')->where('username = ?', strtolower($username))->limit(1)->fetch();
+        return $this->explorer->table('authme')->where('username = ?', strtolower($username))->limit(1)->fetch();
     }
 
     /**
@@ -43,7 +43,7 @@ class AuthMeRepository
      * @return ActiveRow|null
      */
     public function findById($id): ?ActiveRow {
-        return $this->Explorer->table('authme')->get($id);
+        return $this->explorer->table('authme')->get($id);
     }
 
     /**
@@ -52,7 +52,7 @@ class AuthMeRepository
      * @return int
      */
     public function changePassword($hashedPassword, $id): int {
-        return $this->Explorer->table('authme')->where('id = ?', $id)->update([
+        return $this->explorer->table('authme')->where('id = ?', $id)->update([
             'password' => $hashedPassword
         ]);
     }
@@ -62,6 +62,6 @@ class AuthMeRepository
      * @return int
      */
     public function delete($id): int {
-        return $this->Explorer->table('authme')->where('id = ?', $id)->delete();
+        return $this->explorer->table('authme')->where('id = ?', $id)->delete();
     }
 }

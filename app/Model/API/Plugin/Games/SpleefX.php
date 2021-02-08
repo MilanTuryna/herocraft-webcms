@@ -15,17 +15,17 @@ class SpleefX
 {
     const TABLE = "spleefxdata";
 
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     /**
      * SpleefX constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      *
      * database.spleefx
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -33,7 +33,7 @@ class SpleefX
      * @return Selection
      */
     public function getRowByUuid($uuid) {
-        return $this->Explorer->table(self::TABLE)->where("PlayerUUID = ?", $uuid);
+        return $this->explorer->table(self::TABLE)->where("PlayerUUID = ?", $uuid);
     }
 
     /**
@@ -41,6 +41,6 @@ class SpleefX
      * @return Selection
      */
     public function getAllRows($order = "Coins DESC") {
-        return $this->Explorer->table(self::TABLE)->order($order);
+        return $this->explorer->table(self::TABLE)->order($order);
     }
 }

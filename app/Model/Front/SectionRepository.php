@@ -22,15 +22,15 @@ class SectionRepository
 
     use SmartObject;
 
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     /**
      * SectionRepository constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -111,7 +111,7 @@ class SectionRepository
      * @return bool|int|ActiveRow
      */
     public function createSection(Section $section, string $author = '') {
-        return $this->Explorer->table(SectionRepository::TABLE)->insert(
+        return $this->explorer->table(SectionRepository::TABLE)->insert(
             self::getIterableRow($section->title,
                 SectionRepository::generateJsonContent($section),
                 $section->anchor,
@@ -143,7 +143,7 @@ class SectionRepository
      * @return int
      */
     public function updateSection(int $id, Section $section): int {
-        return $this->Explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->update(
+        return $this->explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->update(
             self::getIterableRow($section->title, SectionRepository::generateJsonContent($section), $section->anchor, $section->bgColor, $section->section_view,
                 null, $section->dbJoinedSectionID, $section->dbPrioritySort)
         );
@@ -154,7 +154,7 @@ class SectionRepository
      * @return int
      */
     public function deleteSection(int $id): int {
-        return $this->Explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->delete();
+        return $this->explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->delete();
     }
 
     /**
@@ -162,14 +162,14 @@ class SectionRepository
      * @return Row|ActiveRow|null
      */
     public function getSectionById(int $id) {
-        return $this->Explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->fetch();
+        return $this->explorer->table(SectionRepository::TABLE)->where('id = ?', $id)->fetch();
     }
 
     /**
      * @return Row[]
      */
     public function getAllSections(): array {
-        return $this->Explorer->table(SectionRepository::TABLE)->order('prioritySort DESC')->fetchAll();
+        return $this->explorer->table(SectionRepository::TABLE)->order('prioritySort DESC')->fetchAll();
     }
 
 
@@ -178,6 +178,6 @@ class SectionRepository
      */
     public function getExplorer(): Explorer
     {
-        return $this->Explorer;
+        return $this->explorer;
     }
 }

@@ -13,19 +13,19 @@ use Nette\Database\Table\ActiveRow;
  */
 class Lottery
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     const TABLE = 'Lottery';
 
     /**
      * EpicLevels constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      *
      * database.lottery
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -33,6 +33,6 @@ class Lottery
      * @return Row|ActiveRow|null
      */
     public function getRow($uuid) {
-        return $this->Explorer->table(self::TABLE)->where('uuid = ?', $uuid)->fetch();
+        return $this->explorer->table(self::TABLE)->where('uuid = ?', $uuid)->fetch();
     }
 }

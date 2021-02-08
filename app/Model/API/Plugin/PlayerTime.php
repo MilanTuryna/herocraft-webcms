@@ -12,34 +12,34 @@ use Nette\Database\Explorer;
  */
 class PlayerTime
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     const TABLE_NAME = "playtime";
     const PLAYER_WEEK = "playtime_week";
 
     /**
      * PlayerTime constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * database.playertime
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     public function getRowByName($name) {
-        return $this->Explorer->table(self::TABLE_NAME)->where("LOWER(username) = ?", strtolower($name));
+        return $this->explorer->table(self::TABLE_NAME)->where("LOWER(username) = ?", strtolower($name));
     }
 
     public function getWeekPlayer($username) {
-        return $this->Explorer->table(self::PLAYER_WEEK)->where("LOWER(username) = ?", strtolower($username))->order("timestamp DESC");
+        return $this->explorer->table(self::PLAYER_WEEK)->where("LOWER(username) = ?", strtolower($username))->order("timestamp DESC");
     }
 
     /**
      * @return int
      */
     public function getAllPlayedTime(): int {
-        $db = $this->Explorer->table(self::TABLE_NAME)->fetchAll();
+        $db = $this->explorer->table(self::TABLE_NAME)->fetchAll();
         $time = 0;
         foreach ($db as $d) $time = $time + $d->playtime;
         return $time/60;
@@ -50,6 +50,6 @@ class PlayerTime
      */
     public function getExplorer(): Explorer
     {
-        return $this->Explorer;
+        return $this->explorer;
     }
 }

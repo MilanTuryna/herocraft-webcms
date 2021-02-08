@@ -14,22 +14,22 @@ use Nette\Database\Table\Selection;
  */
 abstract class abstractIconomy
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
     private string $tableName;
 
     /**
      * IConomy constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * @param string $tableName
      */
-    public function __construct(Explorer $Explorer, $tableName = "iconomy")
+    public function __construct(Explorer $explorer, $tableName = "iconomy")
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
         $this->tableName = $tableName;
     }
 
     public function getAllRows($order = "balance DESC") {
-        return $this->Explorer->table($this->tableName)->order($order);
+        return $this->explorer->table($this->tableName)->order($order);
     }
 
     /**
@@ -37,7 +37,7 @@ abstract class abstractIconomy
      * @return Selection
      */
     public function getRowByName($name) {
-        return $this->Explorer->table($this->tableName)->where("username = ?", $name);
+        return $this->explorer->table($this->tableName)->where("username = ?", $name);
     }
 
     /**
@@ -45,7 +45,7 @@ abstract class abstractIconomy
      * @return Selection
      */
     public function getRowById(int $id) {
-        return $this->Explorer->table($this->tableName)->wherePrimary($id);
+        return $this->explorer->table($this->tableName)->wherePrimary($id);
     }
 
     /**
@@ -53,7 +53,7 @@ abstract class abstractIconomy
      * @return int
      */
     public function deleteRowById(int $id) {
-        return $this->Explorer->table($this->tableName)->wherePrimary($id)->delete();
+        return $this->explorer->table($this->tableName)->wherePrimary($id)->delete();
     }
 
     /**
@@ -61,7 +61,7 @@ abstract class abstractIconomy
      * @return Selection
      */
     public function deleteRowByName($name) {
-        return $this->Explorer->table($this->tableName)->where("username = ?", $name);
+        return $this->explorer->table($this->tableName)->where("username = ?", $name);
     }
 
     /**
@@ -69,6 +69,6 @@ abstract class abstractIconomy
      * @return int
      */
     public function updateRowById(int $id, iterable $data) {
-        return $this->Explorer->table($this->tableName)->wherePrimary($id)->update($data);
+        return $this->explorer->table($this->tableName)->wherePrimary($id)->update($data);
     }
 }

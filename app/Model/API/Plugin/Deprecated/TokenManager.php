@@ -14,17 +14,17 @@ use Nette\Database\Table\ActiveRow;
  */
 class TokenManager
 {
-    Private Explorer $Explorer;
+    Private Explorer $explorer;
 
     /**
      * TokenManager constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      *
      * database.tokenmanager -> config
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -32,7 +32,7 @@ class TokenManager
      * @return Row|ActiveRow|null
      */
     public function getRow($user) {
-        return $this->Explorer->table('tokenmanager')->where('name = ?', $user)->fetch();
+        return $this->explorer->table('tokenmanager')->where('name = ?', $user)->fetch();
     }
 
     /**
@@ -41,7 +41,7 @@ class TokenManager
      * @return int
      */
     public function setTokens($user, $amount) {
-        return $this->Explorer->table('tokenmanager')->where('name = ?', $user)->update([
+        return $this->explorer->table('tokenmanager')->where('name = ?', $user)->update([
             'tokens' => $amount
         ]);
     }
@@ -54,7 +54,7 @@ class TokenManager
     public function addTokens($user, $amount) {
         $row = $this->getRow($user);
         if((bool)$row) {
-            return $this->Explorer->table('tokenmanager')->where('name = ?', $user)->update([
+            return $this->explorer->table('tokenmanager')->where('name = ?', $user)->update([
                 'tokens' => ($amount + (int)$row->tokens)
             ]);
         }

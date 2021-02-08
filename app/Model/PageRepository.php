@@ -14,21 +14,21 @@ class PageRepository
 {
     use Nette\SmartObject;
 
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     /**
      * PageRepository constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      */
-    public function __construct(Explorer $Explorer) {
-        $this->Explorer = $Explorer;
+    public function __construct(Explorer $explorer) {
+        $this->explorer = $explorer;
     }
 
     /**
      * @return array|Nette\Database\Table\Row[]
      */
     public function findPages() {
-        return $this->Explorer->table('pages')->fetchAll();
+        return $this->explorer->table('pages')->fetchAll();
     }
 
     /**
@@ -36,7 +36,7 @@ class PageRepository
      * @return Nette\Database\Table\ActiveRow
      */
     public function findPageByUrl($url) {
-        return $this->Explorer->table('pages')->where('url = ?', $url)->fetch();
+        return $this->explorer->table('pages')->where('url = ?', $url)->fetch();
     }
 
     /**
@@ -44,7 +44,7 @@ class PageRepository
      * @return Nette\Database\Table\ActiveRow
      */
     public function findPageById($id) {
-        return $this->Explorer->table('pages')->get($id);
+        return $this->explorer->table('pages')->get($id);
     }
 
     /**
@@ -52,7 +52,7 @@ class PageRepository
      * @return bool
      */
     public function isDuplicated($url): bool {
-        return (bool)$this->Explorer->table('pages')->where('url = ?', $url)->count('*');
+        return (bool)$this->explorer->table('pages')->where('url = ?', $url)->count('*');
     }
 
     /**
@@ -60,11 +60,11 @@ class PageRepository
      * @param array $values
      */
     public function updatePage($id, array $values): void {
-        $this->Explorer->table('pages')->wherePrimary($id)->update($values);
+        $this->explorer->table('pages')->wherePrimary($id)->update($values);
     }
 
     public function createPage($values): void {
-        $this->Explorer->table('pages')->insert($values);
+        $this->explorer->table('pages')->insert($values);
     }
 
     /**
@@ -73,6 +73,6 @@ class PageRepository
      * @return bool
      */
     public function deletePage($url): bool {
-        return (bool)$this->Explorer->table('pages')->where('url = ?', $url)->delete();
+        return (bool)$this->explorer->table('pages')->where('url = ?', $url)->delete();
     }
 }

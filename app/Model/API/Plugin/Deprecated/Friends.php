@@ -16,19 +16,19 @@ use Nette\Database\Table\ActiveRow;
  */
 class Friends
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
     private Cache $cache;
 
     /**
      * Friends constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * @param Storage $storage
      * database.friends
      */
-    public function __construct(Explorer $Explorer, Storage $storage)
+    public function __construct(Explorer $explorer, Storage $storage)
     {
         $this->cache = new Cache($storage);
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -38,7 +38,7 @@ class Friends
      * @return Row|ActiveRow|null
      */
     public function getRowByName($username) {
-           return $this->Explorer->table('fr_players')->where('player_name = ?', $username)->fetch();
+           return $this->explorer->table('fr_players')->where('player_name = ?', $username)->fetch();
     }
 
     /**
@@ -46,7 +46,7 @@ class Friends
      * @return array
      */
     public function getFriends($username) {
-            $friendsSql = $this->Explorer->query('select friend.player_name as friend_name, friend.player_id as friend_id, 
+            $friendsSql = $this->explorer->query('select friend.player_name as friend_name, friend.player_id as friend_id, 
                                     friend.last_online as friend_last_online, player.player_name as player_name, player.player_id as player_id,
                                     player.last_online as player_last_online
                                     from fr_friend_assignment
@@ -80,7 +80,7 @@ class Friends
      */
     public function removeFriend($player, int $friendId) {
         $playerId = $this->getRowByName($player)->player_id;
-        return $this->Explorer->table('fr_friend_assignment')->where('friend1_id = ? AND friend2_id = ? OR friend2_id = ? AND friend1_id=?',
+        return $this->explorer->table('fr_friend_assignment')->where('friend1_id = ? AND friend2_id = ? OR friend2_id = ? AND friend1_id=?',
             $playerId, $friendId, $playerId, $friendId)->delete();
     }
 
@@ -91,7 +91,7 @@ class Friends
     public function countOfFriends($username)
     {
         if (is_null($this->cache->load('countOfFriends_' . $username))) {
-            $this->cache->save('countOfFriends_' . $username, $this->Explorer->query("select COUNT('*')
+            $this->cache->save('countOfFriends_' . $username, $this->explorer->query("select COUNT('*')
                                     from fr_friend_assignment
                                     inner join fr_players as player on fr_friend_assignment.friend1_id = player.player_id
                                     inner join fr_players as friend on fr_friend_assignment.friend2_id = friend.player_id
@@ -110,7 +110,7 @@ class Friends
      */
     public function isFriends($player, int $friendId) {
         $playerId = $this->getRowByName($player)->player_id;
-        return $this->Explorer->table('fr_friend_assignment')->where('friend1_id = ? AND friend2_id = ? OR friend2_id = ? AND friend1_id=?',
+        return $this->explorer->table('fr_friend_assignment')->where('friend1_id = ? AND friend2_id = ? OR friend2_id = ? AND friend1_id=?',
             $playerId, $friendId, $playerId, $friendId)->fetch();
     }
 }

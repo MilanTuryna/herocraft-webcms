@@ -14,22 +14,22 @@ use Nette\Database\Table\ActiveRow;
  */
 class UserRepository
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     /**
      * UserRepository constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
      * @return array
      */
     public function findAll(): array {
-        return $this->Explorer->table('admin')->fetchAll();
+        return $this->explorer->table('admin')->fetchAll();
     }
 
     /**
@@ -37,7 +37,7 @@ class UserRepository
      * @return Row|ActiveRow|null
      */
     public function findByName($name) { // or email
-        return $this->Explorer->table('admin')->where('name = ? OR email = ?', $name, $name)->fetch();
+        return $this->explorer->table('admin')->where('name = ? OR email = ?', $name, $name)->fetch();
     }
 
     /**
@@ -45,7 +45,7 @@ class UserRepository
      * @return ActiveRow|null
      */
     public function findById($id) {
-        return $this->Explorer->table('admin')->get($id);
+        return $this->explorer->table('admin')->get($id);
     }
 
     /**
@@ -56,7 +56,7 @@ class UserRepository
      * @return bool|int|ActiveRow
      */
     public function addUser($user, $email, $pass, $permissions) {
-        return $this->Explorer->table('admin')->insert([
+        return $this->explorer->table('admin')->insert([
             'name' => $user,
             'email' => $email,
             'pass' => $pass,
@@ -69,7 +69,7 @@ class UserRepository
      * @return int
      */
     public function deleteUser($id) {
-        return $this->Explorer->table('admin')->wherePrimary($id)->delete();
+        return $this->explorer->table('admin')->wherePrimary($id)->delete();
     }
 
     /**
@@ -78,13 +78,13 @@ class UserRepository
      * @return int
      */
     public function update($id, iterable $values) {
-        return $this->Explorer->table('admin')->wherePrimary($id)->update($values);
+        return $this->explorer->table('admin')->wherePrimary($id)->update($values);
     }
 
     /**
      * @return int
      */
     public function countAll() {
-        return $this->Explorer->table('admin')->count('*');
+        return $this->explorer->table('admin')->count('*');
     }
 }

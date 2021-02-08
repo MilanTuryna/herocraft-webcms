@@ -13,16 +13,16 @@ use Nette\Database\Explorer;
  */
 class Verus
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     /**
      * Verus constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * database.verus
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -30,7 +30,7 @@ class Verus
      * @return bool
      */
     public function isBanned($name) {
-        if($this->Explorer->table('bans')->where('name = ?', $name)->fetch()) {
+        if($this->explorer->table('bans')->where('name = ?', $name)->fetch()) {
             return true;
         }
 

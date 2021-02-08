@@ -15,12 +15,12 @@ class Economy extends abstractIconomy
 {
     /**
      * Economy constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      *
      * database.seniorEconomy
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        parent::__construct($Explorer);
+        parent::__construct($explorer);
     }
 }

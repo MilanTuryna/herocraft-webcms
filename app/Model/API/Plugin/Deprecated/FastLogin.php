@@ -15,19 +15,19 @@ use Nette\Http\Request;
  */
 class FastLogin
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
     private Request $request;
 
     /**
      * FastLogin constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * @param Request $request
      *
      * database.fastlogin -> config
      */
-    public function __construct(Explorer $Explorer, Request $request)
+    public function __construct(Explorer $explorer, Request $request)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
         $this->request = $request;
     }
 
@@ -36,7 +36,7 @@ class FastLogin
      * @param bool $bool
      */
     public function setAutoLogin($username, bool $bool): void {
-        $this->Explorer->query('INSERT INTO premium', [
+        $this->explorer->query('INSERT INTO premium', [
             'Name' => $username,
             'Premium' => $bool ? 1 : 0,
             'LastIp' => $this->request->getRemoteAddress()
@@ -50,6 +50,6 @@ class FastLogin
      * @return Row|ActiveRow|null
      */
     public function getRow($username) {
-        return $this->Explorer->table('premium')->where('Name', $username)->fetch();
+        return $this->explorer->table('premium')->where('Name', $username)->fetch();
     }
 }

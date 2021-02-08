@@ -15,19 +15,19 @@ use Nette\Database\Table\ActiveRow;
  */
 class SkinRestorer
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
     private Cache $cache;
 
     /**
      * SkinRestorer constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      *
      * database.skinrestorer
      * @param Storage $storage
      */
-    public function __construct(Explorer $Explorer, Storage $storage)
+    public function __construct(Explorer $explorer, Storage $storage)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
         $this->cache = new Cache($storage);
     }
 
@@ -36,7 +36,7 @@ class SkinRestorer
      */
     public function getMostUsedSkin() {
         if(is_null($this->cache->load('skinsrestorer_mostUsedSkin'))) {
-            $this->cache->save('skinsrestorer_mostUsedSkin', $this->Explorer->table('Players')
+            $this->cache->save('skinsrestorer_mostUsedSkin', $this->explorer->table('Players')
                 ->select('Skin')
                 ->group('Skin')
                 ->order('COUNT(*) DESC')
@@ -53,6 +53,6 @@ class SkinRestorer
      * @return Row|ActiveRow|null
      */
     public function getSkinByUsername($username) {
-        return $this->Explorer->table('Players')->where('Nick = ?', $username)->fetch();
+        return $this->explorer->table('Players')->where('Nick = ?', $username)->fetch();
     }
 }

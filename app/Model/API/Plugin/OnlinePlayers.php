@@ -13,31 +13,31 @@ use Nette\Database\Table\Selection;
  */
 class OnlinePlayers
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     const TABLE = "onlineplayers";
 
     /**
      * OnlinePlayers constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * database.onlineplayers
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
      * @return Selection
      */
     public function getAllRows() {
-        return $this->Explorer->table(self::TABLE);
+        return $this->explorer->table(self::TABLE);
     }
 
     /**
      * @return Selection
      */
     public function getOnlinePlayers() {
-        return $this->Explorer->table(self::TABLE)->where("online = ?", 1);
+        return $this->explorer->table(self::TABLE)->where("online = ?", 1);
     }
 }

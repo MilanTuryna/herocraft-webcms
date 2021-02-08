@@ -24,23 +24,23 @@ class LoginPresenter extends BasePresenter
 
     private SettingsRepository $settingsRepository;
     private Authenticator $authenticator;
-    private Explorer $Explorer;
+    private Explorer $explorer;
     private Nette\Caching\Cache $cache;
 
     /**
      * LoginPresenter constructor.
      * @param Authenticator $authenticator
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      * @param Nette\Caching\Storage $storage
      * @param SettingsRepository $settingsRepository
      * @param GoogleAnalytics $googleAnalytics
      */
-    public function __construct(Authenticator $authenticator, Explorer $Explorer, Nette\Caching\Storage $storage, SettingsRepository $settingsRepository, GoogleAnalytics $googleAnalytics)
+    public function __construct(Authenticator $authenticator, Explorer $explorer, Nette\Caching\Storage $storage, SettingsRepository $settingsRepository, GoogleAnalytics $googleAnalytics)
     {
         parent::__construct($googleAnalytics);
 
         $this->settingsRepository = $settingsRepository;
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
         $this->cache = new Nette\Caching\Cache($storage);
         $this->authenticator = $authenticator;
     }
@@ -54,7 +54,7 @@ class LoginPresenter extends BasePresenter
         $this->template->nastaveni = $nastaveni;
         $this->template->widget = $this->settingsRepository->getWidgetCode(1);
         $this->template->logo = $this->settingsRepository->getLogo();
-        $this->template->stranky = $this->Explorer->table('pages');
+        $this->template->stranky = $this->explorer->table('pages');
         $this->template->status = !$nastaveni->udrzba ? $status->getCachedJson() : false; // pokud neni udrzba nebo api nefunguje, status se vypise jinak false
 
         if((bool)$this->authenticator->getUser()) {

@@ -71,7 +71,7 @@ final class PagePresenter extends BasePresenter
                                 SectionRepository $sectionRepository, PluginAuthenticator $pluginAuthenticator)
     {
         parent::__construct($googleAnalytics);
-        
+
         $this->articleRepository = $articleRepository;
         $this->categoryRepository = $categoryRepository;
         $this->cache = new Caching\Cache($storage);

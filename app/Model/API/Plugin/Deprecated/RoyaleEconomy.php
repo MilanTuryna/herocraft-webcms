@@ -13,19 +13,19 @@ use Nette\Database\Table\ActiveRow;
  */
 class RoyaleEconomy
 {
-    private Explorer $Explorer;
+    private Explorer $explorer;
 
     const TABLE = 'PlayerPurse';
 
     /**
      * EpicLevels constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      *
      * database.epiclevels
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -33,6 +33,6 @@ class RoyaleEconomy
      * @return Row|ActiveRow|null
      */
     public function getRow($username) {
-        return $this->Explorer->table(self::TABLE)->where('username = ?', $username)->fetch();
+        return $this->explorer->table(self::TABLE)->where('username = ?', $username)->fetch();
     }
 }

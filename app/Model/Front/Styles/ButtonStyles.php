@@ -18,16 +18,16 @@ class ButtonStyles
 
     const DB_TABLE = "button_styles";
 
-    private Explorer $Explorer;
+    private Explorer $explorer;
     private Response $response;
 
     /**
      * ButtonStyles constructor.
-     * @param Explorer $Explorer
+     * @param Explorer $explorer
      */
-    public function __construct(Explorer $Explorer)
+    public function __construct(Explorer $explorer)
     {
-        $this->Explorer = $Explorer;
+        $this->explorer = $explorer;
     }
 
     /**
@@ -69,7 +69,7 @@ class ButtonStyles
      * @return array|Row[]
      */
     public function getStyles(): array {
-        return $this->Explorer->table(self::DB_TABLE)->fetchAll();
+        return $this->explorer->table(self::DB_TABLE)->fetchAll();
     }
 
     /**
@@ -77,7 +77,7 @@ class ButtonStyles
      * @return \Nette\Database\Row|ActiveRow|null
      */
     public function getStyleById(int $id): ?ActiveRow {
-        return $this->Explorer->table(self::DB_TABLE)->where('id = ?', $id)->fetch();
+        return $this->explorer->table(self::DB_TABLE)->where('id = ?', $id)->fetch();
     }
 
     /**
@@ -85,7 +85,7 @@ class ButtonStyles
      * @return bool|int|ActiveRow
      */
     public function createStyle(iterable $data) {
-        return $this->Explorer->table(self::DB_TABLE)->insert($data);
+        return $this->explorer->table(self::DB_TABLE)->insert($data);
     }
 
     /**
@@ -94,7 +94,7 @@ class ButtonStyles
      * @return int
      */
     public function editStyle(int $id, iterable $data): int {
-        return $this->Explorer->table(self::DB_TABLE)->where('id = ?', $id)->update($data);
+        return $this->explorer->table(self::DB_TABLE)->where('id = ?', $id)->update($data);
     }
 
     /**
@@ -102,7 +102,7 @@ class ButtonStyles
      * @return int
      */
     public function deleteStyle(int $id): int {
-        return $this->Explorer->table(self::DB_TABLE)->where("id = ?", $id)->delete();
+        return $this->explorer->table(self::DB_TABLE)->where("id = ?", $id)->delete();
     }
 
     /**
@@ -110,6 +110,6 @@ class ButtonStyles
      */
     public function getExplorer(): Explorer
     {
-        return $this->Explorer;
+        return $this->explorer;
     }
 }
