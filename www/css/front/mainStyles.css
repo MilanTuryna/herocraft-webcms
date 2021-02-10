@@ -8,6 +8,11 @@ html,body {
     overflow-x: hidden;
 }
 
+@media (min-width: 992px) {
+    .panelLogin-card{padding-left:40px!important;}
+}
+
+
 /*headings */
 .header-h1 {font-size: calc( 2.2em + 3vmin );}
 .header-h2 {font-size: calc(1em + 2vmin);}
