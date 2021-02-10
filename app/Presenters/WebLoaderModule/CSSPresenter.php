@@ -39,7 +39,7 @@ class CSSPresenter extends Presenter
         foreach ($this->buttonStyles->getStyles() as $style) {
             $responseContent .= "\n/* " . $style->class . " -> " . $style->name . " */\n";
             $responseContent .= "" . $style->css;
-      }
+        }
         $this->sendResponse(new CSSResponse($responseContent));
     }
 }
