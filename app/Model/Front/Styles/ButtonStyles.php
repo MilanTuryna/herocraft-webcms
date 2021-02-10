@@ -3,10 +3,11 @@
 namespace App\Front\Styles;
 
 use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
-use Nette\Database\Table\Row;
 use Nette\Http\Response;
 use Nette\SmartObject;
+use TypeError;
 
 /**
  * Class ButtonStyles
@@ -37,7 +38,7 @@ class ButtonStyles
     public static function getSelectBox(array $styles) {
         $arr = [];
         foreach ($styles as $style) {
-            if(!($style instanceof ActiveRow)) throw new \TypeError("Please, pass ActiveRow[] from " . self::DB_TABLE . " table as parameter 'styles'");
+            if(!($style instanceof ActiveRow)) throw new TypeError("Please, pass ActiveRow[] from " . self::DB_TABLE . " table as parameter 'styles'");
             $arr[$style->class] = $style->name;
         }
         return $arr;
@@ -74,7 +75,7 @@ class ButtonStyles
 
     /**
      * @param int $id
-     * @return \Nette\Database\Row|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getStyleById(int $id): ?ActiveRow {
         return $this->explorer->table(self::DB_TABLE)->where('id = ?', $id)->fetch();
