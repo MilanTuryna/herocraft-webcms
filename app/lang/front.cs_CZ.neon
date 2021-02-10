@@ -2,7 +2,7 @@ home:
     breadcrumbTitle: "Domovská stránka"
     newsHeading: "AKTUALITY"
     metaKeywords: "domov, homepage, home, %web%, aktuality, minecraft, server"
-    viewList: "ZOBRAZIT ARCHIV"
+    viewArchive: "ZOBRAZIT ARCHIV"
     viewSpecificList: 'ZOBRAZIT STARŠÍ <span class="text-white-50">(kolem %articles%)</span>'
     gamesHeading: "HERNÍ PRVKY"
 login:
@@ -25,6 +25,9 @@ flashMessages:
     pageNotFound: "Tato stránka nebyla nalezena!"
     successLogout: "Byl jsi odhlášen, pro další manipulaci s administrací se přihlaš!"
 forms:
+    panelLogin:
+        cardHeader: "Hráčský panel (a tickety!)"
+        cardText: "Nedávno jsme všem hráčům HeroCraftu prostřednictvím webového panelu umožnili kompletní správu nad svým herním profilem a možnost kontaktu na tým podpory díky novému ticket systému. <br><u>Ke vstupu se přihlaš stejnými údaji jako ve hře.</u>"
     login:
         name: "Jméno/email"
         password: "Heslo"
