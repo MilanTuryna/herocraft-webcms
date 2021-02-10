@@ -39,6 +39,8 @@ class SettingsForm
             ->setDefaultValue($settings->nazev)
             ->setMaxLength(35)
             ->setRequired();
+        $form->addTextArea('header', 'Hlavička webu')
+            ->setDefaultValue($settings->header);
         $form->addText('ip', 'IP serveru:')
             ->setRequired()
             ->setMaxLength(35)
@@ -74,7 +76,8 @@ class SettingsForm
             "ip" => $values->ip,
             "udrzba" => $values->udrzba,
             "description" => $values->description,
-            "footer" => $values->footer
+            "footer" => $values->footer,
+            "header" => $values->header ?? ''
         ]);
         $this->settings->setWidgetCode($values->widget);
         if($values->logo->isOk() && $values->logo->isImage()) {
