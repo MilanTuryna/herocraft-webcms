@@ -22,10 +22,7 @@
 		"tracy/tracy": "^2.6",
 		"contributte/translation": "0.9.x-dev",
 		"sabberworm/php-css-parser": "dev-master",
-		"ext-curl": "*",
-		"ext-dom": "*",
-		"ext-mbstring": "*",
-		"ext-json": "*"
+		"matthiasmullie/minify": "1.3.63"
 	},
 	"require-dev": {
 		"nette/tester": "^2.0"
