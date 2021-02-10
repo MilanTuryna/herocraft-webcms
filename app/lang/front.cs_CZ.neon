@@ -5,6 +5,7 @@ home:
     viewArchive: "ZOBRAZIT ARCHIV"
     viewSpecificList: 'ZOBRAZIT STARŠÍ <span class="text-white-50">(kolem %articles%)</span>'
     gamesHeading: "HERNÍ PRVKY"
+    newsAtTime: "Aktuality ke dni"
 login:
     title: "%web% | Přihlášení"
     heading: "Přihlásit se"
