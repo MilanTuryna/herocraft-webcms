@@ -35,7 +35,7 @@ abstract class WebLoaderBasePresenter extends BasePresenter
     /**
      * @throws AbortException
      */
-    public function renderCSS() {
+    public function renderCSS(): void {
         try {
             $this->module->basePath = $this->getHttpRequest()->getUrl()->getHostUrl();
             $cssParser = $this->module->getParsedCSS();
@@ -52,7 +52,12 @@ abstract class WebLoaderBasePresenter extends BasePresenter
     /**
      * @throws AbortException
      */
-    public function renderJS() {
-        $this->sendResponse(new JSResponse($this->module->getParsedJS()));
+    public function renderJS(): void {
+        try {
+            $this->sendResponse(new JSResponse($this->module->getParsedJS()));
+        } catch (ParseError $parseError) {
+            $textResponse = new TextResponse($parseError->getMessage());
+            $this->sendResponse($textResponse);
+        }
     }
 }
