@@ -10,7 +10,7 @@ parameters:
             module: App\Model\WebLoader\Modules\Specific\AdminModule(%webloader.admin.cssMask%, %webloader.admin.jsMask%, "AdminModule")
         front:
             cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\front\*', 'css\front\*\*'])
-            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\front'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\front\effects.js','js\front\all.js'])
             module: App\Model\WebLoader\Modules\Specific\FrontModule(%webloader.front.cssMask%, %webloader.front.jsMask%, "FrontModule")
         stats:
             cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\stats\*'])
