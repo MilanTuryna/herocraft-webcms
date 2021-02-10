@@ -9,7 +9,7 @@ use Nette;
  * Class CSSResponse
  * @package App\Model\Responses
  */
-class CSSResponse implements \Nette\Application\IResponse
+class CSSResponse implements \Nette\Application\Response
 {
     use Nette\SmartObject;
 

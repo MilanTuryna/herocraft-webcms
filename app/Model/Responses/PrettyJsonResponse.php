@@ -7,7 +7,7 @@ use Nette\Http\IResponse;
 use Nette\SmartObject;
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
-use Nette\Application\IResponse as AppResponse;
+use Nette\Application\Response as AppResponse;
 
 /**
  * Class Json

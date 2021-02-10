@@ -5,13 +5,13 @@ namespace App\Model\Responses;
 
 
 use Nette;
-use Nette\Application\IResponse;
+use Nette\Application\Response;
 
 /**
  * Class JSResponse
  * @package App\Model\Responses
  */
-class JSResponse implements IResponse
+class JSResponse implements Response
 {
     use Nette\SmartObject;
 
