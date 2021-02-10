@@ -30,13 +30,15 @@ class FileMask
      * @return string
      */
     public function scrapFiles(): string {
-        $files = Finder::findFiles($this->masks)->from($this->mainDir);
         $content = "";
-        /** @var SplFileInfo $fileInfo */
-        foreach ($files as $fileInfo) {
-            if($fileInfo->isReadable() && $fileInfo->getSize() > 0) {
-                $fileObject = $fileInfo->openFile();
-                $content .= $fileObject->fread($fileObject->getSize());
+        foreach ($this->masks as $actualMask) {
+            $files = Finder::findFiles($actualMask)->from($this->mainDir);
+            foreach ($files as $fileInfo) {
+                /** @var SplFileInfo $fileInfo */
+                if($fileInfo->isReadable() && $fileInfo->getSize() > 0) {
+                    $fileObject = $fileInfo->openFile();
+                    $content .= $fileObject->fread($fileObject->getSize());
+                }
             }
         }
         return $content;
