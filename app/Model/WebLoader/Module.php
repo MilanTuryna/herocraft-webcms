@@ -3,6 +3,7 @@
 
 namespace App\Model\Loader\Assets;
 
+use App\Model\Front\Parsers\JSParser;
 use App\WebLoader\Exceptions\ParseError;
 use App\Front\Parsers\Exceptions\SyntaxError;
 use App\Model\Front\Parsers\CSSParser;
@@ -53,8 +54,15 @@ abstract class Module
 
     /**
      * @return string
+     * @throws ParseError
      */
     public function getParsedJS(): string {
-        return $this->jsMask->scrapFiles();
+        $rawContent = $this->jsMask->scrapFiles();
+        $jsParser = new JSParser($rawContent);
+        try {
+            return $jsParser->getCompiledCode();
+        } catch (\Exception $exception) {
+            throw new ParseError("An error occured while parsing JS code in [". implode(',', $this->cssMask->getMasks()) . "] files. " . $exception->getMessage(), $exception);
+        }
     }
 }
