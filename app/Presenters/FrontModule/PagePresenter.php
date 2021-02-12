@@ -25,6 +25,7 @@ use Nette\Application\UI\Form;
 use Nette\Caching;
 
 use Exception;
+use Throwable;
 
 /**
  * Class HomepagePresenter
@@ -102,9 +103,10 @@ final class PagePresenter extends BasePresenter
 
     /**
      * @throws Exception
+     * @throws Throwable
      */
     public function renderHome(): void {
-        $articles = $this->articleRepository->findArticlesWithCategory(7)->fetchAll();
+        $articles = $this->articleRepository->findArticlesWithCategory(11)->fetchAll();
         $articlesArr = [];
         foreach ($articles as $article) array_push($articlesArr, $article);
         $this->template->articlesCount = $this->articleRepository->getPublishedArticlesCount();
