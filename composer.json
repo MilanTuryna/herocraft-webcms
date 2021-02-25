@@ -20,6 +20,8 @@
 		"nette/utils": "^3.0",
 		"latte/latte": "^2.9",
 		"tracy/tracy": "^2.6",
+		"mpdf/mpdf": "8.0.9",
+		"contributte/pdf": "v6.0.0",
 		"contributte/translation": "0.9.x-dev",
 		"sabberworm/php-css-parser": "dev-master",
 		"matthiasmullie/minify": "1.3.63"
