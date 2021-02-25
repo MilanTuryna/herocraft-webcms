@@ -6,6 +6,9 @@ home:
     viewSpecificList: 'ZOBRAZIT STARŠÍ <span class="text-white-50">(kolem %articles%)</span>'
     gamesHeading: "HERNÍ PRVKY"
     newsAtTime: "Aktuality ke dni"
+customStatsRow:
+    value: "23.2.2013 7:00"
+    desc: "hodina spuštení HeroCraftu"
 login:
     title: "%web% | Přihlášení"
     heading: "Přihlásit se"
