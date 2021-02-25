@@ -1,0 +1,123 @@
+{varType App\Model\DI\Seo $seo}
+{varType App\Model\DI\GoogleAnalytics $googleAnalytics}
+<!DOCTYPE HTML>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    {if $googleAnalytics->isEnabled()}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={$googleAnalytics->getCode()|stripHtml|noescape}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', {$googleAnalytics->getCode()});
+        </script>
+    {/if}
+    <meta name="theme-color" content="#81b8ca">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="Miloslav Turyna https://turyna.eu">
+    <meta name="keywords" content="{include keywords|trim}">
+    <meta name="description" content="{include description|trim}">
+    <meta name="robots" content="index, follow">
+    <title>{include title|trim}</title>
+    <meta property="og:url" content="{link this}"/>
+    <meta property="og:type" content="{ifset #ogType}{include ogType}{else}website{/ifset}"/>
+    <meta property="og:title" content="{include title|trim}" />
+    <meta property="og:description" content="{include description|trim}">
+    <meta property="og:locale" content="cs_cz">
+    <meta property="og:locale:alternate" content="sk_SK"/>
+    {if $seo->getOgImage()}
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="680">
+        <meta property="og:image" content={$seo->getOgImage()}> <!-- todo -->/>
+        <meta property="og:image:alt" content="Poutavý obrázkový banner reprenzentujicí: {include title|trim}">
+    {/if}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+    <link n:href=":WebLoader:Front:css" rel="stylesheet">
+    <link n:href=":Dynamic:CSS:buttons" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+{ifset #additionStyles}
+    {include #additionStyles}
+{/ifset}
+<div class="section section-header landing-header" style="position: relative;">
+    <div class="section-header-inner">
+        <div style="background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); padding:4px"><div class="container-big container"></div></div>
+        <div class="container-big container section-header-container" style="padding-top: 100px">
+            <header>
+                <div class="row">
+                    <div class="col-lg-6">
+                        {$nastaveni->header|noescape}
+                    </div>
+                    <div class="col-lg-5 ddddd pe-sm-0 panelLogin-card" style="padding-top: 12px;">
+                        <div class="card bg-dark shadow-lg text-white" data-aos="fade-left"
+                             data-aos-duration="1750">
+                            <div class="card-body p-0" style="background: url('https://turyna.eu/images/projects/herocraft-web.png');" >
+                                <div class="p-3 opacity-dark-bg h-100" style="background: rgba(0,0,0,0.6);">
+                                    <h5 class="card-title text-white">{_front.forms.panelLogin.cardHeader}</h5>
+                                    <p class="card-text">{_front.forms.panelLogin.cardText|noescape}</p>
+                                </div>
+                            </div>
+                            <div class="card-footer bg-opacity-green">
+                                {foreach $flashes as $flash}
+                                    <small class="text-danger" n:if="$flash->type === 'error' || $flash->type === 'danger'">{$flash->message}</small>
+                                {/foreach}
+                                <form n:name="signInPanelForm">
+                                    <div class="row">
+                                        <div class="col-sm-5 ps-lg-2 pe-sm-1 mt-1 mt-lg-0">
+                                            <input style=" zoom: 90%" class="form-control border-dark dark-placeholder" n:name="name" placeholder="Herní přezdívka">
+                                        </div>
+                                        <div class="col-sm-5 ps-sm-0 pe-sm-0 mt-1 mt-lg-0">
+                                            <input style="zoom: 90%" class="form-control border-dark dark-placeholder" n:name="password" placeholder="Heslo">
+                                        </div>
+                                        <div class="col-sm-2 ps-sm-1 mt-1 mt-lg-0">
+                                            <button n:name="submit" class="btn btn-success w-100" style="zoom: 90%"><i class="fa fa-arrow-circle-right" style="font-size: 120%"></i></button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <small class="text-muted float-right" style="zoom:85%">
+                                    <hr style="margin-bottom: 2px; margin-top: 8px;">
+                                    Vstupem automaticky souhlasíš s <a href="" target="_blank" class="text-white">podmínky používání</a>.</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="container-big container" style="padding-top:100px">
+            {ifset #subheader}
+                {include subheader}
+            {/ifset}
+        </div>
+    </div>
+</div>
+{include content}
+<div >
+    <div class="container-big container mb-4">
+        {$nastaveni->footer|noescape}
+        <small class="small text-muted">Webový systém naprogramoval
+            <a href="https://turyna.eu" target="_blank" class="text-dark">Milan Turyna</a>
+            <a href="https://turyna.eu" target="_blank" class="text-dark">https://turyna.eu</a>
+            | <a n:href="Login:main" class="extern-href">Administrace</a>
+            | <a n:href=":HelpDesk:Login:main" class="extern-href">Helpdesk</a>
+        </small>
+    </div>
+</div>
+{ifset #endScripts}
+    {include endScripts}
+{/ifset}
+<script src="{link :WebLoader:Front:js}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init();
+</script>
+</body>
+</html>

@@ -1,0 +1,240 @@
+{varType App\Model\DI\Seo $seo}
+{varType App\Model\DI\GoogleAnalytics $googleAnalytics}
+<!DOCTYPE HTML>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    {if $googleAnalytics->isEnabled()}
+        <script async src="https://www.googletagmanager.com/gtag/js?id={$googleAnalytics->getCode()|stripHtml|noescape}"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', {$googleAnalytics->getCode()});
+        </script>
+    {/if}
+    <meta name="theme-color" content="#81b8ca">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="author" content="Miloslav Turyna https://turyna.eu">
+    <meta name="keywords" content="{include keywords|trim}">
+    <meta name="description" content="{include description|trim}">
+    <meta name="robots" content="index, follow">
+    <title>{include title|trim}</title>
+    <meta property="og:url" content="{link this}"/>
+    <meta property="og:type" content="{ifset #ogType}{include ogType}{else}website{/ifset}"/>
+    <meta property="og:title" content="{include title|trim}" />
+    <meta property="og:description" content="{include description|trim}">
+    <meta property="og:locale" content="cs_cz">
+    <meta property="og:locale:alternate" content="sk_SK"/>
+    {if $seo->getOgImage()}
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="680">
+        <meta property="og:image" content={$seo->getOgImage()}> <!-- todo -->/>
+        <meta property="og:image:alt" content="Poutavý obrázkový banner reprenzentujicí: {include title|trim}">
+    {/if}
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Marcellus&display=swap" rel="stylesheet">
+    <link n:href=":WebLoader:Front:css" rel="stylesheet">
+    <link n:href=":Dynamic:CSS:buttons" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+{ifset #additionStyles}
+    {include #additionStyles}
+{/ifset}
+<style>
+        .section-header-inner {
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 97%, white);
+        }
+
+        .section-header-container {
+            padding-top: 55px!important;
+        }
+
+        .hamburger-button {
+            background: #155724;
+            transition: 0.5s;
+        }
+
+        .hamburger-button:focus, .hamburger-button:hover {
+            background: #1a6e2d;
+        }
+</style>
+<div class="section section-header" style="position: relative; background-position:center 60%;">
+    <div style="background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.5));">
+        <nav class="navbar navbar-expand-md navbar-light bg-transparent">
+            <div class="container container-big bg-transparent">
+                <a class="navbar-brand" n:href="Main:landingPage">play.herocraft.cz</a>
+                <div class="rounded hamburger-button">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon" style="filter: invert()"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse bg-transparent mt-2" id="navbarNavAltMarkup">
+                    <div class="navbar-nav shadow border-secondary border transparent-navbar border-end-0">
+                        <a n:class="'nav-link text-uppercase home-button pe-3 ps-3 border-end border-dark', $presenter->isLinkCurrent('Main:landingPage') ? 'active' : ''"
+                            n:attr="aria-current: $presenter->isLinkCurrent('Main:landingPage') ? 'page' : null" n:href="Main:landingPage"><i class="fa fa-home text-white" aria-hidden="true"></i></a>
+                        {foreach $pages as $pageItem}
+                            <a n:class="'nav-link text-uppercase',  'border-sm-none border-end border-dark', 'pe-3 ps-3', $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'active' : ''"
+                                n:href="Page:view $pageItem->url" n:attr="aria-current: $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'page' : null">{$pageItem->name}</a>
+                        {/foreach}
+                        <li class="nav-item dropdown" n:if="count($pages) > 3">
+                            <a class="nav-link text-uppercase dropdown-button pe-3 ps-3 border-end text-center border-top border-dark" data-bs-toggle="dropdown" href="#">
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu mt-1 shadow-lg" aria-labelledby="navbarDropdown">
+                                {foreach $pages as $pageItem}
+                                    {continueIf $iterator->getCounter() <= 3}
+                                    <li><a n:class="'dropdown-item',$presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'dropdown-active' : ''" n:attr="aria-current: $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'page' : null"
+                                        n:href="Page:view $pageItem->url">{$pageItem->name}</a></li>
+                                {/foreach}
+                            </ul>
+                        </li>
+                    </div>
+                </div>
+                <div class="d-none d-lg-flex" style="border-radius: 5px">
+                    <div class="bg-white me-2">
+                        <div class="shadow border-secondary border" style="background: rgba(162, 240, 78,0.5); border-radius: inherit">
+                            <div class="navbar-nav shadow border-secondary border">
+                                <a class="nav-link text-center nav-opacity-button" style="min-width: 150px; " n:href=":Panel:Login:main">HRÁČSKÝ PANEL</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white">
+                        <div class="shadow border-secondary border" style="background: rgba(240, 173, 78,0.5); border-radius: inherit">
+                            <div class="navbar-nav shadow border-secondary border">
+                                <a class="nav-link text-center nav-opacity-button" style="min-width: 180px; " n:href=":Stats:Main:app">HRÁČSKÉ STATISTIKY</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div style="border-radius: 5px" class="d-block d-lg-none">
+            <!-- misto pro objekt upozorneni na dekstopu -->
+            <div class="bg-white">
+                <div class="shadow border-secondary border-bottom-0" style="background: rgba(162, 240, 78,0.5); border-radius: inherit">
+                    <div class="navbar-nav shadow border-secondary border">
+                        <a class="nav-link text-center nav-opacity-button" style="min-width: 150px;color:rgba(0,0,0,.55) " href="#">HRÁČSKÝ PANEL</a>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white">
+                <div class="shadow border-secondary border border-top-0" style="background: rgba(240, 173, 78,0.5); border-radius: inherit">
+                    <div class="navbar-nav shadow border-secondary border">
+                        <a class="nav-link text-center nav-opacity-button" style="min-width: 180px; color:rgba(0,0,0,.55)" href="#">HRÁČSKÉ STATISTIKY</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section-header-inner d-none d-md-block">
+        <div style="background: linear-gradient(to bottom, rgba(255,255,255,0.3), transparent); padding:4px"><div class="container-big container"></div></div>
+        <div class="container-big container section-header-container" style="padding-bottom: 70px">
+            <header>
+                <div class="d-block text-center">
+                    <a n:href="Main:landingPage"><img src="https://herocraft.cz/img/logo.png" style="width: 10%"></a>
+                </div>
+            </header>
+        </div>
+    </div>
+</div>
+<style>
+        .breadcrumb-item + .breadcrumb-item::before {
+            font-family: 'FontAwesome';
+            content: "\f105";
+            font-weight: 900;
+        }
+
+        .breadcrumb-item a {
+            color: rgba(0,0,128,0.75);
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+        }
+</style>
+    <div class="row" style="margin-top: 30px">
+    <div class="col-xl-2 col-md-3 order-md-1 order-3">
+        <div class="ps-4 pe-4 mt-lg-0 mt-3">
+            <div class="list-group shadow-sm mb-2">
+                <div class="list-group-item list-group-item-action p-0" style="background: #e9ffe1">
+                    <div class="p-3 pb-2">
+                        <h5>Už hraješ?</h5>
+                        <div class="small mb-2">
+                            {if !$nastaveni->udrzba && isset($status->online) && $status->online}
+                                Na serveru {$sklonovani($status->players->online, ["je", "jsou", "je"])}
+                                momentálně {$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}!
+                                Připoj se i ty na <strong>{$nastaveni->ip}</strong>
+                            {else}
+                                {if $nastaveni->udrzba}Na serveru momentálně probíhá údržba.{/if}
+                                {if isset($status->online) && !$status->online}Server je momentálně vypnutý{/if}
+                                {if !isset($status->online)}Status se nepodařilo načíst!{/if}
+                            {/if}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="list-group shadow-sm">
+                <div class="list-group-item list-group-item-action p-0" style="background: #fff8e1">
+                    <div class="p-3 pb-2">
+                        <h5>Hlasuj na CzechCraft</h5>
+                        <div class="small mb-2">Líbí se ti u nás na serveru? Podpoř nás svým hlasem každé dvě hodiny!</div>
+                    </div>
+                    <form action="https://czech-craft.eu/server/hero-craft/vote/?user=d" method="get" target="_blank">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <input class="form-control" name="user" style="border-radius: 0; background-color: rgba(0,0,0,0.1)" autocomplete="off" type="text" placeholder="Tvůj nick"/>
+                            </div>
+                        </div>
+                        <button class="btn-warning btn btn-sm w-100" style="border-radius: 0; color: rgba(0,0,0,0.5)">
+                            <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star-half-empty"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8 col-md-9 order-2" style="padding: 0">
+        <div class="row">
+            <div class="col-lg-9 col-md-11 ps-5 pe-5 pe-md-0 ps-md-0">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        {include breadcrumb}
+                    </ol>
+                </nav>
+                {include content}
+            </div>
+            <div class="col-lg-3 ps-5 pe-5 ps-md-0 ps-lg-3 pe-lg-3 mt-md-3 mt-lg-0">
+                {include contentSidebar}
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-2 d-none d-xl-block order-5"></div>
+</div>
+<div >
+    <div class="container-big container mb-4">
+        {$nastaveni->footer|noescape}
+        <small class="small text-muted">Webový systém naprogramoval
+            <a href="https://turyna.eu" target="_blank" class="text-dark">Milan Turyna</a>
+            <a href="https://turyna.eu" target="_blank" class="text-dark">https://turyna.eu</a>
+            | <a n:href="Login:main" class="extern-href">Administrace</a>
+            | <a n:href=":HelpDesk:Login:main" class="extern-href">Helpdesk</a>
+        </small>
+    </div>
+</div>
+{ifset #endScripts}
+    {include endScripts}
+{/ifset}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+<script src="{link :WebLoader:Front:js}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>AOS.init();</script>
+</body>
+</html>
