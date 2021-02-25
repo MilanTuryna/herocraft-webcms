@@ -1,0 +1,31 @@
+{layout '../classicLayout.latte'}
+{block title}
+    {$page->name|trim}
+{/block}
+{block breadcrumb}
+    <li class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i></li>
+    <li class="breadcrumb-item"><a n:href="Main:landingPage" class="dark-blue-text">Domovská stránka</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{$page->name}</li>
+{/block}
+{block description}
+    {$page->description}
+{/block}
+{block keywords}
+    {$page->keywords}
+{/block}
+{block content}
+    {$page->content|noescape}
+{/block}
+{block contentSidebar}
+    <h4 class="fw-normal mt-3 mt-md-0">Doporučené články</h4>
+    <ul class="list-group list-group-flush" style="zoom:80%">
+        {foreach $sidebarArticles as $item}
+            <li class="list-group-item">
+                <span style="zoom:80%; color: {$item->category_color|stripHtml|noescape}">{$item->category_name}</span><br>
+                <a n:href="Article:view $item->url" class="dark-blue-text href-underline" >{$item->name}</a> <span class="text-muted">{$item->created_at|date:'j.n.Y'}</span></li>
+        {/foreach}
+    </ul>
+    <button class="btn btn-sm w-100 btn-secondary me-1 ms-2" style="zoom: 80%">
+        ARCHIV
+    </button>
+{/block}

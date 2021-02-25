@@ -61,7 +61,6 @@ class SectionRepository
     }
 
     /**
-     * TODO: Test this method
      * Generating JSON with content data of section (all text, images and buttons)
      * @param Section $section
      * @return string
