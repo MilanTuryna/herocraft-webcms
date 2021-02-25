@@ -140,13 +140,16 @@ final class RouterFactory
             ->addRoute('/web-loader/stats/js', 'Stats:js');
 
         $router->withModule('Front')
-            ->addRoute('/', 'Page:home')
             ->addRoute('/login', 'Login:main')
+
+            ->addRoute('/', 'Main:landingPage')
+            ->addRoute('/archiv[/<pagination=1>]', 'Main:archive')
+            ->addRoute('/<pageUrl>', 'Page:view')
+
             ->addRoute('/admin/odhlasit-se', 'Login:logout')
 
-            ->addRoute('/clanek[/<articleUrl=1>]', 'Page:article')
-            ->addRoute('/archiv[/<page=1>]', 'Page:archiv') // list článků
-            ->addRoute('/<page>', 'Page:page');
+            ->addRoute('/clanek[/<articleUrl=1>]', 'Article:view')
+            ->addRoute('/export-clanku/<articleUrl>?dl=<download>', 'Article:export');
 
         $router->withModule('Dynamic')
             ->addRoute('/dynamic/css/buttons', 'CSS:buttons');
