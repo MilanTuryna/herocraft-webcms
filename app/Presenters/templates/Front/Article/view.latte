@@ -1,0 +1,54 @@
+{layout '../classicLayout.latte'}
+{block title}
+    {$article->name|trim}
+{/block}
+{block description}
+    {$article->description|trim}
+{/block}
+{block keywords}
+    {$article->keywords|trim}
+{/block}
+{block breadcrumb}
+    <li class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i></li>
+    <li class="breadcrumb-item"><a n:href="Main:landingPage" class="dark-blue-text">Domovská stránka</a></li>
+    <li class="breadcrumb-item"><a href="#" class="dark-blue-text">Archiv článků</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{$article->name}</li>
+{/block}
+{block content}
+    <article>
+        <div class="">
+            <h3 class="fw-normal">{$article->name}</h3>
+            <small class="small text-muted fst-italic">
+                <i class="fa fa-book fst-bold" aria-hidden="true"></i>
+                MilanT, <time>{$article->created_at|date:'j.n.Y H:i'}</time>
+            </small>
+            <div class="badge badge-sm bg-danger">
+                Mimořádné
+            </div>
+            <div class="" style="margin-top: 12px; color: rgba(0,0,0,0.8); zoom:90%">
+                {$article->content|noescape}
+            </div>
+            <div class="bg-light p-4">
+                <h5 class="text-muted" style="zoom:90%">Přiložené soubory</h5>
+                <ul class="list-group list-group-flush" style="zoom:85%">
+                    <li class="list-group-item bg-transparent">Automaticky generovaný export článku (<a n:href="Article:export $article->url, true">stáhnout</a>, <a n:href="Article:export $article->url, false">otevřít</a>)
+                        <span class="float-right text-muted d-md-inline d-none"><strong class="me-1">herocraft-clanek{$article->id}.pdf</strong> <i class="fa fa-file-pdf-o text-danger"></i></span></li>
+                </ul>
+            </div>
+        </div>
+    </article>
+{/block}
+{block contentSidebar}
+    <h4 class="fw-normal mt-3 mt-md-0">Doporučené články</h4>
+    <ul class="list-group list-group-flush" style="zoom:80%">
+        {foreach $articles as $item}
+            {continueIf $item->id === $article->id}
+            <li class="list-group-item">
+                <span style="zoom:80%; color: {$item->category_color|stripHtml|noescape}">{$item->category_name}</span><br>
+                <a n:href="Article:view $item->url" class="dark-blue-text href-underline" >{$item->name}</a> <span class="text-muted">{$item->created_at|date:'j.n.Y'}</span></li>
+        {/foreach}
+    </ul>
+    <button class="btn btn-sm w-100 btn-secondary me-1 ms-2" style="zoom: 80%">
+        ARCHIV
+    </button>
+{/block}
