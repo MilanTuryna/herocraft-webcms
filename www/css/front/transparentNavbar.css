@@ -1,0 +1,54 @@
+.transparent-navbar {
+    background: rgba(255,255,255,0.3)
+}
+
+.transparent-navbar .active {
+    background: rgba(66, 117, 115,0.5);
+    color:rgba(255,255,255,0.75) !important;
+}
+
+.transparent-navbar .home-button {
+    background: #31ad74;
+    color:#fff;
+}
+
+.transparent-navbar .home-button:hover {
+    background: #198754;
+}
+
+.transparent-navbar .home-button:focus, .dropdown-item:focus, .dropdown-active {
+    background: #167549!important;
+    color:white!important;
+}
+
+.transparent-navbar .dropdown-button {
+    background: white;
+}
+
+.transparent-navbar .dropdown-button:hover {
+    background: rgba(255,255,255,0.7)
+}
+
+.transparent-navbar .dropdown-button:focus {
+    background: rgba(255,255,255,0.5);
+}
+
+.transparent-navbar .nav-link:hover:not(.home-button, .dropdown-button)  {
+    background: rgba(0,0,0,0.1);
+}
+
+.transparent-navbar .nav-link:focus:not(.home-button, .dropdown-button) {
+    background: rgba(0,0,0,0.2);
+}
+
+.nav-opacity-button {
+    background: rgba(0,0,0,0.0)
+}
+
+.nav-opacity-button:hover {
+    background: rgba(0,0,0,0.1)
+}
+
+.nav-opacity-button:focus {
+    background: rgba(0,0,0,0.2)
+}
