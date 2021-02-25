@@ -59,7 +59,7 @@ class CronPresenter extends Presenter
         } {
             $this->flashMessage("Přístup zamítnut.", "danger");
         }
-        $this->redirect(":Front:Page:home");
+        $this->redirect(":Front:Main:landingPage");
     }
 
 }
