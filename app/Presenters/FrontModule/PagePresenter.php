@@ -26,6 +26,7 @@ class PagePresenter extends FrontBasePresenter
      * @param SettingsRepository $settingsRepository
      * @param PageManager $pageManager
      * @param Storage $storage
+     * @param ArticleRepository $articleRepository
      */
     public function __construct(DI\GoogleAnalytics $googleAnalytics, Authenticator $authenticator, SettingsRepository $settingsRepository, PageManager $pageManager, Storage $storage, ArticleRepository $articleRepository)
     {
