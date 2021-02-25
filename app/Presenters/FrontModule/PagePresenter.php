@@ -1,184 +1,51 @@
 <?php
 
-declare(strict_types=1);
 
 namespace App\Presenters\FrontModule;
 
-use App\Forms\Panel\SignInForm;
-use App\Front\SectionRepository;
-use App\Model\DI\GameSections;
-use App\Model\DI\GoogleAnalytics;
-use App\Model\Security\Auth\Authenticator;
-use App\Model\Security\Auth\PluginAuthenticator;
-use App\Model\Stats\CachedAPIRepository;
-use App\Model\SettingsRepository;
+
 use App\Model\ArticleRepository;
-use App\Model\CategoryRepository;
+use App\Model\DI;
 use App\Model\PageManager;
-use App\Model\API\Status;
+use App\Model\Security\Auth\Authenticator;
+use App\Model\SettingsRepository;
+use App\Presenters\FrontBasePresenter;
+use Nette\Application\BadRequestException;
+use Nette\Caching\Cache;
 use Nette\Caching\Storage;
 
-use App\Presenters\BasePresenter;
-
-use Nette;
-use Nette\Application\UI\Form;
-use Nette\Caching;
-
-use Exception;
-use Throwable;
-
-/**
- * Class HomepagePresenter
- * @package App\Presenters
- */
-final class PagePresenter extends BasePresenter
+class PagePresenter extends FrontBasePresenter
 {
-    use Nette\SmartObject;
-
     private PageManager $pageManager;
-    private Caching\Cache $cache;
     private ArticleRepository $articleRepository;
-    private CategoryRepository $categoryRepository;
-    private Authenticator $authenticator;
-    private SettingsRepository $settingsRepository;
-    private GameSections $gameSections;
-    private CachedAPIRepository $cachedAPIRepository;
-    private SectionRepository $sectionRepository;
-    private PluginAuthenticator $pluginAuthenticator;
 
     /**
      * PagePresenter constructor.
-     * @param ArticleRepository $articleRepository
-     * @param CategoryRepository $categoryRepository
+     * @param DI\GoogleAnalytics $googleAnalytics
+     * @param Authenticator $authenticator
      * @param SettingsRepository $settingsRepository
      * @param PageManager $pageManager
      * @param Storage $storage
-     * @param Authenticator $authenticator
-     * @param GoogleAnalytics $googleAnalytics
-     * @param GameSections $gameSections
-     * @param CachedAPIRepository $cachedAPIRepository
-     * @param SectionRepository $sectionRepository
-     * @param PluginAuthenticator $pluginAuthenticator
      */
-    public function __construct(ArticleRepository $articleRepository,
-                                CategoryRepository $categoryRepository,
-                                SettingsRepository $settingsRepository,
-                                PageManager $pageManager,
-                                Storage $storage,
-                                Authenticator $authenticator,
-                                GoogleAnalytics $googleAnalytics,
-                                GameSections $gameSections,
-                                CachedAPIRepository $cachedAPIRepository,
-                                SectionRepository $sectionRepository, PluginAuthenticator $pluginAuthenticator)
+    public function __construct(DI\GoogleAnalytics $googleAnalytics, Authenticator $authenticator, SettingsRepository $settingsRepository, PageManager $pageManager, Storage $storage, ArticleRepository $articleRepository)
     {
-        parent::__construct($googleAnalytics);
+        parent::__construct($googleAnalytics, $authenticator, $settingsRepository, $pageManager, new Cache($storage));
 
-        $this->articleRepository = $articleRepository;
-        $this->categoryRepository = $categoryRepository;
-        $this->cache = new Caching\Cache($storage);
         $this->pageManager = $pageManager;
-        $this->settingsRepository = $settingsRepository;
-        $this->authenticator = $authenticator;
-        $this->gameSections = $gameSections;
-        $this->cachedAPIRepository = $cachedAPIRepository;
-        $this->sectionRepository = $sectionRepository;
-        $this->pluginAuthenticator = $pluginAuthenticator;
-    }
-
-    public function startup(): void {
-        parent::startup();
-
-        $nastaveni = $this->settingsRepository->getAllRows();
-
-        $status = new Status((string)$nastaveni->ip, $this->cache);
-
-        $this->template->logo = $this->settingsRepository->getLogo();
-        $this->template->widget = $this->settingsRepository->getWidgetCode(1);
-        $this->template->nastaveni = $nastaveni;
-        $this->template->categoryRepository = $this->categoryRepository;
-        $this->template->articleRepository = $this->articleRepository;
-        $this->template->stranky = $this->pageManager->getPages();
-        $this->template->status = $status->getCachedJson(); // pokud neni udrzba nebo api nefunguje, status se vypise jinak false
+        $this->articleRepository = $articleRepository;
     }
 
     /**
-     * @throws Exception
-     * @throws Throwable
+     * @param string $pageUrl
+     * @throws BadRequestException
      */
-    public function renderHome(): void {
-        $articles = $this->articleRepository->findArticlesWithCategory(11)->fetchAll();
-        $articlesArr = [];
-        foreach ($articles as $article) array_push($articlesArr, $article);
-        $this->template->articlesCount = $this->articleRepository->getPublishedArticlesCount();
-        $this->template->articles = $articlesArr;
-        $this->template->gameSections = $this->gameSections;
-        $this->template->registerCount = $this->cachedAPIRepository->getRegisterCount();
-        $this->template->timesPlayed = $this->cachedAPIRepository->getTimesPlayed();
-        $this->template->sectionList = $this->sectionRepository->rowsToSectionList($this->sectionRepository->getAllSections());
-    }
-
-    /**
-     * @param string $page
-     * @throws Nette\Application\BadRequestException
-     */
-    public function renderPage(string $page): void {
-        $pageObj = $this->pageManager->getPage($page);
+    public function renderView(string $pageUrl) {
+        $pageObj = $this->pageManager->getPage($pageUrl);
         if($pageObj) {
             $this->template->page = $pageObj;
+            $this->template->sidebarArticles = $this->articleRepository->findArticlesWithCategory(5);
         } else {
             $this->error($this->translator->translate("front.flashMessages.pageNotFound"));
         }
-    }
-
-    /**
-     * @param int $page
-     * @throws Exception
-     */
-    public function renderArchiv(int $page = 1): void // list článků
-    {
-        $articlesCount = $this->articleRepository->getPublishedArticlesCount();
-
-        $paginator = new Nette\Utils\Paginator;
-        $paginator->setItemCount($articlesCount); // celkový počet článků
-        $paginator->setItemsPerPage(10); // počet položek na stránce
-        $paginator->setPage($page); // číslo aktuální stránky
-
-        $this->template->paginator = $paginator;
-
-        $articles = $this->articleRepository->findArticlesWithCategory($paginator->getLength(), $paginator->getOffset());
-        $this->template->articles = $articles;
-
-        $lastPage = $paginator->getLastPage();
-
-        $this->template->logged = (bool)$this->authenticator->getUser();
-
-        $this->template->page = $page;
-        $this->template->lastPage = $lastPage;
-
-        if($lastPage === 0) $this->template->page = 0;
-    }
-
-    /**
-     * @param $articleUrl
-     * @throws Nette\Application\BadRequestException
-     */
-    public function renderArticle($articleUrl): void {
-        $article = $this->articleRepository->findArticleByUrl($articleUrl);
-        if($article) {
-            $this->template->logged = (bool)$this->authenticator->getUser();
-            $this->template->article = $article;
-            $this->template->category = $article->ref('categories', 'category_id', 'color', 'name');
-        } else {
-            $this->error(
-                $this->translator->translate("front.flashMessages.articleNotFound")
-            );
-        }
-    }
-
-    /**
-     * @return Form
-     */
-    public function createComponentSignInPanelForm(): Form {
-        return (new SignInForm($this->pluginAuthenticator, $this, null, true))->create();
     }
 }
