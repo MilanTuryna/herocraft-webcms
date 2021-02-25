@@ -20,6 +20,7 @@ html,body {
 
 /* colored texts */
 .dark-blue-text {color:#1a237e}
+.dark-blue-text:hover {color: #1a4a7e}
 .blue-glow {
     text-shadow: 0 0 11px rgba(78, 132, 174, 1);
     color: white;
@@ -33,9 +34,22 @@ html,body {
     background-size: cover;
 }
 
+.navbar-nav.navbar-center {
+    position: absolute;
+    left: 50%;
+    transform: translatex(-50%);
+}
+
+.landing-header {
+    min-height: 50vh;
+}
+
+.classic-header {
+    min-height: 30vh;
+}
+
 .section-header {
     background-image: url('{$basePath}/img/web/background.png');
-    min-height: 75vh;
     min-width: 100vw;
     animation: bg--Position 5s 1 forwards;
 }
