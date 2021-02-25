@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App;
 
 use Nette\Bootstrap\Configurator;
+use Tracy\Debugger;
 
 /**
  * Class Bootstrap
@@ -12,16 +13,19 @@ use Nette\Bootstrap\Configurator;
  */
 class Bootstrap
 {
+
     /**
      * Default method for boot in index.php
      * @return Configurator
      */
 	public static function boot(): Configurator
 	{
-		$configurator = new Configurator;
+	    $configurator = new Configurator;
 
-		$configurator->setDebugMode(true); // enable for your remote IP
+		$configurator->setDebugMode(true);
 		$configurator->enableTracy(__DIR__ . '/../log');
+
+        Debugger::$strictMode = E_ALL & ~E_DEPRECATED & ~E_USER_DEPRECATED & ~E_USER_NOTICE;
 
 		$configurator->setTimeZone('Europe/Prague');
 		$configurator->setTempDirectory(__DIR__ . '/../temp');
