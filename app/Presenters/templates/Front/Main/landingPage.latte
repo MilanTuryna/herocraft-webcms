@@ -1,0 +1,172 @@
+{layout '../landingLayout.latte'}
+{block title}{$nastaveni->nazev}{/block}
+{block description}{$nastaveni->description}{/block}
+{block keywords}{_front.home.metaKeywords, [web => $nastaveni->nazev]}{/block}
+{block subheader}
+        <div class="row">
+            <div class="col-6 col-md" style="margin-bottom: 16px">
+                <div class="d-block text-center">
+                    <i class="fa fa-users heavy-icon" style="font-size: 60px;"></i>
+                    <h1 class="fw-light">{$registerCount}</h1>
+                    <small class="text-muted">úspěšných registrací</small>
+                </div>
+            </div>
+            <div class="col-6 col-md" style="margin-bottom: 16px">
+                <div class="d-block text-center">
+                    <i class="fa fa-calendar heavy-icon" style="font-size: 60px;"></i>
+                    <h1 class="fw-light">{_front.customStatsRow.value}</h1>
+                    <small class="text-muted">{_front.customStatsRow.desc}</small>
+                </div>
+            </div>
+            <div class="col-6 col-md" style="margin-bottom: 16px">
+                <div class="d-block text-center">
+                    <i class="fa fa-clock-o heavy-icon" style="font-size: 60px;"></i>
+                    <h1 class="fw-light">přes {round($timesPlayed,-strlen($timesPlayed)+1)}</h1>
+                    <small class="text-muted">odehraných hodin</small>
+                </div>
+            </div>
+            <div class="col-6 col-md" style="margin-bottom: 16px" n:if="!$nastaveni->udrzba && isset($status->online) && $status->online">
+                <div class="d-block text-center">
+                    <i class="fa fa-user heavy-icon" style="font-size: 60px;"></i>
+                    <h1 class="fw-light">{$status ? $status->players->online . ' ' . $sklonovani($status->players->online, ['hráč', 'hráči', 'hráčů']) : '*neznámo* hráčů'}</h1>
+                    <small class="text-muted">momentálně na serveru</small>
+                </div>
+            </div>
+        </div>
+{/block}
+{block content}
+    {varType int $registerCount}
+    {varType Nette\Database\Row[] $articles}
+    {varType float $timesPlayed}
+<div class="section" id="news">
+    <div class="container-big container">
+        <div>
+            <div class="row">
+                <div class="col-lg-2">
+                    <div class="bg-light border shadow mb-3">
+                        <div class="list-group list-group-flush list-group-href">
+                            <a n:href="Main:landingPage" n:class="'list-group-item', $presenter->isLinkCurrent('Main:landingPagae') ? 'active-href' : ''">Úvod</a>
+                            {foreach $pages as $stranka}
+                                <a n:href="Page:view $stranka->url" n:class="'list-group-item', $presenter->isLinkCurrent('Page:view', $stranka->url) ? 'active-href' : ''">{$stranka->name}</a>
+                            {/foreach}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row" style="margin-bottom: 16px">
+                        {foreach $articles as $article}
+                            {continueIf $article->secret}
+                            {breakIf $iterator->getCounter() > 4}
+                            {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
+                            <div n:class="$iterator->isFirst() ? 'col-md-12' : 'col-md-4'">
+                                <article>
+                                    <div n:class="'card', 'shadow-sm', 'mb-3', $iterator->isFirst() ? 'bg-light'">
+                                        <div class="card-body">
+                                            <span class="badge badge-pill float-right text-white" n:if="!$iterator->isFirst()" style="background-color:{$categoryColor|noescape}">{$article->category_name ? $article->category_name : "Nezařazeno"}</span>
+                                            <h5 class="card-title">
+                                                <a n:href="Article:view, $article->url" class="dark-blue-text href-underline">{$article->name}</a>
+                                            </h5>
+                                            <p class="card-text"> {$article->content|substrWithoutHTML:340|noescape}</p>
+                                            <span class="badge badge-pill float-right text-white" n:if="$iterator->isFirst()" style="background-color:{$categoryColor|noescape}">{$article->category_name ? $article->category_name : "Nezařazeno"}</span>
+                                            <p class="card-text"><small class="text-muted"><b>{$article->author}</b> {$article->created_at|date:'j.n.Y H:i'}</small></p>
+                                        </div>
+                                    </div>
+                                </article>
+                            </div>
+                        {/foreach}
+                        <div class="col-md-12 mt-3" n:if="count($articles) > 4">
+                            <ul class="list-group list-group-flush">
+                                {foreach $articles as $article}
+                                    {continueIf $iterator->getCounter() < 5}
+                                    {breakIf $iterator->getCounter() > 7}
+                                    {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
+                                    <li class="list-group-item">
+                                        <a n:href="Article:view $article->url" class="dark-blue-text href-underline">
+                                            {$article->name}
+                                        </a>
+                                        <span class="small text-muted float-right">
+                                            {$article->created_at|date:'j.n.Y H:i'}
+                                            <span style="color:{$categoryColor|noescape}; zoom:90%" class="small">{$article->category_name ? $article->category_name : "Nezařazeno"}</span>
+                                        </span>
+                                    </li>
+                                {/foreach}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <small class="text-muted">{_front.home.newsAtTime}: <span style="text-decoration: underline"><time>{="now"|date:'j.n.Y'}</time></span></small><br>
+                    <b>Výběr dalších článků:</b><br>
+                    <hr>
+                    {foreach $articles as $article}
+                        {continueIf $iterator->getCounter() < 9}
+                        {breakIf $iterator->getCounter() > 11}
+                        <a n:href="Article:view $article->url" class="extern-href" style="zoom:80%">{$article->name}</a> <span class="small text-muted" style="zoom:70%">{$article->created_at|date:'j.n.Y H:i'}</span><br>
+                    {/foreach}
+                    <button class="btn intern-green-button w-100 mt-2 text-white">
+                        {var $d = $articlesCount - count($articles) . $sklonovani(2, [" článku", " článků", " článků"])}
+						{_front.home.viewSpecificList, [articles => $d]|noescape}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{varType App\Model\Front\UI\Parts\Section[] $sectionList}
+{foreach $sectionList as $section}
+    <section n:if="$section->section_view" style="background: {$section->bgColor|noescape}" n:attr="id: $section->anchor">
+        <div class="container-big container" style="padding-top: 32px; padding-bottom: 32px">
+            <div class="row">
+                <div n:if="$section->image && !$section->joinedSection" n:class="'col-lg-3', $section->image->align === 'left' ? 'order-1' : 'order-3'">
+                    <img n:attr="alt: ($section->image->alt ?: null), src: $section->image->url" class="d-none d-lg-block" style="width: 70%">
+                </div>
+                {* condition for good col width - if section without elements (card, image) set to col-lg-12, if one element set to col-lg-9, if two elements set to col-lg-6 *}
+                <div n:class="'order-2',
+                ($section->card || $section->image || $section->joinedSection)
+                ?(($section->card && !$section->image) || (!$section->card && $section->image) ?
+                (($section->card && !$section->image) ? 'col-lg-8' : 'col-lg-9') : 'col-lg-6') : 'col-lg-12'">
+                    <h1 class="font-marcellus font-weight-normal" style="color: {$section->text->color|noescape}">
+                            {$section->title|stripHtml|allowAsteriskReplace|noescape}
+                    </h1>
+                    <p class="font-marcellus" style="color: {$section->text->color|noescape}">
+                        {if $section->htmlEnabled}
+                            {$section->text->content|noescape}
+                        {else}
+                            {$section->text->content}
+                        {/if}
+                        <span class="d-block p-0 m-0" n:if="$section->button">
+               <a n:attr="target: $section->button->target, href: $section->button->link ?: false"
+                  n:class="'btn', 'font-marcellus', 'font-weight-bold','mt-3', $section->button->style, $section->button->width === '100%' ? 'w-100' : ''">
+               {$section->button->title->content}
+               </a>
+               </span>
+                    </p>
+                </div>
+                <div n:if="$section->card && !$section->joinedSection" n:class="$section->image ? 'col-lg-3' : 'col-lg-4', $section->card->align === 'left' ? 'order-1' : 'order-3'">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{$section->card->title}</h5>
+                            <p class="card-text" style="color: {$section->card->text->color|noescape}">{$section->card->text->content}</p>
+                        </div>
+                    </div>
+                </div>
+                <div n:if="$section->joinedSection" class="col-lg-6 order-3" n:attr="id: $section->joinedSection->anchor">
+                    <h1 class="font-marcellus font-weight-normal text-dark">{$section->joinedSection->title|stripHtml|allowAsteriskReplace|noescape}</h1>
+                    <p class="font-marcellus" style="color: {$section->joinedSection->text->color|noescape}">
+                        {if $section->joinedSection->htmlEnabled}
+                            {$section->joinedSection->text->content|noescape}
+                        {else}
+                            {$section->joinedSection->text->content}
+                        {/if}
+                        <span class="d-block p-0 m-0" n:if="$section->joinedSection->button">
+               <a n:attr="target: $section->joinedSection->button->target, href: $section->joinedSection->button->link ?: false"
+                  n:class="'btn', 'font-marcellus', 'font-weight-bold','mt-3', $section->joinedSection->button->style">
+               {$section->joinedSection->button->title->content}
+               </a>
+               </span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+{/foreach}
+{/block}
