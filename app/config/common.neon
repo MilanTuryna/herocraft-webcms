@@ -101,6 +101,7 @@ services:
 	cron: App\Model\DI\Cron(%cron.password%)
 	seo: App\Model\DI\Seo(%seo.ogImageURL%)
 	sectionRepository: App\Front\SectionRepository
+	widgetRepository: App\Front\WidgetRepository
 	webloader.frontModule: %webloader.front.module%
 	webloader.adminModule: %webloader.admin.module%
 	webloader.statsModule: %webloader.stats.module%
