@@ -13,6 +13,8 @@ use App\Model\Stats\CachedAPIRepository;
 use App\Model\Utils;
 use App\Presenters\FrontBasePresenter;
 use Contributte\PdfResponse\PdfResponse;
+use Mpdf\HTMLParserMode;
+use Mpdf\MpdfException;
 use Nette\Application\AbortException;
 use Nette\Application\BadRequestException;
 use Nette\Caching\Cache;
@@ -27,6 +29,9 @@ class ArticlePresenter extends FrontBasePresenter
     private SettingsRepository $settingsRepository;
     private ArticleRepository $articleRepository;
     private CachedAPIRepository $cachedAPIRepository;
+    private Cache $cache;
+
+    public array $exportStylesheets = [];
 
     /**
      * ArticlePresenter constructor.
@@ -41,7 +46,8 @@ class ArticlePresenter extends FrontBasePresenter
     public function __construct(DI\GoogleAnalytics $googleAnalytics, Authenticator $authenticator, SettingsRepository $settingsRepository, PageManager $pageManager,
                                 ArticleRepository $articleRepository, CachedAPIRepository $cachedAPIRepository, Storage $storage)
     {
-        parent::__construct($googleAnalytics, $authenticator, $settingsRepository, $pageManager, new Cache($storage));
+        $this->cache = new Cache($storage);
+        parent::__construct($googleAnalytics, $authenticator, $settingsRepository, $pageManager, $this->cache);
 
         $this->settingsRepository = $settingsRepository;
         $this->articleRepository = $articleRepository;
@@ -68,6 +74,7 @@ class ArticlePresenter extends FrontBasePresenter
      * @param string $articleUrl
      * @param bool $download
      * @throws AbortException
+     * @throws MpdfException
      */
     public function actionExport(string $articleUrl, bool $download) {
         $article = $this->articleRepository->findArticleByUrl($articleUrl);
@@ -76,9 +83,11 @@ class ArticlePresenter extends FrontBasePresenter
 
         $this->template->webName = $webName;
         $this->template->articleName = $article->name;
+        $this->template->articleUrl = $article->url;
         $this->template->articleId = $article->id;
+        $this->template->articleCategoryID = $article->category_id;
+        $this->template->articleCreated = $article->created_at;
         $this->template->articleContent = $article->content;
-        $this->template->articleRow = $article;
 
         try {$this->sendTemplate(); } catch (AbortException $d) {}
 
@@ -87,6 +96,8 @@ class ArticlePresenter extends FrontBasePresenter
         $response->setPageFormat('A4-L');
         $response->setDocumentTitle(Utils::parseURL($webName) . '-clanek' . $article->id);
         $response->setSaveMode($download ? PdfResponse::DOWNLOAD : PdfResponse::INLINE);
+        $mPdf = $response->getMPDF();
+        foreach($this->exportStylesheets as $sty) $mPdf->WriteHTML(file_get_contents($sty), HTMLParserMode::HEADER_CSS);
         $this->sendResponse($response);
     }
 }
