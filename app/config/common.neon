@@ -106,6 +106,10 @@ services:
 	webloader.statsModule: %webloader.stats.module%
 	webloader.panelModule: %webloader.panel.module%
 	webloader.helpDeskModule: %webloader.helpdesk.module%
+	frontModule.articlePresenter:
+	    factory: App\Presenters\FrontModule\ArticlePresenter(...)
+	    setup:
+	        - $exportStylesheets = ['%wwwDir%\css\pdf\bootstrap.css']
 	cronPresenter:
 	    factory: App\Presenters\CronPresenter(@cron)
 	    setup:
