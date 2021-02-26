@@ -71,9 +71,7 @@ class ArticleRepository
      * @return Nette\Database\Row|Nette\Database\Table\ActiveRow|null
      */
     public function findArticleByUrl($url) {
-        return $this->explorer->table('articles')
-            ->where('url = ?', $url)
-            ->fetch();
+        return $this->explorer->query("SELECT articles.*, categories.name as category_name, categories.color as category_color FROM articles  LEFT JOIN categories ON articles.category_id = categories.id WHERE url = ? ORDER BY articles.created_at DESC", $url)->fetch();
     }
 
 
