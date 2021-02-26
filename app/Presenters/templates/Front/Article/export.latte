@@ -1,16 +1,49 @@
-<html>
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
-</head>
-<body>
-<div class="p-4">
-    <span style="font-size: 150%" class="text-muted">{$webName} - export článku #{$articleId}</span>
-    <hr style="color: #999;">
-    <div class="bg-light p-4">
-        <div style="zoom:90%">
-            dd
+{varType string $webName}
+{varType string $articleName}
+{varType string $articleUrl}
+{varType int $articleId}
+{varType int $articleCategoryID}
+{varType string $articleCreated}
+{varType string $articleContent}
+{cache "articleExport-" . $articleId, expire => '60 minutes'}
+    <!DOCTYPE html>
+    <html style="max-width: 100vw; max-height: 100vh; overflow-y:hidden;">
+    <body>
+    <h3>{$webName} - automaticky generovaný export článku <b>#{$articleId}</b></h3>
+    <hr>
+    <ul>
+        <li style="background: #dfd9f7">
+            <b>Název:</b> {$articleName}
+        </li>
+        <li>
+            <b>URL cesta: </b> <a n:href="Article:view, $articleUrl">{link "//Article:view", $articleUrl}</a>
+        </li>
+        <li class="bg-success">
+            <b>ID:</b> #{$articleId}
+        </li>
+        <li class="bg-info">
+            <b>Kategorie:</b> #{$articleCategoryID}
+        </li>
+        <li class="bg-warning">
+            <b>Čas vytvoření:</b> {$articleCreated|date:'j.n.Y H:i'}
+        </li>
+        <li class="bg-danger">
+            <b>Čas zobrazeného exportu:</b> {="now"|date:'j.n.Y H:i:s'}
+        </li>
+    </ul>
+    <hr>
+    <article>
+        <div class="">
+            <h3 class="fw-normal">{$articleName}</h3>
+            <small class="small text-muted fst-italic">
+                <i class="fa fa-book fst-bold" aria-hidden="true"></i>
+                MilanT, <time>{$articleCreated|date:'j.n.Y H:i'}</time>
+            </small>
+            <div class="" style="color: rgba(0,0,0,0.8); zoom:90%">
+                {$articleContent|noescape}
+            </div>
         </div>
-    </div>
-</div>
-</body>
-</html>
+    </article>
+    </body>
+    </html>
+{/cache}
