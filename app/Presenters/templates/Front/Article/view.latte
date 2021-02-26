@@ -23,7 +23,7 @@
                 MilanT, <time>{$article->created_at|date:'j.n.Y H:i'}</time>
             </small>
             <div class="badge badge-sm bg-danger">
-                Mimořádné
+                {$article->category_name}
             </div>
             <div class="" style="margin-top: 12px; color: rgba(0,0,0,0.8); zoom:90%">
                 {$article->content|noescape}
