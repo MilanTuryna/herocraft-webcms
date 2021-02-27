@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Forms\Sections\Data;
+namespace App\Forms\Admin\Content\Sections\Data; 
 
 use App\Model\Front\UI\Elements\Button;
 use App\Model\Front\UI\Elements\Card;
@@ -11,7 +11,7 @@ use App\Model\Utils;
 
 /**
  * Class SectionFormData
- * @package App\Forms\Sections\Data
+ * @package App\Forms\Admin\Content\Sections\Data
  */
 class SectionFormData
 {

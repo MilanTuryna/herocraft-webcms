@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Forms\Content\Styles\Button\Data;
+namespace App\Forms\Admin\Content\Styles\Button\Data;
 
 /**
  * Class ButtonStyleFormData
- * @package App\Forms\Content\Styles\Button\Data
+ * @package App\Forms\Admin\Content\Styles\Button\Data
  */
 class ButtonStyleFormData
 {

@@ -4,7 +4,7 @@
 namespace App\Forms\Admin\Content\Styles\Button;
 
 
-use App\Forms\Content\Styles\Button\Data\ButtonStyleFormData;
+use App\Forms\Admin\Content\Styles\Button\Data\ButtonStyleFormData;
 use App\Front\Parsers\Exceptions\SyntaxError;
 use App\Front\Styles\ButtonStyles;
 use App\Model\Front\Parsers\CSSParser;

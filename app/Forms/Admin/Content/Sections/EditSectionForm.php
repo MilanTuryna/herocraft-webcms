@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Forms\Content\Sections;
+namespace App\Forms\Admin\Content\Sections;
 
-use App\Forms\Sections\Data\SectionFormData;
+use App\Forms\Admin\Content\Sections\Data\SectionFormData;
 use App\Front\SectionRepository;
 use App\Front\Styles\ButtonStyles;
 use App\Model\Front\UI\Elements\Button;
@@ -16,7 +16,7 @@ use Nette\Utils\Html;
 
 /**
  * Class EditSectionForm
- * @package App\Forms\Content\Sections
+ * @package App\Forms\Admin\Content\Sections
  */
 class EditSectionForm
 {
