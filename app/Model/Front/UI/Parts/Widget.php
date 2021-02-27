@@ -22,6 +22,9 @@ class Widget
     public string $side;
     public string $description;
 
+    /** Non-required properties from database */
+    public ?string $dbId = null;
+
     /**
      * Widget constructor.
      * @param string $name
