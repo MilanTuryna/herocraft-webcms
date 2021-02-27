@@ -41,6 +41,29 @@ class WidgetRepository
     }
 
     /**
+     * @param ActiveRow $activeRow
+     * @return Widget
+     */
+    public function parseWidget(ActiveRow $activeRow): Widget {
+        $widget = new Widget($activeRow->name, $activeRow->name, $activeRow->side, $activeRow->description);
+        $widget->dbId = $activeRow->id;
+        return $widget;
+    }
+
+    /**
+     * @param array $rows
+     * @return array
+     */
+    public function rowsToWidgetList(array $rows): array {
+        $widgetList = [];
+        foreach ($rows as $row) {
+            if(!($row instanceof ActiveRow)) throw new \TypeError("Please, use ActiveRow[] array in " .__METHOD__. " method");
+            $widgetList[] = $this->parseWidget($row);
+        }
+        return $widgetList;
+    }
+
+    /**
      * @param Widget $widget
      * @return bool|int|ActiveRow
      */
@@ -65,12 +88,30 @@ class WidgetRepository
     }
 
     /**
+     * @param int $id
+     * @return ActiveRow|null
+     */
+    public function getWidgetById(int $id): ?ActiveRow {
+        return $this->explorer->table(self::TABLE)->where('id = ?', $id)->fetch();
+    }
+
+    /**
+     * @return array|ActiveRow[]
+     */
+    public function getAllWidgets(): array {
+        return $this->explorer->table(self::TABLE)->fetchAll();
+    }
+
+    /**
      * @return array|ActiveRow[]
      */
     public function getRightWidgets(): array {
         return $this->explorer->table(self::TABLE)->where("side = ?", Widget::RIGHT_SIDE)->fetchAll();
     }
 
+    /**
+     * @return array|ActiveRow[]
+     */
     public function getLeftWidgets(): array {
         return $this->explorer->table(self::TABLE)->where("side = ?", Widget::LEFT_SIDE)->fetchAll();
     }
