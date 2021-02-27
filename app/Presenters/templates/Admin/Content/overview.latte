@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
 {/block}
 {block content}
+    {varType App\Model\Front\UI\Parts\Widget[] $widgetList}
     {varType App\Model\Front\UI\Parts\Section[] $sectionList}
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -16,6 +17,39 @@
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin: 0" class="card-title">Widgety</h5>
+            <hr>
+            <div class="card-text">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr id="withoutBorderTh">
+                            <th scope="col">Název</th>
+                            <th scope="col">Popisek</th>
+                            <th scope="col">Zařazení</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">EDIT</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {foreach $widgetList as $widget}
+                            <tr>
+                                <td>{$widget->name}</td>
+                                <td>{$widget->description}</td>
+                                <td>{$widget->side}</td>
+                                <td>#{$widget->dbId}</td>
+                                <td><a n:href="Content:editWidget $widget->dbId">EDIT</a></td>
+                            </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+                <a n:href="Content:createWidget" class="btn btn-success w-100 btn-sm">Přidat widget</a>
+            </div>
+        </div>
+    </div>
     <div class="card classic-shadow default-margin-bot">
         <div class="card-body">
             <h5 style="margin: 0" class="card-title">Aktuální sekce</h5>
