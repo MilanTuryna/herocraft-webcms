@@ -11,6 +11,7 @@ use App\Forms\Content\Sections\CreateSectionForm;
 use App\Forms\Content\Sections\EditSectionForm;
 use App\Front\SectionRepository;
 use App\Front\Styles\ButtonStyles;
+use App\Front\WidgetRepository;
 use App\Model\Admin\Roles\Permissions;
 use App\Model\Security\Auth\Authenticator;
 use App\Model\SettingsRepository;
@@ -32,6 +33,7 @@ final class ContentPresenter extends AdminBasePresenter
     private SettingsRepository $settingsRepository;
     private SectionRepository $sectionRepository;
     private ButtonStyles $buttonStyles;
+    private WidgetRepository $widgetRepository;
 
     /**
      * ContentPresenter constructor.
@@ -39,23 +41,27 @@ final class ContentPresenter extends AdminBasePresenter
      * @param SettingsRepository $settingsRepository
      * @param SectionRepository $sectionRepository
      * @param ButtonStyles $buttonStyles
+     * @param WidgetRepository $widgetRepository
      * @param string $permissionNode
      */
     public function __construct(Authenticator $authenticator,
                                 SettingsRepository $settingsRepository,
                                 SectionRepository $sectionRepository,
                                 ButtonStyles $buttonStyles,
+                                WidgetRepository $widgetRepository,
                                 string $permissionNode = Permissions::ADMIN_CONTENT_MANAGER)
     {
         parent::__construct($authenticator, $permissionNode);
 
         $this->settingsRepository = $settingsRepository;
         $this->sectionRepository = $sectionRepository;
+        $this->widgetRepository = $widgetRepository;
         $this->buttonStyles = $buttonStyles;
     }
 
     public function renderOverview() {
         $this->template->sectionList = $this->sectionRepository->rowsToSectionList($this->sectionRepository->getAllSections(), false);
+        $this->template->widgetList = $this->widgetRepository->rowsToWidgetList($this->widgetRepository->getAllWidgets());
     }
 
     /**
@@ -78,7 +84,7 @@ final class ContentPresenter extends AdminBasePresenter
      * @param int $id
      * @throws AbortException
      */
-    public function renderEditSection(int $id) {
+    public function renderEditSection(int $id): void {
         $section = $this->sectionRepository->getSectionById($id);
         if($section) {
             $parsedSection = $this->sectionRepository->parseSection($section);
@@ -98,7 +104,25 @@ final class ContentPresenter extends AdminBasePresenter
      * @param int $id
      * @throws AbortException
      */
-    public function renderEditButtonStyle(int $id) {
+    public function renderEditWidget(int $id): void {
+        $widget = $this->widgetRepository->getWidgetById($id);
+        if(!$widget) {
+            $this->flashMessage("Nemůžeš editovat widget, který neexistuje!", "danger");
+            $this->redirect("Content:overview");
+        }
+        $parsedWidget = $this->widgetRepository->parseWidget($widget);
+        if(!$parsedWidget) {
+            $this->flashMessage("Nastala neznámá chyba při zpracovávání sekce z databáze (nikoliv SQL error!)", "danger");
+            $this->redirect("Content:overview");
+        }
+        $this->template->widget = $parsedWidget;
+    }
+
+    /**
+     * @param int $id
+     * @throws AbortException
+     */
+    public function renderEditButtonStyle(int $id): void {
         $buttonStyle = $this->buttonStyles->getStyleById($id);
         if($buttonStyle) {
             $this->template->style = $buttonStyle;
@@ -113,7 +137,7 @@ final class ContentPresenter extends AdminBasePresenter
      * @param string $buttonStyleName
      * @throws AbortException
      */
-    public function actionDeleteButtonStyle(int $id, string $buttonStyleName) {
+    public function actionDeleteButtonStyle(int $id, string $buttonStyleName): void {
         if($this->buttonStyles->deleteStyle($id)) {
             $this->flashMessage(Html::el()
                 ->addText('Styl tlačítka ')
@@ -126,7 +150,7 @@ final class ContentPresenter extends AdminBasePresenter
         $this->redirect('Content:buttonStylesList');
     }
 
-    public function renderButtonStylesList() {
+    public function renderButtonStylesList(): void {
         $this->template->buttonStyles = $this->buttonStyles->getStyles();
     }
 
