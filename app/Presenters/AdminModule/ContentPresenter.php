@@ -7,6 +7,7 @@ namespace App\Presenters\AdminModule;
 use App\Forms\Admin\Content\Homepage\ChangeHeaderSectionForm;
 use App\Forms\Admin\Content\Styles\Button\CreateButtonStyleForm;
 use App\Forms\Admin\Content\Styles\Button\EditButtonStyleForm;
+use App\Forms\Admin\Widgets\CreateWidgetForm;
 use App\Forms\Content\Sections\CreateSectionForm;
 use App\Forms\Content\Sections\EditSectionForm;
 use App\Front\SectionRepository;
@@ -62,6 +63,20 @@ final class ContentPresenter extends AdminBasePresenter
     public function renderOverview() {
         $this->template->sectionList = $this->sectionRepository->rowsToSectionList($this->sectionRepository->getAllSections(), false);
         $this->template->widgetList = $this->widgetRepository->rowsToWidgetList($this->widgetRepository->getAllWidgets());
+    }
+
+    /**
+     * @param int $id
+     * @param string $widgetName
+     */
+    public function actionDeleteWidget(int $id, string $widgetName) {
+        if($this->widgetRepository->deleteWidget($id)) {
+            $this->flashMessage(Html::el()->addText("Widget ")
+                ->addHtml(Html::el('strong')->setText($widgetName))
+                ->addText(' byl úspěšně odstraněn!'), 'success');
+        } else {
+            $this->flashMessage("Tento widget nemohl být odstraněn, jelikož neexistuje!", "danger");
+        }
     }
 
     /**
@@ -187,5 +202,9 @@ final class ContentPresenter extends AdminBasePresenter
      */
     public function createComponentCreateSectionForm(): Form {
         return (new CreateSectionForm($this, $this->sectionRepository, $this->buttonStyles, $this->admin->getName(), "Content:overview"))->create();
+    }
+
+    public function createComponentCreateWidgetForm(): Form {
+        return (new CreateWidgetForm($this, $this->widgetRepository, "Content:overview"))->create();
     }
 }
