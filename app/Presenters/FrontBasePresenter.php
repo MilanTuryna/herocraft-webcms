@@ -3,6 +3,7 @@
 
 namespace App\Presenters;
 
+use App\Front\WidgetRepository;
 use App\Model\API\Status;
 use App\Model\DI;
 use App\Model\PageManager;
@@ -20,6 +21,7 @@ abstract class FrontBasePresenter extends BasePresenter
     private SettingsRepository $settingsRepository;
     private PageManager $pageManager;
     private Cache $cache;
+    private WidgetRepository $widgetRepository;
 
     /**
      * FrontBasePresenter constructor.
@@ -28,8 +30,9 @@ abstract class FrontBasePresenter extends BasePresenter
      * @param SettingsRepository $settingsRepository
      * @param PageManager $pageManager
      * @param Cache $cache
+     * @param WidgetRepository $widgetRepository
      */
-    public function __construct(DI\GoogleAnalytics $googleAnalytics, Authenticator $authenticator, SettingsRepository $settingsRepository, PageManager $pageManager, Cache $cache)
+    public function __construct(DI\GoogleAnalytics $googleAnalytics, Authenticator $authenticator, SettingsRepository $settingsRepository, PageManager $pageManager, Cache $cache, WidgetRepository $widgetRepository)
     {
         parent::__construct($googleAnalytics);
 
@@ -37,6 +40,7 @@ abstract class FrontBasePresenter extends BasePresenter
         $this->settingsRepository = $settingsRepository;
         $this->pageManager = $pageManager;
         $this->cache = $cache;
+        $this->widgetRepository = $widgetRepository;
     }
 
     public function beforeRender(): void
@@ -50,5 +54,7 @@ abstract class FrontBasePresenter extends BasePresenter
         $this->template->nastaveni = $nastaveni;
         $this->template->pages = $this->pageManager->getPages();
         $this->template->status = $status->getCachedJson(); // pokud neni udrzba nebo api nefunguje, status se vypise jinak false
+        $this->template->leftWidgets = $this->widgetRepository->rowsToWidgetList($this->widgetRepository->getLeftWidgets());
+        $this->template->rightWidgets = $this->widgetRepository->rowsToWidgetList($this->widgetRepository->getRightWidgets());
     }
 }
