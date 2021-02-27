@@ -4,6 +4,7 @@
 namespace App\Presenters\FrontModule;
 
 
+use App\Front\WidgetRepository;
 use App\Model\ArticleRepository;
 use App\Model\DI;
 use App\Model\PageManager;
@@ -27,10 +28,12 @@ class PagePresenter extends FrontBasePresenter
      * @param PageManager $pageManager
      * @param Storage $storage
      * @param ArticleRepository $articleRepository
+     * @param WidgetRepository $widgetRepository
      */
-    public function __construct(DI\GoogleAnalytics $googleAnalytics, Authenticator $authenticator, SettingsRepository $settingsRepository, PageManager $pageManager, Storage $storage, ArticleRepository $articleRepository)
+    public function __construct(DI\GoogleAnalytics $googleAnalytics, Authenticator $authenticator, SettingsRepository $settingsRepository, PageManager $pageManager,
+                                Storage $storage, ArticleRepository $articleRepository, WidgetRepository $widgetRepository)
     {
-        parent::__construct($googleAnalytics, $authenticator, $settingsRepository, $pageManager, new Cache($storage));
+        parent::__construct($googleAnalytics, $authenticator, $settingsRepository, $pageManager, new Cache($storage), $widgetRepository);
 
         $this->pageManager = $pageManager;
         $this->articleRepository = $articleRepository;

@@ -6,6 +6,7 @@ namespace App\Presenters\FrontModule;
 
 use App\Forms\Panel\SignInForm;
 use App\Front\SectionRepository;
+use App\Front\WidgetRepository;
 use App\Model\ArticleRepository;
 use App\Model\DI;
 use App\Model\PageManager;
@@ -46,6 +47,7 @@ class MainPresenter extends FrontBasePresenter
      * @param CachedAPIRepository $cachedAPIRepository
      * @param SectionRepository $sectionRepository
      * @param DI\GameSections $gameSections
+     * @param WidgetRepository $widgetRepository
      */
     public function __construct(DI\GoogleAnalytics $googleAnalytics,
                                 Authenticator $authenticator,
@@ -56,9 +58,10 @@ class MainPresenter extends FrontBasePresenter
                                 ArticleRepository $articleRepository,
                                 CachedAPIRepository $cachedAPIRepository,
                                 SectionRepository $sectionRepository,
-                                DI\GameSections $gameSections)
+                                DI\GameSections $gameSections,
+                                WidgetRepository $widgetRepository)
     {
-        parent::__construct($googleAnalytics, $authenticator, $settingsRepository, $pageManager, new Cache($storage));
+        parent::__construct($googleAnalytics, $authenticator, $settingsRepository, $pageManager, new Cache($storage), $widgetRepository);
 
         $this->authenticator = $authenticator;
         $this->pluginAuthenticator = $pluginAuthenticator;
