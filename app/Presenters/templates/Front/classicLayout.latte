@@ -88,13 +88,13 @@
                             <a n:class="'nav-link text-uppercase',  'border-sm-none border-end border-dark', 'pe-3 ps-3', $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'active' : ''"
                                 n:href="Page:view $pageItem->url" n:attr="aria-current: $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'page' : null">{$pageItem->name}</a>
                         {/foreach}
-                        <li class="nav-item dropdown" n:if="count($pages) > 3">
+                        <li class="nav-item dropdown" n:if="count($pages) > 4">
                             <a class="nav-link text-uppercase dropdown-button pe-3 ps-3 border-end text-center border-top border-dark" data-bs-toggle="dropdown" href="#">
                                 <i class="fa fa-angle-down"></i>
                             </a>
                             <ul class="dropdown-menu mt-1 shadow-lg" aria-labelledby="navbarDropdown">
                                 {foreach $pages as $pageItem}
-                                    {continueIf $iterator->getCounter() <= 3}
+                                    {continueIf $iterator->getCounter() <= 4}
                                     <li><a n:class="'dropdown-item',$presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'dropdown-active' : ''" n:attr="aria-current: $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'page' : null"
                                         n:href="Page:view $pageItem->url">{$pageItem->name}</a></li>
                                 {/foreach}
