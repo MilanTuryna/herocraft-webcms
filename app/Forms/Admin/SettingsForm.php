@@ -48,9 +48,6 @@ class SettingsForm
         $form->addText('description', 'Homepage description:')
             ->setRequired()
             ->setDefaultValue($settings->description);
-        $form->addTextArea('widget')
-            ->setDefaultValue($this->settings->getWidgetCode())
-            ->setRequired();
         $form->addTextArea('footer')
             ->setDefaultValue($settings->footer)
             ->setRequired();
@@ -79,7 +76,7 @@ class SettingsForm
             "footer" => $values->footer,
             "header" => $values->header ?? ''
         ]);
-        $this->settings->setWidgetCode($values->widget);
+        //$this->settings->setWidgetCode($values->widget);
         if($values->logo->isOk() && $values->logo->isImage()) {
             if($this->settings->getLogo()) {
                 $this->settings->deleteLogo();
