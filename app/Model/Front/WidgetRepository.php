@@ -45,7 +45,7 @@ class WidgetRepository
      * @return Widget
      */
     public function parseWidget(ActiveRow $activeRow): Widget {
-        $widget = new Widget($activeRow->name, $activeRow->name, $activeRow->side, $activeRow->description);
+        $widget = new Widget($activeRow->name, $activeRow->html, $activeRow->side, $activeRow->description);
         $widget->dbId = $activeRow->id;
         return $widget;
     }
