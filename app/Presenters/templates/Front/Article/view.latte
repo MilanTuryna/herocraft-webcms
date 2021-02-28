@@ -1,4 +1,6 @@
 {layout '../classicLayout.latte'}
+{varType Nette\Database\Table\ActiveRow $article}
+{varType Nette\Database\Table\ActiveRow[] $articles}
 {block title}
     {$article->name|trim}
 {/block}
