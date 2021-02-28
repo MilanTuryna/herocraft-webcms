@@ -38,7 +38,7 @@
                             <tr>
                                 <td>{$widget->name}</td>
                                 <td>{$widget->description}</td>
-                                <td>{$widget->side}</td>
+                                <td>{$widget->getSide(true)}</td>
                                 <td>#{$widget->dbId}</td>
                                 <td><a n:href="Content:editWidget $widget->dbId">EDIT</a></td>
                             </tr>
