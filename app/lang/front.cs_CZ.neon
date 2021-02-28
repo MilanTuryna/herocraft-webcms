@@ -32,6 +32,7 @@ forms:
     panelLogin:
         cardHeader: "Hráčský panel (a tickety!)"
         cardText: "Nedávno jsme všem hráčům HeroCraftu prostřednictvím webového panelu umožnili kompletní správu nad svým herním profilem a možnost kontaktu na tým podpory díky novému ticket systému. <br><u>Ke vstupu se přihlaš stejnými údaji jako ve hře.</u>"
+        cardFooter: 'Vstupem automaticky souhlasíš s <a href="" target="_blank" class="text-white">podmínky používání</a>.</small>'
     login:
         name: "Jméno/email"
         password: "Heslo"
