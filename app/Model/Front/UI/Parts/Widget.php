@@ -16,6 +16,10 @@ class Widget
 
     const LEFT_SIDE = 'left';
     const RIGHT_SIDE = 'right';
+    const SIDES = [
+        self::LEFT_SIDE => 'Levá strana',
+        self::RIGHT_SIDE => 'Pravá strana'
+    ];
 
     public string $name;
     public string $html;
@@ -38,5 +42,13 @@ class Widget
         $this->html = $html;
         $this->side = $side;
         $this->description = $description;
+    }
+
+    /**
+     * @param bool $readable
+     * @return string
+     */
+    public function getSide(bool $readable = false): string {
+        return !$readable ? $this->side : self::SIDES[$this->side];
     }
 }
