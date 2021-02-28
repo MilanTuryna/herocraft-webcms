@@ -1,0 +1,75 @@
+{layout '../layout.latte'}
+{block title}
+    Vytvořit nový widget
+{/block}
+{block headAdd}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.css" integrity="sha512-xIf9AdJauwKIVtrVRZ0i4nHP61Ogx9fSRAkCLecmE2dL/U8ioWpDvFCAy4dcfecN72HHB9+7FfQj3aiO68aaaw==" crossorigin="anonymous" />
+{/block}
+{block content}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Main:home">Administrace</a></li>
+            <li class="breadcrumb-item active"><a class="black-href" n:href="Content:overview">Obsah a zobrazení</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Vytvořit nový widget</li>
+        </ol>
+    </nav>
+    <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
+    <div class="card classic-shadow default-margin-bot">
+        <div class="card-body">
+            <h5 style="margin: 0" class="card-title">Přidat widget</h5>
+            <hr>
+            <div class="card-text">
+                <form n:name="createWidgetForm">
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="name">Název widgetu<span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <input n:name="name" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="description">Popis widgetu</label>
+                        <div class="col-sm-10">
+                            <input n:name="description" type="text" class="form-control" >
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="side">Zařazení widgetu<span class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <select class="form-control custom-select" n:name="side"></select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2" n:name="html">Obsah widgetu (HTML)</label>
+                        <div class="col-sm-10">
+                            <div class="border shadow-sm ">
+                                <textarea n:name="html" type="text" class="textarea-highlight"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-2"><br></div>
+                        <div class="col-sm-10">
+                            <button type="submit" class="btn btn-success w-100" n:name="submit">Vytvořit nový widget</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
+{block end_body}
+    <script src="{$basePath}/js/admin/timer.js"></script>
+    <script>getTimeForm();</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/codemirror.min.js" integrity="sha512-zuvaVNiXwWY7U7HEdXsoTislTEElpKLELFoyQw0Bg7zfGhC4vG8eAhCxIQAvHmprW7dFhTq5zshUko4K3B4mSA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/css/css.min.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.58.3/mode/xml/xml.min.js" integrity="sha512-XPih7uxiYsO+igRn/NA2A56REKF3igCp5t0W1yYhddwHsk70rN1bbbMzYkxrvjQ6uk+W3m+qExHIJlFzE6m5eg==" crossorigin="anonymous"></script>
+    <script>
+        [...document.getElementsByClassName("textarea-highlight")].forEach(function (e) {
+            let editor = CodeMirror.fromTextArea(e, {
+                lineNumbers: true,
+                mode: e.dataset.mode ? e.dataset.mode : 'xml',
+                htmlMode: true,
+            });
+        })
+    </script>
+{/block}
