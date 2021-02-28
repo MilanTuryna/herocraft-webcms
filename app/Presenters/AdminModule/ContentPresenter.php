@@ -4,7 +4,6 @@
 namespace App\Presenters\AdminModule;
 
 
-use App\Forms\Admin\Content\Homepage\ChangeHeaderSectionForm;
 use App\Forms\Admin\Content\Styles\Button\CreateButtonStyleForm;
 use App\Forms\Admin\Content\Styles\Button\EditButtonStyleForm;
 use App\Forms\Admin\Widgets\CreateWidgetForm;
@@ -181,13 +180,6 @@ final class ContentPresenter extends AdminBasePresenter
      */
     public function createComponentCreateButtonStyleForm(): Form {
         return (new CreateButtonStyleForm($this, $this->buttonStyles))->create();
-    }
-
-    /**
-     * @return Form
-     */
-    public function createComponentChangeHeaderSectionForm(): Form {
-        return (new ChangeHeaderSectionForm($this, $this->settingsRepository))->create();
     }
 
     /**
