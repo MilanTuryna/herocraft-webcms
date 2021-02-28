@@ -1,34 +1,32 @@
+{layout '../classicLayout.latte'}
 {block title}
     {_front.archive.title, [web => $nastaveni->nazev]}
 {/block}
 {block description}
     {_front.archive.metaDescription, [web => $nastaveni->nazev]}
 {/block}
-{block breadcumb}
-    <div aria-label="breadcrumb">
-        <ol class="breadcrumb br-0 mb-0">
-            <li class="breadcrumb-item active"><a n:href="Main:landingPage" class="text-dark">{$nastaveni->nazev}</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{_front.archive.breadcrumbTitle}</li>
-        </ol>
-    </div>
+{block breadcrumb}
+    <li class="breadcrumb-item"><i class="fa fa-home" aria-hidden="true"></i></li>
+    <li class="breadcrumb-item"><a n:href="Main:landingPage" class="dark-blue-text">Domovská stránka</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Archiv článků</li>
 {/block}
 {block keywords}
 {_front.archive.metaKeywords, [web => ($nastaveni->nazev|trim|lower)]}
 {/block}
 {block content}
 <div class="padding-walls-32" style="padding-bottom: 32px; margin-top:12px;">
-    <h2 class="font-weight-normal aktuality">
-        <i class="fa fa-book font-weight-normal"></i> {_front.archive.heading}
-    </h2>
+    <h4 class="fw-normal mt-3 mt-md-0">
+         {_front.archive.heading} <i class="fa fa-book font-weight-normal text-muted"></i>
+    </h4>
     <div class="row">
         {foreach $articles as $article}
             {continueIf $article->secret}
             {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
         <div class="col-md-6">
-            <div class="card border-0 unzoomed br-0 news-card">
+            <div class="card border-0 unzoomed br-0 news-card" style="zoom:85%">
                 <article>
                     <div class="card-body">
-                        <h5 class="card-title"><a n:href="article, $article->url">{$article->name}</a></h5>
+                        <h5 class="card-title"><a class="href-underline dark-blue-text" n:href="Article:view, $article->url">{$article->name}</a></h5>
                         <div n:class="'card-text', strlen(strip_tags(trim($article->content))) > 370 ? 'readmore' : ''">
                             {$article->content|substrWithoutHTML:340|noescape}
                         </div>
@@ -50,9 +48,9 @@
     <div class="d-block text-center">
         <div style="margin-top: 8px">
             {if $page > 1}
-                <a n:href="archiv, 1">První</a>
+                <a n:href="archive, 1">První</a>
                 &nbsp;|&nbsp;
-                <a n:href="archiv, $page-1">Předchozí</a>
+                <a n:href="archive, $page-1">Předchozí</a>
                 &nbsp;|&nbsp;
             {/if}
 
@@ -60,9 +58,9 @@
 
             {if $page < $lastPage}
                 &nbsp;|&nbsp;
-                <a n:href="archiv, $page+1">Další</a>
+                <a n:href="archive, $page+1">Další</a>
                 &nbsp;|&nbsp;
-                <a n:href="archiv, $lastPage">Poslední</a>
+                <a n:href="archive, $lastPage">Poslední</a>
             {/if}
         </div>
     </div>
