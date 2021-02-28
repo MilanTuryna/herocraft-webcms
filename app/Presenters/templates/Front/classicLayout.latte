@@ -82,6 +82,8 @@
                     <div class="navbar-nav shadow border-secondary border transparent-navbar border-end-0">
                         <a n:class="'nav-link text-uppercase home-button pe-3 ps-3 border-end border-dark', $presenter->isLinkCurrent('Main:landingPage') ? 'active' : ''"
                             n:attr="aria-current: $presenter->isLinkCurrent('Main:landingPage') ? 'page' : null" n:href="Main:landingPage"><i class="fa fa-home text-white" aria-hidden="true"></i></a>
+                        <a n:class="'nav-link text-uppercase',  'border-sm-none border-end border-dark', 'pe-3 ps-3', $presenter->isLinkCurrent('Main:archive') ? 'active' : ''"
+                                n:href="Main:archive" n:attr="aria-current: $presenter->isLinkCurrent('Main:archive') ? 'page' : null">Archiv</a>
                         {foreach $pages as $pageItem}
                             <a n:class="'nav-link text-uppercase',  'border-sm-none border-end border-dark', 'pe-3 ps-3', $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'active' : ''"
                                 n:href="Page:view $pageItem->url" n:attr="aria-current: $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'page' : null">{$pageItem->name}</a>
@@ -193,17 +195,28 @@
     </div>
     <div class="col-lg-8 col-md-9 order-2" style="padding: 0">
         <div class="row">
-            <div class="col-lg-9 col-md-11 ps-5 pe-5 pe-md-0 ps-md-0">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        {include breadcrumb}
-                    </ol>
-                </nav>
-                {include content}
-            </div>
-            <div class="col-lg-3 ps-5 pe-5 ps-md-0 ps-lg-3 pe-lg-3 mt-md-3 mt-lg-0">
-                {include contentSidebar}
-            </div>
+            {ifset #contentSidebar}
+                <div class="col-lg-9 col-md-11 ps-5 pe-5 pe-md-0 ps-md-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            {include breadcrumb}
+                        </ol>
+                    </nav>
+                    {include content}
+                </div>
+                <div class="col-lg-3 ps-5 pe-5 ps-md-0 ps-lg-3 pe-lg-3 mt-md-3 mt-lg-0">
+                    {include contentSidebar}
+                </div>
+            {else}
+                <div class="col-lg-12 col-md-11 ps-5 pe-5 pe-md-0 ps-md-0">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            {include breadcrumb}
+                        </ol>
+                    </nav>
+                    {include content}
+                </div>
+            {/ifset}
         </div>
     </div>
     <div class="col-lg-2 d-none d-xl-block order-5">
