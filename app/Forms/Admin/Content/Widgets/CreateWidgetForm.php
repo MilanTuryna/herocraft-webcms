@@ -40,10 +40,15 @@ class CreateWidgetForm
         $form = new Form;
         $form->addText('name', 'Název widgetu')->setRequired(true);
         $form->addText('description', 'Popis widgetu')->setRequired(false);
-        $form->addText('html', 'Obsah widgetu (HTML)')->setRequired(true);
+        $form->addText('html', 'Obsah widgetu (HTML)')->setRequired(false);
         $form->addSelect('side', 'Zařazení widgetu', WidgetFormData::SIDES)
             ->setPrompt('Vyber zařazení widgetu')
             ->setRequired(true);
+        $form->addSubmit('submit')->setRequired(true);
+        $form->onSuccess[] = [$this, 'success'];
+        $form->onError[] = function() use ($form) {
+            foreach($form->getErrors() as $error) $this->presenter->flashMessage($error, 'danger');
+        };
         return $form;
     }
 
@@ -56,7 +61,7 @@ class CreateWidgetForm
         $widget = $data->getWidget();
         if($this->widgetRepository->createWidget($widget)) {
             $this->presenter->flashMessage(Html::el()
-                ->addText('Widget s názvem')
+                ->addText('Widget s názvem ')
                 ->addHtml(Html::el('strong')->setText($data->name))
                 ->addText(' byl úspěšně vytvořen!'), 'success');
         } else {
