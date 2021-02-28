@@ -45,7 +45,8 @@
                 <div class="col-lg-2">
                     <div class="bg-light border shadow mb-3">
                         <div class="list-group list-group-flush list-group-href">
-                            <a n:href="Main:landingPage" n:class="'list-group-item', $presenter->isLinkCurrent('Main:landingPagae') ? 'active-href' : ''">Úvod</a>
+                            <a n:href="Main:landingPage" n:class="'list-group-item', $presenter->isLinkCurrent('Main:landingPage') ? 'active-href' : ''">Úvod</a>
+                            <a n:href="Main:archive" n:class="'list-group-item', $presenter->isLinkCurrent('Main:archive') ? 'active-href' : ''">Archiv</a>
                             {foreach $pages as $stranka}
                                 <a n:href="Page:view $stranka->url" n:class="'list-group-item', $presenter->isLinkCurrent('Page:view', $stranka->url) ? 'active-href' : ''">{$stranka->name}</a>
                             {/foreach}
