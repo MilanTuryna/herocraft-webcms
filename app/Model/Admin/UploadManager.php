@@ -40,6 +40,7 @@ class UploadManager
      * @return Finder
      */
     public static function getUploads() {
+        if(!is_dir(self::PATH) || !file_exists(self::PATH)) mkdir(self::PATH);
         return Finder::findFiles("*")->from(self::PATH);
     }
 
