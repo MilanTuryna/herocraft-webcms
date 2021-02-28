@@ -48,7 +48,7 @@
                 <a n:href="Article:view $item->url" class="dark-blue-text href-underline" >{$item->name}</a> <span class="text-muted">{$item->created_at|date:'j.n.Y'}</span></li>
         {/foreach}
     </ul>
-    <button class="btn btn-sm w-100 btn-secondary me-1 ms-2" style="zoom: 80%">
+    <a n:href="Main:archive" class="btn btn-sm w-100 btn-secondary me-1 ms-2" style="zoom: 80%">
         ARCHIV
-    </button>
+    </a>
 {/block}
