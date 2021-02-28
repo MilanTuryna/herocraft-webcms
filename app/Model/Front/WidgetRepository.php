@@ -73,10 +73,12 @@ class WidgetRepository
 
     /**
      * @param Widget $widget
+     * @param int $id
      * @return int
      */
-    public function updateWidget(Widget $widget): int {
-        return $this->explorer->table(self::TABLE)->update(self::getIterableRow($widget));
+    public function updateWidget(Widget $widget, int $id): int {
+        return $this->explorer->table(self::TABLE)->where('id = ?', $id)
+            ->update(self::getIterableRow($widget));
     }
 
     /**
