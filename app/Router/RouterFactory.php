@@ -85,7 +85,7 @@ final class RouterFactory
             ->addRoute('/admin/content', 'Content:overview')
             ->addRoute('/admin/content-manager/widget/vytvorit', 'Content:createWidget')
             ->addRoute('/admin/content-manager/widget/edit/<id>', 'Content:editWidget')
-            ->addRoute('/admin/content-manager/widget/pdstranit/<id>?nazevWidgetu=<widgetName>', 'Content:deleteWidget')
+            ->addRoute('/admin/content-manager/widget/odstranit/<id>?nazevWidgetu=<widgetName>', 'Content:deleteWidget')
             ->addRoute('/admin/content-manager/sekce/vytvorit', 'Content:createSection')
             ->addRoute('/admin/content-manager/sekce/edit/<id>', 'Content:editSection')
             ->addRoute('/admin/content-manager/sekce/odstranit/<id>?nazevSekce=<sectionName>', 'Content:deleteSection')
