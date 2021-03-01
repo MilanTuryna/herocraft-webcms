@@ -1,31 +1,72 @@
-
-    <div style="padding: 16px">
-        <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type, 'border-radius-0'">{$flash->message}</div>
-        <div data-aos="fade-up" data-aos-delay="300" data-aos-duration="1000" class="card shadow default-margin-bot">
-            <div class="card-body">
-                <h5 style="margin:0!important;" class="card-title">{_front.login.heading}</h5>
-                <div class="card-text">
-                    <form n:name="signInForm">
-                        <div class="form-group row">
-                            <label n:name="name" class="col-sm-2"> {_front.forms.login.name}</label>
-                            <div class="col-sm-10">
-                                <input spellcheck="false" type="text" class="form-control" n:name="name">
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Přihlášení do administrace</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Miloslav Turyna https://turyna.eu">
+    <meta name="description" content="Přihlašovací stránka do administrace">
+    <meta name=“robots“ content=“noindex, nofollow“>
+    <meta name="keywords" content="sign, signin, admin, administrace, {$nastaveni->nazev}">
+    <meta property="og:url" content="{link this}"/>
+    <meta property="og:description" content="Přihlašovací stránka do administrace">
+    <link rel="stylesheet" href="{$basePath}/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{$basePath}/css/panel.css">
+    <link rel="stylesheet" href="{$basePath}/css/stats/utilsStyles.css">
+    <link rel="stylesheet" >
+    <script n:if="$googleAnalytics->isEnabled()">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', {$googleAnalytics->getCode()});
+    </script>
+</head>
+<body>
+<div class="navbar" style="background-color:#c5e1a5; color:#444;">
+         <span class="navbar-text float-right">
+         <a style="color:#000;" n:href=":Front:Main:landingPage">Zpět na web</a>
+         </span>
+</div>
+<header class="jumbotron jumbotron-fluid text-white " style="background-color:#94af76; margin-bottom:0;">
+    <div class="container">
+        <h1 class="display-4" style="font-size: 50px;">Administrace</h1>
+    </div>
+</header>
+<div class="navbar navbar-expand-lg navbar-light bg-light border-bottom"></div>
+<div class="container-fluid wrapper" style="margin-top:16px;">
+    <div class="row">
+        <div class="col-md-12 default-margin-bot">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Přihlášení</span></li>
+                </ol>
+            </nav>
+            <div class="card  default-margin-bot">
+                <div class="card-body">
+                    <div class="card-text">
+                        <form n:name="signInForm">
+                            <div class="form-group">
+                                <input type="text" placeholder="Přihlašovací jméno" n:name="name" class="form-control green-focus" id="nickname">
                             </div>
-                        </div>
-                        <div class="form-group row">
-                            <label n:name="password" class="col-sm-2">{_front.forms.login.password}</label>
-                            <div class="col-sm-10">
-                                <input spellcheck="false" type="password" class="form-control" n:name="password">
+                            <div class="form-group">
+                                <input type="password" n:name="password" placeholder="Přihlašovací heslo" class="form-control green-focus" id="heslo">
                             </div>
-                        </div>
-                        <button type="submit" n:name="submit" class="btn btn-outline-success float-right">{_front.forms.login.submit}</button>
-                    </form>
-                </div>
-            </div>
-            <div class="card-footer text-muted">
-                <div class="float-left">
-                    {_front.login.description}
+                            <input n:name="submit" type="submit" class="btn btn-dark btn-sm" value="Přihlásit se">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<script src="{$basePath}/js/jquery.min.js"></script>
+<script src="{$basePath}/js/bootstrap.min.js"></script>
+<script>
+    $(document).on('click', '.dropdown .dropdown-menu', function (e) {
+        e.stopPropagation();
+    });
+</script>
+</body>
+</html>
