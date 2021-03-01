@@ -9,6 +9,7 @@ use App\Forms\Admin\Content\Styles\Button\EditButtonStyleForm;
 use App\Forms\Admin\Widgets\CreateWidgetForm;
 use App\Forms\Admin\Content\Sections\CreateSectionForm;
 use App\Forms\Admin\Content\Sections\EditSectionForm;
+use App\Forms\Admin\Widgets\EditWidgetForm;
 use App\Front\SectionRepository;
 use App\Front\Styles\ButtonStyles;
 use App\Front\WidgetRepository;
@@ -67,6 +68,7 @@ final class ContentPresenter extends AdminBasePresenter
     /**
      * @param int $id
      * @param string $widgetName
+     * @throws AbortException
      */
     public function actionDeleteWidget(int $id, string $widgetName) {
         if($this->widgetRepository->deleteWidget($id)) {
@@ -76,6 +78,7 @@ final class ContentPresenter extends AdminBasePresenter
         } else {
             $this->flashMessage("Tento widget nemohl být odstraněn, jelikož neexistuje!", "danger");
         }
+        $this->redirect("Content:overview");
     }
 
     /**
@@ -187,6 +190,13 @@ final class ContentPresenter extends AdminBasePresenter
      */
     public function createComponentEditSectionForm(): Multiplier {
         return new Multiplier(fn (string $sectionId): Form => (new EditSectionForm($this, $this->sectionRepository, $this->buttonStyles, (int)$sectionId, "this"))->create());
+    }
+
+    /**
+     * @return Multiplier
+     */
+    public function createComponentEditWidgetForm(): Multiplier {
+        return new Multiplier(fn (string $widgetId): Form => (new EditWidgetForm($this, $this->widgetRepository, $widgetId, "this"))->create());
     }
 
     /**
