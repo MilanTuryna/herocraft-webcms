@@ -396,3 +396,5 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - 4.1 - 11.1.2021
     - přidána možnost skrytého článku
     - přidány nové data do API `/api` které se tykají serveru - zaokrouhlený počet odehraných hodin celkově, počet registrovaných hráču 
+- 11.1 - 2.3.2021
+    - update z 'better-design' branch (větve) - sekce, nový design, lepší manipulace s obsahem, mnohem více nastavení v administraci
