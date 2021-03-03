@@ -68,6 +68,7 @@
 box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75); background-color:rgba(255,255,255,0.1);">
             {ifset $user->realname}
             <ul class="list-group">
+                <a n:href=":Front:Main:landingPage" class="list-group-item text-center border-radius-0 border-0 text-dark" style="background:#e8e276; padding:5px;">ZPĚT NA DOMOVSKOU STRÁNKU</a>
                 <li class="list-group-item text-center border-radius-0 border-0" style="background:rgba(255, 224, 247,0.99); padding:5px;">{$user->realname}<span id="realtime"></span></li>
             </ul>
             {/ifset}
@@ -114,7 +115,8 @@ box-shadow: -1px 10px 67px -20px rgba(0,0,0,0.75); background-color:rgba(255,255
                 {_panel.sidebar.logout}
             </a>
             {/ifset}
-            <a n:href=":Front:Main:landingPage" class="small text-white-50 float-right" style="margin-right: 8px">{_panel.sidebar.logout}</a>
+
+
         </div>
     </div>
 </main>

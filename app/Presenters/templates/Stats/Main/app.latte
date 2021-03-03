@@ -40,7 +40,7 @@
                             {_stats.app.playerDataHelp}
                         </span>
                 <button type="button" class="btn btn-success w-100" style="margin-top:16px" v-on:click="submitPlayer" :disabled="button.player ? false : true">
-                    {_stats.app.viewPlayer}
+                    {_stats.app.viewPlayer|noescape}
                 </button>
             </div>
         </div>

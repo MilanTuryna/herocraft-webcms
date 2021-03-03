@@ -48,7 +48,7 @@ class EditWidgetForm
         $form->addText('name', 'Název widgetu')->setDefaultValue($this->parsedWidget->name)->setRequired(true);
         $form->addText('description', 'Popis widgetu')->setDefaultValue($this->parsedWidget->description)
             ->setRequired(false);
-        $form->addText('html', 'Obsah widgetu (HTML)')->setDefaultValue($this->parsedWidget->html)
+        $form->addTextArea('html', 'Obsah widgetu (HTML)')->setDefaultValue($this->parsedWidget->html)
             ->setRequired(false);
         $form->addSelect('side', 'Zařazení widgetu', WidgetFormData::SIDES)
             ->setDefaultValue($this->parsedWidget->side)
