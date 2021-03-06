@@ -40,6 +40,10 @@ translation:
         - %appDir%/lang
 session:
 	expiration: 14 days
+	debugger: true
+tracy:
+    dumpTheme: dark
+
 
 forms:
 	messages:
