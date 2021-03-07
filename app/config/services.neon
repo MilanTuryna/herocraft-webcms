@@ -35,7 +35,7 @@ services:
 	di.buttonStyles: App\Front\Styles\ButtonStyles
 	di.discord: App\Model\DI\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%, %tickets.callback.discord.url%, %tickets.callback.discord.color%, %tickets.callback.discord.username%, %tickets.callback.discord.logo%, ...)
 	di.configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
-	di.ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @discord)
+	di.ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @di.discord)
 	di.cron: App\Model\DI\Cron(%cron.password%)
 	di.seo: App\Model\DI\Seo(%seo.ogImageURL%)
 
@@ -53,7 +53,7 @@ services:
 	    setup:
 	        - $exportStylesheets = ['%wwwDir%\css\pdf\bootstrap.css']
 	cronPresenter:
-	    factory: App\Presenters\CronPresenter(@cron)
+	    factory: App\Presenters\CronPresenter(@di.cron)
 	    setup:
 	        - setLuckPermsContext(@database.luckperms.context)
 	router: App\Router\RouterFactory::createRouter
