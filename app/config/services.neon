@@ -33,11 +33,17 @@ services:
 	di.gameSections: App\Model\DI\GameSections(%gameSections%)
 	di.api: App\Model\DI\API(%api.expire_time%)
 	di.buttonStyles: App\Front\Styles\ButtonStyles
-	di.discord: App\Model\DI\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%, %tickets.callback.discord.url%, %tickets.callback.discord.color%, %tickets.callback.discord.username%, %tickets.callback.discord.logo%, ...)
 	di.configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
-	di.ticketsSettings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @di.discord)
 	di.cron: App\Model\DI\Cron(%cron.password%)
 	di.seo: App\Model\DI\Seo(%seo.ogImageURL%)
+
+	di.tickets.callbacks.discord: App\Model\DI\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%,
+	                %tickets.callback.discord.url%, %tickets.callback.discord.color%, %tickets.callback.discord.username%, %tickets.callback.discord.logo%, ...)
+	di.tickets.emailSender: App\Model\DI\Tickets\EmailSender(
+	                %tickets.emailSender.enabled%, %tickets.emailSender.host%,
+	                %tickets.emailSender.user%, %tickets.emailSender.email%,
+	                %tickets.emailSender.password%)
+	di.tickets.settings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @di.tickets.callbacks.discord, @di.tickets.emailSender)
 
 	repository.sectionRepository: App\Front\SectionRepository
 	repository.widgetRepository: App\Front\WidgetRepository
