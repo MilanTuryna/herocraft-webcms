@@ -1,4 +1,4 @@
-app/config/local.neon
-app/config/cli.neon
+app/config/parameters.neon
+app/config/database.neon
 vendor
 .htaccess
