@@ -10,6 +10,7 @@ use Nette\Application\UI\InvalidLinkException;
 use Nette\Application\UI\Presenter;
 use Nette\Database\Table\ActiveRow;
 use Nette\Utils\JsonException;
+use stdClass;
 
 /**
  * Class AddTicketForm
@@ -41,6 +42,8 @@ class AddTicketForm
             ->addRule($form::MIN_LENGTH, "Název musí obsahovat aspoň 10 znaků", 10)
             ->addRule($form::MAX_LENGTH, 'Název nemůže být delší než 70 znaků', 70)
             ->setRequired();
+        $form->addEmail('email', 'Email autora')
+            ->setRequired(false);
         $form->addSelect('subject', 'Předmět ticketu', $this->ticketRepository->getSelectBox())
             ->setPrompt("Vyber předmět")
             ->setRequired();
@@ -59,14 +62,15 @@ class AddTicketForm
 
     /**
      * @param Form $form
-     * @param \stdClass $values
+     * @param stdClass $values
      * @throws AbortException
      */
-    public function success(Form $form, \stdClass $values) {
+    public function success(Form $form, stdClass $values) {
         $row = $this->ticketRepository->addTicket([
             'name' => $values->name,
             'author' => $this->user->realname,
             'subject' => $values->subject,
+            'email' => $values->email ? $values->email : ''
         ]);
         $this->ticketRepository->addResponse($row->id, [
             'author' => $this->user->realname,
@@ -74,9 +78,9 @@ class AddTicketForm
             'content' => $values->content,
         ]);
         $ticket = new Ticket($this->user->realname, $values->name, $values->subject, $values->content, $row->id);
+        $ticketSettings = $this->ticketRepository->getTicketSettings();
         try {
-            $this->ticketRepository->getTicketSettings()
-                ->getDiscord()
+            $ticketSettings->getDiscord()
                 ->notify($ticket,
                     $this->presenter->link("//:Stats:Main:app?player=".$this->user->realname),
                     $this->presenter->link("//:HelpDesk:Main:ticket", $row->id));
