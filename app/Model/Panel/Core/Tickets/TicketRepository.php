@@ -5,8 +5,8 @@ namespace App\Model\Panel\Core\Tickets;
 use App\Model\DI\Tickets\Settings;
 use App\Model\Utils;
 use Nette\Database\Explorer;
+use Nette\Database\Row;
 use Nette\Database\Table\ActiveRow;
-use Nette\Database\Table\Row;
 use Nette\Database\Table\Selection;
 
 /**
@@ -41,7 +41,7 @@ class TicketRepository
     /**
      * @param int|null $limit
      * @param int|null $offset
-     * @return array|\Nette\Database\Row[]
+     * @return array|Row[]
      */
     public function getTickets(?int $limit = null, ?int $offset = null): array {
         $sql = "SELECT t.*, tr.author AS lastResponseAuthor, tr.type AS lastResponseType, tr.time AS lastResponseTime, last_responses.time as d FROM tickets AS t 
@@ -80,7 +80,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
 
     /**
      * @param $id
-     * @return \Nette\Database\Row|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getTicketById($id) {
         return $this->explorer->table(self::TABLE)->wherePrimary($id)->fetch();
@@ -88,7 +88,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
 
     /**
      * @param $id
-     * @return \Nette\Database\Row|ActiveRow|null
+     * @return Row|ActiveRow|null
      */
     public function getResponseById($id)  {
         return $this->explorer->table(self::RESPONSE_TABLE)->wherePrimary($id)->fetch();
@@ -144,12 +144,8 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return bool|int|ActiveRow
      */
     public function addTicket(array $ticket) {
-        return $this->explorer->table(self::TABLE)->insert([
-            'name' => $ticket['name'],
-            'author' => $ticket['author'],
-            'subject' => $ticket['subject'],
-            'time' => Utils::sqlNow()
-        ]);
+        $ticket['time'] = Utils::sqlNow();
+        return $this->explorer->table(self::TABLE)->insert($ticket);
     }
 
     /**
@@ -191,7 +187,7 @@ LEFT JOIN ticket_responses AS tr ON t.id = tr.ticketId AND last_responses.time =
      * @return Explorer
      */
     public function getDatabaseExplorer(): Explorer {
-        return $this->explorer; // database.default -> config
+        return $this->explorer;
     }
 
     /**
