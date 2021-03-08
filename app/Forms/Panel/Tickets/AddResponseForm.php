@@ -2,7 +2,9 @@
 
 namespace App\Forms\Panel\Tickets;
 
-use App\Model\Panel\Core\Tickets\TicketRepository;
+use App\Forms\Panel\Tickets\Data\AddResponseFormData;
+use App\Model\Panel\Tickets\Email\Mails\NewResponseMail;
+use App\Model\Panel\Tickets\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
@@ -15,6 +17,7 @@ use Nette\Database\Table\ActiveRow;
 class AddResponseForm
 {
     private Presenter $presenter;
+    private NewResponseMail $newResponseMail;
     private Captcha $captcha;
     private TicketRepository $ticketRepository;
 
@@ -25,15 +28,17 @@ class AddResponseForm
     /**
      * AddResponseForm constructor.
      * @param Presenter $presenter
+     * @param NewResponseMail $newResponseMail
      * @param Captcha $captcha
      * @param TicketRepository $ticketRepository
      * @param ActiveRow $user
      * @param $ticketid
      * @param string|null $userType
      */
-    public function __construct(Presenter $presenter, Captcha $captcha, TicketRepository $ticketRepository, ActiveRow $user, $ticketid, string $userType = TicketRepository::TYPES['player'])
+    public function __construct(Presenter $presenter, NewResponseMail $newResponseMail, Captcha $captcha, TicketRepository $ticketRepository, ActiveRow $user, $ticketid, string $userType = TicketRepository::TYPES['player'])
     {
         $this->presenter = $presenter;
+        $this->newResponseMail = $newResponseMail;
         $this->captcha = $captcha;
         $this->ticketRepository = $ticketRepository;
         $this->user = $user;
@@ -55,10 +60,17 @@ class AddResponseForm
 
     /**
      * @param Form $form
-     * @param \stdClass $values
+     * @param AddResponseFormData $values
      */
-    public function success(Form $form, \stdClass $values) {
+    public function success(Form $form, AddResponseFormData $values) {
         if($this->captcha->verify($values->captcha)) {
+            if($this->userType != TicketRepository::TYPES['player']) {
+                $ticket = $this->ticketRepository->getTicketById($this->ticketId);
+                if(isset($ticket->email) && $ticket->email) {
+                    $this->newResponseMail->setEmail($this->user->realname, $values->getCroppedContent(), time(), $ticket->email, $this->ticketId);
+                    $this->newResponseMail->sendEmail();
+                }
+            }
             $this->ticketRepository->addResponse($this->ticketId, [
                 'author' => $this->user->realname,
                 'type' => $this->userType,
@@ -66,6 +78,7 @@ class AddResponseForm
             ]);
             $this->presenter->flashMessage('Odpověď byla úspěšně odeslána.', 'dark-green');
         } else {
+            // TODO: fix viewing this flashmessage in helpdesk
             $form->addError('Captcha byla neúspěšná, zkuste to prosím znovu!');
         }
     }
