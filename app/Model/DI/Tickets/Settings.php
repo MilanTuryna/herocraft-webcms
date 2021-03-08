@@ -3,7 +3,7 @@
 namespace App\Model\DI\Tickets;
 
 use Nette\SmartObject;
-use App\Model\DI\Tickets\Callbacks\Discord;
+use App\Model\Panel\Tickets\Callbacks\Discord;
 
 /**
  * Class Settings
