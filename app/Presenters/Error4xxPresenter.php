@@ -6,6 +6,10 @@ namespace App\Presenters;
 
 use Nette;
 
+/**
+ * Class Error4xxPresenter
+ * @package App\Presenters
+ */
 final class Error4xxPresenter extends Nette\Application\UI\Presenter
 {
 
@@ -20,7 +24,9 @@ final class Error4xxPresenter extends Nette\Application\UI\Presenter
 		}
 	}
 
-
+    /**
+     * @param Nette\Application\BadRequestException $exception
+     */
 	public function renderDefault(Nette\Application\BadRequestException $exception): void
 	{
 		// load template 403.latte or 404.latte or ... 4xx.latte

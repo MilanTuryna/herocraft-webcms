@@ -1,0 +1,22 @@
+parameters:
+    webloader:
+        helpdesk:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\helpdesk\*', 'css\panel\utilsStyles.css'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, [])
+            module: App\Model\WebLoader\Modules\Specific\HelpDeskModule(%webloader.helpdesk.cssMask%, %webloader.helpdesk.jsMask%, "HelpDeskModule")
+        admin:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\admin\*'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\admin\*'])
+            module: App\Model\WebLoader\Modules\Specific\AdminModule(%webloader.admin.cssMask%, %webloader.admin.jsMask%, "AdminModule")
+        front:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\front\*', 'css\front\*\*'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\front\effects.js','js\front\all.js'])
+            module: App\Model\WebLoader\Modules\Specific\FrontModule(%webloader.front.cssMask%, %webloader.front.jsMask%, "FrontModule")
+        stats:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\stats\*'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js/stats', 'js/api'])
+            module: App\Model\WebLoader\Modules\Specific\StatsModule(%webloader.stats.cssMask%, %webloader.stats.jsMask%, "StatsModule")
+        panel:
+            cssMask: App\Model\WebLoader\FileMask(%wwwDir%, ['css\panel\*'])
+            jsMask: App\Model\WebLoader\FileMask(%wwwDir%, ['js\panel\*'])
+            module: App\Model\WebLoader\Modules\Specific\PanelModule(%webloader.panel.cssMask%, %webloader.panel.jsMask%, "PanelModule")

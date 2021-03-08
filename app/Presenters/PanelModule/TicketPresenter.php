@@ -8,14 +8,16 @@ use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\AddTicketForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
 use App\Model\DI\GoogleAnalytics;
-use App\Model\Panel\Core\Tickets\Exceptions\TicketForbiddenException;
-use App\Model\Panel\Core\Tickets\Exceptions\TicketNotFoundException;
-use App\Model\Panel\Core\Tickets\TicketRepository;
+use App\Model\Panel\Tickets\Email\Mails\NewResponseMail;
+use App\Model\Panel\Tickets\Exceptions\TicketForbiddenException;
+use App\Model\Panel\Tickets\Exceptions\TicketNotFoundException;
+use App\Model\Panel\Tickets\TicketRepository;
 use App\Model\Security\Form\Captcha;
 use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
 use App\Presenters\PanelBasePresenter;
 use Nette\Application\AbortException;
+use Nette\Application\LinkGenerator;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
@@ -28,8 +30,10 @@ use Nette\Utils\JsonException;
  */
 class TicketPresenter extends PanelBasePresenter
 {
+    private NewResponseMail $newResponseMail;
     private TicketRepository $ticketRepository;
     private PluginAuthenticator $pluginAuthenticator;
+    private LinkGenerator $linkGenerator;
 
     private ActiveRow $user;
     private string $returnRoute;
@@ -37,14 +41,16 @@ class TicketPresenter extends PanelBasePresenter
     /**
      * TicketPresenter constructor.
      * @param SettingsRepository $settingsRepository
+     * @param NewResponseMail $newResponseMail
      * @param PluginAuthenticator $pluginAuthenticator
      * @param TicketRepository $ticketRepository
      * @param GoogleAnalytics $googleAnalytics
      */
-    public function __construct(SettingsRepository $settingsRepository, PluginAuthenticator $pluginAuthenticator, TicketRepository $ticketRepository, GoogleAnalytics $googleAnalytics)
+    public function __construct(SettingsRepository $settingsRepository, NewResponseMail $newResponseMail, PluginAuthenticator $pluginAuthenticator, TicketRepository $ticketRepository, GoogleAnalytics $googleAnalytics)
     {
         parent::__construct($settingsRepository, $googleAnalytics);
 
+        $this->newResponseMail = $newResponseMail;
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->ticketRepository = $ticketRepository;
         $this->returnRoute = ":Panel:Ticket:list";
@@ -129,7 +135,8 @@ class TicketPresenter extends PanelBasePresenter
     public function createComponentAddResponseForm(): Multiplier {
         return new Multiplier(function ($methodOrder) { // captcha
             return new Multiplier(function ($ticketId) use ($methodOrder) { // ticket
-                return (new AddResponseForm($this, new Captcha(array_keys(Captcha::methods)[$methodOrder]), $this->ticketRepository, $this->user, $ticketId))->create();
+                return (new AddResponseForm($this, $this->newResponseMail, new Captcha(array_keys(Captcha::methods)[$methodOrder]),
+                    $this->ticketRepository, $this->user, $ticketId))->create();
             });
         });
     }

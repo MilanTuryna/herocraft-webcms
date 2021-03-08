@@ -4,7 +4,7 @@
 namespace App\Forms\Panel\Tickets;
 
 
-use App\Model\Panel\Core\Tickets\TicketRepository;
+use App\Model\Panel\Tickets\TicketRepository;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Presenter;
 

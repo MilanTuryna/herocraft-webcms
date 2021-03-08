@@ -1,4 +1,10 @@
 {layout '../layout.latte'}
+{varType App\Model\Admin\Object\Administrator $admin}
+{varType array $permissionsSelectBox}
+{varType array $havePermission}
+{varType Nette\Database\Table\ActiveRow $web}
+{varType array $stats}
+{varType bool $isFullAdmin}
 {block title}
     Administrační panel
 {/block}
@@ -9,14 +15,6 @@
         </ol>
     </nav>
     <div n:foreach="$flashes as $flash" n:class="alert, 'alert alert-' . $flash->type">{$flash->message}</div>
-    <div class="card classic-shadow default-margin-bot" style="background-color:#94af76">
-        <div class="card-body">
-            <h5 style="margin:0!important;" class="card-title">Vítej v administraci!</h5>
-            <div class="card-text">
-                Vítej v administrační části systému, věřím, že zde najdeš vše co potřebuješ, pokud si ale přece nebudeš vědět rady, můžeš využít nápovědu k systému! :)
-            </div>
-        </div>
-    </div>
     <div class="card classic-shadow default-margin-bot" style="background-color:#dceafc">
         <div class="card-body">
             <h5 style="margin:0!important;" class="card-title">Tvé oprávnění</h5>

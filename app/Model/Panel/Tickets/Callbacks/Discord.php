@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\DI\Tickets\Callbacks;
+namespace App\Model\Panel\Tickets\Callbacks;
 
 use App\Model\Panel\Object\Ticket;
 use Nette\SmartObject;

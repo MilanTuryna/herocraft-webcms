@@ -1,0 +1,67 @@
+services:
+	repository.userRepository: App\Model\UserRepository
+	repository.articleRepository: App\Model\ArticleRepository
+	repository.categoryRepository: App\Model\CategoryRepository
+	repository.pageRepository: App\Model\PageRepository
+	repository.ticketRepository: App\Model\Panel\Tickets\TicketRepository
+	repository.settingsRepository: App\Model\SettingsRepository
+	repository.cachedAPIRepository: App\Model\Stats\CachedAPIRepository
+	repository.mojangRepository: App\Model\Panel\MojangRepository
+	repository.authMeRepository: App\Model\Panel\AuthMeRepository(@database.authme.context)
+
+	security.authenticator: App\Model\Security\Auth\Authenticator
+	security.pluginAuthenticator: App\Model\Security\Auth\PluginAuthenticator
+	security.supportAuthenticator: App\Model\Security\Auth\SupportAuthenticator
+
+	api.czechCraft: App\Model\API\CzechCraft(%czechcraft.server_slug%)
+
+	plugin.playerTime: App\Model\API\Plugin\PlayerTime(@database.playertime.context)
+	plugin.chatLog: App\Model\API\Plugin\ChatLog(@database.chatlog.context)
+	plugin.events: App\Model\API\Plugin\Games\Events(@database.events.context)
+	plugin.spleefx: App\Model\API\Plugin\Games\SpleefX(@database.spleefx.context)
+	plugin.bans: App\Model\API\Plugin\Bans(@database.bans.context)
+	plugin.luckperms: App\Model\API\Plugin\LuckPerms(@database.luckperms.context)
+	plugin.seniorEconomy: App\Model\API\Plugin\Senior\Economy(@database.seniorEconomy.context)
+	plugin.classicEconomy: App\Model\API\Plugin\Classic\Economy(@database.classicEconomy.context)
+	plugin.hideAndSeek: App\Model\API\Plugin\Games\HideAndSeek(@database.hideandseek.context)
+	plugin.onlinePlayers: App\Model\API\Plugin\OnlinePlayers(@database.onlineplayers.context)
+
+	manager.pageManager: App\Model\PageManager
+	manager.userManager: App\Model\UserManager
+
+	di.googleAnalytics: App\Model\DI\GoogleAnalytics(%googleanalytics.code%, %googleanalytics.enabled%)
+	di.gameSections: App\Model\DI\GameSections(%gameSections%)
+	di.api: App\Model\DI\API(%api.expire_time%)
+	di.buttonStyles: App\Front\Styles\ButtonStyles
+	di.configuration: App\Model\DI\Configuration(%tempDir%\nette.configurator)
+	di.cron: App\Model\DI\Cron(%cron.password%)
+	di.seo: App\Model\DI\Seo(%seo.ogImageURL%)
+
+	di.tickets.callbacks.discord: App\Model\Panel\Tickets\Callbacks\Discord(%tickets.callback.discord.enabled%,
+	                %tickets.callback.discord.url%, %tickets.callback.discord.color%, %tickets.callback.discord.username%, %tickets.callback.discord.logo%, ...)
+	di.tickets.emailSender: App\Model\DI\Tickets\EmailSender(
+	                %tickets.emailSender.enabled%, %tickets.emailSender.host%,
+	                %tickets.emailSender.user%, %tickets.emailSender.email%,
+	                %tickets.emailSender.password%)
+	di.tickets.settings: App\Model\DI\Tickets\Settings(%tickets.subjects%, @di.tickets.callbacks.discord, @di.tickets.emailSender)
+
+	tickets.mails.newResponseMail: App\Model\Panel\Tickets\Email\Mails\NewResponseMail
+
+	repository.sectionRepository: App\Front\SectionRepository
+	repository.widgetRepository: App\Front\WidgetRepository
+
+	webloader.frontModule: %webloader.front.module%
+	webloader.adminModule: %webloader.admin.module%
+	webloader.statsModule: %webloader.stats.module%
+	webloader.panelModule: %webloader.panel.module%
+	webloader.helpDeskModule: %webloader.helpdesk.module%
+
+	frontModule.articlePresenter:
+	    factory: App\Presenters\FrontModule\ArticlePresenter(...)
+	    setup:
+	        - $exportStylesheets = ['%wwwDir%\css\pdf\bootstrap.css']
+	cronPresenter:
+	    factory: App\Presenters\CronPresenter(@di.cron)
+	    setup:
+	        - setLuckPermsContext(@database.luckperms.context)
+	router: App\Router\RouterFactory::createRouter

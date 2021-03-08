@@ -140,6 +140,11 @@ class CachedAPIRepository
         return $this->cache->load($cacheName)->data;
     }
 
+    /**
+     * @param $player
+     * @return mixed
+     * @throws Throwable
+     */
     public function getCzechCraftPlayer($player) {
         $cacheName = 'API_czechCraft_' . $player;
         if(is_null($this->cache->load($cacheName))) {

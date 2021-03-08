@@ -24,17 +24,21 @@
         <div n:foreach="$flashes as $flash" n:class="alert, 'alert border-0 alert-' . $flash->type">{$flash->message}</div>
         <form n:name="addTicketForm">
             <div class="form-group">
-                <label>{_panel.forms.addTicket.nameLabel}</label>
+                <label>{_panel.forms.addTicket.nameLabel}*</label>
                 <input type="text" n:name="name" class="form-control green-focus" placeholder="Např: Hacker na Classicu - fly">
                 <small id="emailHelp" class="form-text text-muted">{_panel.forms.addTicket.nameHelp}</small>
             </div>
             <div class="form-group">
-                <label n:name="subject">{_panel.forms.addTicket.subjectLabel}</label>
+                <label n:name="email">Email </label>
+                <input type="text" n:name="email" class="form-control green-focus" placeholder="Nepovinná položka, využita k oznámení v případě odpovědi.">
+            </div>
+            <div class="form-group">
+                <label n:name="subject">{_panel.forms.addTicket.subjectLabel}*</label>
                 <select class="form-control green-focus" onchange="onSubjectChange(this)" n:name="subject">
                 </select>
             </div>
             <div class="form-group">
-                <label for="exampleInputPassword1">{_panel.forms.addTicket.contentLabel}</label>
+                <label for="exampleInputPassword1">{_panel.forms.addTicket.contentLabel}*</label>
                 <textarea class="form-control js--subject-placeholder green-focus" rows="5" n:name="content" placeholder="Např: Ahoj, žádám o ..."></textarea>
                 <small id="emailHelp" class="form-text text-muted">{_panel.forms.addTicket.contentHelp}</small>
             </div>
