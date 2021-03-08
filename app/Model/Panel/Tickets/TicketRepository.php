@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Model\Panel\Core\Tickets;
+namespace App\Model\Panel\Tickets;
 
 use App\Model\DI\Tickets\Settings;
 use App\Model\Utils;
