@@ -26,6 +26,14 @@ abstract class PanelBasePresenter extends BasePresenter
         $this->settingsRepository = $settingsRepository;
     }
 
+    /**
+     * @param string $specificRoute
+     * @return array
+     */
+    protected function returnRoute(string $specificRoute = ''): array {
+        return ['returnRoute' => $specificRoute ? $specificRoute : $this->getAction(true)];
+    }
+
     public function startup()
     {
         parent::startup();
