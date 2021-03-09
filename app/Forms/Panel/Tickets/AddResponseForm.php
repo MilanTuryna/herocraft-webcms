@@ -67,7 +67,7 @@ class AddResponseForm
             if($this->userType != TicketRepository::TYPES['player']) {
                 $ticket = $this->ticketRepository->getTicketById($this->ticketId);
                 if(isset($ticket->email) && $ticket->email) {
-                    $this->newResponseMail->setEmail($this->user->realname, $values->getCroppedContent(), time(), $ticket->email, $this->ticketId);
+                    $this->newResponseMail->setEmail($this->user->realname, $values->getCroppedContent(), time(), $ticket->email, $this->ticketId, $ticket->name);
                     $this->newResponseMail->sendEmail();
                 }
             }

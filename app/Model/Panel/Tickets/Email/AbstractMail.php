@@ -59,14 +59,16 @@ abstract class AbstractMail
 
     public function sendEmail(): void {
         $this->template->emailSubject = $this->message->getSubject();
-        $this->template->emailFrom = $this->message->getFrom();
 
         $settings = $this->settingsRepository->getAllRows();
         $this->template->webIp = $settings->ip;
         $this->template->webName = $settings->nazev;
 
         $this->template->emailSubject = $this->message->getSubject();
-        $this->template->emailFrom = $this->message->getFrom();
+
+        $this->template->senderEmail = array_keys($this->message->getFrom())[0];
+        $this->template->senderName = array_values($this->message->getFrom())[0];
+
         $this->message->setHtmlBody($this->template->renderToString($this->templateFile));
         $this->emailSender->getMailer()->send($this->message);
     }

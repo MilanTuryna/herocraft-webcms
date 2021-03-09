@@ -17,6 +17,6 @@ class AddResponseFormData
      * @return false|string
      */
     public function getCroppedContent(int $offset = 0, int $length = 60) {
-        return substr($this->content, $offset, $length);
+        return strlen($this->content) > $length ? substr($this->content, $offset, $length) . "..." : $this->content;
     }
 }

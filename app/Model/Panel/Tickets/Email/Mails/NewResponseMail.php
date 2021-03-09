@@ -32,12 +32,15 @@ class NewResponseMail extends AbstractMail
      * @param int $responseTimestamp
      * @param string $authorEmail
      * @param string $ticketId
+     * @param string $ticketName
      * @return void
      */
-    public function setEmail(string $responseAuthor, string $responseContent, int $responseTimestamp, string $authorEmail, string $ticketId): void {
+    public function setEmail(string $responseAuthor, string $responseContent, int $responseTimestamp, string $authorEmail, string $ticketId, string $ticketName): void {
         $this->template->responseAuthor = $responseAuthor;
         $this->template->responseContent = $responseContent;
         $this->template->responseTime = $responseTimestamp;
+        $this->template->ticketId = $ticketId;
+        $this->template->ticketName = $ticketName;
         $this->message->addTo($authorEmail)->setSubject("Ticket #{$ticketId}: Nová odpověď od {$responseAuthor}");
     }
 }

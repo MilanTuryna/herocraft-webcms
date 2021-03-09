@@ -13,7 +13,10 @@ class TemplateType
     use SmartObject;
 
     public string $emailSubject;
-    public string $emailFrom;
+
+    public string $senderEmail;
+    public string $senderName;
+
     public string $webIp;
     public string $webName;
 }
