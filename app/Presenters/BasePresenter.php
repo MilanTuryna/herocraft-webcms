@@ -51,13 +51,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         ];
     }
 
-    /**
-     * @return string
-     */
-    protected function actualRoute(): string {
-        return ":" . $this->getName() . ":" . $this->getAction();
-    }
-
     public function startup()
     {
         parent::startup();
