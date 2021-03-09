@@ -2,6 +2,8 @@
 {varType string $responseAuthor}
 {varType string $responseContent}
 {varType int $responseTime}
+{varType int $ticketId}
+{varType string $ticketName}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html
         xmlns="http://www.w3.org/1999/xhtml"
@@ -443,7 +445,7 @@
                                                                                 font-size: 14px;
                                                                             "
                                                                 >
-                                                                    <strong>PLAY.HEROCRAFT.CZ</strong>
+                                                                    <strong class="no">{$webIp}</strong>
                                                                 </p>
                                                             </td>
                                                         </tr>
@@ -452,7 +454,7 @@
                                             </tr>
                                         </table>
                                         <!--[if mso]></td><td style="width:20px"></td>
-                                        <td style="width:250px" valign="top"><![endif]-->
+                                        <td style="width:250px" align="top"><![endif]-->
                                         <table class="es-right" cellspacing="0" cellpadding="0" align="right" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; border-spacing: 0px; float: right;">
                                             <tr style="border-collapse: collapse;">
                                                 <td align="left" style="padding: 0; margin: 0; width: 250px;">
@@ -534,7 +536,7 @@
                                                                                 color: #333333;
                                                                             "
                                                                 >
-                                                                    Ticket #20: Nová odpověď od DarkMilan
+                                                                    Ticket #{$ticketId}: Nová odpověď od {$responseAuthor}
                                                                 </h2>
                                                             </td>
                                                         </tr>
@@ -552,9 +554,9 @@
                                                                                 font-size: 15px;
                                                                             "
                                                                 >
-                                                                    Ahoj, obdržel/a jsi novou odpověď na svůj ticket&nbsp;<strong>„Hacker na classicu“</strong>&nbsp;od&nbsp;
+                                                                    Ahoj, obdržel/a jsi novou odpověď na svůj ticket&nbsp;<strong>„{$ticketName}“</strong>&nbsp;od&nbsp;
                                                                     <strong>
-                                                                        <span><span style="color: #800000;">DarkMilan (support)</span>,&nbsp;</span>
+                                                                        <span><span style="color: #800000;">{$responseAuthor} (support)</span>,&nbsp;</span>
                                                                     </strong>
                                                                     nezapomeň si jí přečíst!
                                                                 </p>
@@ -574,10 +576,9 @@
                                                                                 font-size: 13px;
                                                                             "
                                                                 >
-                                                                    <strong>DarkMilan napsal:</strong>&nbsp;
+                                                                    <strong>{$responseAuthor} napsal/a:</strong>&nbsp;
                                                                     <em>
-                                                                        <strong>„</strong>Curabitur vitae diam non enim vestibulum interdum. Fusce nibh. Fusce suscipit libero eget elit. Aenean id metus id velit ullamcorper pulvinar.
-                                                                        Phasellus et lorem id felis nonummy placerat...<strong>“</strong>
+                                                                        <strong>„</strong>{$responseContent}<strong>“</strong>
                                                                     </em>
                                                                 </p>
                                                                 <p
@@ -593,7 +594,7 @@
                                                                                 text-align: right;
                                                                             "
                                                                 >
-                                                                    <strong>8.3.2021 14:43</strong>
+                                                                    <strong>{$responseTime|date:'j.n.Y H:i'}</strong>
                                                                 </p>
                                                             </td>
                                                         </tr>
@@ -638,7 +639,7 @@
                                                                                 font-size: 14px;
                                                                             "
                                                                 >
-                                                                    <b>DarkMilan</b>
+                                                                    <b>{$responseAuthor}</b>
                                                                 </p>
                                                             </td>
                                                         </tr>
@@ -656,7 +657,7 @@
                                                                                 font-size: 14px;
                                                                             "
                                                                 >
-                                                                    Člen support týmu | HeroCraft
+                                                                    Člen support týmu | {$webName}
                                                                 </p>
                                                             </td>
                                                         </tr>
@@ -667,7 +668,7 @@
                                                                                 style="border-style: solid; border-color: #26a4d3; background: #b9cbb8; border-width: 0px; display: inline-block; border-radius: 0px; width: auto;"
                                                                         >
                                                                             <a
-                                                                                    href=""
+                                                                                    n:href="Panel:Ticket:view $ticketId"
                                                                                     class="es-button"
                                                                                     target="_blank"
                                                                                     style="
@@ -743,20 +744,7 @@
                                                     <table width="100%" cellspacing="0" cellpadding="0" role="presentation" style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; border-collapse: collapse; border-spacing: 0px;">
                                                         <tr style="border-collapse: collapse;">
                                                             <td align="left" style="padding: 0; margin: 0; padding-bottom: 10px;">
-                                                                <p
-                                                                        style="
-                                                                                margin: 0;
-                                                                                -webkit-text-size-adjust: none;
-                                                                                -ms-text-size-adjust: none;
-                                                                                mso-line-height-rule: exactly;
-                                                                                font-family: helvetica, 'helvetica neue', arial, verdana, sans-serif;
-                                                                                line-height: 15px;
-                                                                                color: #666666;
-                                                                                font-size: 10px;
-                                                                            "
-                                                                >
-                                                                    no-reply@herocraft.cz
-                                                                </p>
+                                                                {$senderEmail} &lt;{$senderName}&gt;
                                                             </td>
                                                         </tr>
                                                         <tr style="border-collapse: collapse;">
@@ -773,7 +761,7 @@
                                                                                 font-size: 12px;
                                                                             "
                                                                 >
-                                                                    Tento email byl automaticky vygenerován v XXX
+                                                                    Tento email byl automaticky vygenerován: {="now"|date:'j.n.Y H:i'}
                                                                 </p>
                                                             </td>
                                                         </tr>
@@ -840,7 +828,7 @@
                                                                                 font-size: 12px;
                                                                             "
                                                                 >
-                                                                    © <strong>HeroCraft.cz </strong>2021, všechna&nbsp;práva vyhrazená
+                                                                     <strong>{$webName}</strong> © {="now"|date:'Y'}, všechna&nbsp;práva vyhrazená
                                                                 </p>
                                                             </td>
                                                         </tr>
