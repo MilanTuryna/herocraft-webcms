@@ -106,7 +106,7 @@ final class RouterFactory
             ->addRoute('/panel/zmena-hesla', 'Main:changePass')
             ->addRoute('/panel/login', 'Login:main')
             ->addRoute('/panel/tickety/nahled',  'Login:ticketLogin')
-            ->addRoute('/panel/odhlasit-se', 'Login:logout')
+            ->addRoute('/panel/odhlasit-se?returnRoute=[<returnRoute>]', 'Login:logout')
 
             ->addRoute('/panel/tickety/pridat', 'Ticket:add')
             ->addRoute('/panel/tickety/zobrazit/<id>', 'Ticket:view')
