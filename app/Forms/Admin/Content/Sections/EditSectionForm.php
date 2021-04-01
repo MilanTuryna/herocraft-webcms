@@ -97,7 +97,12 @@ class EditSectionForm
         $selectBox = $this->buttonStyles::getSelectBox($this->buttonStyles->getStyles());
         $form->addRadioList('button_style', 'Styly tlačítka', $selectBox)
             ->setDefaultValue(array_key_exists($this->parsedSection->button->style ?? null, $selectBox) ? $this->parsedSection->button->style ?? null : null);
-        $form->addText('button_link', 'Odkaz tlačítka (URL)')->setDefaultValue($this->parsedSection->button->link ?? null)->addRule(Form::URL)->setRequired(false);
+        $form->addText('button_link', 'Odkaz tlačítka (URL)')
+            ->setDefaultValue($this->parsedSection->button->link ?? null)
+            ->addCondition($form::PATTERN_ICASE, "^[^\#]") // if input isn't anchor
+                ->addRule(Form::URL)
+            ->endCondition()
+            ->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
             ->setDefaultValue($this->parsedSection->button->width ?? SectionFormData::DEFAULT_BUTTON_WIDTH)
             ->setRequired(false);

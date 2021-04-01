@@ -81,7 +81,11 @@ class CreateSectionForm
         $form->addText('button_text', 'Obsah tlačítka')->setRequired(false);
         $form->addText('button_textColor', 'Barva textu')->setRequired(false);
         $form->addRadioList('button_style', 'Styly tlačítka', $this->buttonStyles::getSelectBox($this->buttonStyles->getStyles()));
-        $form->addText('button_link', 'Odkaz tlačítka (URL)')->addRule(Form::URL)->setRequired(false);
+        $form->addText('button_link', 'Odkaz tlačítka (URL)')
+            ->addCondition($form::PATTERN_ICASE, "^[^\#]") // if input isn't anchor
+                ->addRule(Form::URL)
+            ->endCondition()
+            ->setRequired(false);
         $form->addSelect('button_width', 'Šířka tlačítka', SectionFormData::BUTTON_WIDTHS)
             ->setDefaultValue(SectionFormData::DEFAULT_BUTTON_WIDTH)
             ->setRequired(false);
