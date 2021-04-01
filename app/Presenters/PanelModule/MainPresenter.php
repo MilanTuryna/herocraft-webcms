@@ -14,6 +14,7 @@ use App\Presenters\PanelBasePresenter;
 
 use Nette\Application\AbortException;
 use Nette\Application\UI\Form;
+use Nette\Application\UI\InvalidLinkException;
 use Nette\Database\Table\ActiveRow;
 
 /**
@@ -63,7 +64,7 @@ class MainPresenter extends PanelBasePresenter
         $user = $this->pluginAuthenticator->getUser();
         if(!(bool)$user) {
             $this->flashMessage($this->translator->translate("panel.flashMessages.pleaseAuthorize"), 'error');
-            $this->redirect('Login:main');
+            $this->redirect('Login:main', ['backLink' => $this->storeRequest()]);
         } else {
             $this->user = $user;
         }

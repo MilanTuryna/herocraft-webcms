@@ -17,7 +17,6 @@ use App\Model\Security\Auth\PluginAuthenticator;
 use App\Model\SettingsRepository;
 use App\Presenters\PanelBasePresenter;
 use Nette\Application\AbortException;
-use Nette\Application\LinkGenerator;
 use Nette\Application\UI\Form;
 use Nette\Application\UI\Multiplier;
 use Nette\Database\Table\ActiveRow;
@@ -33,10 +32,8 @@ class TicketPresenter extends PanelBasePresenter
     private NewResponseMail $newResponseMail;
     private TicketRepository $ticketRepository;
     private PluginAuthenticator $pluginAuthenticator;
-    private LinkGenerator $linkGenerator;
 
     private ActiveRow $user;
-    private string $returnRoute;
 
     /**
      * TicketPresenter constructor.
@@ -53,7 +50,6 @@ class TicketPresenter extends PanelBasePresenter
         $this->newResponseMail = $newResponseMail;
         $this->pluginAuthenticator = $pluginAuthenticator;
         $this->ticketRepository = $ticketRepository;
-        $this->returnRoute = ":Panel:Ticket:list";
     }
 
     /**
@@ -65,7 +61,7 @@ class TicketPresenter extends PanelBasePresenter
         $user = $this->pluginAuthenticator->getUser();
         if(!(bool)$user) {
             $this->flashMessage($this->translator->translate("panel.flashMessages.pleaseAuthorize"), 'error');
-            $this->redirect('Login:main?returnRoute=' . $this->returnRoute);
+            $this->redirect('Login:main', ['backLink' => $this->storeRequest()]);
         } else {
             $this->user = $user;
             $this->template->user = $user;

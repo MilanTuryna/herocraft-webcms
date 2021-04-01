@@ -19,6 +19,11 @@ use Nette\Application\UI\InvalidLinkException;
  */
 class LoginPresenter extends PanelBasePresenter
 {
+    /**
+     * @var string
+     * @persistent
+     */
+    public string $backLink = '';
     private PluginAuthenticator $pluginAuthenticator;
     private SettingsRepository $settingsRepository;
 
@@ -40,13 +45,8 @@ class LoginPresenter extends PanelBasePresenter
      * @throws AbortException
      */
     public function renderMain() {
-        $returnRoute = $this->getHttpRequest()->getQuery("returnRoute");
-        $this->template->returnRoute = $returnRoute;
         if((bool)$this->pluginAuthenticator->getUser()) {
-            if($returnRoute) try {
-                $this->link($returnRoute);
-                $this->redirect($returnRoute);
-            } catch (InvalidLinkException $invalidLinkException) {}
+            $this->restoreRequest($this->backLink);
             $this->redirect('Main:home');
         }
     }
@@ -59,12 +59,15 @@ class LoginPresenter extends PanelBasePresenter
     }
 
     /**
+     * @param string $backLink
      * @throws AbortException
      */
-    public function actionLogout() {
+    public function actionLogout(string $backLink) {
         try {
+
             $this->pluginAuthenticator->logout();
             $this->flashMessage($this->translator->translate("panel.flashMessages.successLogout"), 'dark-green');
+            $this->backLink = $backLink;
             $this->redirect('Login:main');
         } catch (AuthException $e) {
             $this->flashMessage($e->getMessage(), 'error');
@@ -75,6 +78,6 @@ class LoginPresenter extends PanelBasePresenter
      * @return Form
      */
     public function createComponentSignInForm(): Form {
-        return (new SignInForm($this->pluginAuthenticator, $this))->create();
+        return (new SignInForm($this->pluginAuthenticator, $this, $this->backLink))->create();
     }
 }
