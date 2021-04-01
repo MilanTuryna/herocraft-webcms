@@ -5,7 +5,8 @@ namespace App\Presenters\HelpDeskModule;
 use App\Forms\Panel\Tickets\AddResponseForm;
 use App\Forms\Panel\Tickets\CloseTicketForm;
 use App\Forms\Panel\Tickets\OpenTicketForm;
-use App\Model\Panel\Core\Tickets\TicketRepository;
+use App\Model\Panel\Tickets\Email\Mails\NewResponseMail;
+use App\Model\Panel\Tickets\TicketRepository;
 use App\Model\Security\Auth\SupportAuthenticator;
 use App\Model\Security\Exceptions\AuthException;
 use App\Model\SettingsRepository;
@@ -23,6 +24,7 @@ use Nette\Utils\Paginator;
 class MainPresenter extends HelpBasePresenter
 {
     private SupportAuthenticator $supportAuthenticator;
+    private NewResponseMail $newResponseMail;
     private TicketRepository $ticketRepository;
 
     private ActiveRow $user;
@@ -30,13 +32,15 @@ class MainPresenter extends HelpBasePresenter
     /**
      * MainPresenter constructor.
      * @param SupportAuthenticator $supportAuthenticator
+     * @param NewResponseMail $newResponseMail
      * @param SettingsRepository $settingsRepository
      * @param TicketRepository $ticketRepository
      */
-    public function __construct(SupportAuthenticator $supportAuthenticator, SettingsRepository $settingsRepository, TicketRepository $ticketRepository)
+    public function __construct(SupportAuthenticator $supportAuthenticator, NewResponseMail $newResponseMail, SettingsRepository $settingsRepository, TicketRepository $ticketRepository)
     {
         parent::__construct($settingsRepository);
 
+        $this->newResponseMail = $newResponseMail;
         $this->supportAuthenticator = $supportAuthenticator;
         $this->ticketRepository = $ticketRepository;
     }
@@ -130,7 +134,7 @@ class MainPresenter extends HelpBasePresenter
     public function createComponentAddResponseForm(): Multiplier {
         return new Multiplier(function ($methodOrder) { // captcha
             return new Multiplier(function ($ticketId) use ($methodOrder) { // ticket
-                return (new AddResponseForm($this,
+                return (new AddResponseForm($this, $this->newResponseMail,
                     new Captcha(array_keys(Captcha::methods)[$methodOrder]), $this->ticketRepository, $this->user, $ticketId, TicketRepository::TYPES['support']))
                     ->create();
             });

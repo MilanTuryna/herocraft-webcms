@@ -63,6 +63,8 @@ class Permissions
             self::ADMIN_MC_SENIOR => "Minecraft > Senior",
             self::ADMIN_MC_CLASSIC => "Minecraft > Classic",
 
+            self::ADMIN_CONTENT_MANAGER => "Obsah a zobrazení",
+
             self::ADMIN_GLOBAL_SETTINGS => "Nastavení webu",
             self::ADMIN_UPLOAD => "Upload obrázků",
         ];

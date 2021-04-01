@@ -104,10 +104,10 @@
                         {breakIf $iterator->getCounter() > 11}
                         <a n:href="Article:view $article->url" class="extern-href" style="zoom:80%">{$article->name}</a> <span class="small text-muted" style="zoom:70%">{$article->created_at|date:'j.n.Y H:i'}</span><br>
                     {/foreach}
-                    <button class="btn intern-green-button w-100 mt-2 text-white">
+                    <a n:href="Main:archive" class="btn intern-green-button w-100 mt-2 text-white">
                         {var $d = $articlesCount - count($articles) . $sklonovani(2, [" článku", " článků", " článků"])}
 						{_front.home.viewSpecificList, [articles => $d]|noescape}
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
