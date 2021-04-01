@@ -3,3 +3,4 @@ app/config/database.neon
 vendor
 .htaccess
 composer.lock
+.idea
