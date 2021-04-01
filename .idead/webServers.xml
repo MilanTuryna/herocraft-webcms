@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="b5b82bb9-7545-4ee6-90df-c7450fd1a383" name="xaamp" url="http://localhost">
-        <fileTransfer port="0" mountedRoot="D:\Milda\xaamp\htdocs" accessType="MOUNT" />
+        <fileTransfer port="0" mountedRoot="D:\Milda\xaamp\htdocs\herocraft" accessType="MOUNT" />
       </webServer>
     </option>
   </component>
