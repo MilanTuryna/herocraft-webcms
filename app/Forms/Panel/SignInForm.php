@@ -69,7 +69,7 @@ class SignInForm
         try {
             $this->pluginAuthenticator->login([$values->name, $values->password]);
             $this->presenter->flashMessage('Byl jsi úspěšně autorizován a přihlášen!', 'success');
-            $this->presenter->restoreRequest($this->backLink);
+            if($this->backLink) $this->presenter->restoreRequest($this->backLink);
             $this->presenter->redirect(':Panel:Main:home');
         } catch (AuthException $e) {
             $form->addError($e->getMessage());
