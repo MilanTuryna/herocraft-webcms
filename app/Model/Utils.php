@@ -62,7 +62,7 @@ abstract class Utils
 
         // Load as HTML ignoring errors
         $dom = new DOMDocument();
-        @$dom->loadHTML('<?xml encoding="utf-8" ?>'.$value. "...", LIBXML_HTML_NODEFDTD);
+        @$dom->loadHTML('<?xml encoding="utf-8" ?>'.trim($value). "...", LIBXML_HTML_NODEFDTD);
 
         // Fix the html errors
         $value = $dom->saveHtml($dom->getElementsByTagName('body')->item(0));
