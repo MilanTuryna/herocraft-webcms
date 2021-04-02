@@ -59,7 +59,7 @@ services:
 	frontModule.articlePresenter:
 	    factory: App\Presenters\FrontModule\ArticlePresenter(...)
 	    setup:
-	        - $exportStylesheets = ['%wwwDir%\css\pdf\bootstrap.css']
+	        - $exportStylesheets = ['%wwwDir%/css/pdf/bootstrap.css']
 	cronPresenter:
 	    factory: App\Presenters\CronPresenter(@di.cron)
 	    setup:
