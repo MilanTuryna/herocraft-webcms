@@ -59,10 +59,10 @@
                             {continueIf $article->secret}
                             {breakIf $iterator->getCounter() > 4}
                             {var $categoryColor = $article->category_color ? $article->category_color : "#343a40"}
-                            <div n:class="$iterator->isFirst() ? 'col-md-12' : 'col-md-4'">
+                            <div n:class="$iterator->isFirst() ? 'col-md-12' : 'col-md-4', 'd-flex'">
                                 <article>
-                                    <div n:class="'card', 'shadow-sm', 'mb-3', $iterator->isFirst() ? 'bg-light'">
-                                        <div class="card-body">
+                                    <div n:class="'card', 'shadow-sm', 'mb-3', $iterator->isFirst() ? 'bg-light', 'flex-fill'" style="min-height: calc(100% - 1rem);">
+                                        <div class="card-body flex-fill">
                                             <span class="badge badge-pill float-right text-white" n:if="!$iterator->isFirst()" style="background-color:{$categoryColor|noescape}">{$article->category_name ? $article->category_name : "Nezařazeno"}</span>
                                             <h5 class="card-title">
                                                 <a n:href="Article:view, $article->url" class="dark-blue-text href-underline">{$article->name}</a>
@@ -96,6 +96,7 @@
                     </div>
                 </div>
                 <div class="col-lg-2">
+                 {if $articlesCount - count($articles) > 1}
                     <small class="text-muted">{_front.home.newsAtTime}: <span style="text-decoration: underline"><time>{="now"|date:'j.n.Y'}</time></span></small><br>
                     <b>Výběr dalších článků:</b><br>
                     <hr>
@@ -108,6 +109,11 @@
                         {var $d = $articlesCount - count($articles) . $sklonovani(2, [" článku", " článků", " článků"])}
 						{_front.home.viewSpecificList, [articles => $d]|noescape}
                     </a>
+                    {else}
+                       <a n:href="Main:archive" class="btn intern-green-button w-100 mt-2 text-white">
+                            {_front.home.viewSpecificList, [articles => "0 článků"]|noescape}
+                       </a>
+                    {/if}
                 </div>
             </div>
         </div>

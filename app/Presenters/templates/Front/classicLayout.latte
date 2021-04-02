@@ -70,7 +70,7 @@
 </style>
 <div class="section section-header" style="position: relative; background-position:center 60%;">
     <div style="background: linear-gradient(to bottom, rgba(255,255,255,0.7), rgba(255,255,255,0.5));">
-        <nav class="navbar navbar-expand-md navbar-light bg-transparent">
+        <nav class="navbar navbar-expand-xl navbar-light bg-transparent">
             <div class="container container-big bg-transparent">
                 <a class="navbar-brand" n:href="Main:landingPage">play.herocraft.cz</a>
                 <div class="rounded hamburger-button">
@@ -87,6 +87,7 @@
                         {foreach $pages as $pageItem}
                             <a n:class="'nav-link text-uppercase',  'border-sm-none border-end border-dark', 'pe-3 ps-3', $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'active' : ''"
                                 n:href="Page:view $pageItem->url" n:attr="aria-current: $presenter->isLinkCurrent('Page:view', $pageItem->url) ? 'page' : null">{$pageItem->name}</a>
+                            {breakIf $iterator->getCounter() >= 4}
                         {/foreach}
                         <li class="nav-item dropdown" n:if="count($pages) > 4">
                             <a class="nav-link text-uppercase dropdown-button pe-3 ps-3 border-end text-center border-top border-dark" data-bs-toggle="dropdown" href="#">
@@ -102,7 +103,7 @@
                         </li>
                     </div>
                 </div>
-                <div class="d-none d-lg-flex" style="border-radius: 5px">
+                <div class="d-none d-xl-flex" style="border-radius: 5px">
                     <div class="bg-white me-2">
                         <div class="shadow border-secondary border" style="background: rgba(162, 240, 78,0.5); border-radius: inherit">
                             <div class="navbar-nav shadow border-secondary border">
@@ -120,7 +121,7 @@
                 </div>
             </div>
         </nav>
-        <div style="border-radius: 5px" class="d-block d-lg-none">
+        <div style="border-radius: 5px" class="d-block d-xl-none">
             <!-- misto pro objekt upozorneni na dekstopu -->
             <div class="bg-white">
                 <div class="shadow border-secondary border-bottom-0" style="background: rgba(162, 240, 78,0.5); border-radius: inherit">
