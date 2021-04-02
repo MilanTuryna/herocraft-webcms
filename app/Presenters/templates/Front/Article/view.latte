@@ -22,7 +22,7 @@
             <h3 class="fw-normal">{$article->name}</h3>
             <small class="small text-muted fst-italic">
                 <i class="fa fa-book fst-bold" aria-hidden="true"></i>
-                MilanT, <time>{$article->created_at|date:'j.n.Y H:i'}</time>
+                {$article->author}, <time>{$article->created_at|date:'j.n.Y H:i'}</time>
             </small>
             <div class="badge badge-sm bg-danger">
                 {$article->category_name}
