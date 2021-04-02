@@ -61,7 +61,7 @@ class TicketPresenter extends PanelBasePresenter
         $user = $this->pluginAuthenticator->getUser();
         if(!(bool)$user) {
             $this->flashMessage($this->translator->translate("panel.flashMessages.pleaseAuthorize"), 'error');
-            $this->redirect('Login:main', ['backLink' => $this->storeRequest()]);
+            $this->redirect('Login:ticketLogin', ['backLink' => $this->storeRequest()]);
         } else {
             $this->user = $user;
             $this->template->user = $user;
