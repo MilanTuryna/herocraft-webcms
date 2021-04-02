@@ -15,7 +15,7 @@ final class Captcha
     use SmartObject;
 
     const freqMethods = [
-      'No' => ['Neni', 'Ne', 'Nie', 'n', 'nn', 'none'],
+      'No' => ['Neni', 'Ne', 'Nie', 'n', 'nn', 'none', "nikoliv"],
       'Yes' => ['Ano', 'Je', 'Jo', 'j', 'jj', 'hej', 'samozrejme', 'jiste']
     ];
 
