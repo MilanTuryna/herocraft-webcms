@@ -51,7 +51,7 @@ abstract class AbstractMail
         $this->linkGenerator = $linkGenerator;
         $this->templateFactory = $templateFactory;
         $this->settingsRepository = $settingsRepository;
-        $this->templateFile = __DIR__ . '\Latte\\' . $mailName . '.latte';
+        $this->templateFile = __DIR__ . '/Latte/' . $mailName . '.latte';
 
         $this->initMessage();
         $this->initTemplate();
