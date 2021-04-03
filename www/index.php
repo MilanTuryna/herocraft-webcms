@@ -9,8 +9,9 @@
 
 declare(strict_types=1);
 
-require __DIR__ . '/../vendor/autoload.php';
+//if(!in_array($_SERVER["REMOTE_ADDR"], [])) die("Omlouvame se, ale momentalne probiha udrzba webu.");
 
+$_SERVER["SERVER_ADMIN"] !== "info@active24.cz" ? require __DIR__ . '/../vendor/autoload.php' : require __DIR__ . '/../home/vendor/autoload.php';
 
 App\Bootstrap::boot()
 	->createContainer()
