@@ -7,11 +7,12 @@ All system messages on website are in Czech Language.
 ## Web (frontpage)
 - homepage
   - server status
-  - widget (set in administration, for example: discord, facebook atd.)
-  - last six articles
+  - widgets (set in administration, for example: discord, facebook atd.)
 - articles
 - pages 
 - articles archives
+- sections
+- ticket login
 
 ## Panel
 The panel does not have many functions now, but we prepare more features.
@@ -36,7 +37,7 @@ Administration it hasn't role system, but it has Permissions system - each user 
 
 #### Available permissions:
 excerpt from `App\Model\Admin\Roles\Permissions`:
-```
+```php
 const ADMIN_FULL = "*";
 
 const ADMIN_ARTICLES = "admin.articles";
@@ -48,10 +49,13 @@ const ADMIN_MC_CHATLOG = "admin.minecraft_chatlog";
 const ADMIN_MC_BANLIST = "admin.minecraft_banlist";
 const ADMIN_MC_IPBANLIST = "admin.minecraft_ipbanlist";
 const ADMIN_MC_ONLINEPLAYERS = "admin.minecraft_onlineplayers";
+const ADMIN_MC_LUCKPERMS = "admin.minecraft_luckperms"
 
 const ADMIN_MC_GAMES = "admin.minecraft_games";
 const ADMIN_MC_SENIOR = "admin.minecraft_senior";
 const ADMIN_MC_CLASSIC = "admin.minecraft_classic";
+
+const ADMIN_CONTENT_MANAGER = "admin.content_manager";
 
 const ADMIN_GLOBAL_SETTINGS = "admin.global_settings";
 const ADMIN_UPLOAD = "admin.upload";
@@ -73,6 +77,39 @@ Statistics isn't working as classic PHP web but data of statistics is obtained f
 ## Statistics - API part
 This API is used to retrieve cached player statistics data and export it in JSON format. Caching time is 2 hours (excluding useless data - for example: UUID).
 
+`GET "www.example.tld/statistiky/api"`
+```json
+{
+    "updateTime": "2 hours",
+    "http": {
+        "code": 200,
+        "requestTime": 1617691273000,
+        "url": "https://herocraft.cz/statistiky/api",
+        "method": "GET",
+        "ip": "<IP>"
+    },
+    "stats": {
+        "registerCount": 24698,
+        "timesPlayed": 1265.35,
+        "serverStarted": ""
+    },
+    "czechCraft": {
+        "server": {
+            "name": "Herocraft",
+            "slug": "hero-craft",
+            "address": "play.hero-craft.cz",
+            "position": 223,
+            "votes": 128
+        },
+        "topVoters": [
+            {
+                "username": "xxx",
+                "votes": 1
+            }
+        ]
+    }
+}
+``` 
 `GET "www.example.tld/statistiky/api/DarkMilan"` 
 ```json
 {
@@ -269,8 +306,12 @@ This API is used to retrieve cached player statistics data and export it in JSON
     - panel.cs_cz.neon
     - stats.cs_CZ.neon
 - `app\config\*` - web system configurations file
-  - common.neon - core configuration (DI...)
-  - local.neon - local configuration (Panel subjects, cache...)
+  - application.neon - nette (forms, session, tracy) settings
+  - database.neon - MySQL configuration
+  - extensions.neon - extensions from third party
+  - loader.neon - webloader (loader for CSS & JS files) settings
+  - parameters.neon - parameters used in DI configuration
+  - services.neon - DI configuration
 
 ## Connection with Minecraft plugins and other
 
@@ -319,13 +360,10 @@ The status of minecraft server provides https://api.mcsrvstat.us/2/ API service.
 - articles filter by category
 - add only url pages & secret pages
 - code review (use best practices, code design etc...)
-- add email input & notify player to email after support send response to ticket
-- content managing (sections, layout) in administration
 - added language settings to administration `??`
-- report system minecraft plugin with security minecraft log
 
 
-## Provedené změny (CZECH)
+## Provedené změny (CZECH) (neaktualizováno)
 - 16.11 - 23.11
     - opraveno ořezávání obsahu článků na hlavní straně
     - změněno kódování editoru na RAW
