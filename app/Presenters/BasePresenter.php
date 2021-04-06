@@ -16,6 +16,7 @@ use Nette\Application\Helpers;
 abstract class BasePresenter extends Nette\Application\UI\Presenter
 {
     private DI\GoogleAnalytics $googleAnalytics;
+    private bool $startupInit;
 
     /** @var DI\Seo @inject */
     public DI\Seo $seo;
@@ -29,12 +30,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /**
      * BasePresenter constructor.
      * @param DI\GoogleAnalytics $googleAnalytics
+     * @param bool $startupInit
      */
-    public function __construct(DI\GoogleAnalytics $googleAnalytics)
+    public function __construct(DI\GoogleAnalytics $googleAnalytics, bool $startupInit = true)
     {
         parent::__construct();
 
         $this->googleAnalytics = $googleAnalytics;
+        $this->startupInit = $startupInit;
     }
 
     /**
@@ -54,13 +57,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     public function startup()
     {
         parent::startup();
-
-        $this->template->addFilter('substrWithoutHTML', fn($value, $limit) => trim(Utils::substrWithoutHTML($value, $limit)));
-        $this->template->addFilter('allowAsteriskReplace', fn($input) => HTMLParser::replaceAsterisk($input));
-        $this->template->sklonovani = fn($pocet, $slova) => Utils::sklonovani($pocet, $slova);
-        $this->template->httpRequest = $this->getHttpRequest();
-        $this->template->googleAnalytics = $this->googleAnalytics;
-        $this->template->seo = $this->seo;
+        if($this->startupInit) {
+            $this->template->addFilter('substrWithoutHTML', fn($value, $limit) => trim(Utils::substrWithoutHTML($value, $limit)));
+            $this->template->addFilter('allowAsteriskReplace', fn($input) => HTMLParser::replaceAsterisk($input));
+            $this->template->sklonovani = fn($pocet, $slova) => Utils::sklonovani($pocet, $slova);
+            $this->template->httpRequest = $this->getHttpRequest();
+            $this->template->googleAnalytics = $this->googleAnalytics;
+            $this->template->seo = $this->seo;
+        }
     }
 
     /**
