@@ -3,17 +3,19 @@
 namespace App\Presenters\StatsModule;
 
 use App\Model\DI\API;
+use App\Model\DI\GoogleAnalytics;
 use App\Model\Panel\MojangRepository;
 use App\Model\Responses\PrettyJsonResponse;
 use App\Model\Stats\CachedAPIRepository;
+use App\Presenters\BasePresenter;
 use Nette\Application\AbortException;
-use Nette\Application\UI\Presenter;
+use Throwable;
 
 /**
  * Class APIPresenter
  * @package App\Presenters\StatsModule
  */
-class APIPresenter extends Presenter {
+class APIPresenter extends BasePresenter {
 
     private CachedAPIRepository $cachedAPIRepository;
     private MojangRepository $mojangRepository;
@@ -27,7 +29,7 @@ class APIPresenter extends Presenter {
      */
     public function __construct(CachedAPIRepository $cachedAPIRepository, MojangRepository $mojangRepository, API $api)
     {
-        parent::__construct();
+        parent::__construct(GoogleAnalytics::disabled(), false);
 
         $this->cachedAPIRepository = $cachedAPIRepository;
         $this->mojangRepository = $mojangRepository;
@@ -44,6 +46,7 @@ class APIPresenter extends Presenter {
 
     /**
      * @throws AbortException
+     * @throws Throwable
      */
     public function actionServerView() {
         $response = [];
@@ -74,6 +77,7 @@ class APIPresenter extends Presenter {
     /**
      * @param $name
      * @throws AbortException
+     * @throws Throwable
      */
     public function actionView($name) {
         $user = $this->cachedAPIRepository->getUser($name);
