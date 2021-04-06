@@ -91,7 +91,10 @@ This API is used to retrieve cached player statistics data and export it in JSON
     "stats": {
         "registerCount": 24698,
         "timesPlayed": 1265.35,
-        "serverStarted": ""
+        "serverStarted": {
+            "timestamp": 1361599200,
+            "string": "23.2.2013 7:00"
+        }
     },
     "czechCraft": {
         "server": {

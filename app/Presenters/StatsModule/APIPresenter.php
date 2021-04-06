@@ -49,6 +49,7 @@ class APIPresenter extends BasePresenter {
      * @throws Throwable
      */
     public function actionServerView() {
+        $serverStarted = $this->translator->translate('front.customStatsRow.value');
         $response = [];
         $http = [
             'code' => 200,
@@ -63,8 +64,11 @@ class APIPresenter extends BasePresenter {
             'stats' => [
                 "registerCount" => $this->cachedAPIRepository->getRegisterCount(),
                 "timesPlayed" => $this->cachedAPIRepository->getTimesPlayed()/60, // minutes to hours -> seconds/60 = minutes
-                "serverStarted" => ""
-            ],
+                "serverStarted" => [
+                    "timestamp" => strtotime($serverStarted),
+                    "string" => $serverStarted
+                    ]
+             ],
             'czechCraft' => [
                 'server' => $this->cachedAPIRepository->getCzechCraftServer(),
                 'topVoters' => $this->cachedAPIRepository->getTopVoters()
